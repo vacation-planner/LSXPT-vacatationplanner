@@ -1,6 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import './App.css';
+import { AppContext } from './components/Context/AppContext.js';
+import LandingPage from './components/LandingPage';
 
 function App() {
   return (
