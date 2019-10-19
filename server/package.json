@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon",
+    "test": "jest --watchAll --verbose"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "knex": "^0.19.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
