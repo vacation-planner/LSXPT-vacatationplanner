@@ -6,10 +6,19 @@ import LandingPage from './components/LandingPage';
 
 class App extends Component {
     render() {
+        // Defined homepage for route checks
+        const homepage = () => {
+            return <Redirect to='/' />;
+        };
+
         return (
             <div className="App">
                 <Route exact path='/' component={LandingPage} />
-                <h1>Hello!</h1>
+                {/* Route for signin */}
+                {/* Route for sign up */}
+                {/* Route for user settings */}
+                {/* Route for home dashboard */}
+                {/* Implement more Routes as needed */}
             </div>
         );
     }
