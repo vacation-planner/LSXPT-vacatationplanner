@@ -10,4 +10,4 @@ exports.seed = function(knex, Promise) {
         {id: 3, title: 'Spring', startDate: '12/24/2019', endDate: '12/28/2019', userId: '5XVkkbsvwka_bnC',}     
       ]);
     });
-};
+};3 
