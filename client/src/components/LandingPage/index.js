@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { AppContext } from '../Context/AppContext.js';
-import Navbar from '../Dashboards/Navbar';
+import NavBar from '../Dashboards/Navbar';
 
 class LandingPage extends Component {
     componentDidMount() {
@@ -23,9 +23,10 @@ class LandingPage extends Component {
         // else
         return (
             <>
-                {/* <Navbar /> */}
+                <NavBar />
                 <h1>Navbar commented out until it is built</h1>
             </>
+
         )
     }
 }
