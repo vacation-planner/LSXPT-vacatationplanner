@@ -53,7 +53,35 @@ const navbarsStyle = theme => ({
     padding: "0px",
     borderRadius: "50%",
     marginLeft: "5px"
-  }
+  },
+  toolbar: {
+    height: 60,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    border: '2px solid black',
+    width: '100%',
+  },
+  toolbarLeftContent: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  toolbarCenterContent: {
+    display: 'flex',
+    alignItems: 'center',
+    position: 'absolute',
+    left: 'calc(50% - 200px)',
+    [theme.breakpoints.down('sm')]: {
+      left: 'calc(50% - 200px)'
+    },
+    [theme.breakpoints.down('xs')]: {
+      left: 'calc(50% - 145px)'
+    }
+  },
+  toolbarRightContent: {
+    display: 'flex',
+    alignItems: 'center'
+  },
 });
 
 export default navbarsStyle;
