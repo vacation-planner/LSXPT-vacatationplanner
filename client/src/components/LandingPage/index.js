@@ -23,7 +23,7 @@ class LandingPage extends Component {
         // else
         return (
             <>
-                <NavBar />
+                <Navbar />
                 <h1>Navbar commented out until it is built</h1>
             </>
 
