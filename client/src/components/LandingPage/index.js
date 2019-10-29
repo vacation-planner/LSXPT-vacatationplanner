@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { Redirect, Link } from 'react-router-dom';
@@ -30,7 +31,7 @@ class LandingPage extends Component {
             <>
                 <Navbar />
                 <header>
-                    {/* Content image in background */}
+                    <img src="https://images.unsplash.com/photo-1440778303588-435521a205bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"/>
                     <div>
                         <h2>Vacation Planner</h2>
                         <p>Some stuff about us</p>
