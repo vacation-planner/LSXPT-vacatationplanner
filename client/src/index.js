@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import './index.css';
 import App from './App';
 import AppProvider from './components/Context/AppContext.js';
+import Global from './components/StyledComponents/GlobalReset.js';
 
 dotenv.config()
 
@@ -12,6 +13,7 @@ dotenv.config()
 ReactDOM.render(
     <AppProvider>
         <Router>
+            <Global />
             <App />
         </Router>
     </AppProvider>,
