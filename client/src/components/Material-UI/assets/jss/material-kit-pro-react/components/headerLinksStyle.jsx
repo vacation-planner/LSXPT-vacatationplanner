@@ -62,14 +62,17 @@ const headerLinksStyle = theme => ({
     position: "relative",
     padding: "0.9375rem",
     fontWeight: "400",
-    fontSize: "12px",
+    fontSize: "1.5rem",
     textTransform: "uppercase",
     lineHeight: "20px",
     textDecoration: "none",
-    margin: "0px",
+    marginRight: "20px",
     display: "inline-flex",
     "&:hover,&:focus": {
-      color: "inherit"
+      backgroundColor: "rgba(" + hexToRgb(whiteColor) + ", 0.1)"
+    },
+    "&:nth-of-type(2n)": {
+      marginRight: '0px',
     },
     "& .fab,& .far,& .fal,& .fas,& .material-icons": {
       position: "relative",
@@ -199,7 +202,8 @@ const headerLinksStyle = theme => ({
     MsFlexAlign: "center",
     alignItems: "center"
   },
-  mlAuto
+  mlAuto,
+
 });
 
 export default headerLinksStyle;

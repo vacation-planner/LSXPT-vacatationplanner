@@ -21,8 +21,8 @@ const headerStyle = theme => ({
     display: "flex",
     border: "0",
     borderRadius: "3px",
-    padding: "0.625rem 0",
-    marginBottom: "20px",
+    padding: "0.6rem 0",
+    // marginBottom: "20px",
     color: grayColor[15],
     width: "100%",
     backgroundColor: whiteColor,
@@ -57,24 +57,23 @@ const headerStyle = theme => ({
     "&,& a": {
       ...defaultFont,
       minWidth: "unset",
-      // lineHeight: "30px",
-      fontSize: "1.0rem",
+      fontSize: "2.2rem",
       borderRadius: "5%",
       textTransform: "none",
       whiteSpace: "nowrap",
       color: "white",
       textDecoration: 'none',
-      backgroundColor: 'black',
+      backgroundColor: '#AA1649',
       
-      "&:hover,&:focus": {
-        color: "inherit",
-        background: "black"
-      }
+      // "&:hover,&:focus": {
+      //   color: "inherit",
+      //   // background: "black"
+      // }
     }
   },
   appResponsive: {
     margin: "20px 10px",
-    marginTop: "0px"
+    marginTop: "0px",
   },
   primary: {
     backgroundColor: primaryColor[0],
@@ -192,7 +191,7 @@ const headerStyle = theme => ({
   },
   collapse: {
     [theme.breakpoints.up("md")]: {
-      display: "flex !important",
+      display: "flex",
       MsFlexPreferredSize: "auto",
       flexBasis: "auto"
     },
