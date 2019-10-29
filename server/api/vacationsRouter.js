@@ -21,10 +21,10 @@ router.get('/:id', (req, res) => {
     await vacations.getByID(id).then(vacation => {
         /* TODO: add in protection against showing vacations that aren't associated with the current user. */
         if (id) {
-            res.status(200).json(vacation)
+            res.status(200).json(vacation);
         }
         else {
-            res.status(400).json({'error': 'No vacation by that id.'})
+            res.status(400).json({'error': 'No vacation by that id.'});
         }
     }) 
 })
@@ -36,7 +36,20 @@ router.get('/users/:uid', (req, res) => {
             res.status(200).json(userVacations);
         }
         else {
-            res.status(400).json({'error': 'No vacations associated with that UID'})
+            res.status(400).json({'error': 'No vacations associated with that UID'});
+        }
+    })
+})
+
+/* Get all users associated with this vacation ID */
+router.get('/users/:id', (req, res) => {
+    const {id} = req.params;
+    await vacations.getUsersByVacID(id).then(vacUsers => {
+        if (vacUsers) {
+            res.status(200).json(vacUsers);
+        }
+        else {
+            res.status(400).json({'error': 'No users associated with that vacation ID.'});
         }
     })
 })

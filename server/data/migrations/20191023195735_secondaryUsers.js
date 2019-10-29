@@ -1,7 +1,6 @@
 
-exports.up = function(knex, Promise) {
-    return Promise.all([
-        knex.schema.createTable('secondaryUsers', (secondary) => {
+exports.up = function(knex) {
+    return knex.schema.createTable('secondaryUsers', (secondary) => {
             secondary.increments();
             secondary
             .string('vacationId')
@@ -10,11 +9,8 @@ exports.up = function(knex, Promise) {
             .string('userUid')
             .references('users.uid');
         })
-    ])
 };
 
-exports.down = function(knex, Promise) {
-    return Promise.all([
-        knex.schema.dropTableIfExists('secondaryUsers')
-    ]);
+exports.down = function(knex) {
+    return knex.schema.dropTableIfExists('secondaryUsers');
 };
