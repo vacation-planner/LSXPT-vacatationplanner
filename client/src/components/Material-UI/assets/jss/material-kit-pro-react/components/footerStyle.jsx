@@ -8,7 +8,7 @@ import {
   dribbbleColor,
   instagramColor,
   hexToRgb
-} from "assets/jss/material-kit-pro-react.jsx";
+} from "../../material-kit-pro-react.jsx";
 
 const footerStyle = {
   left: {

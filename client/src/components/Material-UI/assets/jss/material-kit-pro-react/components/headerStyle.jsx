@@ -14,7 +14,7 @@ import {
   whiteColor,
   grayColor,
   hexToRgb
-} from "assets/jss/material-kit-pro-react.jsx";
+} from "../../material-kit-pro-react.jsx";
 
 const headerStyle = theme => ({
   appBar: {
@@ -57,15 +57,18 @@ const headerStyle = theme => ({
     "&,& a": {
       ...defaultFont,
       minWidth: "unset",
-      lineHeight: "30px",
-      fontSize: "18px",
-      borderRadius: "3px",
+      // lineHeight: "30px",
+      fontSize: "1.0rem",
+      borderRadius: "5%",
       textTransform: "none",
       whiteSpace: "nowrap",
-      color: "inherit",
+      color: "white",
+      textDecoration: 'none',
+      backgroundColor: 'black',
+      
       "&:hover,&:focus": {
         color: "inherit",
-        background: "transparent"
+        background: "black"
       }
     }
   },

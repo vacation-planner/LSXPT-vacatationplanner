@@ -21,7 +21,7 @@ import {
   redditColor,
   instagramColor,
   hexToRgb
-} from "assets/jss/material-kit-pro-react.jsx";
+} from "../../../../assets/jss/material-kit-pro-react.jsx";
 
 const buttonStyle = {
   button: {
