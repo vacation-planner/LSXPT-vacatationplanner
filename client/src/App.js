@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
 import LandingPage from './components/LandingPage';
+import Navbar from './components/Dashboards/Navbar';
 
 class App extends Component {
     render() {

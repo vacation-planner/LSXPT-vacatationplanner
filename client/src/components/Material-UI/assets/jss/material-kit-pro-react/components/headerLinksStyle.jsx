@@ -71,9 +71,6 @@ const headerLinksStyle = theme => ({
     "&:hover,&:focus": {
       backgroundColor: "rgba(" + hexToRgb(whiteColor) + ", 0.1)"
     },
-    "&:nth-of-type(2n)": {
-      marginRight: '0px',
-    },
     "& .fab,& .far,& .fal,& .fas,& .material-icons": {
       position: "relative",
       top: "2px",
@@ -97,6 +94,9 @@ const headerLinksStyle = theme => ({
       width: "20px",
       height: "20px"
     }
+  },
+  navLinkRight: {
+    marginRight: '0px',
   },
   navLinkJustIcon: {
     "& .fab,& .far,& .fal,& .fas,& .material-icons": {
@@ -203,7 +203,6 @@ const headerLinksStyle = theme => ({
     alignItems: "center"
   },
   mlAuto,
-
 });
 
 export default headerLinksStyle;

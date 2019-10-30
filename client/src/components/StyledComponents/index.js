@@ -7,10 +7,11 @@ const ContentDiv = styled.div`
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 500px;
+    height: 1670px;
     width: 100%;
     margin: 0px;
     padding: 0px;
+    margin-top: 61px;
 `;
 
 export {
