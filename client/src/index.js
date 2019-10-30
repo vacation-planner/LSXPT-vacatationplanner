@@ -5,8 +5,9 @@ import dotenv from 'dotenv';
 import './index.css';
 import App from './App';
 import AppProvider from './components/Context/AppContext.js';
+require("dotenv").config("/.env");
 
-dotenv.config()
+//dotenv.config()
 
 
 ReactDOM.render(
