@@ -1,7 +1,6 @@
 
 exports.up = function (knex, Promise) {
-    return Promise.all([
-      knex.schema.createTable('expenses', (expenses) => {
+    return knex.schema.createTable('expenses', (expenses) => {
         expenses.increments();
         expenses.string('title', 128).notNullable();
         expenses.decimal('amount');
@@ -9,13 +8,12 @@ exports.up = function (knex, Promise) {
         .string('uid')
         .references('users.uid');
       })
-    ])
+    
   };
   
   
   exports.down = function (knex, Promise) {
-    return Promise.all([
-      knex.schema.dropTableIfExists('expenses')
-    ]);
+    return knex.schema.dropTableIfExists('expenses')
+    
   };
   
