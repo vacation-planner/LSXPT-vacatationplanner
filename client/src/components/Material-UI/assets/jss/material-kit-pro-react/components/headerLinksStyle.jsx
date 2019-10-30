@@ -203,6 +203,47 @@ const headerLinksStyle = theme => ({
     alignItems: "center"
   },
   mlAuto,
+  navLinkLandingPage: {
+    color: "white",
+    position: "relative",
+    padding: "15px, 2rem",
+    fontWeight: "400",
+    fontSize: "2.5rem",
+    lineHeight: "20px",
+    textDecoration: "none",
+    marginRight: "20px",
+    display: "inline-flex",
+    borderRadius: '5%',
+    // border: '1px solid black',
+    backgroundColor: "#e91e63",
+    "&:hover,&:focus": {
+      backgroundColor: "#AA1649",
+      color: "white",
+    },
+    "& .fab,& .far,& .fal,& .fas,& .material-icons": {
+      position: "relative",
+      top: "2px",
+      marginTop: "-4px",
+      marginRight: "4px",
+      marginBottom: "0px",
+      fontSize: "1.25rem"
+    },
+    // [theme.breakpoints.down("sm")]: {
+    //   width: "calc(100% - 30px)",
+    //   marginLeft: "15px",
+    //   marginBottom: "8px",
+    //   marginTop: "8px",
+    //   textAlign: "left",
+    //   "& > span:first-child": {
+    //     justifyContent: "flex-start"
+    //   }
+    // },
+    "& svg": {
+      marginRight: "3px",
+      width: "20px",
+      height: "20px"
+    }
+  },
 });
 
 export default headerLinksStyle;

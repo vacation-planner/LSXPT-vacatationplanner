@@ -8,7 +8,9 @@ import jwt_decode from 'jwt-decode';
 import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar';
 import Footer from '../Material-UI/components/Footer/Footer.jsx';
-import { ContentDiv } from '../StyledComponents';
+import { ContentDiv, LandingPageHeader } from '../StyledComponents';
+import Button from '../Material-UI/components/CustomButtons/Button.jsx';
+import headerLinksStyle from '../Material-UI/assets/jss/material-kit-pro-react/components/headerLinksStyle.jsx';
 
 class LandingPage extends Component {
     componentDidMount() {
@@ -18,6 +20,8 @@ class LandingPage extends Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         // Check if logged in
         // If logged In
         // return (
@@ -31,15 +35,18 @@ class LandingPage extends Component {
             <>
                 <Navbar />
                 <ContentDiv>
-                    <header>
-                        {/* Content image in background */}
-                        <div>
+                    <LandingPageHeader>
                             <h2>Vacation Planner</h2>
                             <p>Some stuff about us</p>
-                            <button>Sign up</button>
-                        </div>
-                    </header>
-                    
+                            <Button
+                                href="/SignUp"
+                                className={classes.navLinkLandingPage}
+                                // onClick={e => e.preventDefault()}
+                                color="transparent"
+                                >
+                                Sign up
+                            </Button>
+                    </LandingPageHeader>
                 </ContentDiv>
 
                 {/* <Footer>
@@ -67,4 +74,5 @@ class LandingPage extends Component {
 
 LandingPage.contextType = AppContext;
 
-export default LandingPage;
+// export default LandingPage;
+export default withStyles(headerLinksStyle)(LandingPage);
