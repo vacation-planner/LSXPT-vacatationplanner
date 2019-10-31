@@ -211,7 +211,7 @@ const headerLinksStyle = theme => ({
     fontSize: "2.5rem",
     lineHeight: "20px",
     textDecoration: "none",
-    marginRight: "20px",
+    marginTop: "30px",
     display: "inline-flex",
     borderRadius: '5%',
     // border: '1px solid black',

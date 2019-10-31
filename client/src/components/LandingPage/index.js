@@ -8,7 +8,7 @@ import jwt_decode from 'jwt-decode';
 import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar';
 import Footer from '../Material-UI/components/Footer/Footer.jsx';
-import { ContentDiv, LandingPageHeader } from '../StyledComponents';
+import { ContentDiv, LandingPageHeader, LandingPageH2, LandingPageFooter } from '../StyledComponents';
 import Button from '../Material-UI/components/CustomButtons/Button.jsx';
 import headerLinksStyle from '../Material-UI/assets/jss/material-kit-pro-react/components/headerLinksStyle.jsx';
 
@@ -36,13 +36,15 @@ class LandingPage extends Component {
                 <Navbar />
                 <ContentDiv>
                     <LandingPageHeader>
-                            <h2>Vacation Planner</h2>
-                            <p>Some stuff about us</p>
+                        <LandingPageH2>
+                            Welcome to Vacation Planner
+                        </LandingPageH2>
+                        <p>
+                            Do you want a fast, east way to plan your vacation?  Some stuff about us
+                        </p>
                             <Button
                                 href="/SignUp"
                                 className={classes.navLinkLandingPage}
-                                // onClick={e => e.preventDefault()}
-                                color="transparent"
                                 >
                                 Sign up
                             </Button>
@@ -53,20 +55,11 @@ class LandingPage extends Component {
                     <h3>We are in footer</h3>
                     <h1>Hello</h1>
                 </Footer> */}
-                <footer className="footer">
-                    <div className="footer-content">
-                        <div className="contact">
-                            <div>Contact Us</div>
-                            <a href="mailto:lmlambdalabs@gmail.com">
-                                <p>lmlambdalabs.com</p>
-                            </a>
-                            <p>1-800-888-4141</p>
-                        </div>
-                    </div>
-                    <p className="copyright">
-                        &copy; 2019 - League Manager Team
-                    </p>
-                </footer>
+                <LandingPageFooter>
+                    Contact Us:
+                    <br />
+                    lmlambdalabs.com
+                </LandingPageFooter>
             </>
         );
     }
