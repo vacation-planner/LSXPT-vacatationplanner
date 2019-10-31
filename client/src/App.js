@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-//import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from "react-router";
 import { Switch, Route, Redirect } from "react-router-dom";
 import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
-import * as ROUTES from "../constants/routes";
+import * as ROUTES from "./constants/routes";
 import LandingPage from './components/LandingPage';
-import Signin from "./Auth/Signin";
-import { fire } from "./Auth/firebaseConfig";
+import Dashboards from './components/Dashboards';
+import Signin from "./components/Auth/Signin";
+import { fire } from "./components/Auth/firebaseConfig";
 import axios from "axios";
-import Signin from "./Auth/Signin";
+//import Signin from "./Auth/Signin";
 
 
 // ********* need heroku address ***********
@@ -41,7 +41,7 @@ class App extends Component {
 
     state = {
         authenticated: false,
-        //currentUser: null,
+        currentUser: null,
         firstName: null,
         lastName: null,
         currentEmail: null,
@@ -56,15 +56,15 @@ class App extends Component {
             return fire.currentUser
               .getIdToken()
               .then(idToken => {
-                //let space = user.displayName.lastIndexOf(" ");
+                let space = user.displayName.lastIndexOf(" ");
                 axios.defaults.headers.common["Authorization"] = idToken;
                 this.setState({
                   currentUser: user,
                   authenticated: true,
                   redirect: true,
                   currentEmail: user.email,
-                  firstName: user.firstName,
-                  lastName: user.lastName,
+                  firstName: user.displayName.substring(0, space),
+                  lastName: user.displayName.substring(space + 1),
                   userUID: user.uid
                 });
                 console.log("User uid: ", this.state.userUID)
@@ -121,8 +121,7 @@ class App extends Component {
       //  };
 
         return (
-<<<<<<< HEAD
-        //     <div className="App">
+        //    <div className="App">
         //        <Route exact path='/' component={LandingPage} />
         //        {/* Route for signin */}
         //        {/* Route for sign up */}
@@ -130,13 +129,13 @@ class App extends Component {
         //        {/* Route for home dashboard */}
         //        {/* Implement more Routes as needed */}
         //    </div> 
-        <div>
+        <div className="App">
         <Switch>
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
           <AuthenticatedRoute
             authenticated={this.state.authenticated}
-            path={ROUTES.DASHBOARD}
-            component={Dashboard}
+            path={ROUTES.DASHBOARDS}
+            component={Dashboards}
           />
         <Route
             exact
@@ -149,16 +148,6 @@ class App extends Component {
           />
         </Switch>
       </div>
-=======
-            <div className="App">
-                <Route exact path='/' component={LandingPage} />
-                {/* <Route path='/SignIn' component={} /> */}
-                {/* <Route path='/SignUp' component={} /> */}
-                {/* Route for user settings */}
-                {/* Route for home dashboard */}
-                {/* Implement more Routes as needed */}
-            </div>
->>>>>>> bbeeeb4bfffe41ad6238dbc7e2e413e89de4b583
         );
     }
 }

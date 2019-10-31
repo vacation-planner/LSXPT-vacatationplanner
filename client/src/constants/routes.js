@@ -1,4 +1,4 @@
 export const LANDING = '/'
-export const DASHBOARD = '/dashboard'
+export const DASHBOARDS = '/dashboards'
 export const SIGNIN = '/signin'
 export const SIGNUP = '/signup'
