@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import { Redirect, Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar';
-import Footer from '../Material-UI/components/Footer/Footer.jsx';
 import { ContentDiv, LandingPageHeader, LandingPageH2, LandingPageFooter } from '../StyledComponents';
 import Button from '../Material-UI/components/CustomButtons/Button.jsx';
 import headerLinksStyle from '../Material-UI/assets/jss/material-kit-pro-react/components/headerLinksStyle.jsx';
@@ -51,14 +46,8 @@ class LandingPage extends Component {
                     </LandingPageHeader>
                 </ContentDiv>
 
-                {/* <Footer>
-                    <h3>We are in footer</h3>
-                    <h1>Hello</h1>
-                </Footer> */}
                 <LandingPageFooter>
-                    Contact Us:
-                    <br />
-                    lmlambdalabs.com
+                    Contact Us at vacationplannerlx@gmail.com
                 </LandingPageFooter>
             </>
         );
@@ -67,5 +56,4 @@ class LandingPage extends Component {
 
 LandingPage.contextType = AppContext;
 
-// export default LandingPage;
 export default withStyles(headerLinksStyle)(LandingPage);
