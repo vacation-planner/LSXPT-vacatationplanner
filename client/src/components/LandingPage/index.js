@@ -9,6 +9,10 @@ import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar';
 import Footer from '../Material-UI/components/Footer/Footer.jsx';
 import { ContentDiv } from '../StyledComponents';
+import { fire } from "../Auth/firebaseConfig";
+//import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+import "../Styles/LandingPage/landingPage.css";
 
 class LandingPage extends Component {
     componentDidMount() {
@@ -36,7 +40,10 @@ class LandingPage extends Component {
                         <div>
                             <h2>Vacation Planner</h2>
                             <p>Some stuff about us</p>
-                            <button>Sign up</button>
+                            <Link to={ROUTES.SIGNIN} className="button button__accent">
+                  Sign up
+                </Link>    
+                <button>Sign up</button>
                         </div>
                     </header>
                     
