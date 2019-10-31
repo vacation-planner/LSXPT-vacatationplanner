@@ -14,8 +14,8 @@ class App extends Component {
         return (
             <div className="App">
                 <Route exact path='/' component={LandingPage} />
-                {/* Route for signin */}
-                {/* Route for sign up */}
+                {/* <Route path='/SignIn' component={} /> */}
+                {/* <Route path='/SignUp' component={} /> */}
                 {/* Route for user settings */}
                 {/* Route for home dashboard */}
                 {/* Implement more Routes as needed */}
