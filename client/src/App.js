@@ -121,6 +121,7 @@ class App extends Component {
       //  };
 
         return (
+<<<<<<< HEAD
         //     <div className="App">
         //        <Route exact path='/' component={LandingPage} />
         //        {/* Route for signin */}
@@ -148,6 +149,16 @@ class App extends Component {
           />
         </Switch>
       </div>
+=======
+            <div className="App">
+                <Route exact path='/' component={LandingPage} />
+                {/* <Route path='/SignIn' component={} /> */}
+                {/* <Route path='/SignUp' component={} /> */}
+                {/* Route for user settings */}
+                {/* Route for home dashboard */}
+                {/* Implement more Routes as needed */}
+            </div>
+>>>>>>> bbeeeb4bfffe41ad6238dbc7e2e413e89de4b583
         );
     }
 }
