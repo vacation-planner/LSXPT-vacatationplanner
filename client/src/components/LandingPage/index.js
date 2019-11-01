@@ -10,9 +10,8 @@ import Navbar from '../Dashboards/Navbar';
 import Footer from '../Material-UI/components/Footer/Footer.jsx';
 import { ContentDiv } from '../StyledComponents';
 import { fire } from "../Auth/firebaseConfig";
-//import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import "../Styles/LandingPage/landingPage.css";
+import "../StyledComponents/LandingPage/landingPage.css";
 
 class LandingPage extends Component {
     componentDidMount() {
@@ -21,6 +20,13 @@ class LandingPage extends Component {
         // Else make sure signed out
     }
 
+    //************* Added temp signout ************************
+    //**   this just gives us a temporary way to signout     **
+    signOut = () => {
+        fire.signOut();
+        console.log("User logged out successfully");
+       };
+    
     render() {
         // Check if logged in
         // If logged In
@@ -44,6 +50,8 @@ class LandingPage extends Component {
                   Sign up
                 </Link>    
                 <button>Sign up</button>
+                <button
+                onClick={this.signOut}>Temp Sign out</button>
                         </div>
                     </header>
                     
@@ -64,7 +72,7 @@ class LandingPage extends Component {
                         </div>
                     </div>
                     <p className="copyright">
-                        &copy; 2019 - League Manager Team
+                        &copy; 2019 - Team Pedro
                     </p>
                 </footer>
             </>

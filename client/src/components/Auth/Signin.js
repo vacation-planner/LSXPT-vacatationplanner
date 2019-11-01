@@ -5,7 +5,7 @@ import { fire } from "./firebaseConfig"; // This is being used to provide apiKey
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 import { Redirect } from "react-router-dom";
-import styles from "../Styles/Signin/styles";
+import styles from "../StyledComponents/Signin/styles";
 import {
   withStyles,
   CssBaseline,
