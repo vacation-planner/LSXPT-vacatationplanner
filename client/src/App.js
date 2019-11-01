@@ -3,7 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
 import LandingPage from './components/LandingPage';
-// import Navbar from './components/Dashboards/Navbar';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 class App extends Component {
     render() {
@@ -15,8 +16,8 @@ class App extends Component {
         return (
             <div className="App">
                 <Route exact path='/' component={LandingPage} />
-                {/* <Route path='/SignIn' component={} /> */}
-                {/* <Route path='/SignUp' component={} /> */}
+                <Route path='/SignIn' component={SignIn} />
+                {/* <Route path='/SignUp' component={SignUp} /> */}
                 {/* Route for user settings */}
                 {/* Route for home dashboard */}
                 {/* Implement more Routes as needed */}
