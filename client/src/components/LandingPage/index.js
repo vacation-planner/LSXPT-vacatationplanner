@@ -35,7 +35,7 @@ class LandingPage extends Component {
                             Welcome to Vacation Planner
                         </LandingPageH2>
                         <p>
-                            Do you want a fast, east way to plan your vacation?  Some stuff about us
+                            Do you want a fast, east way to plan your vacation?  We can help with that!
                         </p>
                             <Button
                                 href="/SignUp"
