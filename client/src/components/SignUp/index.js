@@ -69,7 +69,9 @@ class SignUp extends React.Component {
         firstName: '',
         lastName: '',
         email: '',
+        confirmEmail: '',
         password: '',
+        confirmPassword: '',
         signedIn: false,
         message: '',
         focus: 1,
@@ -90,9 +92,17 @@ class SignUp extends React.Component {
     SubmitHandler = event => {
         event.preventDefault();
 
-        const { firstName, lastName, email, password } = this.state;
+        const { firstName, lastName, email, confirmEmail, password, confirmPassword } = this.state;
 
-        if (!firstName) {
+        if(!firstName && !lastName && !email && !confirmEmail && !password && !confirmPassword) {
+            this.setState({
+                message: 'Plese fill out all the fields',
+                focus: 1,
+                error: 1
+            })
+        }
+
+        else if (!firstName) {
             this.setState({
                 message: 'First name cannot be empty',
                 focus: 1,
@@ -107,22 +117,51 @@ class SignUp extends React.Component {
                 error: 2
             })
         }
-        if (!email) {
+        else if (!email) {
             this.setState({
                 message: 'Email cannot be empty',
                 focus: 3,
                 error: 3
             });
         } 
+        else if (!confirmEmail) {
+            this.setState({
+                message: 'Confirm email cannot be empty',
+                focus: 4,
+                error: 4
+            })
+        }
         else if (!password) {
             this.setState({
                 message: 'Password cannot be empty',
-                focus: 4,
-                error: 4
+                focus: 5,
+                error: 5
             });
+        }
+        else if (!confirmPassword) {
+            this.setState({
+                message: 'Confirm password cannot be empty',
+                focus: 6,
+                error: 6
+            });
+        }
+        else if (email !== confirmEmail) {
+            this.setState({
+                message: 'Your two emails do not match',
+                focus: 3,
+                error: 3
+            })
+        }
+        else if (password !== confirmPassword) {
+            this.setState({
+                message: 'Your two passwords do not match',
+                focus: 5,
+                error: 5
+            })
         }
         else {
             // Send Axios call
+            
         }
     };
 
@@ -149,7 +188,7 @@ class SignUp extends React.Component {
                             fullWidth
                             error={this.state.error === 1 ? true : false}
                         >
-                            <InputLabel htmlFor="email" className={classes.inputLabel}>
+                            <InputLabel htmlFor="firstName" className={classes.inputLabel}>
                                 First Name
                             </InputLabel>
                             <Input
@@ -165,6 +204,22 @@ class SignUp extends React.Component {
                             margin="normal"
                             fullWidth
                             error={this.state.error === 2 ? true : false}
+                        >
+                            <InputLabel htmlFor="lastName" className={classes.inputLabel}>
+                                Last Name
+                            </InputLabel>
+                            <Input
+                                id="lastName"
+                                name="lastName"
+                                onChange={this.InputHandler}
+                                autoComplete="lastName"
+                                className={classes.input}
+                            />
+                        </FormControl>
+                        <FormControl
+                            margin="normal"
+                            fullWidth
+                            error={this.state.error === 3 ? true : false}
                         >
                             <InputLabel htmlFor="email" className={classes.inputLabel}>
                                 Email Address
@@ -182,12 +237,43 @@ class SignUp extends React.Component {
                             fullWidth
                             error={this.state.error === 4 ? true : false}
                         >
+                            <InputLabel htmlFor="confirmEmail" className={classes.inputLabel}>
+                                Confirm Email Address
+                            </InputLabel>
+                            <Input
+                                id="confirmEmail"
+                                name="confirmEmail"
+                                onChange={this.InputHandler}
+                                autoComplete="confirmEmail"
+                                className={classes.input}
+                            />
+                        </FormControl>
+                        
+                        <FormControl
+                            margin="normal"
+                            fullWidth
+                            error={this.state.error === 5 ? true : false}
+                        >
                             <InputLabel htmlFor="password" className={classes.inputLabel}>Password</InputLabel>
                             <Input
                                 id="password"
                                 name="password"
                                 onChange={this.InputHandler}
                                 type="password"
+                                className={classes.input}
+                            />
+                        </FormControl>
+                        <FormControl
+                            margin="normal"
+                            fullWidth
+                            error={this.state.error === 6 ? true : false}
+                        >
+                            <InputLabel htmlFor="confirmPassword" className={classes.inputLabel}>Confirm Password</InputLabel>
+                            <Input
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                onChange={this.InputHandler}
+                                type="confirmPassword"
                                 className={classes.input}
                             />
                         </FormControl>
@@ -198,7 +284,7 @@ class SignUp extends React.Component {
                             color="rose"
                             className={classes.submit}
                         >
-                            Sign in
+                            Sign Up
                         </Button>
                     </form>
                 </Paper>
