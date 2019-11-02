@@ -36,6 +36,7 @@ class LandingPage extends Component {
                         </LandingPageH2>
                         <p>
                             Do you want a fast, east way to plan your vacation?  We can help with that!
+                            {/* Planning a vacation with friends or family can become very complicated and stressful.  Using Vacation Planner can allow everyone to plan out the vacation ahead of time, so there everyone can enjoy their vacation without arguments and anxiety. */}
                         </p>
                             <Button
                                 href="/SignUp"

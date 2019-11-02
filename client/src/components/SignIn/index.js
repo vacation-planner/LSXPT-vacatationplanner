@@ -13,7 +13,6 @@ import { AppContext } from '../Context/AppContext';
 import Navbar from '../Dashboards/Navbar';
 import Avatar from '@material-ui/core/Avatar';
 
-
 const styles = theme => ({
     main: {
         width: 'auto',

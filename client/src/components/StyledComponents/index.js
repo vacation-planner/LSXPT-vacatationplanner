@@ -17,13 +17,13 @@ const ContentDiv = styled.div`
 const LandingPageHeader = styled.header`
     box-sizing: border-box;
     text-align: center;
-    background-color: rgba(43, 43, 43, 0.322);
+    background-color: rgba(43, 43, 43, 0.3);
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: center;
-    padding: 100px 0%;
+    padding: 100px 2.5%;
     text-shadow: 1px 1px 2px black, 1px 0px 2px black, 0px 1px 2px black, 0 0 8px #333;
     height: 500px;
     color: white;
@@ -32,7 +32,7 @@ const LandingPageHeader = styled.header`
 
 const LandingPageH2 = styled.h2`
     font-size: 4.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: white;
 `;
 
