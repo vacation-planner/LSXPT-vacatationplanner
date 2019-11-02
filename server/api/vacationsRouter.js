@@ -18,7 +18,7 @@ module.exports = router => {
 /* TODO: Add in a JWT protection check. */
 router.get('/:id', (req, res) => {
     const {id} = req.params; 
-    await vacations.getByID(id).then(vacation => {
+    await vacations.getById(id).then(vacation => {
         /* TODO: add in protection against showing vacations that aren't associated with the current user. */
         if (id) {
             res.status(200).json(vacation);
@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/users/:uid', (req, res) => {
     const {uid} = req.params;
-    await vacations.getByUserUID(uid).then(userVacations => {
+    await vacations.getByUserUid(uid).then(userVacations => {
         if (userVacations) {
             res.status(200).json(userVacations);
         }
@@ -44,7 +44,7 @@ router.get('/users/:uid', (req, res) => {
 /* Get all users associated with this vacation ID */
 router.get('/users/:id', (req, res) => {
     const {id} = req.params;
-    await vacations.getUsersByVacID(id).then(vacUsers => {
+    await vacations.getUsersByVacId(id).then(vacUsers => {
         if (vacUsers) {
             res.status(200).json(vacUsers);
         }
