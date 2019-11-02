@@ -19,41 +19,41 @@ const Global = createGlobalStyle`
         font-size: 100%;
         font: inherit;
         vertical-align: baseline;
-    },
+    }
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
         display: block;
-    },
+    }
     body {
         line-height: 1;
         letter-spacing:2px;
-    },
+    }
     ol, ul {
         list-style: none;
-    },
+    }
     blockquote, q {
         quotes: none;
-    },
+    }
     blockquote:before, blockquote:after,
     q:before, q:after {
         content: '';
         content: none;
-    },
+    }
     table {
         border-collapse: collapse;
         border-spacing: 0;
-    },
+    }
     * {
         box-sizing: border-box;
     }
     html, body {
-        height: 100%;
         font-family: 'Roboto', sans-serif;
     }
 
     html {
         font-size: 62.5%;
+        background-color: #e2e2e2;
     }
 `
 
-export default Global
+export default Global;

@@ -70,8 +70,8 @@ class Header extends React.Component {
     return (
       <AppBar className={appBarClasses}>
         <Toolbar className={classes.container}>
-          <Button className={classes.title}>
-            <Link to="/">{brand}</Link>
+          <Button className={classes.title} href="/">
+            {brand}
           </Button>
           <Hidden smDown implementation="css" className={classes.hidden}>
             <div className={classes.collapse}>{links}</div>

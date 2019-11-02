@@ -158,6 +158,9 @@ const containerFluid = {
 };
 const container = {
   ...containerFluid,
+  "@media (min-width: 400px)": {
+    maxWidth: "360px"
+  },
   "@media (min-width: 576px)": {
     maxWidth: "540px"
   },
@@ -169,6 +172,15 @@ const container = {
   },
   "@media (min-width: 1200px)": {
     maxWidth: "1140px",
+  },
+  "@media (min-width: 1500px)": {
+    maxWidth: "1440px",
+  },
+  "@media (min-width: 1850px)": {
+    maxWidth: "1800px",
+  },
+  "@media (min-width: 2200px)": {
+    maxWidth: "2140px",
   }
 };
 

@@ -24,9 +24,9 @@ class SectionNavbars extends React.Component {
                         <List className={classes.list + ' ' + classes.mrAuto}>
                             <ListItem className={classes.listItem}>
                                 <Button
-                                    href="#pablo"
+                                    href="/SignIn"
                                     className={classes.navLink}
-                                    onClick={e => e.preventDefault()}
+                                    // onClick={e => e.preventDefault()}
                                     color="transparent"
                                     >
                                     Sign In
@@ -35,9 +35,9 @@ class SectionNavbars extends React.Component {
 
                             <ListItem className={classes.listItem}>
                                 <Button
-                                    href="#pablo"
-                                    className={classes.navLink}
-                                    onClick={e => e.preventDefault()}
+                                    href="/SignUp"
+                                    className={classes.navLink + ' ' + classes.navLinkRight}
+                                    // onClick={e => e.preventDefault()}
                                     color="transparent"
                                     >
                                     Sign Up
