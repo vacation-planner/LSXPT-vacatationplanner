@@ -165,7 +165,7 @@ class SignIn extends React.Component {
                             color="rose"
                             className={classes.submit}
                         >
-                            Sign in
+                            Sign In
                         </Button>
                     </form>
                 </Paper>

@@ -149,7 +149,7 @@ class SignUp extends React.Component {
                             fullWidth
                             error={this.state.error === 1 ? true : false}
                         >
-                            <InputLabel htmlFor="email" className={classes.inputLabel}>
+                            <InputLabel htmlFor="firstName" className={classes.inputLabel}>
                                 First Name
                             </InputLabel>
                             <Input
@@ -165,6 +165,22 @@ class SignUp extends React.Component {
                             margin="normal"
                             fullWidth
                             error={this.state.error === 2 ? true : false}
+                        >
+                            <InputLabel htmlFor="lastName" className={classes.inputLabel}>
+                                Last Name
+                            </InputLabel>
+                            <Input
+                                id="lastName"
+                                name="lastName"
+                                onChange={this.InputHandler}
+                                autoComplete="lastName"
+                                className={classes.input}
+                            />
+                        </FormControl>
+                        <FormControl
+                            margin="normal"
+                            fullWidth
+                            error={this.state.error === 3 ? true : false}
                         >
                             <InputLabel htmlFor="email" className={classes.inputLabel}>
                                 Email Address
@@ -198,7 +214,7 @@ class SignUp extends React.Component {
                             color="rose"
                             className={classes.submit}
                         >
-                            Sign in
+                            Sign Up
                         </Button>
                     </form>
                 </Paper>
