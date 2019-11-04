@@ -22,7 +22,7 @@ const headerStyle = theme => ({
     border: "0",
     borderRadius: "3px",
     padding: "0.6rem 0",
-    // marginBottom: "20px",
+    // marginBottom: "100px",
     color: grayColor[15],
     width: "100%",
     backgroundColor: whiteColor,
@@ -36,11 +36,11 @@ const headerStyle = theme => ({
     alignItems: "center",
     flexFlow: "row nowrap",
     justifyContent: "flex-start",
-    position: "relative"
+    position: "fixed",
   },
   absolute: {
     position: "absolute",
-    top: "auto"
+    top: "auto",
   },
   fixed: {
     position: "fixed"
@@ -51,7 +51,7 @@ const headerStyle = theme => ({
     alignItems: "center",
     justifyContent: "space-between",
     display: "flex",
-    flexWrap: "nowrap"
+    flexWrap: "nowrap",
   },
   title: {
     "&,& a": {

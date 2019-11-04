@@ -43,10 +43,10 @@ class SectionNavbars extends React.Component {
                                 to={ROUTES.SIGNIN}
                                 style={{ textDecoration: "none" }}
                             >Sign in */}
-                                 <Button
-                                    href="#pablo"
+                                <Button
+                                    href="/SignIn"
                                     className={classes.navLink}
-                                    onClick={e => e.preventDefault()}
+                                    // onClick={e => e.preventDefault()}
                                     color="transparent"
                                     >
                                     Sign In
@@ -57,10 +57,9 @@ class SectionNavbars extends React.Component {
 
                             <ListItem className={classes.listItem}>
                                 <Button
-                                    href="#pablo"
-                                    className={classes.navLink}
-                                    onClick={e => e.preventDefault()}
-//                                  onClick={this.signOut}
+                                    href="/SignUp"
+                                    className={classes.navLink + ' ' + classes.navLinkRight}
+                                    // onClick={e => e.preventDefault()}
                                     color="transparent"
                                     >
                                     Sign Up

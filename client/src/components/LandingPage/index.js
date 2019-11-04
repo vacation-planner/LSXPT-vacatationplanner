@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import { Redirect, Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar';
@@ -12,6 +8,9 @@ import { ContentDiv } from '../StyledComponents';
 import { fire } from "../Auth/firebaseConfig";
 import * as ROUTES from "../../constants/routes";
 import "../StyledComponents/LandingPage/landingPage.css";
+import { ContentDiv, LandingPageHeader, LandingPageH2, LandingPageFooter } from '../StyledComponents';
+import Button from '../Material-UI/components/CustomButtons/Button.jsx';
+import headerLinksStyle from '../Material-UI/assets/jss/material-kit-pro-react/components/headerLinksStyle.jsx';
 
 class LandingPage extends Component {
     componentDidMount() {
@@ -28,6 +27,8 @@ class LandingPage extends Component {
        };
     
     render() {
+        const { classes } = this.props;
+
         // Check if logged in
         // If logged In
         // return (
@@ -40,41 +41,33 @@ class LandingPage extends Component {
         return (
             <>
                 <Navbar />
+
                 <ContentDiv>
-                    <header>
-                        {/* Content image in background */}
-                        <div>
-                            <h2>Vacation Planner</h2>
-                            <p>Some stuff about us</p>
-                            <Link to={ROUTES.SIGNIN} className="button button__accent">
-                  Sign up
-                </Link>    
-                <button>Sign up</button>
-                <button
-                onClick={this.signOut}>Temp Sign out</button>
-                        </div>
-                    </header>
-                    
+                   <LandingPageHeader>
+                        <LandingPageH2>
+                            Welcome to Vacation Planner
+                        </LandingPageH2>
+                        <p>
+                            Do you want a fast, east way to plan your vacation?  We can help with that!
+                            {/* Planning a vacation with friends or family can become very complicated and stressful.  Using Vacation Planner can allow everyone to plan out the vacation ahead of time, so there everyone can enjoy their vacation without arguments and anxiety. */}
+                        </p>
+                        <Link to={ROUTES.SIGNIN} className="button button__accent">
+                            Sign up
+                        </Link>   
+                        <Button
+                            href="/SignUp"
+                            className={classes.navLinkLandingPage}
+                            >
+                            Sign up
+                        </Button>
+                        <button
+                            onClick={this.signOut}>Temp Sign out</button>
+                    </LandingPageHeader>
                 </ContentDiv>
 
-                {/* <Footer>
-                    <h3>We are in footer</h3>
-                    <h1>Hello</h1>
-                </Footer> */}
-                <footer className="footer">
-                    <div className="footer-content">
-                        <div className="contact">
-                            <div>Contact Us</div>
-                            <a href="mailto:lmlambdalabs@gmail.com">
-                                <p>lmlambdalabs.com</p>
-                            </a>
-                            <p>1-800-888-4141</p>
-                        </div>
-                    </div>
-                    <p className="copyright">
-                        &copy; 2019 - Team Pedro
-                    </p>
-                </footer>
+                <LandingPageFooter>
+                    Contact Us at vacationplannerlx@gmail.com
+                </LandingPageFooter>
             </>
         );
     }
@@ -82,4 +75,4 @@ class LandingPage extends Component {
 
 LandingPage.contextType = AppContext;
 
-export default LandingPage;
+export default withStyles(headerLinksStyle)(LandingPage);
