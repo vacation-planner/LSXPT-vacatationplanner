@@ -5,12 +5,13 @@ import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
 import * as ROUTES from "./constants/routes";
 import LandingPage from './components/LandingPage';
-<<<<<<< HEAD
 import Dashboards from './components/Dashboards';
 import Signin from "./components/Auth/Signin";
 import { fire } from "./components/Auth/firebaseConfig";
 import axios from "axios";
-//import Signin from "./Auth/Signin";
+//import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+
 
 
 // ********* need heroku address ***********
@@ -37,10 +38,7 @@ const AuthenticatedRoute = ({
     />
   );
 };
-=======
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
->>>>>>> 3b6b5d327d0be3c55ddf1b54923003a0bc0bba58
+
 
 class App extends Component {
 
@@ -126,15 +124,7 @@ class App extends Component {
       //  };
 
         return (
-<<<<<<< HEAD
-        //    <div className="App">
-        //        <Route exact path='/' component={LandingPage} />
-        //        {/* Route for signin */}
-        //        {/* Route for sign up */}
-        //        {/* Route for user settings */}
-        //        {/* Route for home dashboard */}
-        //        {/* Implement more Routes as needed */}
-        //    </div> 
+       
         <div className="App">
         <Switch>
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
@@ -152,18 +142,17 @@ class App extends Component {
               );
             }}
           />
+
         </Switch>
       </div>
-=======
-            <div className="App">
-                <Route exact path='/' component={LandingPage} />
-                <Route path='/SignIn' component={SignIn} />
-                <Route path='/SignUp' component={SignUp} />
-                {/* Route for user settings */}
-                {/* Route for home dashboard */}
-                {/* Implement more Routes as needed */}
-            </div>
->>>>>>> 3b6b5d327d0be3c55ddf1b54923003a0bc0bba58
+   //          <div className="App">
+   //             <Route exact path='/' component={LandingPage} />
+   //             <Route path='/SignIn' component={SignIn} />
+   //             <Route path='/SignUp' component={SignUp} />
+  //              {/* Route for user settings */}
+  //              {/* Route for home dashboard */}
+  //              {/* Implement more Routes as needed */}
+   //         </div> 
         );
     }
 }
