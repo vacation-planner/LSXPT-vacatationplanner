@@ -3,7 +3,10 @@ exports.seed = function(knex) {
   // No billing table yet so do nothing.
   return
   // Deletes ALL existing entries
+<<<<<<< HEAD
   /*
+=======
+>>>>>>> origin/production
   return knex('billing').del()
     .then(function () {
       // Inserts seed entries
