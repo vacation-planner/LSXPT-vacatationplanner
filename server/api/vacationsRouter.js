@@ -6,17 +6,8 @@ const vacations = require("../data/helpers/vacationsModel");
 const jwt = require("jsonwebtoken");
 const secret = "shhhisthisasecret";
 
-/*
-module.exports = router => {
-    router.get("/:id", vacationById);
-    router.get("/users/:uid", vacationsByUserUID)
-    router.get("/users/:id")
-    router.put("/:id", update);
-};
-*/
-
 /* TODO: Add in a JWT protection check. */
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const {id} = req.params; 
     await vacations.getById(id).then(vacation => {
         /* TODO: add in protection against showing vacations that aren't associated with the current user. */
@@ -27,9 +18,9 @@ router.get('/:id', (req, res) => {
             res.status(400).json({'error': 'No vacation by that id.'});
         }
     }) 
-})
+});
 
-router.get('/users/:uid', (req, res) => {
+router.get('/users/all/:uid', async (req, res) => {
     const {uid} = req.params;
     await vacations.getByUserUid(uid).then(userVacations => {
         if (userVacations) {
@@ -39,10 +30,10 @@ router.get('/users/:uid', (req, res) => {
             res.status(400).json({'error': 'No vacations associated with that UID'});
         }
     })
-})
+});
 
 /* Get all users associated with this vacation ID */
-router.get('/users/:id', (req, res) => {
+router.get('/users/:id', async (req, res) => {
     const {id} = req.params;
     await vacations.getUsersByVacId(id).then(vacUsers => {
         if (vacUsers) {
@@ -52,4 +43,50 @@ router.get('/users/:id', (req, res) => {
             res.status(400).json({'error': 'No users associated with that vacation ID.'});
         }
     })
-})
+});
+
+router.post('/', async (req, res) => {
+    const data = req.body;
+    if (data) {
+        await vacations.insert(data).then(response => {
+            res.status(200).json({'message': 'Vacation added.'});
+        })
+        .catch(err => {
+            res.status(500).json({'error': `Server responded with error: ${err}`});
+        })
+    }
+    else {
+        res.status(400).json({'error': 'Please check and send the proper vacation data to be inserted.'})
+    }
+    
+});
+
+router.put('/:id', async (req, res) => {
+    const {id} = req.params;
+    const changes = req.body;
+    if (id && changes) {
+        await vacations.update(id, changes).then(response => {
+            res.status(200).json({'message': 'Vacation updated.'});
+        })
+        .catch(err => {
+            res.status(500).json({'error': `Server had an error of ${err}`});
+        })
+    }
+    else {
+        res.status(400).json({'error': 'Please check and send the proper vacation id and changes to be updated.'})
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const {id} = req.params;
+    if (id) {
+        await vacations.remove(id).then(response => {
+            res.status(200).json({'message': 'Vacation deleted.'});
+        })
+        .catch(err => {
+            res.status(404).json({'error': `Server responded with error: ${err}`});
+        })
+    }
+});
+
+module.exports = router;
