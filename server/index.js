@@ -3,15 +3,20 @@ require("dotenv").config();
 const express = require("express");
 const db = require("./data/dbConfig");
 const parser = express.json();
-const server = express();
+//const server = express();
 const jwt = require("jsonwebtoken");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
 const usersRouter = require("./api/usersRouter");
+<<<<<<< HEAD
+const expensesRouter = require("./api/expensesRouter");
+const vacationsRouter = require("./api/vacationsRouter");
+=======
 //const expensesRouter = require("./api/expensesRouter");
 //const vacationsRouter = require("./api/vacationsRouter");
+>>>>>>> origin/production
 //const stripeRouter = require("./api/stripeRouter");
 //const admin = require("./data/auth/firebaseMiddleware");
 //const server = require('./api/server');
@@ -27,12 +32,16 @@ server.use("/api/users", usersRouter);
 //server.use("/api/users", verifyToken, usersRouter);
 //server.use("/api/expenses", expensesRouter);
 //server.use("/api/stripe", stripeRouter);
-server.use(bodyParser.urlencoded({ extended: false }));
-server.use(bodyParser.json());
+//server.use(parser.urlencoded({ extended: false }));
+//server.use(parser.json());
 //server.use("/", verifyToken);
 
+<<<<<<< HEAD
+const PORT = process.env.PORT || 5000;
+=======
 
 const PORT = process.env.PORT || 5500;
+>>>>>>> origin/production
 
 server.listen(PORT, () => {
     console.log(`\n** Server is listening on port: ${PORT} **\n`);
