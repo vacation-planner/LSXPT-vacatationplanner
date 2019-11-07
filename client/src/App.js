@@ -5,6 +5,7 @@ import { AppContext } from './components/Context/AppContext.js';
 import LandingPage from './components/LandingPage';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import Homepage from './components/Homepage/Homepage';
 
 class App extends Component {
     render() {
@@ -18,6 +19,7 @@ class App extends Component {
                 <Route exact path='/' component={LandingPage} />
                 <Route path='/SignIn' component={SignIn} />
                 <Route path='/SignUp' component={SignUp} />
+                <Route path='/Homepage' component={Homepage} />
                 {/* Route for user settings */}
                 {/* Route for home dashboard */}
                 {/* Implement more Routes as needed */}
