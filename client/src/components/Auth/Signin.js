@@ -3,17 +3,17 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { fire } from "./firebaseConfig"; // This is being used to provide apiKey to Authentication do not remove
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import Navbar from '../Dashboards/Navbar';
 
 import { Redirect } from "react-router-dom";
 import styles from "../StyledComponents/Signin/styles";
 import {
   withStyles,
-  CssBaseline,
   Paper,
   Typography,
   Avatar
 } from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 class Signin extends Component {
   isIOS = () => {
@@ -41,7 +41,7 @@ class Signin extends Component {
   render() {
     const { classes } = this.props;
     const { from } = this.props.location.state || {
-      from: { pathname: "/dashboard" }
+      from: { pathname: "/dashboards" }
     };
     if (this.props.redirect === true) {
       return <Redirect to={from} />;
@@ -49,19 +49,20 @@ class Signin extends Component {
 
     return (
       <main className={classes.main}>
-        <CssBaseline />
+        <Navbar />
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <AssignmentIndIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography className={classes.typography}>
+            Sign In
           </Typography>
 
           <StyledFirebaseAuth
             uiConfig={this.uiConfig}
             firebaseAuth={fire}
             user={fire.currentUser}
+            className={classes.fbSize}
           />
         </Paper>
       </main>

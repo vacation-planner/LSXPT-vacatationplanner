@@ -14,7 +14,7 @@ import Button from '../../Material-UI/components/CustomButtons/Button.jsx';
 // Navbar Styles pulled from here
 import navbarsStyle from '../../Material-UI/assets/jss/material-kit-pro-react/views/componentsSections/navbarsStyle.jsx';
 
-class SectionNavbars extends React.Component {
+class HomeNavbars extends React.Component {
    
     signOut = () => {
         fire.signOut();
@@ -23,13 +23,11 @@ class SectionNavbars extends React.Component {
 
     render() {
         
- 
-        
         const { classes } = this.props;
         return (
             <Header
-                brand="Vacation Planner"
-                color="rose"
+            color="rose"
+            brand="Vacation Planner"
                 links={
                     <div className={classes.collapse + ' ' + classes.toolbarRightContent}>
                         <List className={classes.list + ' ' + classes.mrAuto}>
@@ -39,7 +37,23 @@ class SectionNavbars extends React.Component {
                                     className={classes.navLink}
                                     color="transparent"
                                 >
-                                    Sign In
+                                    Sign Out
+                                </Button> 
+                                
+                            </ListItem>
+                        </List>
+                    </div>
+                }
+                links2={
+                    <div className={classes.collapse + ' ' + classes.toolbarRightContent}>
+                        <List className={classes.list + ' ' + classes.mrAuto}>
+                            <ListItem className={classes.listItem}>
+                                <Button
+                                    href={ROUTES.SIGNIN}
+                                    className={classes.navLink}
+                                    color="transparent"
+                                >
+                                    Shit
                                 </Button> 
                                 
                             </ListItem>
@@ -51,4 +65,4 @@ class SectionNavbars extends React.Component {
     }
 }
 
-export default withStyles(navbarsStyle)(SectionNavbars);
+export default withStyles(navbarsStyle)(HomeNavbars);

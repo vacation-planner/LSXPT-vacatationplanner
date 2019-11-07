@@ -60,7 +60,7 @@ class Header extends React.Component {
     }
   }
   render() {
-    const { classes, color, links, brand, fixed, absolute } = this.props;
+    const { classes, color, links, links2, brand, fixed, absolute } = this.props;
     const appBarClasses = classNames({
       [classes.appBar]: true,
       [classes[color]]: color,
@@ -70,6 +70,15 @@ class Header extends React.Component {
     return (
       <AppBar className={appBarClasses}>
         <Toolbar className={classes.container}>
+          <Hidden mdUp>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerToggle}
+            >
+              <Menu />
+            </IconButton>
+          </Hidden>
           <Button className={classes.title} href="/">
             {brand}
           </Button>
@@ -105,6 +114,7 @@ class Header extends React.Component {
               <Close />
             </IconButton>
             <div className={classes.appResponsive}>{links}</div>
+            <div className={classes.appResponsive}>{links2}</div>
           </Drawer>
         </Hidden>
       </AppBar>
@@ -130,6 +140,7 @@ Header.propTypes = {
     "dark"
   ]),
   links: PropTypes.node,
+  links2: PropTypes.node,
   brand: PropTypes.string,
   fixed: PropTypes.bool,
   absolute: PropTypes.bool,

@@ -10,7 +10,6 @@
     "classnames": "^2.2.6",
     "firebase": "^7.2.2",
     "history": "^4.10.1",
-    "jwt-decode": "^2.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-big-calendar": "^0.22.1",
