@@ -1,0 +1,25 @@
+/* .button,
+button {
+  display: inline-block;
+  padding: 6pt 20pt;
+  line-height: 1.7;
+  border: 1px solid #7407a7;
+  color: #7407a7;
+  font-weight: 400;
+  -webkit-transition: 0.7s;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 30px;
+  margin-bottom: 1.3em;
+  transition: 0.7s;
+  text-align: center;
+  text-decoration: none;
+} */
+
+/* .button:focus,
+.button:hover,
+button:focus,
+button:hover {
+  outline: 0;
+} */
