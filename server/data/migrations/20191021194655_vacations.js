@@ -3,6 +3,7 @@ exports.up = function (knex) {
     return knex.schema.createTable('vacations', (vacations) => {
         vacations.increments();
         vacations.string('title', 128).notNullable();
+        vacations.string('location', 128);
         vacations.date('startDate');
         vacations.date('endDate');
         vacations
