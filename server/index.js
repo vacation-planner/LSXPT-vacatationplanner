@@ -10,13 +10,8 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
 const usersRouter = require("./api/usersRouter");
-<<<<<<< HEAD
 const expensesRouter = require("./api/expensesRouter");
 const vacationsRouter = require("./api/vacationsRouter");
-=======
-//const expensesRouter = require("./api/expensesRouter");
-//const vacationsRouter = require("./api/vacationsRouter");
->>>>>>> origin/production
 //const stripeRouter = require("./api/stripeRouter");
 //const admin = require("./data/auth/firebaseMiddleware");
 //const server = require('./api/server');
@@ -36,12 +31,8 @@ server.use("/api/users", usersRouter);
 //server.use(parser.json());
 //server.use("/", verifyToken);
 
-<<<<<<< HEAD
-const PORT = process.env.PORT || 5000;
-=======
 
 const PORT = process.env.PORT || 5500;
->>>>>>> origin/production
 
 server.listen(PORT, () => {
     console.log(`\n** Server is listening on port: ${PORT} **\n`);
