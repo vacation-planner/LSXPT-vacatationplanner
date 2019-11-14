@@ -4,12 +4,13 @@ import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 // dependency plugin for react-big-calendar
 import moment from "moment";
 // react component used to create alerts
+import axios from "axios";
 import SweetAlert from "react-bootstrap-sweetalert";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 //import "react-big-calendar/lib/css/react-big-calendar.css";
-import "../../StyledComponents/Dashboards/Calendar/Calendar.css"
+import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,21 +26,73 @@ import styles from "../../StyledComponents/Dashboards/Calendar/js/buttonStyle.js
 
 import { events as calendarEvents } from "../../StyledComponents/Dashboards/Calendar/js/general.js";
 
+const URL = "http://localhost:5500/api";
+
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 
 const useStyles = makeStyles(styles);
 
-export default function Calendar() {
-  const classes = useStyles();
-  const [events, setEvents] = React.useState(calendarEvents);
-  const [alert, setAlert] = React.useState(null);
+//export default function Calendar() {
+  class Calendar extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        startDate: [], // stock company symbols
+        endDate: [],
+        startTime: [],
+        endTime: 0,
+        uid: "",
+        vacationId: this.props.id,
+        eventId: "",
+        eventTitle: "",
+        vacation: [],
+
+      };
+    }
+//export default function Calendar() {
+
+  componentDidMount() {
+    let id = this.state.vacationId;
+    let uid = fire.currentUser.uid;
+    this.setState({
+      uid: uid
+    });s
+    // get the account balance for the user from the user table
+    this.fetchCalendarData(id);
+  }
   
-  const selectedEvent = event => {
+  fetchCalendarData = id => {
+    axios
+      .get(`${URL}/vacations`)
+      .then(response => {
+        let vacationData = [];
+        // if we have something in response
+        // then push it to our array
+        
+        response.data.forEach((vacation, index) => {
+          if (vacation.id === id) {
+            vacationData.push(vacation);
+          }
+        });
+        this.setState({
+          vacation: vacationData
+        });
+        // call the calendar handler function
+        this.calendarHandler();
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
+  };
+
+
+  selectedEvent = event => {
     window.alert(event.title)
     //rwindow.alert("Now what?");
   };
-  const addNewEventAlert = slotInfo => {
+  
+  addNewEventAlert = slotInfo => {
     console.log("slot info: ", slotInfo)
     setAlert(
       <SweetAlert
@@ -55,7 +108,7 @@ export default function Calendar() {
     );
   };
 
-  const addNewEvent = (e, slotInfo) => {
+  addNewEvent = (e, slotInfo) => {
     console.log("in the addNewEvent")
     var newEvents = events;
     newEvents.push({
@@ -67,11 +120,11 @@ export default function Calendar() {
     setEvents(newEvents);
   };
 
-  const hideAlert = () => {
+  hideAlert = () => {
     setAlert(null);
   };
 
-  const eventColors = event => {
+  eventColors = event => {
     console.log("in the eventColors")
     let backgroundColor = "event-";
     event.color
@@ -81,6 +134,14 @@ export default function Calendar() {
       className: backgroundColor
     };
   };
+
+render () {
+
+  const classes = useStyles();
+  const [events, setEvents] = React.useState(calendarEvents);
+  const [alert, setAlert] = React.useState(null);
+
+
 
   return (
     <BigCalendar
@@ -98,3 +159,5 @@ export default function Calendar() {
     />
   );
 }
+}
+export default Calendar;
