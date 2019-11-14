@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import Cal from "./Calendar/index.js";
+import "../StyledComponents/Dashboards/DashBoards.css"
 
 class Dashboards extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class Dashboards extends Component {
     
     render() {
         return (
-        <div>
+        <div className="calendar">
             <Cal>Here is something
             </Cal>
         </div>

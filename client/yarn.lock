@@ -8959,6 +8959,11 @@ react-big-calendar@^0.23.0:
     uncontrollable "^7.0.0"
     warning "^4.0.2"
 
+react-bootstrap-sweetalert@^5.1.7:
+  version "5.1.7"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-sweetalert/-/react-bootstrap-sweetalert-5.1.7.tgz#2865d77e3613cdc6e6239e49e5165dc66f499023"
+  integrity sha512-0IvGP7wQNWkLLnG1mlLZ9/NsD5QfJX2AenYSEHxcL/MQgAOfsUDjDnYxq/U/nJ/pt1+Y2XggmOoHNh+xPWRn6g==
+
 react-datetime@^2.16.3:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/react-datetime/-/react-datetime-2.16.3.tgz#7f9ac7d4014a939c11c761d0c22d1fb506cb505e"
