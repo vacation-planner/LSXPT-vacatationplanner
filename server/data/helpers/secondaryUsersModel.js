@@ -5,16 +5,10 @@ module.exports = {
     return db("secondaryUsers");
   },
 
-  getById: id =>{
-   return db('secondaryUsers')
-          .where('id', id)
-          .first()
-  },
-
   getByUid: userUid => {
     let query = db("secondaryUsers");
     if (userUid) {
-      query.where("userUid", userUid).first();
+      query.where("userUid", userUid);
       return query;
     }
     return db("secondaryUsers");
@@ -29,21 +23,14 @@ module.exports = {
     return db("secondaryUsers");
   },
 
-  update: (userUid, changes) => {
+  remove: recordId => {
     return db("secondaryUsers")
-      .where("userUid", userUid)
-      .update(changes);
-  },
-
-  remove: userUid => {
-    return db("secondaryUsers")
-      .where("userUid", userUid)
+      .where("id", recordId)
       .del();
   },
 
-  findByUid: userUid => {
+  insert: user => {
     return db("secondaryUsers")
-      .where("userUid", userUid)
-      .first();
-  }
+      .insert(user)
+   },
 };
