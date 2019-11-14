@@ -63,7 +63,7 @@ router.post("/", (req, res) => {
 /********* Get Single event *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/:id', protect, (req, res) => {
-router.get("/:id", (req, res) => {
+/* router.get("/:id", (req, res) => {
   const { id } = req.params;
   events
     .getById(id)
@@ -81,12 +81,12 @@ router.get("/:id", (req, res) => {
         .status(500)
         .json({ error: "The event's information could not be retrieved." });
     });
-});
+}); */
 
 /********* Get By Vacation Id *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/:vacationId', protect, (req, res) => {
-/*     router.get("/:vacationId", (req, res) => {
+     router.get("/:vacationId", (req, res) => {
         const { vacationId } = req.params;
         events
           .getByVacationId(vacationId)
@@ -104,7 +104,7 @@ router.get("/:id", (req, res) => {
               .status(500)
               .json({ error: "The event's information could not be retrieved." });
           });
-      }); */
+      }); 
 
 /************* Update event *************/
 // UNCOMMENT TO PROTECT THE ROUTE!

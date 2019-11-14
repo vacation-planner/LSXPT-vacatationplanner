@@ -3,10 +3,10 @@ exports.up = function(knex) {
     return knex.schema.createTable('secondaryUsers', (secondary) => {
             secondary.increments();
             secondary
-            .string('vacationId')
-            .references('vacation.id');
+            .integer('vacationsId')
+            .references('vacations.id');
             secondary
-            .string('userUid')
+            .string('usersUid')
             .references('users.uid');
         })
 };

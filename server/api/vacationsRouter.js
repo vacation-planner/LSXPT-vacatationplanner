@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
     const {id} = req.params; 
    // await vacations.getById(id).then(vacation => {
 
-   vacations.getByID(id).then(vacation => {
+   vacations.getById(id).then(vacation => {
         /* TODO: add in protection against showing vacations that aren't associated with the current user. */
         if (id) {
             res.status(200).json(vacation);
