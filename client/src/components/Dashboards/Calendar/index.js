@@ -1,99 +1,39 @@
+/*eslint-disable*/
 import React from "react";
 // react components used to create a calendar with events on it
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 // dependency plugin for react-big-calendar
 import moment from "moment";
 // react component used to create alerts
-import axios from "axios";
 import SweetAlert from "react-bootstrap-sweetalert";
-import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-
-import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-//import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
-
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
 // core components
-import Heading from "../../StyledComponents/Dashboards/Calendar/js/Heading.js";
-import GridContainer from "../../StyledComponents/Dashboards/Calendar/js/GridContainer.js";
-import GridItem from "../../StyledComponents/Dashboards/Calendar/js/GridItem.js";
-import Card from "../../StyledComponents/Dashboards/Calendar/js/Card.js";
-import CardBody from "../../StyledComponents/Dashboards/Calendar/js/CardBody";
+/* import Heading from "components/Heading/Heading.js";
+import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Grid/GridItem.js";
+import Card from "components/Card/Card.js";
+import CardBody from "components/Card/CardBody.js"; */
 
+//import styles from "assets/jss/material-dashboard-pro-react/components/buttonStyle.js";
 import styles from "../../StyledComponents/Dashboards/Calendar/js/buttonStyle.js";
-
 import { events as calendarEvents } from "../../StyledComponents/Dashboards/Calendar/js/general.js";
-
-const URL = "http://localhost:5500/api";
+//import { events as calendarEvents } from "variables/general.js";
 
 const localizer = momentLocalizer(moment);
-const DnDCalendar = withDragAndDrop(Calendar);
 
 const useStyles = makeStyles(styles);
 
-//export default function Calendar() {
-  class Calendar extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        startDate: [], // stock company symbols
-        endDate: [],
-        startTime: [],
-        endTime: 0,
-        uid: "",
-        vacationId: this.props.id,
-        eventId: "",
-        eventTitle: "",
-        vacation: [],
-
-      };
-    }
-//export default function Calendar() {
-
-  componentDidMount() {
-    let id = this.state.vacationId;
-    let uid = fire.currentUser.uid;
-    this.setState({
-      uid: uid
-    });s
-    // get the account balance for the user from the user table
-    this.fetchCalendarData(id);
-  }
-  
-  fetchCalendarData = id => {
-    axios
-      .get(`${URL}/vacations`)
-      .then(response => {
-        let vacationData = [];
-        // if we have something in response
-        // then push it to our array
-        
-        response.data.forEach((vacation, index) => {
-          if (vacation.id === id) {
-            vacationData.push(vacation);
-          }
-        });
-        this.setState({
-          vacation: vacationData
-        });
-        // call the calendar handler function
-        this.calendarHandler();
-      })
-      .catch(err => {
-        console.log('We"ve encountered an error');
-      });
+export default function Calendar() {
+  const classes = useStyles();
+  const [events, setEvents] = React.useState(calendarEvents);
+  const [alert, setAlert] = React.useState(null);
+  const selectedEvent = event => {
+    window.alert(event.title);
   };
-
-
-  selectedEvent = event => {
-    window.alert(event.title)
-    //rwindow.alert("Now what?");
-  };
-  
-  addNewEventAlert = slotInfo => {
-    console.log("slot info: ", slotInfo)
+  const addNewEventAlert = slotInfo => {
     setAlert(
       <SweetAlert
         input
@@ -107,9 +47,7 @@ const useStyles = makeStyles(styles);
       />
     );
   };
-
-  addNewEvent = (e, slotInfo) => {
-    console.log("in the addNewEvent")
+  const addNewEvent = (e, slotInfo) => {
     var newEvents = events;
     newEvents.push({
       title: e,
@@ -119,14 +57,11 @@ const useStyles = makeStyles(styles);
     setAlert(null);
     setEvents(newEvents);
   };
-
-  hideAlert = () => {
+  const hideAlert = () => {
     setAlert(null);
   };
-
-  eventColors = event => {
-    console.log("in the eventColors")
-    let backgroundColor = "event-";
+  const eventColors = event => {
+    var backgroundColor = "event-";
     event.color
       ? (backgroundColor = backgroundColor + event.color)
       : (backgroundColor = backgroundColor + "default");
@@ -134,15 +69,6 @@ const useStyles = makeStyles(styles);
       className: backgroundColor
     };
   };
-
-render () {
-
-  const classes = useStyles();
-  const [events, setEvents] = React.useState(calendarEvents);
-  const [alert, setAlert] = React.useState(null);
-
-
-
   return (
     <BigCalendar
       selectable
@@ -154,10 +80,6 @@ render () {
       onSelectEvent={event => selectedEvent(event)}
       onSelectSlot={slotInfo => addNewEventAlert(slotInfo)}
       eventPropGetter={eventColors}
-      
-      
     />
   );
 }
-}
-export default Calendar;

@@ -76,7 +76,7 @@
     font-weight: bold;
     font-size: 1em;
     min-height: 0;
-    border-bottom: 1px solid rgb(3, 7, 252);
+    border-bottom: 2px solid rgb(72, 73, 136);
     color: #0b4431;
     /* :last-child {
       span {
@@ -237,7 +237,7 @@
   }
   .rbc-month-view {
     position: relative;
-    border: 1px solid rgb(2, 252, 23);
+    border: 2px solid rgb(42, 59, 134);
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -286,7 +286,7 @@
     height: 100%;
   }
   .rbc-month-row + .rbc-month-row {
-    border-top: 1px solid rgb(90, 3, 3);
+    border-top: 1px solid rgb(119, 160, 221);
    /*  border-top: 1px solid #ddd; */
   }
   .rbc-date-cell {
@@ -324,11 +324,11 @@
     flex: 1 0 0%;
   }
   .rbc-day-bg + .rbc-day-bg {
-    border-left: 1px solid rgb(201, 181, 5);
+    border-left: 1px solid rgb(153, 193, 240);
   }
   .rbc-rtl .rbc-day-bg + .rbc-day-bg {
     border-left-width: 0;
-    border-right: 1px solid rgb(243, 93, 24);
+    border-right: 1px solid rgb(132, 156, 184);
   }
   .rbc-overlay {
     position: absolute;
@@ -627,17 +627,17 @@
     position: absolute;
     z-index: 3;
     height: 1px;
-    background-color: #74ad31;
+    background-color: #ad318e;
     pointer-events: none;
   }
   .rbc-event {
     width: 100%;
     position: relative; /* for resize handle and other inner positioning */
     display: block; /* make the <a> tag block */
-    font-size: 0.85em;
+    font-size: 1.45em;
     border-radius: 2px;
     padding: 0;
-    background-color: rgba(233, 30, 99, 0.4); /* default BACKGROUND color */
+    background-color: rgb(70, 138, 184); /* default BACKGROUND color */
     /* // @include shadow-big-color($brand-success); */
     font-weight: normal; /* undo jqui's ui-widget-header bold */
     text-align: right;
@@ -658,17 +658,17 @@
     .event-orange {
       background-color: brand-warning;
       box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
-        0 7px 10px -5px rgba(255, 152, 0, 0.4);
+        0 7px 10px -5px rgba(2, 18, 104, 0.4);
     }
     .event-red {
       background-color: brand-danger;
       box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
-        0 7px 10px -5px rgba(244, 67, 54, 0.4);
+        0 7px 10px -5px rgba(31, 63, 151, 0.4);
     }
     .event-rose {
       background-color: brand-rose;
       box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
-        0 7px 10px -5px rgba(233, 30, 99, 0.4);
+        0 7px 10px -5px rgba(25, 35, 78, 0.4);
     }
     .event-default {
       background-color: brand-rose;
