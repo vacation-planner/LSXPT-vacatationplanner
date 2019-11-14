@@ -15,7 +15,7 @@ const styles = () => ({
         backgroundColor: '#E2E2E2',
     },
     paper: {
-        marginTop: '62px',
+        marginTop: '64px',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',

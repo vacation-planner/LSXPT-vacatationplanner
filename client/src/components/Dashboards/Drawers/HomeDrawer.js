@@ -1,14 +1,15 @@
 import React from 'react';
 
-// @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import Collapse from '@material-ui/core/Collapse';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import { Link } from 'react-router-dom';
+// import { AppContext } from '../Context/AppContext';
 
 const styles = theme => ({
     main: {
@@ -41,10 +42,11 @@ const styles = theme => ({
     }
 });
 
-class LeftSideBar extends React.Component {
+class HomeDrawer extends React.Component {
     state = {
         expandCurrentVacations: false,
         expandPastVacations: false,
+        mobileOpen: false,
         currentVacations: [
             {
                 name: 'test 1',
@@ -64,7 +66,8 @@ class LeftSideBar extends React.Component {
                 startDate: 'April 15th 2020',
                 endDate: 'April 24th 2020'
             }
-        ]
+        ],
+        pastVacations: []
     };
 
     handleClick = event => {
@@ -74,63 +77,58 @@ class LeftSideBar extends React.Component {
         });
     };
 
-    selectCurrentVacation = () => {
+    handleClose = () => {
         this.setState({
-            expandCurrentVacations: false
+            mobileOpen: false
+        })
+    }
+
+    selectCurrentVacation = () => {
+        this.handleClose();
+        this.setState({
+            CurrentVacations: false
         });
     };
 
     selectPastVacation = () => {
+        this.handleClose();
         this.setState({
             expandPastVacations: false
         });
     };
+
     render() {
         const { classes } = this.props;
-
         return (
             <main className={classes.main}>
                 <List className={classes.list}>
                     <ListItem
                         button
-                        key="currentVacations"
+                        key="expandCurrentVacations"
                         id="expandCurrentVacations"
                         onClick={this.handleClick}
                         color="inherit"
+                        style={!currentVacations.length ? { display: 'none' } : null}
                     >
-                        <ListItemText
-                            classes={{ primary: classes.listItemText }}
-                            primary="Current Vacations"
-                        />
-                        {this.state.expandCurrentVacations ? (
-                            <ExpandLess />
-                        ) : (
-                            <ExpandMore />
-                        )}
+                        <ListItemText primary="Current Vacations" />
+                        {this.state.expandcurrentVacations ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
-
                     <Divider />
-
-                    <Collapse
-                        in={this.state.expandCurrentVacations}
-                        timeout="auto"
-                        unmountOnExit
-                    >
+                    <Collapse in={this.state.expandcurrentVacations} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             {this.state.currentVacations.map((currentVacation, index) => (
                                 <>
-                                    {/* <Link > Add Link to each vacation */}
+                                    {/* Add Link for each vacation */}
                                         <ListItem
                                             button
-                                            onClick={this.selectCurrentVacation}
                                             key={currentVacation.id}
+                                            onClick={this.selectCurrentVacation}
                                         >
                                             <ListItemText
                                                 id={currentVacation.id}
                                                 currentVacationIndex={index}
                                                 primary={currentVacation.name}
                                                 classes={{ primary: classes.listItemTextLayerTwo }}
-
                                             />
                                         </ListItem>
                                     {/* </Link> */}
@@ -145,22 +143,44 @@ class LeftSideBar extends React.Component {
                         id="expandPastVacations"
                         onClick={this.handleClick}
                         color="inherit"
+                        style={!pastVacations.length ? { display: 'none' } : null}
                     >
-                        <ListItemText
-                            classes={{ primary: classes.listItemText }}
-                            primary="Past Vacations"
-                        />
-                        {this.state.expandPastVacations ? (
-                            <ExpandLess />
-                        ) : (
-                            <ExpandMore />
-                        )}
+                        <ListItemText classes={{ primary: classes.listItemText }}primary="Past Vacations" />
+                        {this.state.expandPastVacations ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Divider />
+                    <Collapse in={this.state.expandPastVacations} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            {this.state.pastVacations.map((pastVacation, index) => {
+                                const id = team.id;
+                                return (
+                                    <>
+                                    {/* Add Link for each vacation */}
+                                            <ListItem
+                                                button
+                                                key={pastVacation.id}
+                                                onClick={this.selectPastVacation}
+                                            >
+                                                <ListItemText
+                                                    id={pastVacation.id}
+                                                    pastVacationIndex={index}
+                                                    primary={team.name}
+                                                    classes={{ primary: classes.listItemTextLayerTwo }}
+                                                />
+                                            </ListItem>
+                                        {/* </Link> */}
+                                        <Divider />
+                                    </>
+                                );
+                            })}
+                        </List>
+                    </Collapse>
                 </List>
             </main>
         );
     }
 }
 
-export default withStyles(styles)(LeftSideBar);
+HomeDrawer.contextType = AppContext;
+
+export default withStyles(styles)(HomeDrawer);

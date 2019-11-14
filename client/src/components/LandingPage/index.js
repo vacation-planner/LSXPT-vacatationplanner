@@ -53,8 +53,8 @@ class LandingPage extends Component {
                             >
                             Sign in
                         </Button>
-                        <button
-                            onClick={this.signOut}>Temp Sign out</button>
+                        {/* <button
+                            onClick={this.signOut}>Temp Sign out</button> */}
                     </LandingPageHeader>
                 </ContentDiv>
 
