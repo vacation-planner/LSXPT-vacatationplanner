@@ -51,8 +51,8 @@ const URL = "http://localhost:5500/api";
         vacationTitle: "",
         vacationLocation: "",
         uid: "",
-        vacationId: 1,    //this.props.id,
-        eventId: "",
+        vacationsId: 1,    //this.props.id,
+        eventsId: "",
         eventTitle: "",
         vacation: [],
         events: [],
@@ -62,7 +62,7 @@ const URL = "http://localhost:5500/api";
 //export default function Calendar() {
 
   componentDidMount() {
-    let id = this.state.vacationId;
+    let id = this.state.vacationsId;
     let uid = fire.currentUser.uid;
     this.setState({
       uid: uid
@@ -108,10 +108,10 @@ const URL = "http://localhost:5500/api";
         // to our vacationId
         if (response.data) {
             response.data.forEach((event, index) => {
-                console.log("event.vacationId: ", event.vacationId)
+                console.log("event.vacationsId: ", event.vacationsId)
                 console.log("id: ", id)
                 
-                if (event.vacationId === id) {
+                if (event.vacationsId === id) {
                     eventsData.push(event);
                 }
             })
