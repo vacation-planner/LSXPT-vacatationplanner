@@ -9,12 +9,11 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 import { Link } from 'react-router-dom';
-// import { AppContext } from '../Context/AppContext';
+import { AppContext } from '../../Context/AppContext'
 
 const styles = theme => ({
     main: {
-        width: '25%',
-        maxWidth: '275px',
+        width: '100%',
         display: 'block',
         backgroundColor: '#DDDDDD',
         // backgroundColor: '#BBC1C5',
@@ -33,13 +32,20 @@ const styles = theme => ({
     },
     listItemText: {
         fontSize: '1.75rem',
-        padding: '12px'
+        // padding: '12px'
     },
     listItemTextLayerTwo: {
         fontSize: '1.5rem',
-        padding: '12px',
-        paddingLeft: '25px'
-    }
+        // margin: '12px',
+        // padding: '12px',
+        // paddingLeft: '25px',
+        color: 'black'
+    },
+    nested: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        paddingLeft: 40
+    },
 });
 
 class HomeDrawer extends React.Component {
@@ -47,27 +53,6 @@ class HomeDrawer extends React.Component {
         expandCurrentVacations: false,
         expandPastVacations: false,
         mobileOpen: false,
-        currentVacations: [
-            {
-                name: 'test 1',
-                location: 'Boca',
-                startDate: 'June 27th 2020',
-                endDate: 'July 4th 2020'
-            },
-            {
-                name: 'test 2',
-                location: 'Paris',
-                startDate: 'November 27th 2019',
-                endDate: 'December 4th 2019'
-            },
-            {
-                name: 'I am the Mega Vacation',
-                location: 'New York',
-                startDate: 'April 15th 2020',
-                endDate: 'April 24th 2020'
-            }
-        ],
-        pastVacations: []
     };
 
     handleClick = event => {
@@ -86,7 +71,7 @@ class HomeDrawer extends React.Component {
     selectCurrentVacation = () => {
         this.handleClose();
         this.setState({
-            CurrentVacations: false
+            expandCurrentVacations: false
         });
     };
 
@@ -98,39 +83,42 @@ class HomeDrawer extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, currentVacations, pastVacations } = this.props;
+        console.log(currentVacations, this.context.state.currentVacations)
         return (
             <main className={classes.main}>
                 <List className={classes.list}>
                     <ListItem
                         button
-                        key="expandCurrentVacations"
+                        key="currentVacations"
                         id="expandCurrentVacations"
                         onClick={this.handleClick}
                         color="inherit"
                         style={!currentVacations.length ? { display: 'none' } : null}
                     >
-                        <ListItemText primary="Current Vacations" />
-                        {this.state.expandcurrentVacations ? <ExpandLess /> : <ExpandMore />}
+                        <ListItemText classes={{ primary: classes.listItemText }} primary="Current Vacations" />
+
+                        {this.state.expandCurrentVacations ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Divider />
-                    <Collapse in={this.state.expandcurrentVacations} timeout="auto" unmountOnExit>
+                    <Collapse in={this.state.expandCurrentVacations} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            {this.state.currentVacations.map((currentVacation, index) => (
+                            {currentVacations.map((currentVacation, index) => (
                                 <>
                                     {/* Add Link for each vacation */}
-                                        <ListItem
-                                            button
-                                            key={currentVacation.id}
-                                            onClick={this.selectCurrentVacation}
-                                        >
-                                            <ListItemText
-                                                id={currentVacation.id}
-                                                currentVacationIndex={index}
-                                                primary={currentVacation.name}
-                                                classes={{ primary: classes.listItemTextLayerTwo }}
-                                            />
-                                        </ListItem>
+                                    <ListItem
+                                        button
+                                        key={currentVacation.id}
+                                        onClick={this.selectCurrentVacation}
+                                        className={classes.nested}
+                                    >
+                                        <ListItemText
+                                            id={currentVacation.id}
+                                            currentVacationIndex={index}
+                                            primary={currentVacation.name}
+                                            classes={{ primary: classes.listItemTextLayerTwo }}
+                                        />
+                                    </ListItem>
                                     {/* </Link> */}
                                     <Divider />
                                 </>
@@ -145,34 +133,32 @@ class HomeDrawer extends React.Component {
                         color="inherit"
                         style={!pastVacations.length ? { display: 'none' } : null}
                     >
-                        <ListItemText classes={{ primary: classes.listItemText }}primary="Past Vacations" />
+                        <ListItemText classes={{ primary: classes.listItemText }} primary="Past Vacations" />
                         {this.state.expandPastVacations ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Divider />
                     <Collapse in={this.state.expandPastVacations} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            {this.state.pastVacations.map((pastVacation, index) => {
-                                const id = team.id;
-                                return (
-                                    <>
+                            {pastVacations.map((pastVacation, index) => (
+                                <>
                                     {/* Add Link for each vacation */}
-                                            <ListItem
-                                                button
-                                                key={pastVacation.id}
-                                                onClick={this.selectPastVacation}
-                                            >
-                                                <ListItemText
-                                                    id={pastVacation.id}
-                                                    pastVacationIndex={index}
-                                                    primary={team.name}
-                                                    classes={{ primary: classes.listItemTextLayerTwo }}
-                                                />
-                                            </ListItem>
-                                        {/* </Link> */}
-                                        <Divider />
-                                    </>
-                                );
-                            })}
+                                    <ListItem
+                                        button
+                                        key={pastVacation.id}
+                                        onClick={this.selectPastVacation}
+                                        className={classes.nested}
+                                    >
+                                        <ListItemText
+                                            id={pastVacation.id}
+                                            pastVacationIndex={index}
+                                            primary={pastVacation.name}
+                                            classes={{ primary: classes.listItemTextLayerTwo }}
+                                        />
+                                    </ListItem>
+                                    {/* </Link> */}
+                                    <Divider />
+                                </>
+                            ))}
                         </List>
                     </Collapse>
                 </List>

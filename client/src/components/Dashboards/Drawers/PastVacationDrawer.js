@@ -16,7 +16,6 @@ const styles = theme => ({
         backgroundColor: '#DDDDDD',
         fontSize: '1.5rem'
     },
-
 });
 
 class PastVacationDrawer extends React.Component {
@@ -45,7 +44,7 @@ class PastVacationDrawer extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const selected = {
+        const selectedDrawer = {
             backgroundColor: 'white'
         };
 
@@ -68,8 +67,9 @@ class PastVacationDrawer extends React.Component {
                                 key={pastVacation.name}
                                 id={pastVacation.name}
                                 onClick={this.displayPastVacation}
+                                style={this.state[pastVacation] ? selectedDrawer : null}
                             >
-                                <ListItemText primary={item.text} />
+                                <ListItemText primary={pastVacation.text} />
                             </ListItem>
                             <Divider />
                         </>
@@ -80,4 +80,4 @@ class PastVacationDrawer extends React.Component {
     }
 }
 
-export default PastVacationDrawer;
+export default withStyles(styles)(PastVacationDrawer);

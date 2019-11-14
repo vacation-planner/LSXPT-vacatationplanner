@@ -34,7 +34,7 @@ class HomeDashboard extends React.Component {
             <main className={classes.main}>
                 <HomeNavbar />
                 <Paper className={classes.paper}>
-                    <LeftSideBar />
+                    {/* <LeftSideBar /> */}
                     <h1>Test 2</h1>
                 </Paper>
             </main>

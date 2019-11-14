@@ -1,15 +1,36 @@
 import React from 'react';
+
+import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Link } from 'react-router-dom';
+
+const styles = theme => ({
+    nameDiv: {
+        margin: '0px',
+        textAlign: 'center',
+        padding: '15px',
+        color: 'black',
+        backgroundColor: '#DDDDDD',
+        fontSize: '1.5rem'
+    },
+});
 
 class CurrentVacationDrawer extends React.Component {
     state = {
         vacationDetails: true,
         calendar: false,
-        expenses: false
+        expenses: false,
+        mobileOpen: false,
     };
+
+    handleClose = () => {
+        this.setState({
+            mobileOpen: false
+        })
+    }
 
     displayCurrentVacation = event => {
         event.preventDefault();
@@ -24,11 +45,12 @@ class CurrentVacationDrawer extends React.Component {
     };
 
     render() {
+        const { classes } = this.props;
         const selectedDrawer = {
             backgroundColor: 'white'
         };
 
-        const listItems = [
+        const ListCurrentVacations = [
             { name: 'vacationDetails', text: 'Vacation Details' },
             { name: 'calendar', text: 'Calendar' },
             { name: 'expenses', text: 'Expenses' }
@@ -36,36 +58,28 @@ class CurrentVacationDrawer extends React.Component {
 
         return (
             <>
-                <div
-                    style={{
-                        margin: '0px',
-                        textAlign: 'center',
-                        padding: '15px',
-                        color: 'black',
-                        backgroundColor: '#DDDDDD',
-                        fontSize: '1.5rem'
-                    }}
-                >
+                <div className={classes.nameDiv}>
                     current vacation name {/*  Name of Current Vacation Here */}
                 </div>
-                <List>
-                    listItems.map((item, index) => (
-                    <>
-                        <ListItem
-                            button
-                            key={item.name}
-                            id={item.name}
-                            onClick={this.displayCurrentVacation}
-                        >
-                            <ListItemText primary={item.text} />
-                        </ListItem>
-                        <Divider />
-                    </>
-                    ))
+                <List onClick={this.handleClose}>
+                    {ListCurrentVacations.map((currentVacation, index) => (
+                        <>
+                            <ListItem
+                                button
+                                key={currentVacation.name}
+                                id={currentVacation.name}
+                                onClick={this.displayCurrentVacation}
+                                style={this.state[currentVacation] ? selectedDrawer : null}
+                            >
+                                <ListItemText primary={currentVacation.text} />
+                            </ListItem>
+                            <Divider />
+                        </>
+                    ))}
                 </List>
             </>
         );
     }
 }
 
-export default CurrentVacationDrawer;
+export default withStyles(styles)(CurrentVacationDrawer);
