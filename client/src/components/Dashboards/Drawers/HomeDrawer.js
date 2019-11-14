@@ -32,14 +32,9 @@ const styles = theme => ({
     },
     listItemText: {
         fontSize: '1.75rem',
-        // padding: '12px'
     },
     listItemTextLayerTwo: {
         fontSize: '1.5rem',
-        // margin: '12px',
-        // padding: '12px',
-        // paddingLeft: '25px',
-        color: 'black'
     },
     nested: {
         flexDirection: 'column',
