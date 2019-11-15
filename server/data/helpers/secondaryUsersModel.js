@@ -5,10 +5,10 @@ module.exports = {
     return db("secondaryUsers");
   },
 
-  getByUid: userUid => {
+  getByid: id => {
     let query = db("secondaryUsers");
-    if (userUid) {
-      query.where("userUid", userUid);
+    if (id) {
+      query.where("id", id);
       return query;
     }
     return db("secondaryUsers");
@@ -18,6 +18,15 @@ module.exports = {
     let query = db("secondaryUsers");
     if (vacationId) {
       query.where("vacationId", vacationId)
+      return query;
+    }
+    return db("secondaryUsers");
+  },
+
+  getByEmail: email => {
+    let query = db("secondaryUsers");
+    if (email) {
+      query.where("email", email)
       return query;
     }
     return db("secondaryUsers");

@@ -12,6 +12,7 @@ const bcrypt = require("bcryptjs");
 const usersRouter = require("./api/usersRouter");
 const expensesRouter = require("./api/expensesRouter");
 const vacationsRouter = require("./api/vacationsRouter");
+const secondaryUsersRouter = require("./api/secondaryUsersRouter")
 //const stripeRouter = require("./api/stripeRouter");
 //const admin = require("./data/auth/firebaseMiddleware");
 //const server = require('./api/server');
@@ -24,6 +25,7 @@ server.use(helmet());
 //server.use("/api/billing", verifyToken, billingRouter);
 //server.use("/api/vacations", vacationsRouter);
 server.use("/api/users", usersRouter);
+server.use("/api/secondaryusers", secondaryUsersRouter);
 //server.use("/api/users", verifyToken, usersRouter);
 //server.use("/api/expenses", expensesRouter);
 //server.use("/api/stripe", stripeRouter);
