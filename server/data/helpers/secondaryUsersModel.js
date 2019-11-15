@@ -5,14 +5,16 @@ module.exports = {
     return db("secondaryUsers");
   },
 
-  getByid: id => {
-    let query = db("secondaryUsers");
-    if (id) {
-      query.where("id", id);
-      return query;
-    }
-    return db("secondaryUsers");
-  },
+
+// I can't think of a case where we'd need this, but just in case
+  // getByid: id => {
+  //   let query = db("secondaryUsers");
+  //   if (id) {
+  //     query.where("id", id);
+  //     return query;
+  //   }
+  //   return db("secondaryUsers");
+  // },
 
   getByVacationId: vacationId => {
     let query = db("secondaryUsers");

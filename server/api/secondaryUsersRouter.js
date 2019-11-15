@@ -6,10 +6,11 @@ const secret = "shhhisthisasecret";
 
 
 module.exports = router => {
-    router.get("/secondaryUsers/:vacationid", vacationById);
-    router.get("/secondaryUsers/:uid", userUID);
-    router.post("/secondaryUsers/");
-    router.delete("/secondaryUsers/:id", recordId)
+    router.get("/:vacationid", vacationById);
+    router.get("/:id", id);
+    router.get("/:email", email);
+    router.post("/");
+    router.delete("/:id", recordId)
 };
 
 //Get All users for vacation ID
@@ -25,15 +26,15 @@ router.get('/:vacationid', (req, res) => {
     }) 
 })
 
-//Get All vacations for user Uid
-router.get('/secondaryUsers/:uid', (req, res) => {
-    const {uid} = req.params;
-    await secondaryUsers.getByUid(uid).then(vacationData => {
+//Get All vacations for email
+router.get('/:email', (req, res) => {
+    const {email} = req.params;
+    await secondaryUsers.getByEmail(email).then(vacationData => {
         if (vacationData) {
             res.status(200).json(vacationData);
         }
         else {
-            res.status(400).json({'error': 'No vacations associated with that UID'});
+            res.status(400).json({'error': 'No vacations associated with that email address'});
         }
     })
 })
@@ -41,7 +42,7 @@ router.get('/secondaryUsers/:uid', (req, res) => {
 //Add secondaryUser record
 router.post('/secondaryUsers/', (req, res) => {
     const record = req.body;
-    if (record.uid && record.vacationid) {
+    if (record.firstName && record.lastName && record.email && record.vacationid) {
         secondaryUsers
         .insert(record)
         .then(record => {
@@ -51,7 +52,7 @@ router.post('/secondaryUsers/', (req, res) => {
           res.status(500).send(err);
         });
     } else {
-        res.status(400).json({'error': 'User UID and Vacation ID must be provided.'})
+        res.status(400).json({'error': 'User full name, email address and Vacation ID must be provided.'})
     }
 })
 
