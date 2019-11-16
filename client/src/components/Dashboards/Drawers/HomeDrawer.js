@@ -21,9 +21,9 @@ const styles = theme => ({
         borderRight: '1px solid #BBC1C5',
         padding: '0px',
         margin: '0px',
-        [theme.breakpoints.down(600)]: {
-            display: 'none'
-        }
+        // [theme.breakpoints.down(600)]: {
+        //     display: 'none'
+        // }
     },
     list: {
         padding: '0px',

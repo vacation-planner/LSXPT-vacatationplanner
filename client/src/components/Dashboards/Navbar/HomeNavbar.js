@@ -68,11 +68,13 @@ const styles = theme => ({
         cursor: "pointer",
         padding: 15,
         paddingLeft: 35,
-        fontSize: "2rem"
+        fontSize: "2rem",
+        backgroundColor: 'black'
     },
     drawerPaper: {
         width: "100%",
         backgroundColor: "#eee",
+        color: 'black',
         [theme.breakpoints.up("sm")]: {
             width: drawerWidth
         }
@@ -155,7 +157,8 @@ const styles = theme => ({
             backgroundColor: "#D61C5B"
         },
         [theme.breakpoints.down(600)]: {
-            left: "0px"
+            position: 'relative',
+            left: 'calc(50% - 95px - 37px)'
         },
         [theme.breakpoints.down(400)]: {
             display: "none"
@@ -214,6 +217,10 @@ const styles = theme => ({
             height: "20px"
         }
     },
+    // hiddenIcon: {
+    //     positiion: 'relative',
+    //     left: '0px'
+    // },
     nested: {
         flexDirection: "column",
         alignItems: "flex-start",
@@ -223,7 +230,17 @@ const styles = theme => ({
         height: 64,
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        [theme.breakpoints.down(600)]: {
+            justifyContent: 'flex-start'
+        },
+    },
+    closeIconToolbar: {
+        height: '64px',
+        display: "flex",
+        justifyContent: "space-betwen",
+        alignItems: 'center',
+        // backgroundColor: 'black'
     },
     title: {
         textDecoration: "none",
@@ -254,10 +271,8 @@ class HomeNavbar extends React.Component {
         testPast: this.context.state.testPast
     };
 
-    handleDrawerToggle() {
-        this.setState({ 
-            mobileOpen: !this.state.mobileOpen
-        });
+    handleDrawerToggle = () => {
+        this.setState(state => ({ mobileOpen: !state.mobileOpen }));
     }
 
     handleClose = () => {
@@ -275,7 +290,7 @@ class HomeNavbar extends React.Component {
 
         const drawer = (
             <div>
-                <div className={classes.toolbar}>
+                <div className={classes.closeIconToolbar}>
                     {mobileOpen ? (
                         <CloseIcon
                             className={classes.closeButton}
@@ -314,6 +329,7 @@ class HomeNavbar extends React.Component {
                                 color="inherit"
                                 aria-label="open drawer"
                                 onClick={this.handleDrawerToggle}
+                                className={classes.hiddenIcon}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -354,33 +370,11 @@ class HomeNavbar extends React.Component {
                 </AppBar>
 
                 <nav className={classes.drawer}>
-                    {/* <Hidden mdUp implementation="css">
-                        <Drawer
-                            variant="temporary"
-                            anchor={"left"}
-                            open={this.state.mobileOpen}
-                            classes={{
-                                paper: classes.drawerPaper
-                            }}
-                            onClose={this.handleDrawerToggle}
-                        >
-                            <IconButton
-                                color="inherit"
-                                aria-label="open drawer"
-                                onClick={this.handleDrawerToggle}
-                                className={classes.closeButtonDrawer}
-                            >
-                                <CloseIcon />
-                            </IconButton>
-                            <div className={classes.appResponsive}>{links}</div>
-                        <div className={classes.appResponsive}>{links2}</div>
-                        </Drawer>
-                    </Hidden> */}
                     <Hidden smUp implementation="css">
                         <Drawer
-                            container={this.props.container}
+                            // container={this.props.container}
                             variant="temporary"
-                            anchor={'left'}
+                            anchor={'right'}
                             open={this.state.mobileOpen}
                             onClose={this.handleDrawerToggle}
                             classes={{
