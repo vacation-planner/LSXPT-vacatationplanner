@@ -5,9 +5,6 @@ exports.up = function(knex) {
             secondary
             .integer('vacationsId')
             .references('vacations.id');
-            secondary
-            .string('usersUid')
-            .references('users.uid');
             secondary.string("firstName", 128).notNullable();
             secondary.string("lastName", 128).notNullable();
             secondary

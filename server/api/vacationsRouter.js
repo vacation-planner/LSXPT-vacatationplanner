@@ -7,6 +7,20 @@ const jwt = require("jsonwebtoken");
 const secret = "shhhisthisasecret";
 
 /* TODO: Add in a JWT protection check. */
+
+// Get all the vacations
+router.get("/", (req, res) => {
+    vacations
+      .get()
+      .then(vacation => {
+        res.status(200).json(vacation);
+      })
+      .catch(err => {
+        res.status(500).json({ error: "The vacation could not be retrieved." });
+      });
+  });
+
+  
 router.get('/:id', async (req, res) => {
     const {id} = req.params; 
    // await vacations.getById(id).then(vacation => {
@@ -21,6 +35,8 @@ router.get('/:id', async (req, res) => {
         }
     }) 
 });
+
+
 
 router.get('/users/all/:uid', async (req, res) => {
     const {uid} = req.params;
