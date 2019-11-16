@@ -8,7 +8,12 @@ exports.up = function(knex) {
             secondary
             .string('usersUid')
             .references('users.uid');
-        })
+            secondary.string("firstName", 128).notNullable();
+            secondary.string("lastName", 128).notNullable();
+            secondary
+            .string("email", 128)
+            .notNullable();
+            })
 };
 
 exports.down = function(knex) {

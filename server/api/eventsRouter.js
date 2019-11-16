@@ -7,7 +7,7 @@ const secret = "shhhisthisasecret";
 
 module.exports = router => {
   router.get("/:id", getById);
-  //router.get("/:vacationId", getByVacationId);
+  router.get("/vacation/:vacationId", getByVacationId);
   router.put("/:id", update);
   router.post("/", insert);
   router.delete("/:id", remove); 
@@ -63,7 +63,7 @@ router.post("/", (req, res) => {
 /********* Get Single event *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/:id', protect, (req, res) => {
-/* router.get("/:id", (req, res) => {
+ router.get("/:id", (req, res) => {
   const { id } = req.params;
   events
     .getById(id)
@@ -81,15 +81,15 @@ router.post("/", (req, res) => {
         .status(500)
         .json({ error: "The event's information could not be retrieved." });
     });
-}); */
+}); 
 
 /********* Get By Vacation Id *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/:vacationId', protect, (req, res) => {
-     router.get("/:vacationId", (req, res) => {
+     router.get("/vacations/:vacationsId", (req, res) => {
         const { vacationId } = req.params;
         events
-          .getByVacationId(vacationId)
+          .getByVacationsId(vacationId)
           .then(event => {
             if (event) {
               res.json(event);

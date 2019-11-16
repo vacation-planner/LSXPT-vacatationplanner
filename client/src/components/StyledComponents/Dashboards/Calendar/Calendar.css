@@ -77,7 +77,7 @@
     font-size: 1em;
     min-height: 0;
     border-bottom: 2px solid rgb(72, 73, 136);
-    color: #0b4431;
+    color: black;
     /* :last-child {
       span {
         padding-right: 15px;
@@ -87,7 +87,7 @@
   .rbc-header > a,
   .rbc-header > a:active,
   .rbc-header > a:visited {
-    color: #023323;
+    color: black;
     text-decoration: none;
   }
   .rbc-row-content {
@@ -97,7 +97,7 @@
     user-select: none;
     -webkit-user-select: none;
     z-index: 4;
-    min-height: 90px;
+    min-height: 120px;
   }
   .rbc-toolbar {
     display: -webkit-flex;
@@ -156,6 +156,10 @@
     color: white;
     background-color: rgb(233, 30, 99);
   }
+  button:hover {
+    background-color: rgb(172, 20, 71);
+  }
+
   @media screen and (max-width: 526px) {
     .rbc-btn-group button {
       margin: 2px !important;
