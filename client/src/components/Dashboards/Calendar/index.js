@@ -25,6 +25,7 @@ const URL = "http://localhost:5500/api";
         eventTitle: "",
         vacation: [],
         events: [],
+        eventData: [],
 
       };
     }
@@ -84,17 +85,56 @@ const URL = "http://localhost:5500/api";
         };
         console.log("eventsData: ", eventsData)
         this.setState({
-          events: eventsData
+          eventData: eventsData
         });
         // at this point we have all the data we need
         // now we need to put it into the proper format
         
-        //this.calendarHandler();
+        this.formatData();
       })
       .catch(err => {
         console.log('We"ve encountered an error');
       });
   };
+
+  formatData = () => {
+    console.log("in format data")
+ // Needs to be in this format
+ //     id: 0,
+ //     title: 'All Day Event very long title',
+ //     allDay: true,                           // optional
+ //     start: new Date(2015, 3, 0),
+ //     end: new Date(2015, 3, 1),
+ //     desc: 'blah blah'                     // optional    
+    let events = [];
+
+  let eventRec = {
+      id: 0,
+      title: "test",
+      start: "",
+      end: "",
+      desc: "",
+    }
+
+    console.log("eventRec.title: ", eventRec.title)
+console.log("past event rec");
+    this.state.eventData.forEach((item, index) => {
+      console.log("item: ", item);
+      eventRec.id =  eventRec.id + 1
+      eventRec.title = item.eventName
+        eventRec.start = item.startDate
+        eventRec.end = item.endDate
+        eventRec.desc = item.description
+        console.log("this.eventRec: ", eventRec)
+        events.push(eventRec)
+        
+    })
+console.log("events: ", events)
+
+  }
+
+
+
 render () {
 
   return (
