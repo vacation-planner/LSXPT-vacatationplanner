@@ -41,20 +41,10 @@ const styles = theme => ({
     root: {
         flexGrow: 1
     },
-    grow: {
-        flexGrow: 1
-    },
     drawer: {
         [theme.breakpoints.up("sm")]: {
             width: drawerWidth,
             flexShrink: 0
-        }
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-        [theme.breakpoints.up("sm")]: {
-            display: "none"
         }
     },
     appBar: {
@@ -69,7 +59,7 @@ const styles = theme => ({
         padding: 15,
         paddingLeft: 35,
         fontSize: "2rem",
-        backgroundColor: 'black'
+        // backgroundColor: 'black'
     },
     drawerPaper: {
         width: "100%",
@@ -79,12 +69,8 @@ const styles = theme => ({
             width: drawerWidth
         }
     },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing.unit * 3
-    },
     list: {
-        [theme.breakpoints.up("md")]: {
+        [theme.breakpoints.up("sm")]: {
             WebkitBoxAlign: "center",
             MsFlexAlign: "center",
             alignItems: "center",
@@ -93,7 +79,7 @@ const styles = theme => ({
             MsFlexDirection: "row",
             flexDirection: "row"
         },
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down(600)]: {
             display: "block"
         },
         marginTop: "0px",
@@ -112,28 +98,19 @@ const styles = theme => ({
         margin: "0",
         padding: "0",
         marginLeft: "15px",
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down(600)]: {
+            marginLeft: '0px',
+            paddingLeft: '5px',
+            width: '100%',
+            borderBottom: '1px solid #C2C2C2',
+            borderRight: '1px solid #C2C2C2',
+            backgroundColor: '#DDDDDD',
             "& ul": {
                 maxHeight: "400px",
                 overflow: "scroll"
             },
             width: "100%",
-            "&:not(:last-child)": {
-                "&:after": {
-                    width: "calc(100% - 30px)",
-                    content: '""',
-                    display: "block",
-                    height: "1px",
-                    marginLeft: "15px",
-                    backgroundColor: "#495057"
-                }
-            }
         }
-    },
-    selected: {
-        color: "white",
-        borderBottom: "1px solid white",
-        borderRadius: 0
     },
     logo: {
         backgroundColor: "#AA1649",
@@ -187,10 +164,8 @@ const styles = theme => ({
         textTransform: "uppercase",
         lineHeight: "20px",
         textDecoration: "none",
-        // width: '190px',
         display: "inline-flex",
         "&:hover,&:focus": {
-            //   backgroundColor: "#D61C5B"
             backgroundColor: "#AA1649"
         },
         "& .fab,& .far,& .fal,& .fas,& .material-icons": {
@@ -203,10 +178,11 @@ const styles = theme => ({
         },
         [theme.breakpoints.down("sm")]: {
             width: "calc(100% - 30px)",
-            marginLeft: "15px",
             marginBottom: "8px",
             marginTop: "8px",
             textAlign: "left",
+            textTransform: "none",
+            fontSize: '1.75rem',
             "& > span:first-child": {
                 justifyContent: "flex-start"
             }
@@ -221,11 +197,6 @@ const styles = theme => ({
     //     positiion: 'relative',
     //     left: '0px'
     // },
-    nested: {
-        flexDirection: "column",
-        alignItems: "flex-start",
-        paddingLeft: 40
-    },
     toolbar: {
         height: 64,
         display: "flex",
@@ -242,25 +213,14 @@ const styles = theme => ({
         alignItems: 'center',
         // backgroundColor: 'black'
     },
-    title: {
-        textDecoration: "none",
-        fontWeight: "700",
-        marginTop: "30px",
-        marginBottom: "25px",
-        minHeight: "32px",
-        fontFamily: `"Roboto Slab", "Times New Roman", serif`
-    },
     toolbarRightContent: {
         display: "flex",
         alignItems: "center"
     },
-    toolbarLeftContent: {
-        display: "flex",
-        alignItems: "center"
-    },
-    // account icon
-    accountIcon: {
-        fontSize: "1.7rem"
+    hideDrawerButtons: {
+        [theme.breakpoints.up(600)]: {
+            display: 'none'
+        },
     }
 });
 
@@ -292,18 +252,18 @@ class HomeNavbar extends React.Component {
             <div>
                 <div className={classes.closeIconToolbar}>
                     {mobileOpen ? (
-                        <CloseIcon
-                            className={classes.closeButton}
-                            onClick={this.handleDrawerToggle}
-                        />
+                        <div className={classes.closeButton}
+                            onClick={this.handleDrawerToggle}><CloseIcon style={{ width: '25px', height: '25px' }} /></div>
                     ) : null}
                 </div>
-                <Divider />
                 {!testCurrent && !testPast && (
-                    <HomeDrawer
-                        currentVacations={this.context.state.currentVacations}
-                        pastVacations={this.context.state.pastVacations}
-                    />
+                    <>
+                        <Divider />
+                        <HomeDrawer
+                            currentVacations={this.context.state.currentVacations}
+                            pastVacations={this.context.state.pastVacations}
+                        />
+                    </>
                 )}
                 {testCurrent && !testPast && (
                     <CurrentVacationDrawer
@@ -317,6 +277,29 @@ class HomeNavbar extends React.Component {
                         pastVacations={this.context.state.pastVacations}
                     />
                 )}
+                <div className={classes.hideDrawerButtons}>
+                    <Divider />
+                    <List className={classes.list}>
+                        <ListItem className={classes.listItem}>
+                            <Button
+                                href={ROUTES.DASHBOARDS}
+                                className={classes.navLink}
+                                color="transparent"
+                            >
+                                Home
+                    </Button>
+                        </ListItem>
+                        <ListItem className={classes.listItem}>
+                            <Button
+                                href={ROUTES.LANDING}
+                                className={classes.navLink}
+                                color="transparent"
+                            >
+                                Sign Out
+                    </Button>
+                        </ListItem>
+                    </List>
+                </div>
             </div>
         );
 
@@ -338,12 +321,12 @@ class HomeNavbar extends React.Component {
                             Vacation Planner
                     </Button>
 
-                        <Hidden smDown implementation="css" className={classes.hidden}>
+                        <Hidden xsDown implementation="css" className={classes.hidden}>
                             <div className={classes.collapse}>
                                 <div
                                     className={classes.collapse + " " + classes.toolbarRightContent}
                                 >
-                                    <List className={classes.list + " " + classes.mrAuto}>
+                                    <List className={classes.list}>
                                         <ListItem className={classes.listItem}>
                                             <Button
                                                 href={ROUTES.DASHBOARDS}
@@ -397,48 +380,6 @@ class HomeNavbar extends React.Component {
                     </Hidden>
                 </nav>
             </div>
-            // <Header
-            //     color="rose"
-            //     brand="Vacation Planner"
-            //     links={
-            //         <div
-            //             className={
-            //                 classes.collapse + ' ' + classes.toolbarRightContent
-            //             }
-            //         >
-            //             <List className={classes.list + ' ' + classes.mrAuto}>
-            //                 <ListItem className={classes.listItem}>
-            //                     <Button
-            //                         href={ROUTES.SIGNIN}
-            //                         className={classes.navLink}
-            //                         color="transparent"
-            //                     >
-            //                         Sign Out
-            //                     </Button>
-            //                 </ListItem>
-            //             </List>
-            //         </div>
-            //     }
-            //     links2={
-            //         <div
-            //             className={
-            //                 classes.collapse + ' ' + classes.toolbarRightContent
-            //             }
-            //         >
-            //             <List className={classes.list + ' ' + classes.mrAuto}>
-            //                 <ListItem className={classes.listItem}>
-            //                     <Button
-            //                         href={ROUTES.SIGNIN}
-            //                         className={classes.navLink}
-            //                         color="transparent"
-            //                     >
-            //                         Shit
-            //                     </Button>
-            //                 </ListItem>
-            //             </List>
-            //         </div>
-            //     }
-            // />
         );
     }
 }

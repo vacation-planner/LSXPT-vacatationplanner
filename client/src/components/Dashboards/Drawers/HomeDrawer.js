@@ -17,13 +17,10 @@ const styles = theme => ({
         display: 'block',
         backgroundColor: '#DDDDDD',
         // backgroundColor: '#BBC1C5',
-        height: 'calc(100vh - 65px)',
+        // height: 'calc(100vh - 65px)',
         borderRight: '1px solid #BBC1C5',
         padding: '0px',
         margin: '0px',
-        // [theme.breakpoints.down(600)]: {
-        //     display: 'none'
-        // }
     },
     list: {
         padding: '0px',

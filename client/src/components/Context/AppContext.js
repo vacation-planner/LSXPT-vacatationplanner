@@ -34,8 +34,8 @@ export default class AppProvider extends Component {
                 endDate: 'November 3rd 2019'
             }
         ],
-        testCurrent: true,
-        testPast: false
+        testCurrent: false,
+        testPast: true
         // state variables here
     };
 

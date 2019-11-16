@@ -12,9 +12,19 @@ const styles = theme => ({
         margin: '0px',
         textAlign: 'center',
         padding: '15px',
-        color: 'black',
-        backgroundColor: '#DDDDDD',
-        fontSize: '1.5rem'
+        // color: 'black',
+        color: 'white',
+        // backgroundColor: '#DDDDDD',
+        backgroundColor: 'black',
+        fontSize: '1.75rem'
+    },
+    list: {
+        padding: 0,
+        margin: 0,
+        border: 0
+    },
+    listItemText: {
+        fontSize: '1.75rem',
     },
 });
 
@@ -39,7 +49,9 @@ class PastVacationDrawer extends React.Component {
             calendar: false,
             expenses: false
         })
-        this.setState({ [event.currentTarget.id]: true })
+        this.setState({
+            [event.currentTarget.id]: true
+        })
     }
 
     render() {
@@ -59,7 +71,7 @@ class PastVacationDrawer extends React.Component {
                 <div className={classes.nameDiv}>
                     past vacation name {/*  Name of Past Vacation Here */}
                 </div>
-                <List onClick={this.handleClose}>
+                <List onClick={this.handleClose} className={classes.list}>
                     {ListPastVacations.map((pastVacation, index) => (
                         <>
                             <ListItem
@@ -69,7 +81,7 @@ class PastVacationDrawer extends React.Component {
                                 onClick={this.displayPastVacation}
                                 style={this.state[pastVacation] ? selectedDrawer : null}
                             >
-                                <ListItemText primary={pastVacation.text} />
+                                <ListItemText classes={{ primary: classes.listItemText }} primary={pastVacation.text} />
                             </ListItem>
                             <Divider />
                         </>

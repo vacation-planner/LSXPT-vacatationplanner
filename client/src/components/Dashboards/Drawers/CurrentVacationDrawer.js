@@ -12,9 +12,19 @@ const styles = theme => ({
         margin: '0px',
         textAlign: 'center',
         padding: '15px',
-        color: 'black',
-        backgroundColor: '#DDDDDD',
-        fontSize: '1.5rem'
+        // color: 'black',
+        color: 'white',
+        // backgroundColor: '#DDDDDD',
+        backgroundColor: 'black',
+        fontSize: '1.75rem'
+    },
+    list: {
+        padding: 0,
+        margin: 0,
+        border: 0
+    },
+    listItemText: {
+        fontSize: '1.75rem',
     },
 });
 
@@ -61,7 +71,7 @@ class CurrentVacationDrawer extends React.Component {
                 <div className={classes.nameDiv}>
                     current vacation name {/*  Name of Current Vacation Here */}
                 </div>
-                <List onClick={this.handleClose}>
+                <List onClick={this.handleClose} className={classes.list}>
                     {ListCurrentVacations.map((currentVacation, index) => (
                         <>
                             <ListItem
@@ -71,7 +81,7 @@ class CurrentVacationDrawer extends React.Component {
                                 onClick={this.displayCurrentVacation}
                                 style={this.state[currentVacation] ? selectedDrawer : null}
                             >
-                                <ListItemText primary={currentVacation.text} />
+                                <ListItemText classes={{ primary: classes.listItemText }} primary={currentVacation.text} />
                             </ListItem>
                             <Divider />
                         </>
