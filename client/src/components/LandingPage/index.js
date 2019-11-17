@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { AppContext } from '../Context/AppContext.js';
-import Navbar from '../Dashboards/Navbar';
+import Navbar from '../Dashboards/Navbar/LPNavbar.js';
 import { fire } from "../Auth/firebaseConfig";
 import * as ROUTES from "../../constants/routes";
 import { ContentDiv, LandingPageHeader, LandingPageH2, LandingPageFooter } from '../StyledComponents';

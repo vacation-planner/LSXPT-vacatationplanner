@@ -35,7 +35,7 @@ export default class AppProvider extends Component {
             }
         ],
         testCurrent: false,
-        testPast: true
+        testPast: false
         // state variables here
     };
 

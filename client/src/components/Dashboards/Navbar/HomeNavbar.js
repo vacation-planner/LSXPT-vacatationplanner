@@ -18,7 +18,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // @material-ui/icons
-import AccountBox from "@material-ui/icons/AccountBox";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -38,15 +37,6 @@ import { AppContext } from '../../Context/AppContext';
 const drawerWidth = 240;
 
 const styles = theme => ({
-    root: {
-        flexGrow: 1
-    },
-    drawer: {
-        [theme.breakpoints.up("sm")]: {
-            width: drawerWidth,
-            flexShrink: 0
-        }
-    },
     appBar: {
         backgroundColor: "#E91E63",
         [theme.breakpoints.up("sm")]: {
@@ -59,7 +49,19 @@ const styles = theme => ({
         padding: 15,
         paddingLeft: 35,
         fontSize: "2rem",
+    },
+    closeIconToolbar: {
+        height: '64px',
+        display: "flex",
+        justifyContent: "space-betwen",
+        alignItems: 'center',
         // backgroundColor: 'black'
+    },
+    drawer: {
+        [theme.breakpoints.up("sm")]: {
+            width: drawerWidth,
+            flexShrink: 0
+        }
     },
     drawerPaper: {
         width: "100%",
@@ -68,6 +70,11 @@ const styles = theme => ({
         [theme.breakpoints.up("sm")]: {
             width: drawerWidth
         }
+    },
+    hideDrawerButtons: {
+        [theme.breakpoints.up(600)]: {
+            display: 'none'
+        },
     },
     list: {
         [theme.breakpoints.up("sm")]: {
@@ -193,10 +200,9 @@ const styles = theme => ({
             height: "20px"
         }
     },
-    // hiddenIcon: {
-    //     positiion: 'relative',
-    //     left: '0px'
-    // },
+    root: {
+        flexGrow: 1
+    },
     toolbar: {
         height: 64,
         display: "flex",
@@ -206,22 +212,10 @@ const styles = theme => ({
             justifyContent: 'flex-start'
         },
     },
-    closeIconToolbar: {
-        height: '64px',
-        display: "flex",
-        justifyContent: "space-betwen",
-        alignItems: 'center',
-        // backgroundColor: 'black'
-    },
     toolbarRightContent: {
         display: "flex",
         alignItems: "center"
     },
-    hideDrawerButtons: {
-        [theme.breakpoints.up(600)]: {
-            display: 'none'
-        },
-    }
 });
 
 class HomeNavbar extends React.Component {
@@ -245,7 +239,7 @@ class HomeNavbar extends React.Component {
     };
 
     render() {
-        const { classes, currentVacations, pastVacations } = this.props;
+        const { classes } = this.props;
         const { mobileOpen, testCurrent, testPast } = this.state;
 
         const drawer = (
@@ -253,7 +247,7 @@ class HomeNavbar extends React.Component {
                 <div className={classes.closeIconToolbar}>
                     {mobileOpen ? (
                         <div className={classes.closeButton}
-                            onClick={this.handleDrawerToggle}><CloseIcon style={{ width: '25px', height: '25px' }} /></div>
+                            onClick={this.handleDrawerToggle}><CloseIcon style={{ width: '25px', height: '25px', padding: '0px' }} /></div>
                     ) : null}
                 </div>
                 {!testCurrent && !testPast && (
@@ -312,7 +306,6 @@ class HomeNavbar extends React.Component {
                                 color="inherit"
                                 aria-label="open drawer"
                                 onClick={this.handleDrawerToggle}
-                                className={classes.hiddenIcon}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -321,32 +314,28 @@ class HomeNavbar extends React.Component {
                             Vacation Planner
                     </Button>
 
-                        <Hidden xsDown implementation="css" className={classes.hidden}>
-                            <div className={classes.collapse}>
-                                <div
-                                    className={classes.collapse + " " + classes.toolbarRightContent}
-                                >
-                                    <List className={classes.list}>
-                                        <ListItem className={classes.listItem}>
-                                            <Button
-                                                href={ROUTES.DASHBOARDS}
-                                                className={classes.navLink}
-                                                color="transparent"
-                                            >
-                                                Home
+                        <Hidden xsDown implementation="css">
+                            <div>
+                                <List className={classes.list}>
+                                    <ListItem className={classes.listItem}>
+                                        <Button
+                                            href={ROUTES.DASHBOARDS}
+                                            className={classes.navLink}
+                                            color="transparent"
+                                        >
+                                            Home
                                         </Button>
-                                        </ListItem>
-                                        <ListItem className={classes.listItem}>
-                                            <Button
-                                                href={ROUTES.LANDING}
-                                                className={classes.navLink}
-                                                color="transparent"
-                                            >
-                                                Sign Out
+                                    </ListItem>
+                                    <ListItem className={classes.listItem}>
+                                        <Button
+                                            href={ROUTES.LANDING}
+                                            className={classes.navLink}
+                                            color="transparent"
+                                        >
+                                            Sign Out
                                         </Button>
-                                        </ListItem>
-                                    </List>
-                                </div>
+                                    </ListItem>
+                                </List>
                             </div>
                         </Hidden>
                     </Toolbar>
@@ -355,7 +344,6 @@ class HomeNavbar extends React.Component {
                 <nav className={classes.drawer}>
                     <Hidden smUp implementation="css">
                         <Drawer
-                            // container={this.props.container}
                             variant="temporary"
                             anchor={'right'}
                             open={this.state.mobileOpen}
@@ -390,4 +378,4 @@ HomeNavbar.propTypes = {
 
 HomeNavbar.contextType = AppContext;
 
-export default withStyles(styles, { withTheme: true })(HomeNavbar);
+export default withStyles(styles)(HomeNavbar);

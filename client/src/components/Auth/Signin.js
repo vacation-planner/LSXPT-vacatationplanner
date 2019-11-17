@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { fire } from "./firebaseConfig"; // This is being used to provide apiKey to Authentication do not remove
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import Navbar from '../Dashboards/Navbar';
+import Navbar from '../Dashboards/Navbar/LPNavbar.js';
 
 import { Redirect } from "react-router-dom";
 import styles from "../StyledComponents/Signin/styles";
