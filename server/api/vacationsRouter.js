@@ -9,12 +9,9 @@ const secret = "shhhisthisasecret";
 /* TODO: Add in a JWT protection check. */
 router.get('/:id', async (req, res) => {
     const {id} = req.params; 
-<<<<<<< HEAD
-    await vacations.getById(id).then(vacation => {
-=======
-//    await vacations.getByID(id).then(vacation => {
+   // await vacations.getById(id).then(vacation => {
+
    vacations.getByID(id).then(vacation => {
->>>>>>> origin/production
         /* TODO: add in protection against showing vacations that aren't associated with the current user. */
         if (id) {
             res.status(200).json(vacation);
@@ -27,12 +24,9 @@ router.get('/:id', async (req, res) => {
 
 router.get('/users/all/:uid', async (req, res) => {
     const {uid} = req.params;
-<<<<<<< HEAD
-    await vacations.getByUserUid(uid).then(userVacations => {
-=======
-//    await vacations.getByUserUID(uid).then(userVacations => {
+   // await vacations.getByUserUid(uid).then(userVacations => {
+
     vacations.getByUserUID(uid).then(userVacations => {
->>>>>>> origin/production
         if (userVacations) {
             res.status(200).json(userVacations);
         }
@@ -45,12 +39,9 @@ router.get('/users/all/:uid', async (req, res) => {
 /* Get all users associated with this vacation ID */
 router.get('/users/:id', async (req, res) => {
     const {id} = req.params;
-<<<<<<< HEAD
-    await vacations.getUsersByVacId(id).then(vacUsers => {
-=======
-//    await vacations.getUsersByVacID(id).then(vacUsers => {
+    //await vacations.getUsersByVacId(id).then(vacUsers => {
+
       vacations.getUsersByVacID(id).then(vacUsers => {
->>>>>>> origin/production
         if (vacUsers) {
             res.status(200).json(vacUsers);
         }

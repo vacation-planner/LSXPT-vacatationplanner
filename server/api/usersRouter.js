@@ -30,7 +30,7 @@ module.exports = router => {
 // function protect(req, res, next) {
 //     const token = req.headers.authorization;
 
-//     jwt.verify(token, secret, (err, decodedToken) => {
+//     jwt.verify(token, secret, (err, decodedToken) => a{
 //         if (err) {
 //             res
 //                 .status(401)

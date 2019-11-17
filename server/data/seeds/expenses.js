@@ -3,10 +3,7 @@ exports.seed = function(knex, Promise) {
   // No expenses table yet so do nothing.
   return
   // Deletes ALL existing entries
-<<<<<<< HEAD
   /*
-=======
->>>>>>> origin/production
   return knex('expenses').del()
     .then(function () {
       // Inserts seed entries
