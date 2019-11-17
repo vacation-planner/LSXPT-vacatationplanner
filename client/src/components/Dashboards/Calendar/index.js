@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import Calendar from "./calendar.js";
+import Cal from "./calendar.js";
 
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
@@ -130,7 +130,10 @@ console.log("past event rec");
         
     })
 console.log("events: ", events)
-
+this.setState({
+  events: events
+});
+console.log("state.events: ", this.state.events)
   }
 
 
@@ -139,8 +142,8 @@ render () {
 
   return (
   <div>
-      <Calendar>
-          </Calendar>
+      <Cal events={this.state.events}>
+          </Cal>
 
       </div>
   );
