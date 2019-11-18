@@ -98,7 +98,7 @@ const URL = "http://localhost:5500/api";
   };
 
   formatData = () => {
-    console.log("in format data")
+  
  // Needs to be in this format
  //     id: 0,
  //     title: 'All Day Event very long title',
@@ -107,26 +107,53 @@ const URL = "http://localhost:5500/api";
  //     end: new Date(2015, 3, 1),
  //     desc: 'blah blah'                     // optional    
     let events = [];
-
-  let eventRec = {
-      id: 0,
-      title: "test",
-      start: "",
-      end: "",
-      desc: "",
-    }
-
-    console.log("eventRec.title: ", eventRec.title)
+   
+    //console.log("eventRec.title: ", eventRec.title)
 console.log("past event rec");
+    
     this.state.eventData.forEach((item, index) => {
-      console.log("item: ", item);
-      eventRec.id =  eventRec.id + 1
-      eventRec.title = item.eventName
-        eventRec.start = item.startDate
-        eventRec.end = item.endDate
-        eventRec.desc = item.description
-        console.log("this.eventRec: ", eventRec)
-        events.push(eventRec)
+      // extract time from startTime
+      let tmpDate = item.startDate.toString();
+      let d =  tmpDate.slice(3,5);
+      let m = tmpDate.slice(0,2);
+      let y =  tmpDate.slice(-4);
+
+      let tmpTime = item.startTime.toString();
+      let hrs = 0
+      let mins = 0
+      
+      if (tmpTime.length == 3) {
+        hrs = tmpTime.slice(0,1);
+        mins =  tmpTime.slice(1,3);
+      } else {
+        hrs = tmpTime.slice(0,2);
+        mins =  tmpTime.slice(2,4);
+      }
+      
+      let tmpEndDate = item.endDate.toString();
+      let endD =  tmpEndDate.slice(3,5);
+      let endM = tmpEndDate.slice(0,2);
+      let endY =  tmpEndDate.slice(-4);
+
+      let tmpEndTime = item.endTime.toString();
+      let endHrs = 0
+      let endMins = 0
+      
+      if (tmpTime.length == 3) {
+        endHrs = tmpEndTime.slice(0,1);
+        endMins =  tmpEndTime.slice(1,3);
+      } else {
+        endHrs = tmpEndTime.slice(0,2);
+        endMins =  tmpEndTime.slice(2,4);
+      }
+      //let newEnd = item.endDate + ", " + item.endTime;
+      events.push({
+        id: item.id,
+        title: item.eventName,
+        start: new Date(y, m, d, hrs, mins),
+        end: new Date(endY, endM, endD, endHrs, endMins),
+        desc: item.description
+      })  
         
     })
 console.log("events: ", events)
