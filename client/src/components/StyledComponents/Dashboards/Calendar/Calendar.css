@@ -4,6 +4,16 @@
     margin: 0;
   }
 
+  .Cal {
+    /* width: 1400px; */
+
+  }
+
+  .cal-outer {
+    width: 100%;
+
+  }
+  
   button.rbc-btn {
     overflow: visible;
     text-transform: none;
@@ -29,6 +39,8 @@
     -webkit-align-items: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
+    background-color: white;
+   
   }
   .rbc-calendar *,
   .rbc-calendar *:before,

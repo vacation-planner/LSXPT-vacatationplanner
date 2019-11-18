@@ -3,12 +3,8 @@ import {
     Calendar,
     momentLocalizer,
   } from 'react-big-calendar';
-//import Events from "./events";
 import moment from "moment";
-
-//import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-//import { events } from "../../StyledComponents/Dashboards/Calendar/js/general.js";
 import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
 const localizer = momentLocalizer(moment)
@@ -18,17 +14,8 @@ class Cal extends Component {
     super(props);
   this.state = {
     events: this.props.events,
-    date: new Date(2019, 11, 12)
-  
-    
-    /* [
-      {
-        start: new Date(),
-        end: new Date(moment().add(1, "days")),
-        title: "Some title"
-      }
-    ] */
-  };
+    date: new Date(2019, 11, 12) 
+   };
 }
 
 selectedEvent = event => {

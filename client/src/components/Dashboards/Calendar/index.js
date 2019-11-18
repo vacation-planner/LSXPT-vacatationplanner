@@ -4,6 +4,7 @@ import Cal from "./calendar.js";
 
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 
 const URL = "http://localhost:5500/api";
@@ -13,20 +14,11 @@ const URL = "http://localhost:5500/api";
     constructor(props) {
       super(props);
       this.state = {
-        //startDate: [], 
-        //endDate: [],
-        //startTime: [],
-       // endTime: 0,
-        //vacationTitle: "",
-        //vacationLocation: "",
         uid: "",
         vacationsId: 1,    //this.props.id,
-        //eventsId: "",
-       // eventTitle: "",
         vacation: [],
         events: [],
         eventData: [],
-
       };
     }
 
@@ -70,13 +62,9 @@ const URL = "http://localhost:5500/api";
       .get(`${URL}/events/`)
       .then(response => {
         let eventsData = [];
-        // grab the events table and then
-        // step through it to find all the matches
-        // to our vacationId
+ 
         if (response.data) {
             response.data.forEach((event, index) => {
-                console.log("event.vacationsId: ", event.vacationsId)
-                console.log("id: ", id) 
                 if (event.vacationsId === id) {
                     eventsData.push(event);
                 }
@@ -96,15 +84,28 @@ const URL = "http://localhost:5500/api";
   };
 
   formatData = () => {
-  
- // Needs to be in this format
- //     id: 0,
- //     title: 'All Day Event very long title',
- //     allDay: true,                           // optional
- //     start: new Date(2015, 3, 0),
- //     end: new Date(2015, 3, 1),
- //     desc: 'blah blah'                     // optional    
-    let events = [];
+ 
+  //let vacationDate = [];
+  let events = [];
+  this.state.vacation.forEach((item, index) => {
+      let vStart = item.startDate.toString();
+      let sD =  vStart.slice(3,5);
+      let sM = vStart.slice(0,2);
+      let sY =  vStart.slice(-4);
+      console.log("sD: ", sD)
+      let vEnd = item.endDate.toString();
+      let eD =  vEnd.slice(3,5);
+      let eM = vEnd.slice(0,2);
+      let eY =  vEnd.slice(-4);
+ 
+      events.push({
+        //id: item.id,
+        title: item.title,
+        start: new Date(sY, sM, sD),
+        end: new Date(eY, eM, eD),
+        desc: item.location,
+      })  
+    })
     
     this.state.eventData.forEach((item, index) => {
       // extract time from startTime
@@ -151,7 +152,7 @@ const URL = "http://localhost:5500/api";
       })  
         
     })
-
+console.log("events: ", events)
 this.setState({
   events: events
 });
@@ -163,7 +164,7 @@ this.setState({
 render () {
 
   return (
-  <div>
+  <div className="cal-outer">
       <Cal events={this.state.events}>
           </Cal>
 
