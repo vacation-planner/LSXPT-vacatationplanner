@@ -11,7 +11,7 @@ module.exports = router => {
   router.get("/:id/:acct", userByAcct);
 };
 
-async function verifyToken(req, res, next) {
+/* async function verifyToken(req, res, next) {
   const idToken = req.headers.authorization;
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
@@ -24,13 +24,13 @@ async function verifyToken(req, res, next) {
   } catch (e) {
     return res.status(401).send("You are no authorized!");
   }
-}
+} */
 // /************************************ USERS SECTION ***********************************/
 
 // function protect(req, res, next) {
 //     const token = req.headers.authorization;
 
-//     jwt.verify(token, secret, (err, decodedToken) => {
+//     jwt.verify(token, secret, (err, decodedToken) => a{
 //         if (err) {
 //             res
 //                 .status(401)
