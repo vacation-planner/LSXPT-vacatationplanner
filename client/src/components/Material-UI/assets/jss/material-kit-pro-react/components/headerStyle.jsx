@@ -20,7 +20,7 @@ const headerStyle = theme => ({
   appBar: {
     display: "flex",
     border: "0",
-    borderRadius: "3px",
+    borderRadius: "0px",
     padding: "0.6rem 0",
     // marginBottom: "100px",
     color: grayColor[15],
