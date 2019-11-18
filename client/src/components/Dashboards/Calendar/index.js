@@ -13,16 +13,16 @@ const URL = "http://localhost:5500/api";
     constructor(props) {
       super(props);
       this.state = {
-        startDate: [], 
-        endDate: [],
-        startTime: [],
-        endTime: 0,
-        vacationTitle: "",
-        vacationLocation: "",
+        //startDate: [], 
+        //endDate: [],
+        //startTime: [],
+       // endTime: 0,
+        //vacationTitle: "",
+        //vacationLocation: "",
         uid: "",
         vacationsId: 1,    //this.props.id,
-        eventsId: "",
-        eventTitle: "",
+        //eventsId: "",
+       // eventTitle: "",
         vacation: [],
         events: [],
         eventData: [],
@@ -87,9 +87,7 @@ const URL = "http://localhost:5500/api";
         this.setState({
           eventData: eventsData
         });
-        // at this point we have all the data we need
-        // now we need to put it into the proper format
-        
+               
         this.formatData();
       })
       .catch(err => {
@@ -107,9 +105,6 @@ const URL = "http://localhost:5500/api";
  //     end: new Date(2015, 3, 1),
  //     desc: 'blah blah'                     // optional    
     let events = [];
-   
-    //console.log("eventRec.title: ", eventRec.title)
-console.log("past event rec");
     
     this.state.eventData.forEach((item, index) => {
       // extract time from startTime
@@ -146,7 +141,7 @@ console.log("past event rec");
         endHrs = tmpEndTime.slice(0,2);
         endMins =  tmpEndTime.slice(2,4);
       }
-      //let newEnd = item.endDate + ", " + item.endTime;
+     
       events.push({
         id: item.id,
         title: item.eventName,
@@ -156,11 +151,11 @@ console.log("past event rec");
       })  
         
     })
-console.log("events: ", events)
+
 this.setState({
   events: events
 });
-console.log("state.events: ", this.state.events)
+
   }
 
 
