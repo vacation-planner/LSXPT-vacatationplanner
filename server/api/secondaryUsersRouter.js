@@ -16,7 +16,7 @@ module.exports = router => {
 //Get All users for vacation ID
 router.get('/:vacationid', (req, res) => {
     const {vacationid} = req.params; 
-    await secondaryUsers.getByVacationId(vacationid).then(vacation => {
+    secondaryUsers.getByVacationId(vacationid).then(vacation => {
         if (vacation) {
             res.status(200).json(vacation);
         }
@@ -29,7 +29,7 @@ router.get('/:vacationid', (req, res) => {
 //Get All vacations for email
 router.get('/:email', (req, res) => {
     const {email} = req.params;
-    await secondaryUsers.getByEmail(email).then(vacationData => {
+    secondaryUsers.getByEmail(email).then(vacationData => {
         if (vacationData) {
             res.status(200).json(vacationData);
         }

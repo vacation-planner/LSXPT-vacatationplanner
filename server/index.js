@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const db = require("./data/dbConfig");
 const parser = express.json();
-//const server = express();
+const server = express();
 const jwt = require("jsonwebtoken");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
