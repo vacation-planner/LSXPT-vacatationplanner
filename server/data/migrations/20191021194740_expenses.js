@@ -5,7 +5,7 @@ exports.up = function (knex) {
         expenses.string('title', 128).notNullable();
         expenses.decimal('amount');
         expenses
-        .string('userId')
+        .string('usersUid')
         .references('users.uid');
       })
   };
