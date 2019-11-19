@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import HomeNavbar from './Navbar/HomeNavbar.js';
-import LeftSideBar from './LeftSideBar.js';
 
 const styles = () => ({
     main: {
@@ -21,9 +20,6 @@ const styles = () => ({
         alignItems: 'center',
         width: '100%',
         backgroundColor: '#E2E2E2',
-
-        // padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit *
-        //     3}px ${theme.spacing.unit * 3}px`
     }
 });
 
@@ -34,7 +30,6 @@ class HomeDashboard extends React.Component {
             <main className={classes.main}>
                 <HomeNavbar />
                 <Paper className={classes.paper}>
-                    {/* <LeftSideBar /> */}
                     <h1>Test 2</h1>
                 </Paper>
             </main>

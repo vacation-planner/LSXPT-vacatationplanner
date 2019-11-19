@@ -107,7 +107,6 @@ const styles = theme => ({
                 maxHeight: "400px",
                 overflow: "scroll"
             },
-            width: "100%",
         }
     },
     logo: {
