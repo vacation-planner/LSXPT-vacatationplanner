@@ -6,6 +6,7 @@ import {
 import moment from "moment";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
+import swal from '@sweetalert/with-react'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
@@ -19,6 +20,7 @@ class Cal extends Component {
     events: this.props.events,
     date: new Date(2019, 11, 12), 
     uid: "",
+    value: "",
    };
 }
 //let events = this.props.events;
@@ -35,6 +37,22 @@ componentDidMount() {
 }
 selectedEvent = event => {
   console.log("in the selectedevent: ", event)
+  swal(
+    <div>
+      <form onSubmit={this.submitForm()} >
+      <h1>Hello!</h1>        
+      <p>Please enter a name for the event:</p>
+      <input type="text" value={this.state.value} onChange={this.handleChange} />
+      <input type="submit" value="Submit" />
+      {/* <input> </input> */}
+      </form>
+    </div>
+  )
+}
+
+handleChange = event => {
+  this.setState({value: event.target.value});
+  console.log("value: ", this.state.value)
 }
 
 addNewEventAlert = slotInfo => {
@@ -54,7 +72,7 @@ addNewEventAlert = slotInfo => {
   this.setState({
     events: events
   });
- 
+
   this.writeToDb(slotInfo); 
 }
 
@@ -74,10 +92,24 @@ writeToDb = slotInfo => {
   .catch(err => {
     console.log('We"ve encountered an error');
   });
-
-
-
 }
+
+
+eventColors = event => {
+  console.log("event.color: ", event.color)  
+  let backgroundColor = "event-";
+    event.color
+      ? (backgroundColor = backgroundColor + event.color)
+      : (backgroundColor = backgroundColor + "default");
+    return {
+      className: backgroundColor
+    };
+  };
+
+  submitForm = () => {
+    // save the data to db
+    window.alert("alert")
+  }
 
   render() {
     const { events } = this.state
@@ -93,6 +125,7 @@ writeToDb = slotInfo => {
           style={{ height: "100vh" }}
           onNavigate={date => this.setState({ date })}
           onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+          eventPropGetter={event => this.eventColors(event)}
         />
       </div>
     );
