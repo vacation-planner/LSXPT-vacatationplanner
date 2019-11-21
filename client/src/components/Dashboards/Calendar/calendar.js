@@ -32,19 +32,17 @@ componentDidMount() {
   }); 
 
   console.log("state: ", this.state)
-  // get the data needed to populate the calendar component
-  //this.fetchVacationData(id);
 }
+
 selectedEvent = event => {
   console.log("in the selectedevent: ", event)
   swal(
     <div>
       <form onSubmit={this.submitForm()} >
-      <h1>Hello!</h1>        
-      <p>Please enter a name for the event:</p>
-      <input type="text" value={this.state.value} onChange={this.handleChange} />
-      <input type="submit" value="Submit" />
-      {/* <input> </input> */}
+        <h1>Hello!</h1>        
+        <p>Please enter a name for the event:</p>
+        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   )
@@ -112,7 +110,7 @@ eventColors = event => {
   }
 
   render() {
-    const { events } = this.state
+    /* const { events } = this.state */
     return (
       <div className="Cal">
         <Calendar
@@ -122,7 +120,7 @@ eventColors = event => {
           defaultView="month"
           events={this.props.events}
           onSelectEvent={event => this.selectedEvent(event)}
-          style={{ height: "100vh" }}
+         /*  style={{ height: "100vh" }} */
           onNavigate={date => this.setState({ date })}
           onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
           eventPropGetter={event => this.eventColors(event)}

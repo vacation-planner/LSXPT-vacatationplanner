@@ -13,7 +13,7 @@ import {
 
 const cardStyle = {
   card: {
-    border: "0",
+    border: "",
     marginBottom: "30px",
     marginTop: "30px",
     borderRadius: "6px",
@@ -26,7 +26,9 @@ const cardStyle = {
     flexDirection: "column",
     minWidth: "0",
     wordWrap: "break-word",
-    fontSize: ".875rem"
+    fontSize: ".875rem",
+    /* borderTop: "5px solid rgba(" + hexToRgb(roseColor) + ", 1)", */
+    borderTop: "5px solid " + roseColor[1],
   },
   cardPlain: {
     background: "transparent",
