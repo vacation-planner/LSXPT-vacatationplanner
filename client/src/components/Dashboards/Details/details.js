@@ -5,7 +5,14 @@ import { fire } from "../../Auth/firebaseConfig";
 import CustomInput from "../../StyledComponents/Dashboards/Details/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Details/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Details/GridItem.js";
+import Card from "../../StyledComponents/Dashboards/Details/Card.js";
+import CardBody from "../../StyledComponents/Dashboards/Details/CardBody.js";
 //import CustomInput from '../../StyledComponents/Dashboards/Details/CustomInput.jsx';
+import styles from "../../StyledComponents/Dashboards/Details/cardImagesStyles.js";
+
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(styles);
 
 const URL = "http://localhost:5500/api";
 
@@ -26,20 +33,16 @@ render() {
       <div className="details">
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
+           <Card style={{ width: "600px", height: "80%" }}>
+               <CardBody>
+            Enter new Vacation Name:
                 <CustomInput
                     id="regular"
-                    inputProps={{ placeholder: "Regular" }}
+                    inputProps={{ placeholder: "Vacation" }}
                     formControlProps={{ fullWidth: true }}
                 />
-            </GridItem>
-
-            <GridItem xs={12} sm={12} md={4}>
-                <CustomInput
-                    labelText="Success input"
-                    id="success"
-                    success
-                    formControlProps={{ fullWidth: true }}
-                />
+                </CardBody>
+                </Card>
             </GridItem>
         </GridContainer>
       </div>
