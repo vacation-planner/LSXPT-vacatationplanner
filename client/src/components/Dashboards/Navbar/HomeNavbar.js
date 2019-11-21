@@ -244,7 +244,9 @@ class HomeNavbar extends React.Component {
                 <div className={classes.closeIconToolbar}>
                     {mobileOpen ? (
                         <div className={classes.closeButton}
-                            onClick={this.handleDrawerToggle}><CloseIcon style={{ width: '25px', height: '25px', padding: '0px' }} /></div>
+                            onClick={this.handleDrawerToggle}>
+                            <CloseIcon style={{ width: '25px', height: '25px', padding: '0px' }} />
+                        </div>
                     ) : null}
                 </div>
                 {!testCurrent && !testPast && (
