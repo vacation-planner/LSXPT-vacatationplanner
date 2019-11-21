@@ -1,21 +1,13 @@
 
 exports.seed = function(knex) {
-  // No billing table yet so do nothing.
-  return
   // Deletes ALL existing entries
-<<<<<<< HEAD
-  /*
-=======
->>>>>>> origin/production
-  return knex('billing').del()
+  return knex('secondaryUsers').del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
+     /*  return knex('secondaryUsers').insert([
         {id: 1, colName: 'rowValue1'},
         {id: 2, colName: 'rowValue2'},
         {id: 3, colName: 'rowValue3'}
-      ]);
-     return
+      ]); */
     });
-  */
 };

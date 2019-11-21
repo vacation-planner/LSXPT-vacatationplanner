@@ -6,8 +6,10 @@ import './index.css';
 import App from './App';
 import AppProvider from './components/Context/AppContext.js';
 import Global from './components/StyledComponents/GlobalReset.js';
+require("dotenv").config("/.env");
 
-dotenv.config()
+
+//dotenv.config()
 
 
 ReactDOM.render(
