@@ -16,10 +16,10 @@ module.exports = {
   //   return db("secondaryUsers");
   // },
 
-  getByVacationId: vacationId => {
+  getByVacationsId: vacationsId => {
     let query = db("secondaryUsers");
-    if (vacationId) {
-      query.where("vacationId", vacationId)
+    if (vacationsId) {
+      query.where("vacationsId", vacationsId)
       return query;
     }
     return db("secondaryUsers");

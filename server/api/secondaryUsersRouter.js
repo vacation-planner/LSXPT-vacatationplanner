@@ -6,17 +6,29 @@ const secret = "shhhisthisasecret";
 
 
 module.exports = router => {
-    router.get("/:vacationid", vacationById);
-    router.get("/:id", id);
+    router.get("/");   
+    router.get("/vacations/:vacationsId", getByVacationsId);
+    //router.get("/:id", id);
     router.get("/:email", email);
     router.post("/");
     router.delete("/:id", recordId)
 };
 
+router.get("/", (req, res) => {
+    secondaryUsers
+      .get()
+      .then(secondaryUser => {
+        res.status(200).json(secondaryUser);
+      })
+      .catch(err => {
+        res.status(500).json({ error: "The users could not be retrieved." });
+      });
+  });
+
 //Get All users for vacation ID
-router.get('/:vacationid', (req, res) => {
-    const {vacationid} = req.params; 
-    secondaryUsers.getByVacationId(vacationid).then(vacation => {
+ router.get('/vacations/:vacationsId', async (req, res) => {
+    const {vacationsId} = req.params; 
+    await secondaryUsers.getByVacationsId(vacationsId).then(vacation => {
         if (vacation) {
             res.status(200).json(vacation);
         }
@@ -24,10 +36,10 @@ router.get('/:vacationid', (req, res) => {
             res.status(400).json({'error': 'No vacation by that id.'});
         }
     }) 
-})
+}) 
 
 //Get All vacations for email
-router.get('/:email', (req, res) => {
+router.get('/:email', async (req, res) => {
     const {email} = req.params;
     secondaryUsers.getByEmail(email).then(vacationData => {
         if (vacationData) {
@@ -40,7 +52,7 @@ router.get('/:email', (req, res) => {
 })
 
 //Add secondaryUser record
-router.post('/secondaryUsers/', (req, res) => {
+router.post('/', (req, res) => {
     const record = req.body;
     if (record.firstName && record.lastName && record.email && record.vacationid) {
         secondaryUsers
@@ -57,7 +69,7 @@ router.post('/secondaryUsers/', (req, res) => {
 })
 
 //Delete secondaryUser record
-router.delete('/secondaryUsers/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const {id} = req.params;
     secondaryUsers.remove(id)
     .then(res => {
