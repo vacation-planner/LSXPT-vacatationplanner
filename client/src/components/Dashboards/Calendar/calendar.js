@@ -92,6 +92,22 @@ writeToDb = slotInfo => {
   });
 }
 
+eventStyleGetter = (event) => {
+  console.log("Here we are: ", event);
+  
+  var backgroundColor = '#' + "04068a";
+  var style = {
+      backgroundColor: backgroundColor,
+      borderRadius: '0px',
+      opacity: 0.8,
+      color: 'black',
+      border: '0px',
+      display: 'block'
+  };
+  return {
+      style: style
+  };
+}
 
 eventColors = event => {
   console.log("event.color: ", event.color)  
@@ -123,7 +139,7 @@ eventColors = event => {
          /*  style={{ height: "100vh" }} */
           onNavigate={date => this.setState({ date })}
           onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
-          eventPropGetter={event => this.eventColors(event)}
+          eventPropGetter={event => this.eventStyleGetter(event)}
         />
       </div>
     );

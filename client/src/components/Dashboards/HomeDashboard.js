@@ -39,10 +39,10 @@ class HomeDashboard extends React.Component {
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
                    {/*  <h1>Test 2</h1> */}
-                    {/* <Vacation>
-                        </Vacation> */}
-                        <Details>
-                            </Details>
+                     <Vacation>
+                        </Vacation> 
+                        {/* <Details> */}
+                           {/*  </Details> */}
                 </Paper>
             </main>
         );
