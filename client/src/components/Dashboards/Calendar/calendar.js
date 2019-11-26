@@ -49,7 +49,7 @@ selectedEvent = event => {
 }
 
 handleChange = event => {
-  this.setState({value: event.target.value});
+  this.setState({value: this.state.value + event.target.value});
   console.log("value: ", this.state.value)
 }
 

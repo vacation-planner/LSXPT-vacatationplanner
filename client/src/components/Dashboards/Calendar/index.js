@@ -1,6 +1,7 @@
 import React from "react";
 //import { render } from "react-dom";
 import Cal from "./calendar.js";
+import Dnd from "./dragDrop.js";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -110,6 +111,7 @@ const URL = "http://localhost:5500/api";
         start: new Date(sY, sM, sD),
         end: new Date(eY, eM, eD),
         desc: item.location,
+        resourceId: 1,
       })  
     })
     
@@ -173,8 +175,10 @@ render () {
   <div className="cal-outer">
     <Card style={{ width: "900px", height: "40%" }}>
     <CardBody>
-      <Cal events={this.state.events}>
-      </Cal>
+     {/*  <Cal events={this.state.events}>
+      </Cal> */}
+      <Dnd events={this.state.events}>
+      </Dnd>
       </CardBody>
     </Card>
     

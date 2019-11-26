@@ -5,6 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import LeftSideBar from './LeftSideBar.js';
 import Vacation from "./Calendar/index.js";
+import Dnd from "./Calendar/dragDrop.js";
 import Details from "./Details/details.js";
 
 
@@ -39,8 +40,10 @@ class HomeDashboard extends React.Component {
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
                    {/*  <h1>Test 2</h1> */}
-                     <Vacation>
-                        </Vacation> 
+                   {/*  <Dnd>
+                        </Dnd> */}
+                      <Vacation>
+                        </Vacation>  
                         {/* <Details> */}
                            {/*  </Details> */}
                 </Paper>
