@@ -7,6 +7,7 @@ import LeftSideBar from './LeftSideBar.js';
 import Vacation from "./Calendar/index.js";
 import Dnd from "./Calendar/dragDrop.js";
 import Details from "./Details/details.js";
+import AddUsers from "./AddUsers/addUsers.js";
 
 
 const styles = () => ({
@@ -42,8 +43,10 @@ class HomeDashboard extends React.Component {
                    {/*  <h1>Test 2</h1> */}
                    {/*  <Dnd>
                         </Dnd> */}
-                      <Vacation>
-                        </Vacation>  
+                        <AddUsers>
+                            </AddUsers>
+                     {/*  <Vacation>
+                        </Vacation>   */}
                         {/* <Details> */}
                            {/*  </Details> */}
                 </Paper>

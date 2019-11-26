@@ -1,0 +1,9 @@
+.users-list {
+    border: 2px solid lightgray;
+    height: 100px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 14px;
+}
