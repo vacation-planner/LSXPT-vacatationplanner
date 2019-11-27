@@ -7,7 +7,7 @@ import CardBody from "../../StyledComponents/Dashboards/AddUsers/js/CardBody.js"
 import CustomInput from "../../StyledComponents/Dashboards/AddUsers/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/AddUsers/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js";
-import { Row, CardBlock } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
+import { Row, CardBlock, UsersContainer, Loading } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
 import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
@@ -49,7 +49,6 @@ class AddUsers extends Component {
 
   changeHandler = event => {
     // handle inputs
-    console.log("in the event.target.value: ", event.target.value)
     this.setState({
         [event.target.name]: event.target.value
       });
@@ -59,7 +58,6 @@ class AddUsers extends Component {
 
   addUser = () => {
     // add users info to the users list
-    console.log('this.state.firstName: ', this.state.firstName);
     let usersList = this.state.usersList;
     let userRec = {
         firstName: this.state.firstName,
@@ -87,37 +85,30 @@ class AddUsers extends Component {
   }
 
   invite = () => {
-    // save the users list to the db
     // send emails to all the users on list
     let usersList = this.state.usersList;
-    this.writeToDb(usersList);
-
     // now goto email component
 
   }
 
-writeToDb = usersList => {
-    usersList.forEach((item, index) => {
-    const secondaryUserRec = {
-        firstName: item.firstName,
-        lastName: item.lastName,
-        email: item.email,
-        vacationsId: item.vacationsId,
-    }
-    console.log("secondaryUserRec: ", secondaryUserRec)
-  axios
-  .post(`${URL}/secondaryUsers/`, secondaryUserRec)
-  .then(response => {
-    console.log("file written")
-   })
-  .catch(err => {
-    console.log('We"ve encountered an error');
-  });
-})
-}
-
   render() {
-   
+   /*  if (this.state.usersList.length) {
+        // returns loading sign while data is being retrieved from API
+        return <Loading>Loading Users...</Loading>;
+      } */
+  
+      let rows = [];
+      // **************************************
+      // NOTE: need to correct the formatting
+      // *************************************
+      this.state.usersList.forEach((user, index) => {
+        // Loops through array of secondary users and lists them in a div
+        rows.push(
+            <UsersContainer key={index}>
+                {user.firstName}, {user.lastName}, {user.email}      
+            </UsersContainer>
+            );
+        });
     return (
         <GridContainer>
             <GridItem>
@@ -126,16 +117,15 @@ writeToDb = usersList => {
                         <form className="addUsers" onSubmit={this.onSubmit}>
                             <h1>Add Users to Vacation: {this.state.vacationsTitle}</h1>
                             <Row>
-                                First Name:
+                               <p> First Name:
                                 <input
                                     type="text"
                                     name="firstName"
                                     onChange={this.changeHandler}
                                     value={this.state.firstName}
                                     className="firstName"
-                                />
-                            </Row>
-                            <p></p>
+                                /></p>
+                            </Row>                          
                             <Row>
                                 Last Name:
                                 <input
@@ -155,24 +145,20 @@ writeToDb = usersList => {
                                 value={this.state.email}
                                 className="email"
                             />
-                            </Row>
-                           
+                            </Row>                          
                            <Button  
                                 onClick={() => this.addUser()} 
                                 color="rose">Add User to List
-                            </Button>
-                           
+                            </Button>                          
                             <div className="users-list">
-                             {`${this.state.usersList.map((item, index) => {
-                                
-                             })}`}
+                                {rows}
                             </div>
                             <p> </p>
                             <h2>Press the invite button to send emails to the people on your list.</h2>
                             <p> </p>
                             <Button  
                                 onClick={() => this.invite()} 
-                                color="rose">Invite
+                                color="rose">Send Invites
                             </Button>
                         </form>
                     </CardBody>

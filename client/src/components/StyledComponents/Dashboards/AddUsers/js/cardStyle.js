@@ -16,6 +16,7 @@ const cardStyle = {
     border: "",
     marginBottom: "30px",
     marginTop: "30px",
+    marginLeft: "20px",
     borderRadius: "6px",
     color: "rgba(" + hexToRgb(blackColor) + ", 0.87)",
     background: whiteColor,
@@ -25,7 +26,7 @@ const cardStyle = {
     display: "flex",
     flexDirection: "column",
     minWidth: "0",
-    minHeight: "360px",
+    minHeight: "400px",
     wordWrap: "break-word",
     fontSize: "1.2rem",
     /* borderTop: "5px solid rgba(" + hexToRgb(roseColor) + ", 1)", */

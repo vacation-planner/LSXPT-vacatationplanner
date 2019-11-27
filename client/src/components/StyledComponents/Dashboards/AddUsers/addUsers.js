@@ -26,3 +26,16 @@ export const ButtonContainer = styled.div`
   margin-right: auto;
   width: auto;
 `;
+
+export const UsersContainer = styled.div`
+  color: #000;
+  margin: 5px;
+`;
+
+export const Loading = styled.div`
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+`;
