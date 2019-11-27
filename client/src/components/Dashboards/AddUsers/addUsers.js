@@ -4,10 +4,14 @@ import { fire } from "../../Auth/firebaseConfig";
 import Button from "../../StyledComponents/Dashboards/AddUsers/js/Button.js";
 import Card from "../../StyledComponents/Dashboards/AddUsers/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/AddUsers/js/CardBody.js";
-import CustomInput from "../../StyledComponents/Dashboards/AddUsers/js/CustomInput.js";
+//import CustomInput from "../../StyledComponents/Dashboards/AddUsers/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/AddUsers/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js";
-import { Row, CardBlock, UsersContainer, Loading } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
+import { Row, 
+        CardBlock, 
+        UsersContainer, 
+        Loading 
+    } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
 import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
@@ -16,34 +20,34 @@ const useStyles = makeStyles(styles);
 
 const URL = "http://localhost:5500/api";
 
-const handleChange = event => {
-    console.log("handleChange: ", event)
-    /* setName(event.target.value); */
-}
+// this component needs the vacationsId passed down to it
+// the vacation title would be helpful, if it is unavailable
+// i can just grab it from the table.
+
+// they are hard coded right now for testing
 
 class AddUsers extends Component {
     constructor(props) {
       super(props);
-    this.state = {
-      firstName: "",
-      lastName: "",
-      usersList: [],
-      uid: "",
-      email: "",
-      vacationsId: 1,         //this.props.id,
-      vacationsTitle: "Winter",      //this.props.title,
-     };
+        this.state = {
+            firstName: "",
+            lastName: "",
+            usersList: [],
+            uid: "",
+            email: "",
+//          vacationsId: this.props.id,
+            vacationsId: 1,         
+//          vacationsTitle: this.props.title,
+            vacationsTitle: "Winter",
+        };
   }
 
-
   componentDidMount() {
-    //let id = this.state.vacationsId;
-    // get the vacation title
+  // i dont think i need this...
     let uid = fire.currentUser.uid;
      this.setState({
       uid: uid
     }); 
-  
     console.log("state: ", this.state)
   }
 
@@ -54,11 +58,10 @@ class AddUsers extends Component {
       });
   }
 
-  
-
   addUser = () => {
     // add users info to the users list
     let usersList = this.state.usersList;
+    // create a record using the input
     let userRec = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -68,13 +71,14 @@ class AddUsers extends Component {
     usersList.push(userRec);
     
     axios
-    .post(`${URL}/secondaryUsers/`, userRec)
-    .then(response => {
-      console.log("file written")
-     })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
+        .post(`${URL}/secondaryUsers/`, userRec)
+        .then(response => {
+            console.log("file written")
+        })
+        .catch(err => {
+            console.log('We"ve encountered an error');
+        });
+    // clear the inputs
     this.setState({
         usersList: usersList, 
         firstName: "", 
