@@ -15,6 +15,10 @@ const useStyles = makeStyles(styles);
 
 const URL = "http://localhost:5500/api";
 
+const handleChange = event => {
+    console.log("handleChange: ", event)
+    /* setName(event.target.value); */
+}
 
 class AddUsers extends Component {
     constructor(props) {
@@ -25,13 +29,15 @@ class AddUsers extends Component {
       usersList: [],
       uid: "",
       email: "",
-      vacationsId: "",
+      vacationsId: 1,         //this.props.id,
+      vacationsTitle: "Winter",      //this.props.title,
      };
   }
 
 
   componentDidMount() {
     //let id = this.state.vacationsId;
+    // get the vacation title
     let uid = fire.currentUser.uid;
      this.setState({
       uid: uid
@@ -42,22 +48,39 @@ class AddUsers extends Component {
 
   changeHandler = event => {
     // handle inputs
-    console.log("in the changeHandler: ", event)
+    console.log("in the event.target.value: ", event.target.value)
+    this.setState({
+        [event.target.name]: event.target.value
+      });
   }
+
+  
 
   addUser = () => {
     // add users info to the users list
+    console.log('this.state.firstName: ', this.state.firstName);
     let usersList = this.state.usersList;
     let userRec = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
-        vacationsId: this.props.vacationsId,
+        vacationsId: this.state.vacationsId,
     }
     usersList.push(userRec);
-
+    
+    axios
+    .post(`${URL}/secondaryUsers/`, userRec)
+    .then(response => {
+      console.log("file written")
+     })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
     this.setState({
-        usersList: usersList
+        usersList: usersList, 
+        firstName: "", 
+        lastName: "",
+        email: "",   
       }); 
     
   }
@@ -65,8 +88,32 @@ class AddUsers extends Component {
   invite = () => {
     // save the users list to the db
     // send emails to all the users on list
+    let usersList = this.state.usersList;
+    this.writeToDb(usersList);
+
+    // now goto email component
+
   }
 
+writeToDb = usersList => {
+    usersList.forEach((item, index) => {
+    const secondaryUserRec = {
+        firstName: item.firstName,
+        lastName: item.lastName,
+        email: item.email,
+        vacationsId: item.vacationsId,
+    }
+    console.log("secondaryUserRec: ", secondaryUserRec)
+  axios
+  .post(`${URL}/secondaryUsers/`, secondaryUserRec)
+  .then(response => {
+    console.log("file written")
+   })
+  .catch(err => {
+    console.log('We"ve encountered an error');
+  });
+})
+}
 
   render() {
    
@@ -76,38 +123,41 @@ class AddUsers extends Component {
                  <Card>
                     <CardBody>
                         <form className="addUsers" onSubmit={this.onSubmit}>
-                            <h1>Add Users to Vacation</h1>
-                            <p></p>
-                            <CustomInput
-                                id="regular"
-                                className="firstName"
-                                value={this.state.firstName}
+                            <h1>Add Users to Vacation: {this.state.vacationsTitle}</h1>
+                            <p></p>First Name:
+                            <input
+                                type="text"
+                                name="firstName"
                                 onChange={this.changeHandler}
-                                /* onChange={event => this.changeHandler(event)} */
-                                inputProps={{ placeholder: "First Name" }}
-                                formControlProps={{ fullWidth: true }}
+                                value={this.state.firstName}
+                                className="firstName"
                             />
-                            <CustomInput
-                                id="regular"
+                            <p>Last Name:
+                            <input
+                                type="text"
+                                name="lastName"
+                                onChange={this.changeHandler}
+                                value={this.state.lastName}
                                 className="lastName"
-                                onChange={() => this.changeHandler()}
-                                inputProps={{ placeholder: "Last Name" }}
-                                formControlProps={{ fullWidth: true }}
-                            />
-                            <CustomInput
-                                id="regular"
+                            /></p>
+                            Email:
+                            <input
+                                type="text"
+                                name="email"
+                                onChange={this.changeHandler}
+                                value={this.state.email}
                                 className="email"
-                                onChange={() => this.changeHandler()}
-                                inputProps={{ placeholder: "Email" }}
-                                formControlProps={{ fullWidth: true }}
-                            /> <p> </p>
+                            />
+                            <p> </p>
                            <Button  
                                 onClick={() => this.addUser()} 
                                 color="rose">Add User to List
                             </Button>
                            
                             <div className="users-list">
-
+                             {`${this.state.usersList.map((item, index) => {
+                                
+                             })}`}
                             </div>
                             <p> </p>
                             <h2>Press the invite button to send emails to the people on your list.</h2>
