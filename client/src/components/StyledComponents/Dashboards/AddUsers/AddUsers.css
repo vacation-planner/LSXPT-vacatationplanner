@@ -7,3 +7,21 @@
 h1 {
     font-size: 14px;
 }
+
+.addUsers {
+    height: 360px;
+
+}
+
+.firstName {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.lastName {
+    margin-bottom: 20px;
+}
+
+.email {
+    margin-bottom: 20px;
+}

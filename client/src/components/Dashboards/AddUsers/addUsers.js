@@ -7,6 +7,7 @@ import CardBody from "../../StyledComponents/Dashboards/AddUsers/js/CardBody.js"
 import CustomInput from "../../StyledComponents/Dashboards/AddUsers/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/AddUsers/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js";
+import { Row, CardBlock } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
 import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
@@ -124,22 +125,28 @@ writeToDb = usersList => {
                     <CardBody>
                         <form className="addUsers" onSubmit={this.onSubmit}>
                             <h1>Add Users to Vacation: {this.state.vacationsTitle}</h1>
-                            <p></p>First Name:
-                            <input
-                                type="text"
-                                name="firstName"
-                                onChange={this.changeHandler}
-                                value={this.state.firstName}
-                                className="firstName"
-                            />
-                            <p>Last Name:
-                            <input
-                                type="text"
-                                name="lastName"
-                                onChange={this.changeHandler}
-                                value={this.state.lastName}
-                                className="lastName"
-                            /></p>
+                            <Row>
+                                First Name:
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    onChange={this.changeHandler}
+                                    value={this.state.firstName}
+                                    className="firstName"
+                                />
+                            </Row>
+                            <p></p>
+                            <Row>
+                                Last Name:
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    onChange={this.changeHandler}
+                                    value={this.state.lastName}
+                                    className="lastName"
+                                />
+                            </Row>
+                            <Row>
                             Email:
                             <input
                                 type="text"
@@ -148,7 +155,8 @@ writeToDb = usersList => {
                                 value={this.state.email}
                                 className="email"
                             />
-                            <p> </p>
+                            </Row>
+                           
                            <Button  
                                 onClick={() => this.addUser()} 
                                 color="rose">Add User to List

@@ -25,8 +25,9 @@ const cardStyle = {
     display: "flex",
     flexDirection: "column",
     minWidth: "0",
+    minHeight: "360px",
     wordWrap: "break-word",
-    fontSize: ".875rem",
+    fontSize: "1.2rem",
     /* borderTop: "5px solid rgba(" + hexToRgb(roseColor) + ", 1)", */
     borderTop: "5px solid " + roseColor[1],
   },
