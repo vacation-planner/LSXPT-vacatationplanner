@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
   });
 
 //Get All users for vacation ID
- /* router.get('/vacations/:vacationsId', async (req, res) => {
+  router.get('/vacations/:vacationsId', async (req, res) => {
     const {vacationsId} = req.params; 
     await secondaryUsers.getByVacationsId(vacationsId).then(vacation => {
         if (vacation) {
@@ -36,7 +36,7 @@ router.get("/", (req, res) => {
             res.status(400).json({'error': 'No vacation by that id.'});
         }
     }) 
-})  */
+})  
 
 //Get All vacations for email
 router.get('/:email', async (req, res) => {

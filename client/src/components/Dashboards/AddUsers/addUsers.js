@@ -49,6 +49,8 @@ class AddUsers extends Component {
       uid: uid
     }); 
     console.log("state: ", this.state)
+    // check for any current secondary users
+    this.displayUsers();
   }
 
   changeHandler = event => {
@@ -57,6 +59,26 @@ class AddUsers extends Component {
         [event.target.name]: event.target.value
       });
   }
+
+    displayUsers = () => {
+    const usersList = [];
+    axios
+      .get(`${URL}/secondaryUsers/`) // Get User Data
+      .then(response => {
+        response.data.forEach(result => {
+          if (result.vacationsId === this.state.vacationsId) {
+            usersList.push(result);
+          } 
+        })
+        this.setState({
+            usersList: usersList, 
+          }); 
+       
+      })
+      .catch(err => {
+        console.log("There was an error accessing secondary users table", err);
+      });
+  };
 
   addUser = () => {
     // add users info to the users list

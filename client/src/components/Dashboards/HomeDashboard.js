@@ -6,7 +6,7 @@ import HomeNavbar from './Navbar/HomeNavbar.js';
 import LeftSideBar from './LeftSideBar.js';
 import Vacation from "./Calendar/index.js";
 import Dnd from "./Calendar/dragDrop.js";
-import Details from "./Details/details.js";
+import Events from "./Events/events.js";
 import AddUsers from "./AddUsers/addUsers.js";
 
 
