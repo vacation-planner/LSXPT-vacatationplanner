@@ -1,0 +1,25 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    border: 2px solid red;
+}
+
+.top {
+    width: 100%;
+    height: 50%;
+    border: 2px solid blue;
+}
+
+.bottom {
+    width: 100%;
+    height: 50%;
+    border: 2px solid green;
+}
+
+.vacations {
+    display: flex;
+    height: 600px;
+    border: 2px solid orange;
+
+}

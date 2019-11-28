@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import LeftSideBar from './LeftSideBar.js';
-import Vacation from "./Calendar/index.js";
+import Vacation from "./Vacations/index.js";
 import Dnd from "./Calendar/dragDrop.js";
 import Events from "./Events/events.js";
 import AddUsers from "./AddUsers/addUsers.js";
@@ -26,6 +26,7 @@ const styles = () => ({
         alignItems: 'center',
         width: '100%',
         backgroundColor: '#E2E2E2',
+        height: '600px',
 
         // padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit *
         //     3}px ${theme.spacing.unit * 3}px`
@@ -43,10 +44,10 @@ class HomeDashboard extends React.Component {
                    {/*  <h1>Test 2</h1> */}
                    {/*  <Dnd>
                         </Dnd> */}
-                        <AddUsers>
-                            </AddUsers>
-                     {/*  <Vacation>
-                        </Vacation>   */}
+                        {/* <AddUsers>
+                            </AddUsers> */}
+                      <Vacation>
+                        </Vacation>   
                         {/* <Details> */}
                            {/*  </Details> */}
                 </Paper>
