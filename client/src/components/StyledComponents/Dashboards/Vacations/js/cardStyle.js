@@ -19,14 +19,15 @@ const cardStyle = {
     borderRadius: "6px",
     color: "rgba(" + hexToRgb(blackColor) + ", 0.87)",
     background: whiteColor,
-    width: "100%",
+    width: "1000px",
     boxShadow: "0 1px 4px 0 rgba(" + hexToRgb(blackColor) + ", 0.14)",
-    position: "relative",
+    /* position: "relative", */
     display: "flex",
     flexDirection: "column",
-    minWidth: "0",
+    /* minWidth: "600px", */
+    height: "300px",
     wordWrap: "break-word",
-    fontSize: ".875rem",
+    fontSize: "1.3rem",
     /* borderTop: "5px solid rgba(" + hexToRgb(roseColor) + ", 1)", */
     borderTop: "5px solid " + roseColor[1],
   },

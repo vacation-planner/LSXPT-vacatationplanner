@@ -30,10 +30,10 @@ class Vacations extends Component {
 render() {
    
     return (
-      <div className="vacations">
+      <div className="vacation">
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-           <Card style={{ width: "600px", height: "80%" }}>
+           <Card style={{ width: "800px", height: "80%" }}>
                <CardBody>
             Enter new Vacation Name:
                 <CustomInput
