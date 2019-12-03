@@ -39,16 +39,14 @@ export default function CardHeaderTypes(props) {
       
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardHeader color="rose">
-            <div className="test"><h1 className={classes.cardTitle}>Vacation:</h1>Name of vac
-                </div>
-              <h4 className={classes.cardTitle}>Destination:</h4>
-              <p>Cabo San Lucas</p>
+            <CardHeader color="rose"><div className="test">
+            <GridItem xs={12} sm={12} md={6} style={{ left: "30%",position: "relative", top: "2px" }}>          
+           Vacation:Name of vac</GridItem>
+           <GridItem xs={12} sm={12} md={6}  style={{ left: "30%",position: "relative", top: "8px" }}> 
+         Destination: Cabo San Lucas</GridItem></div>
             </CardHeader>
-            <CardBody>
-              The place is close to Barceloneta Beach and bus stop just 2 min by
-              walk and near to "Naviglio" where you can enjoy the main night
-              life in Cabo...
+            <CardBody><p ></p><p>
+              Click below to add Participants to your vacation</p> <p> An email will be sent them whick will give them access to your vacation..</p>
             </CardBody>
           </Card>
         </GridItem>
