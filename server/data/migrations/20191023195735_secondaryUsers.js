@@ -5,10 +5,12 @@ exports.up = function(knex) {
             secondary
             .string('vacationId')
             .references('vacation.id');
+            secondary.string("firstName", 128).notNullable();
+            secondary.string("lastName", 128).notNullable();
             secondary
-            .string('userUid')
-            .references('users.uid');
-        })
+            .string("email", 128)
+            .notNullable();
+            })
 };
 
 exports.down = function(knex) {

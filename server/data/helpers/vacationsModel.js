@@ -1,7 +1,6 @@
 const db = require('../dbConfig')
 
 module.exports = {
-<<<<<<< HEAD
     getById: getById,
     getPlansById: getPlansById,
     getSecondaryUsersById: getSecondaryUsersById,
@@ -50,8 +49,7 @@ function getByUserUid(uid) {
 function getExpensesById(id) {
     // return db('expenses').where('vacationId', id);
 }
-=======
-    get: () => {
+   /*  get: () => {
         return db("vacations");
     },
 
@@ -81,5 +79,4 @@ function getExpensesById(id) {
         return db("vacations").insert(vacation);
        
     }
-};
->>>>>>> origin/production
+}; */

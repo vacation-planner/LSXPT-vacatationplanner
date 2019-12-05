@@ -216,6 +216,7 @@ const headerLinksStyle = theme => ({
     borderRadius: '5%',
     // border: '1px solid black',
     backgroundColor: "#e91e63",
+    marginBottom: '25px',
     "&:hover,&:focus": {
       backgroundColor: "#AA1649",
       color: "white",
