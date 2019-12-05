@@ -7135,6 +7135,11 @@ mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -8971,10 +8976,10 @@ react-app-polyfill@^1.0.4:
     regenerator-runtime "0.13.3"
     whatwg-fetch "3.0.0"
 
-react-big-calendar@^0.22.1:
-  version "0.22.1"
-  resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.22.1.tgz#7b523cee4c423410a05e4499a720e8dae12ebec6"
-  integrity sha512-Pd0x0W4vjs5oDzPl3kvIlJok4ESO7p/+jpxKil0xkJ5sfsYlB/lZMCht7htEy9/WInnnJQGcXx+tLIcEzDbV8g==
+react-big-calendar@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.23.0.tgz#cc780481548fcefabb04cea05dd1a08456702a67"
+  integrity sha512-f/v1J/oqvEJqXcT5clJ5wzFIWKRNUeMCvLLzH6PYszcR15mUgqQb31HH+2Ev+YZHVW3YSStcZn2HWEhmvFr9ew==
   dependencies:
     "@babel/runtime" "^7.1.5"
     clsx "^1.0.4"
@@ -8988,6 +8993,11 @@ react-big-calendar@^0.22.1:
     react-overlays "^2.0.0-0"
     uncontrollable "^7.0.0"
     warning "^4.0.2"
+
+react-bootstrap-sweetalert@^5.1.7:
+  version "5.1.7"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-sweetalert/-/react-bootstrap-sweetalert-5.1.7.tgz#2865d77e3613cdc6e6239e49e5165dc66f499023"
+  integrity sha512-0IvGP7wQNWkLLnG1mlLZ9/NsD5QfJX2AenYSEHxcL/MQgAOfsUDjDnYxq/U/nJ/pt1+Y2XggmOoHNh+xPWRn6g==
 
 react-datetime@^2.16.3:
   version "2.16.3"

@@ -11,10 +11,10 @@ module.exports = {
           .first()
   },
 
-  getByVacationId: vacationId => {
+  getByVacationsId: vacationsId => {
     let query = db("events");
-    if (vacationId) {
-      query.where("vacationId", vacationId).first();
+    if (vacationsId) {
+      query.where("vacationsId", vacationsId).first();
       return query;
     }
     return db("events");

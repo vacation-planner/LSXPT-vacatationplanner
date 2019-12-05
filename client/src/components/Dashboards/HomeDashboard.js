@@ -3,6 +3,8 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import HomeNavbar from './Navbar/HomeNavbar.js';
+import LeftSideBar from './LeftSideBar.js';
+import Vacation from "./Calendar/index.js";
 
 const styles = () => ({
     main: {
@@ -30,7 +32,10 @@ class HomeDashboard extends React.Component {
             <main className={classes.main}>
                 <HomeNavbar />
                 <Paper className={classes.paper}>
-                    <h1>Test 2</h1>
+                    {/* <LeftSideBar /> */}
+                   {/*  <h1>Test 2</h1> */}
+                    <Vacation>
+                        </Vacation>
                 </Paper>
             </main>
         );

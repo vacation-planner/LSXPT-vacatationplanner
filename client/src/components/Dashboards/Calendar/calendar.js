@@ -1,0 +1,102 @@
+import React, { Component } from "react";
+import {
+    Calendar,
+    momentLocalizer,
+  } from 'react-big-calendar';
+import moment from "moment";
+import axios from "axios";
+import { fire } from "../../Auth/firebaseConfig";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
+
+const URL = "http://localhost:5500/api";
+const localizer = momentLocalizer(moment)
+  
+class Cal extends Component {
+  constructor(props) {
+    super(props);
+  this.state = {
+    events: this.props.events,
+    date: new Date(2019, 11, 12), 
+    uid: "",
+   };
+}
+//let events = this.props.events;
+componentDidMount() {
+  //let id = this.state.vacationsId;
+  let uid = fire.currentUser.uid;
+   this.setState({
+    uid: uid
+  }); 
+
+  console.log("state: ", this.state)
+  // get the data needed to populate the calendar component
+  //this.fetchVacationData(id);
+}
+selectedEvent = event => {
+  console.log("in the selectedevent: ", event)
+}
+
+addNewEventAlert = slotInfo => {
+  console.log("in the addnew: ", slotInfo)
+  let events = this.props.events;
+  //slotInfo.slots.forEach((vacation, index) => {
+ 
+  events.push({
+    //id: item.id,
+    title: "test",
+    start: slotInfo.start,
+    end: slotInfo.end,
+    desc: "item.location",
+  }) 
+//})
+  console.log("events: ", events)
+  this.setState({
+    events: events
+  });
+ 
+  this.writeToDb(slotInfo); 
+}
+
+writeToDb = slotInfo => {
+  const vacationRec = {
+  title: "test",
+    startDate: slotInfo.start,
+    endDate: slotInfo.end,
+    location: "item.location",
+    usersUid: this.state.uid,
+  }
+  axios
+  .post(`${URL}/vacations/`, vacationRec)
+  .then(response => {
+    console.log("file written")
+   })
+  .catch(err => {
+    console.log('We"ve encountered an error');
+  });
+
+
+
+}
+
+  render() {
+    const { events } = this.state
+    return (
+      <div className="Cal">
+        <Calendar
+          selectable
+          localizer={localizer}
+          defaultDate={new Date()}
+          defaultView="month"
+          events={this.props.events}
+          onSelectEvent={event => this.selectedEvent(event)}
+          style={{ height: "100vh" }}
+          onNavigate={date => this.setState({ date })}
+          onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+        />
+      </div>
+    );
+  }
+}
+
+export default Cal;
