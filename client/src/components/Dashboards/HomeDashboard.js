@@ -42,17 +42,17 @@ class HomeDashboard extends React.Component {
                 <HomeNavbar />
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
-                    <h1>Test 2</h1> 
+                   {/*  <h1>Test 2</h1>  */}
                    {/*  <Dnd>
                         </Dnd> */}
-                        {/* <AddUsers>
-                            </AddUsers> */}
-                           {/*  <CardHeaderTypes> */}
-                               {/*  </CardHeaderTypes> */}
-                      {/* <Vacation> */}
-                        {/* </Vacation> */}   
-                        {/* <Details> */}
-                           {/*  </Details> */}
+                          <AddUsers>
+                            </AddUsers>  
+                         {/*    <CardHeaderTypes> 
+                                </CardHeaderTypes>  */}                      
+                                {/*  <Vacation> 
+                         </Vacation>    */} 
+                        {/*  <Events> 
+                             </Events>  */}
                 </Paper>
             </main>
         );

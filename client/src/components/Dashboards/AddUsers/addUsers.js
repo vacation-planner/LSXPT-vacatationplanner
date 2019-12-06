@@ -110,10 +110,27 @@ class AddUsers extends Component {
     
   }
 
+  removeUser = () => {
+    // add the code here to remove user from list
+    alert("Not coded yet, sorry.")
+  }
+
   invite = () => {
     // send emails to all the users on list
-    let usersList = this.state.usersList;
+    let userList = [];
+    this.state.usersList.forEach((user, index) => {
+      userList.push(user.email)  
+    });
+    
     // now goto email component
+    axios
+      .post(`${URL}/emails/`, userList) // Get User Data
+      .then(response => {
+        console.log("emails sent") 
+      })
+      .catch(err => {
+        console.log("There was an error sending emails", err);
+      });
 
   }
 
@@ -175,7 +192,11 @@ class AddUsers extends Component {
                            <Button  
                                 onClick={() => this.addUser()} 
                                 color="rose">Add User to List
-                            </Button>                          
+                            </Button>
+                            <Button  
+                                onClick={() => this.removeUser()} 
+                                color="rose">Remove User
+                            </Button>                                                    
                             <div className="users-list">
                                 {rows}
                             </div>

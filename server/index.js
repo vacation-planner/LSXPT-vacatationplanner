@@ -13,6 +13,7 @@ const usersRouter = require("./api/usersRouter");
 const vacationsRouter = require("./api/vacationsRouter");
 //const expensesRouter = require("./api/expensesRouter");
 const eventsRouter = require("./api/eventsRouter");
+const emailsRouter = require("./api/emailsRouter");
 const secondaryUsersRouter = require("./api/secondaryUsersRouter")
 //const stripeRouter = require("./api/stripeRouter");
 //const admin = require("./data/auth/firebaseMiddleware");
@@ -25,6 +26,7 @@ server.use(logger("tiny"));
 server.use(helmet());
 server.use("/api/vacations", vacationsRouter);
 server.use("/api/users", usersRouter);
+server.use("/api/emails", emailsRouter);
 //server.use("/api/billing", verifyToken, billingRouter);
 server.use("/api/events", eventsRouter);
 server.use("/api/secondaryUsers", secondaryUsersRouter);
