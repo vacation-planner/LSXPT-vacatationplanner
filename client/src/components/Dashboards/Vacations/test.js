@@ -2,15 +2,15 @@ import React from "react";
 // material-ui
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
-import Language from "@material-ui/icons/Language";
+//import Language from "@material-ui/icons/Language";
 // core components
 import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Vacations/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
 import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js";
-import CardIcon from "../../StyledComponents/Dashboards/Vacations/js/CardIcon.js";
-import CardText from "../../StyledComponents/Dashboards/Vacations/js/CardText.js";
+//import CardIcon from "../../StyledComponents/Dashboards/Vacations/js/CardIcon.js";
+//import CardText from "../../StyledComponents/Dashboards/Vacations/js/CardText.js";
 
 import dashboardStyle from "../../StyledComponents/Dashboards/Vacations/js/dashboardStyle";
 import loginPageStyle from "../../StyledComponents/Dashboards/Vacations/js/loginPageStyle";
@@ -29,10 +29,10 @@ var styles = {
   }
 };
 
-const useStyles = makeStyles(styles);
+//const useStyles = makeStyles(styles);
 
 export default function CardHeaderTypes(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
   return (
     <div>
       <GridContainer>

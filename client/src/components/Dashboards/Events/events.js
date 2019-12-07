@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { fire } from "../../Auth/firebaseConfig";
+//import axios from "axios";
+//import { fire } from "../../Auth/firebaseConfig";
 
 import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
-import styles from "../../StyledComponents/Dashboards/Events/js/cardImagesStyles.js";
+//import styles from "../../StyledComponents/Dashboards/Events/js/cardImagesStyles.js";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(styles);
+//const useStyles = makeStyles(styles);
 
-const URL = "http://localhost:5500/api";
+//const URL = "http://localhost:5500/api";
 
   
 class Events extends Component {
