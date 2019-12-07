@@ -29,13 +29,21 @@ sgMail.send(msg);
 function sendEmail(data) {
   console.log("in sendEmail");
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  let userList = [];
+  let vacationsId = "";
+  data.forEach((user, index) => {
+    userList.push(user.email);
+    vacationsId = user.vacationsId;
+  }); 
+
 
   let emailHtml = '<p>Greetings, you are invited to participate in planning a vacation. </p>';
-  emailHtml = emailHtml + '<p></p><a href="http://localhost:3000/dashboards/">Click to Join</a> <p>This is to verify we can send emails from our app.</p>';
+  emailHtml = emailHtml + '<p></p><a href="http://localhost:3000?id='+vacationsId+'">Click to Join</a> <p>This is to verify we can send emails from our app.</p>';
+  //emailHtml = emailHtml + vacationsId
   console.log("emailHtml: ", emailHtml);
   const msg2 = {
    // to: ['willieino@hotmail.com', 'willieino@gmail.com'],
-    to: data,
+    to: userList,
     from: 'vacationplannerlx@gmail.com',
     subject: 'Hello Vacation Planner Developer',
     text: 'You have been invited to go on a vacation!',
