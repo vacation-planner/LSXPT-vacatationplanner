@@ -21,9 +21,10 @@ const cardStyle = {
     background: whiteColor,
     width: "1000px",
     boxShadow: "0 1px 4px 0 rgba(" + hexToRgb(blackColor) + ", 0.14)",
-    /* position: "relative", */
+     position: "relative", 
     display: "flex",
-    flexDirection: "column",
+    top: "200px",
+    flexDirection: "column", 
     /* minWidth: "600px", */
     height: "300px",
     wordWrap: "break-word",

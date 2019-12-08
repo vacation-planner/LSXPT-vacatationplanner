@@ -1,15 +1,15 @@
 .main {
     display: flex;
-    flex-direction: column;
+   /*  flex-direction: column; */
     width: 1200px;
     height: 700px;
-    border: 2px solid red;
+    border: 4px solid red;
 }
 
 .top {
   /*  display: flex; */
     width: 100%;
-    height: 50%; 
+     height: 50%;  
     border: 2px solid blue;
     /* align-self: center; */
     /* margin-left: 30%;  */
@@ -23,12 +23,20 @@
 }
 
 .vacations {
-    /* display: flex; */
-    height: 100%;
+    display: flex; 
+    width: 100%;
+    height: 1000px;
     border: 2px solid orange;
 
 }
 
+.vacation {
+    /* display: flex; */
+    width: 1200px;
+     height: 100%; 
+    border: 2px solid purple;
+
+}
 .test {
     display: flex;
     flex-direction: column;

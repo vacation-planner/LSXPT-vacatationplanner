@@ -45,12 +45,12 @@ class HomeDashboard extends React.Component {
                    {/*  <h1>Test 2</h1>  */}
                    {/*  <Dnd>
                         </Dnd> */}
-                          <AddUsers>
-                            </AddUsers>  
+                         {/*  <AddUsers>
+                            </AddUsers>   */}
                          {/*    <CardHeaderTypes> 
                                 </CardHeaderTypes>  */}                      
-                                {/*  <Vacation> 
-                         </Vacation>    */} 
+                                  <Vacation> 
+                         </Vacation>     
                         {/*  <Events> 
                              </Events>  */}
                 </Paper>

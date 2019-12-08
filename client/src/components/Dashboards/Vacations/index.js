@@ -36,16 +36,13 @@ render() {
       <div className="vacations">
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-                <div className="main">
-                    <div className="top">
+               
+                   
                         <Display>
                         </Display>
-                    </div>
-                    <div className="bottom">
-                        <AddVacations>
-                        </AddVacations>
-                    </div>
-                </div>
+                   
+                  
+               
             </GridItem>
         </GridContainer>
       </div>
