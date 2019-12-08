@@ -171,7 +171,7 @@ const cardStyle = {
     background:
       "linear-gradient(60deg," + roseColor[1] + "," + roseColor[4] + ")",
     "& h1 small": {
-      color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)"
+      color: "rgba(" + hexToRgb(blackColor) + ", 0.8)"
     },
     color: whiteColor
   },

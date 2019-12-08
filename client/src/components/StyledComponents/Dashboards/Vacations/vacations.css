@@ -25,16 +25,17 @@
 .vacations {
     display: flex; 
     width: 100%;
-    height: 1000px;
-    border: 2px solid orange;
+    height: 1600px;
+    /* border: 2px solid orange; */
+    background-image: url("../../../../images/register.jpg")
 
 }
 
 .vacation {
     /* display: flex; */
-    width: 1200px;
-     height: 100%; 
-    border: 2px solid purple;
+   /*  width: 1200px; */
+     height: 100%;  
+    /*  border: 2px solid purple; */
 
 }
 .test {
@@ -55,3 +56,4 @@ width: 50%;
 
 
 }
+

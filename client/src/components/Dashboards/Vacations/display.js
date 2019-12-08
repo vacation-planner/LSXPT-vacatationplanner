@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 import AddUsers from "../AddUsers/addUsers.js"
+import DateTimePicker from "./dateTime.js";
 import CustomInput from "../../StyledComponents/Dashboards/Vacations/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
@@ -18,12 +19,21 @@ const URL = "http://localhost:5500/api";
 
 const styles = theme => ({
   cardBody: {
-      backgroundColor: "#E91E63",
+      backgroundColor: "#E91E63", 
+      height: "10%",
       [theme.breakpoints.up("sm")]: {
           width: "100%",
          
       }
   },
+  cardBody2: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.up("sm")]: {
+        width: "100%",
+       
+    }
+},
   gridItem: {
       cursor: "pointer",
       padding: 15,
@@ -48,9 +58,12 @@ render() {
        <div className="vacation"> 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-           <Card style={{ width: "1200px", height: "600px", }}>
-               <CardBody className={classes.cardBody}>
-            Current Vacation Name:
+           <Card style={{ width: "800px", height: "600px", marginLeft: "40px", marginTop: "340px"}}>
+           Current Vacation Name: Winter Vacation
+               <CardBody   className={classes.cardBody2}>
+           
+            <CardBody>
+            Vacation Start:
                 <CustomInput
                     id="regular"
                     inputProps={{ placeholder: "Vacation" }}
@@ -58,16 +71,21 @@ render() {
                 />
                 </CardBody>
                 <CardBody>
-           <AddUsers>
-             </AddUsers>
-                </CardBody>
-                <CardBody   className={classes.cardBody} xs={12} sm={12} md={4}>
-            Enter new Vacation Name:
+            Vacation End:
                 <CustomInput
                     id="regular"
                     inputProps={{ placeholder: "Vacation" }}
-                    formControlProps={{ fullWidth: true }}
+                    formControlProps={{ fullWidth: false }}
                 />
+                </CardBody>
+                </CardBody>
+                <CardBody  className={classes.cardBody}>
+           {/*  <AddUsers>
+             </AddUsers>  */}
+                </CardBody>
+                <CardBody  xs={12} sm={12} md={4}>
+                 <DateTimePicker>
+               </DateTimePicker>  
                 </CardBody>
                 </Card>
             </GridItem>
