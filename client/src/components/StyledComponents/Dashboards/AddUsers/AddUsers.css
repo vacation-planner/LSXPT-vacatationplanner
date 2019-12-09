@@ -1,6 +1,6 @@
 .users-list {
     border: 2px solid lightgray;
-    height: 100px;
+    height: 30%;
     width: 100%;
     margin-bottom: 6px;
     margin-top: 6px;
@@ -19,14 +19,18 @@ h1 {
 }
 
 .firstName {
-    margin-top: 20px;
-    margin-bottom: 20px;
+   /*  margin-top: 10px; */
+   width: 70%;
+    margin-bottom: 10px;
 }
 
 .lastName {
-    margin-bottom: 20px;
+    width: 70%;
+    margin-bottom: 10px;
 }
 
 .email {
-    margin-bottom: 20px;
+    width: 70%;
+    margin-bottom: 10px;
+    margin-left: 32px;
 }

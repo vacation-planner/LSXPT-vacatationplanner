@@ -18,7 +18,8 @@ import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
 
 const useStyles = makeStyles(styles);
 
-const URL = "http://localhost:5500/api";
+const URL = 'https://vacationplannerlx.herokuapp.com/api';
+//const URL = "http://localhost:5500/api";
 
 // this component needs the vacationsId passed down to it
 // the vacation title would be helpful, if it is unavailable
@@ -155,19 +156,19 @@ class AddUsers extends Component {
     return (
         <GridContainer>
             <GridItem>
-                 <Card>
+                 <Card style={{ width: "600px", height: "420px", marginLeft: "40px", marginTop: "10px"}}>
                     <CardBody>
                         <form className="addUsers" onSubmit={this.onSubmit}>
-                            <h1>Add Users to Vacation: {this.state.vacationsTitle}</h1>
+                            <h4>Add Participants to Vacation: {this.state.vacationsTitle}</h4>
                             <Row>
-                               <p> First Name:
+                               First Name:
                                 <input
                                     type="text"
                                     name="firstName"
                                     onChange={this.changeHandler}
                                     value={this.state.firstName}
                                     className="firstName"
-                                /></p>
+                                />
                             </Row>                          
                             <Row>
                                 Last Name:
@@ -191,18 +192,18 @@ class AddUsers extends Component {
                             </Row>                          
                            <Button  
                                 onClick={() => this.addUser()} 
-                                color="rose">Add User to List
+                                color="rose">Add
                             </Button>
                             <Button  
                                 onClick={() => this.removeUser()} 
-                                color="rose">Remove User
+                                color="rose">Remove
                             </Button>                                                    
                             <div className="users-list">
                                 {rows}
                             </div>
-                            <p> </p>
-                            <h2>Press the invite button to send emails to the people on your list.</h2>
-                            <p> </p>
+                            
+                            <h5>Press the invite button to send emails to the people on your list.</h5>
+                            {/* <p> </p> */}
                             <Button  
                                 onClick={() => this.invite()} 
                                 color="rose">Send Invites

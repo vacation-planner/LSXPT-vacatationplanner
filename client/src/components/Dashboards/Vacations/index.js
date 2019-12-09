@@ -3,7 +3,7 @@ import React, { Component } from "react";
 //import { fire } from "../../Auth/firebaseConfig";
 import Display from "./display.js";
 import AddVacations from "./addVacations.js";
-
+import AddUsers from "../AddUsers/addUsers.js"
 //import CustomInput from "../../StyledComponents/Dashboards/Vacations/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
@@ -17,8 +17,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(styles);
 
-const URL = "http://localhost:5500/api";
-
+//const URL = "http://localhost:5500/api";
+const URL = 'https://vacationplannerlx.herokuapp.com/api';
   
 class Vacations extends Component {
   constructor(props) {
@@ -37,9 +37,9 @@ render() {
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
                
-                   
-                        <Display>
-                        </Display>
+           {/*  <AddUsers>  </AddUsers> */}
+                         <Display>
+                        </Display> 
                    
                   
                

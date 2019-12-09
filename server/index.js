@@ -33,8 +33,8 @@ server.use("/api/secondaryUsers", secondaryUsersRouter);
 //server.use("/api/users", verifyToken, usersRouter);
 //server.use("/api/expenses", expensesRouter);
 //server.use("/api/stripe", stripeRouter);
-//server.use(parser.urlencoded({ extended: false }));
-//server.use(parser.json());
+server.use(parser.urlencoded({ extended: false }));
+server.use(parser.json());
 //server.use("/", verifyToken);
 
 

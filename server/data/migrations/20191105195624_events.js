@@ -3,9 +3,9 @@ exports.up = function(knex) {
     return knex.schema.createTable('events', (event) => {
             event.increments();
             event.string('eventName', 128).notNullable();
-            event.integer('vacationsId').references('vacations.id');
-            event.string('usersUid').references('users.uid');
-            event.integer('secondaryUsersId').references('secondaryUsers.id');
+            event.integer('vacationsId');
+            event.string('usersUid');
+            event.integer('secondaryUsersId');
             event.date('startDate');
             event.date('endDate');
             event.time('startTime');
