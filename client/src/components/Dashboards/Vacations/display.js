@@ -3,6 +3,7 @@ import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 import AddUsers from "../AddUsers/addUsers.js"
 import DateTimePicker from "./dateTime.js";
+import Button from "../../StyledComponents/Dashboards/Vacations/js/Button.js";
 import CustomInput from "../../StyledComponents/Dashboards/Vacations/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
@@ -19,8 +20,8 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
 
 const styles = theme => ({
   cardBody: {
-      backgroundColor: "#E91E63", 
-      height: "10%",
+      /* backgroundColor: "#E91E63",  */
+      /* height: "10%", */
       [theme.breakpoints.up("sm")]: {
           width: "100%",
          
@@ -42,15 +43,64 @@ const styles = theme => ({
   }
 });
 
-class Vacations extends Component {
+class Display extends Component {
   constructor(props) {
     super(props);
   this.state = {
-    uid: "",
+    usersUid: "",
     value: "",
+    location: "",
+    title: "",
+    startDate: "",
+    endDate: "",
    };
 };
 
+componentDidMount() {
+      let usersUid = fire.currentUser.uid;
+       this.setState({
+        usersUid: usersUid
+      }); 
+      console.log("state: ", this.state)
+    };
+
+addVacation = () => {
+    // create a record using the input
+    console.log("in the add")
+    let vacationRec = {
+        title: this.state.title,
+        location: this.state.location,
+        /* startDate: this.state.startDate, */
+      /*   endDate: this.state.endDate, */
+        usersUid: this.state.usersUid,
+    }
+    console.log("in the vacationRec: ", vacationRec)
+    axios
+        .post(`${URL}/vacations/`, vacationRec)
+        .then(response => {
+            console.log("file written")
+        })
+        .catch(err => {
+            console.log('We"ve encountered an error');
+        });
+    // clear the inputs
+    /* this.setState({
+        usersList: usersList, 
+        firstName: "", 
+        lastName: "",
+        email: "",   
+      });  */
+    
+  }
+
+  handleChange = event => {
+   let temp = event.target.value;
+   console.log("temp: ", temp)
+   this.setState({
+    [event.target.name]: event.target.value
+  });
+    
+  };
 
 render() {
   const { classes } = this.props;
@@ -58,28 +108,42 @@ render() {
        <div className="vacation"> 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-           <Card style={{ width: "800px", height: "600px", marginLeft: "40px", marginTop: "340px"}}>
+           <Card style={{ width: "800px", height: "400px", marginLeft: "40px", marginTop: "340px"}}>
+          {/*  <div className="images"> </div> */}
            Current Vacation Name: Winter Vacation
                <CardBody   className={classes.cardBody2}>
            
             <CardBody>
             <h5>Name of New Vacation:{" "}
-                <CustomInput
-                    id="regular"
-                    inputProps={{ placeholder: "Vacation" }}
-                    formControlProps={{ fullWidth: false }}
-                /></h5>
+            <input
+                type="text"
+                name="title"
+                onChange={this.handleChange}
+                value={this.state.title}
+                className="title"
+            />
+               </h5>
                 </CardBody>
                 <CardBody> <h5>
             Destination:{" "}
-                <CustomInput
-                    id="regular"
-                    inputProps={{ placeholder: "Destination" }}
-                    formControlProps={{ fullWidth: false }}
-                /> </h5>
+            <input
+                type="text"
+                name="location"
+                onChange={this.handleChange}
+                value={this.state.location}
+                className="location"
+            />  </h5>
                 </CardBody>
                 </CardBody>
                 <CardBody  className={classes.cardBody}>
+                    <Button  
+                        onClick={() => this.addVacation()} 
+                        color="rose">Add
+                    </Button>
+                    <Button  
+                        onClick={() => this.removeUser()} 
+                        color="rose">Remove
+                    </Button>                               
              {/*  <AddUsers>
              </AddUsers>   */}
                 </CardBody>
@@ -95,5 +159,5 @@ render() {
   }
 }
 
-export default withStyles(styles)(Vacations);
+export default withStyles(styles)(Display);
 //export default Vacations;
