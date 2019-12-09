@@ -63,20 +63,20 @@ render() {
                <CardBody   className={classes.cardBody2}>
            
             <CardBody>
-            Vacation Start:
+            <h5>Name of New Vacation:{" "}
                 <CustomInput
                     id="regular"
                     inputProps={{ placeholder: "Vacation" }}
                     formControlProps={{ fullWidth: false }}
-                />
+                /></h5>
                 </CardBody>
-                <CardBody>
-            Vacation End:
+                <CardBody> <h5>
+            Destination:{" "}
                 <CustomInput
                     id="regular"
-                    inputProps={{ placeholder: "Vacation" }}
+                    inputProps={{ placeholder: "Destination" }}
                     formControlProps={{ fullWidth: false }}
-                />
+                /> </h5>
                 </CardBody>
                 </CardBody>
                 <CardBody  className={classes.cardBody}>
