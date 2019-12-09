@@ -4,7 +4,7 @@ exports.up = function(knex) {
             event.increments();
             event.string('eventName', 128).notNullable();
             event.integer('vacationsId');
-            event.string('usersUid');
+            event.string('usersUid', 128);
             event.integer('secondaryUsersId');
             event.date('startDate');
             event.date('endDate');
