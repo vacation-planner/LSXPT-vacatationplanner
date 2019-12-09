@@ -37,8 +37,8 @@ render() {
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
                
-           {/*  <AddUsers>  </AddUsers> */}
-                         <Display>
+            {/*  <AddUsers>  </AddUsers>  */}
+                          <Display>
                         </Display> 
                    
                   
