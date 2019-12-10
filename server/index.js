@@ -13,6 +13,7 @@ const usersRouter = require("./api/usersRouter");
 const vacationsRouter = require("./api/vacationsRouter");
 //const expensesRouter = require("./api/expensesRouter");
 const eventsRouter = require("./api/eventsRouter");
+const emailsRouter = require("./api/emailsRouter");
 const secondaryUsersRouter = require("./api/secondaryUsersRouter")
 //const stripeRouter = require("./api/stripeRouter");
 //const admin = require("./data/auth/firebaseMiddleware");
@@ -25,18 +26,26 @@ server.use(logger("tiny"));
 server.use(helmet());
 server.use("/api/vacations", vacationsRouter);
 server.use("/api/users", usersRouter);
+server.use("/api/emails", emailsRouter);
 //server.use("/api/billing", verifyToken, billingRouter);
 server.use("/api/events", eventsRouter);
 server.use("/api/secondaryUsers", secondaryUsersRouter);
 //server.use("/api/users", verifyToken, usersRouter);
 //server.use("/api/expenses", expensesRouter);
 //server.use("/api/stripe", stripeRouter);
-//server.use(parser.urlencoded({ extended: false }));
-//server.use(parser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json());
 //server.use("/", verifyToken);
 
 
 const PORT = process.env.PORT || 5500;
+
+//Server response get '/'
+server.get("/", async (req, res) => {
+    await res
+      .status(200)
+      .json({ response: "Vacation Planner LX App Successfully Launched" });
+  });
 
 server.listen(PORT, () => {
     console.log(`\n** Server is listening on port: ${PORT} **\n`);

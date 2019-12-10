@@ -1,14 +1,21 @@
 import React from "react";
-import { render } from "react-dom";
+//import { render } from "react-dom";
 import Cal from "./calendar.js";
-
+import Dnd from "./dragDrop.js";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Button from "../../StyledComponents/Dashboards/Calendar/js/Button.js";
+import Card from "../../StyledComponents/Dashboards/Calendar/js/Card.js";
+import CardBody from "../../StyledComponents/Dashboards/Calendar/js/CardBody.js";
 
+import styles from "../../StyledComponents/Dashboards/Calendar/js/cardImagesStyles.js";
+import { makeStyles } from "@material-ui/core/styles";
 
-const URL = "http://localhost:5500/api";
+const useStyles = makeStyles(styles);
 
+//const URL = "http://localhost:5500/api";
+const URL = 'https://vacationplannerlx.herokuapp.com/api';
 
   class Vacation extends React.Component {
     constructor(props) {
@@ -92,7 +99,7 @@ const URL = "http://localhost:5500/api";
       let sD =  vStart.slice(3,5);
       let sM = vStart.slice(0,2);
       let sY =  vStart.slice(-4);
-      console.log("sD: ", sD)
+     
       let vEnd = item.endDate.toString();
       let eD =  vEnd.slice(3,5);
       let eM = vEnd.slice(0,2);
@@ -104,6 +111,7 @@ const URL = "http://localhost:5500/api";
         start: new Date(sY, sM, sD),
         end: new Date(eY, eM, eD),
         desc: item.location,
+        resourceId: 1,
       })  
     })
     
@@ -118,7 +126,7 @@ const URL = "http://localhost:5500/api";
       let hrs = 0
       let mins = 0
       
-      if (tmpTime.length == 3) {
+      if (tmpTime.length === 3) {
         hrs = tmpTime.slice(0,1);
         mins =  tmpTime.slice(1,3);
       } else {
@@ -135,7 +143,7 @@ const URL = "http://localhost:5500/api";
       let endHrs = 0
       let endMins = 0
       
-      if (tmpTime.length == 3) {
+      if (tmpTime.length === 3) {
         endHrs = tmpEndTime.slice(0,1);
         endMins =  tmpEndTime.slice(1,3);
       } else {
@@ -165,10 +173,16 @@ render () {
 
   return (
   <div className="cal-outer">
-      <Cal events={this.state.events}>
-          </Cal>
-
-      </div>
+    <Card style={{ width: "900px", height: "40%" }}>
+    <CardBody>
+     {/*  <Cal events={this.state.events}>
+      </Cal> */}
+      <Dnd events={this.state.events}>
+      </Dnd>
+      </CardBody>
+    </Card>
+    
+  </div>
   );
 }
 }

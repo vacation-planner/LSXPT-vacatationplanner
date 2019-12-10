@@ -41,7 +41,6 @@ module.exports = {
   },
 
   insert: user => {
-    return db("secondaryUsers")
-      .insert(user)
+    return db("secondaryUsers").insert(user);
    },
 };
