@@ -11,8 +11,8 @@ import Signin from './components/Auth/Signin';
 
 import axios from 'axios';
 
-const URL = 'https://vacationplannerlx.herokuapp.com/';
-//const URL = 'http://localhost:5500/';
+//const URL = 'https://vacationplannerlx.herokuapp.com/';
+const URL = 'http://localhost:5500/';
 
 const AuthenticatedRoute = ({
     component: Component,

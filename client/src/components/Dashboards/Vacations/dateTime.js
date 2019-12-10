@@ -11,8 +11,8 @@ import moment from "moment";
 
 import "../../StyledComponents/Dashboards/AddUsers/material-dashboard-pro-react.css";
 
-const URL = 'https://vacationplannerlx.herokuapp.com/api';
-//const URL = "http://localhost:5500/api";
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
+const URL = "http://localhost:5500/api";
 
 const style = {
   label: {
