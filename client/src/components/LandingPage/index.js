@@ -24,16 +24,6 @@ class LandingPage extends Component {
     
     render() {
         const { classes } = this.props;
-
-        // Check if logged in
-        // If logged In
-        // return (
-        //     <>
-        //         <Redirect to='/dashboards' />
-        //     </>
-        // )
-
-        // else
         return (
             <>
                 <Navbar />
@@ -53,8 +43,6 @@ class LandingPage extends Component {
                             >
                             Sign in
                         </Button>
-                        {/* <button
-                            onClick={this.signOut}>Temp Sign out</button> */}
                     </LandingPageHeader>
                 </ContentDiv>
 
