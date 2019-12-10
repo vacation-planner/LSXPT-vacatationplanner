@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 // @material-ui/core components
@@ -7,7 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
-import { fire } from "../../Auth/firebaseConfig";
+
 import "../../StyledComponents/Dashboards/AddUsers/material-dashboard-pro-react.css";
 
 const URL = 'https://vacationplannerlx.herokuapp.com/api';

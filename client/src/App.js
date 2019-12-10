@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { fire } from './components/Auth/firebaseConfig';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
@@ -7,7 +8,7 @@ import * as ROUTES from './constants/routes';
 import LandingPage from './components/LandingPage';
 import Dashboards from './components/Dashboards/HomeDashboard.js';
 import Signin from './components/Auth/Signin';
-import { fire } from './components/Auth/firebaseConfig';
+
 import axios from 'axios';
 
 const URL = 'https://vacationplannerlx.herokuapp.com/';
