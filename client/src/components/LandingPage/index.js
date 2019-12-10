@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { fire } from "../Auth/firebaseConfig";
+import { Link } from "react-router-dom";
 import withStyles from '@material-ui/core/styles/withStyles';
 import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar/LPNavbar.js';
-import { fire } from "../Auth/firebaseConfig";
 import * as ROUTES from "../../constants/routes";
 import { ContentDiv, LandingPageHeader, LandingPageH2, LandingPageFooter } from '../StyledComponents';
 import Button from '../Material-UI/components/CustomButtons/Button.jsx';
@@ -43,6 +44,9 @@ class LandingPage extends Component {
                         <LandingPageH2>
                             Welcome to Vacation Planner
                         </LandingPageH2>
+                        <Link to={ROUTES.SIGNIN} className="button button__accent">
+                  Get Started
+                </Link>
                         <p>
                             Do you want a fast, east way to plan your vacation?  We can help with that!
                             {/* Planning a vacation with friends or family can become very complicated and stressful.  Using Vacation Planner can allow everyone to plan out the vacation ahead of time, so there everyone can enjoy their vacation without arguments and anxiety. */}
@@ -53,8 +57,8 @@ class LandingPage extends Component {
                             >
                             Sign in
                         </Button>
-                        {/* <button
-                            onClick={this.signOut}>Temp Sign out</button> */}
+                         <button
+                            onClick={this.signOut}>Temp Sign out</button>
                     </LandingPageHeader>
                 </ContentDiv>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { fire } from "../Auth/firebaseConfig";
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -42,15 +43,15 @@ class HomeDashboard extends React.Component {
                 <HomeNavbar />
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
-                     <h1>Test 2</h1>  
+                    {/*  <h1>Test 2</h1> */}  
                    {/*  <Dnd>
                         </Dnd> */}
                           {/*  <AddUsers>
                             </AddUsers>    */}
                          {/*    <CardHeaderTypes> 
                                 </CardHeaderTypes>  */}                      
-                        {/*            <Vacation> 
-                         </Vacation>       */}
+                                    <Vacation> 
+                         </Vacation>      
                         {/*  <Events> 
                              </Events>  */}
                 </Paper>
