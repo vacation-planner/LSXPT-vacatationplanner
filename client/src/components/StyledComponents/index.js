@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import LandingBackground from '../../images/LandingPage1.jpg';
 
+
 // Landing Page
 const ContentDiv = styled.div`
     background-image: url(${LandingBackground});
