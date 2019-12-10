@@ -10,7 +10,6 @@ import Signin from './components/Auth/Signin';
 import { fire } from './components/Auth/firebaseConfig';
 import axios from 'axios';
 
-// ********* need heroku address ***********
 const URL = 'https://vacationplannerlx.herokuapp.com/';
 //const URL = 'http://localhost:5500/';
 
@@ -51,12 +50,16 @@ class App extends Component {
     };
 
     componentDidMount = () => {
+        // this checks the url for any parameters and returns empty if it is
         let vacationsId = this.getUrlParam('id','Empty');
+        // if we do have a param, it means the user has arrived from a link
+        // in the invitation email we sent them
         if (vacationsId !== 'Empty') {
             // save the id to local storage
             localStorage.setItem('vacationsId', vacationsId);
         }
-        console.log('vacationsId: ', vacationsId)
+        // the app redirects and loses the parameter, so i saved it to local storage
+       // console.log('vacationsId: ', vacationsId)
 
         this.removeAuthListener = fire.onAuthStateChanged(user => {
             if (user) {
@@ -89,13 +92,13 @@ class App extends Component {
                     authenticated: false,
                     redirect: false,
                     currentEmail: null,
-                    balance: null,
                     userUID: null
                 });
             }
         });
     };
 
+    // this function grabs any parameter in the url
     getUrlVars = () => {
         let vars = {};
         let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -104,6 +107,7 @@ class App extends Component {
         return vars;
     };
 
+    // this function keeps it from crashing if there is no parameter
     getUrlParam = (parameter,defaultvalue) => {
         let urlparameter = defaultvalue;
         if(window.location.href.indexOf(parameter) > -1){
