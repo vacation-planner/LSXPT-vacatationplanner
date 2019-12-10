@@ -6,10 +6,12 @@ import {
 import moment from "moment";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
+import swal from '@sweetalert/with-react'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
-const URL = "http://localhost:5500/api";
+const URL = 'https://vacationplannerlx.herokuapp.com/api';
+//const URL = "http://localhost:5500/api";
 const localizer = momentLocalizer(moment)
   
 class Cal extends Component {
@@ -19,6 +21,7 @@ class Cal extends Component {
     events: this.props.events,
     date: new Date(2019, 11, 12), 
     uid: "",
+    value: "",
    };
 }
 //let events = this.props.events;
@@ -30,11 +33,25 @@ componentDidMount() {
   }); 
 
   console.log("state: ", this.state)
-  // get the data needed to populate the calendar component
-  //this.fetchVacationData(id);
 }
+
 selectedEvent = event => {
   console.log("in the selectedevent: ", event)
+  swal(
+    <div>
+      <form onSubmit={this.submitForm()} >
+        <h1>Hello!</h1>        
+        <p>Please enter a name for the event:</p>
+        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  )
+}
+
+handleChange = event => {
+  this.setState({value: this.state.value + event.target.value});
+  console.log("value: ", this.state.value)
 }
 
 addNewEventAlert = slotInfo => {
@@ -54,7 +71,7 @@ addNewEventAlert = slotInfo => {
   this.setState({
     events: events
   });
- 
+
   this.writeToDb(slotInfo); 
 }
 
@@ -74,13 +91,43 @@ writeToDb = slotInfo => {
   .catch(err => {
     console.log('We"ve encountered an error');
   });
-
-
-
 }
 
+eventStyleGetter = (event) => {
+  console.log("Here we are: ", event);
+  
+  var backgroundColor = '#' + "04068a";
+  var style = {
+      backgroundColor: backgroundColor,
+      borderRadius: '0px',
+      opacity: 0.8,
+      color: 'black',
+      border: '0px',
+      display: 'block'
+  };
+  return {
+      style: style
+  };
+}
+
+eventColors = event => {
+  console.log("event.color: ", event.color)  
+  let backgroundColor = "event-";
+    event.color
+      ? (backgroundColor = backgroundColor + event.color)
+      : (backgroundColor = backgroundColor + "default");
+    return {
+      className: backgroundColor
+    };
+  };
+
+  submitForm = () => {
+    // save the data to db
+    window.alert("alert")
+  }
+
   render() {
-    const { events } = this.state
+    /* const { events } = this.state */
     return (
       <div className="Cal">
         <Calendar
@@ -90,9 +137,10 @@ writeToDb = slotInfo => {
           defaultView="month"
           events={this.props.events}
           onSelectEvent={event => this.selectedEvent(event)}
-          style={{ height: "100vh" }}
+         /*  style={{ height: "100vh" }} */
           onNavigate={date => this.setState({ date })}
           onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+          eventPropGetter={event => this.eventStyleGetter(event)}
         />
       </div>
     );

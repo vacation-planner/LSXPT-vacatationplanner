@@ -70,9 +70,11 @@ router.get('/users/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const data = req.body;
     if (data) {
-        await vacations.insert(data).then(response => {
-            res.status(200).json({'message': 'Vacation added.'});
-        })
+        await vacations
+        .insert(data)
+        .then(data => {
+            res.status(201).json({ id: data.id });
+          })
         .catch(err => {
             res.status(500).json({'error': `Server responded with error: ${err}`});
         })

@@ -9,6 +9,13 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
+import LeftSideBar from './LeftSideBar.js';
+import Vacation from "./Vacations/index.js";
+import CardHeaderTypes from "./Vacations/test.js";
+import Dnd from "./Calendar/dragDrop.js";
+import Events from "./Events/events.js";
+import AddUsers from "./AddUsers/addUsers.js";
+
 
 const styles = () => ({
     card: {
@@ -79,7 +86,7 @@ const styles = () => ({
         padding: '20px 0',
         backgroundColor: '#E2E2E2',
         minHeight: 'calc(100vh - 65px)',
-
+        height: '600px',
     }
 });
 

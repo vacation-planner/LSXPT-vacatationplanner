@@ -11,8 +11,8 @@ import { fire } from './components/Auth/firebaseConfig';
 import axios from 'axios';
 
 // ********* need heroku address ***********
-//const URL = "https://?????.herokuapp.com/";
-const URL = 'http://localhost:5500/';
+const URL = 'https://vacationplannerlx.herokuapp.com/';
+//const URL = 'http://localhost:5500/';
 
 const AuthenticatedRoute = ({
     component: Component,
@@ -46,10 +46,18 @@ class App extends Component {
         lastName: null,
         currentEmail: null,
         userUID: null,
-        redirect: false
+        redirect: false,
+        vacationsId: "",
     };
 
     componentDidMount = () => {
+        let vacationsId = this.getUrlParam('id','Empty');
+        if (vacationsId !== 'Empty') {
+            // save the id to local storage
+            localStorage.setItem('vacationsId', vacationsId);
+        }
+        console.log('vacationsId: ', vacationsId)
+
         this.removeAuthListener = fire.onAuthStateChanged(user => {
             if (user) {
                 // Last # of occurrence of Space
@@ -88,6 +96,22 @@ class App extends Component {
         });
     };
 
+    getUrlVars = () => {
+        let vars = {};
+        let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars;
+    };
+
+    getUrlParam = (parameter,defaultvalue) => {
+        let urlparameter = defaultvalue;
+        if(window.location.href.indexOf(parameter) > -1){
+            urlparameter = this.getUrlVars()[parameter];
+            }
+        return urlparameter;
+    };
+    
     //To sign out an get no error with firebase dropping the widget
     //   removeAuthListener: any;
     // Add current user method will grab the information from state create new user in our database

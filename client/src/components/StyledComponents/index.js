@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import LandingBackground from '../../images/LandingPage1.jpg';
+//import TestingImg from '../../images/palmTree2a_200.png';
 
 // Landing Page
 const ContentDiv = styled.div`
