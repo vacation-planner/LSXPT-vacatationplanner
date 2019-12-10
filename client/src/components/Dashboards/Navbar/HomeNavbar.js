@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -12,8 +12,6 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -116,7 +114,6 @@ const styles = theme => ({
                 maxHeight: "400px",
                 overflow: "scroll"
             },
-            width: "100%",
         }
     },
     logo: {
