@@ -11,7 +11,7 @@ module.exports = router => {
   router.get("/:id/:acct", userByAcct);
 };
 
-/* async function verifyToken(req, res, next) {
+async function verifyToken(req, res, next) {
   const idToken = req.headers.authorization;
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
@@ -24,22 +24,23 @@ module.exports = router => {
   } catch (e) {
     return res.status(401).send("You are no authorized!");
   }
-} */
+}
+
 // /************************************ USERS SECTION ***********************************/
 
-// function protect(req, res, next) {
-//     const token = req.headers.authorization;
+ function protect(req, res, next) {
+     const token = req.headers.authorization;
 
-//     jwt.verify(token, secret, (err, decodedToken) => a{
-//         if (err) {
-//             res
-//                 .status(401)
-//                 .json({ message: 'Invalid token' });
-//         } else {
-//             next();
-//         };
-//     });
-// };
+     jwt.verify(token, secret, (err, decodedToken) => {
+         if (err) {
+             res
+                 .status(401)
+                 .json({ message: 'Invalid token' });
+         } else {
+             next();
+         };
+     });
+ };
 
 // //************************************************** */
 // function generateToken(user) {
@@ -54,8 +55,8 @@ module.exports = router => {
 
 /********* Get Users *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
-// router.get('/', protect, (req, res) => {
-router.get("/", (req, res) => {
+ router.get('/', protect, (req, res) => {
+//router.get("/", (req, res) => {
   users
     .get()
     .then(user => {
