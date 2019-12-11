@@ -62,11 +62,11 @@ handleStartChange = event => {
     /* endDate: this.state.endDate, */
     usersUid: this.state.usersUid,
   }
-console.log("in the vacationRec: ", vacationRec)
+console.log("vacationsId: ", this.props.vacationsId)
 axios
-    .put(`${URL}/vacations/${this.state.vacationsId}`, vacationRec)
+    .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
     .then(response => {
-        console.log("file updated")
+        console.log("start day updated")
     })
     .catch(err => {
         console.log('We"ve encountered an error');
@@ -81,8 +81,26 @@ axios
 handleEndChange = event => {
   let endDate = moment(event).format();
   // update the current vacation record
+  let vacationRec = {
+    title: this.props.title,
+    location: this.props.location,
+    endDate: endDate,   // if field empty, dont save it
+    usersUid: this.state.usersUid,
+  }
+console.log("in the vacationRec: ", vacationRec)
+axios
+    .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
+    .then(response => {
+        console.log("end date updated")
+    })
+    .catch(err => {
+        console.log('We"ve encountered an error');
+    });
 
-  //this.setState({value: event}); 
+ this.setState({
+    endDate: endDate,    
+  });  
+  
 };
 
 
