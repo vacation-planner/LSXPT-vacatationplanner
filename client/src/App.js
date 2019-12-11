@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-//import { fire } from './components/Auth/firebaseConfig';
+import { fire } from './components/Auth/firebaseConfig';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
@@ -62,7 +62,7 @@ class App extends Component {
         // the app redirects and loses the parameter, so i saved it to local storage
        // console.log('vacationsId: ', vacationsId)
 
-      /*   this.removeAuthListener = fire.onAuthStateChanged(user => {
+         this.removeAuthListener = fire.onAuthStateChanged(user => {
             if (user) {
                 // Last # of occurrence of Space
                 return fire.currentUser
@@ -87,16 +87,16 @@ class App extends Component {
                     .catch(err => console.log('error ', err));
 
                 // If the user is the Authenticated use pass their information to the database
-            } else { */
+            } else { 
                 this.setState({
                     currentUser: null,
-                    authenticated: true,
+                    authenticated: false,
                     redirect: false,
                     currentEmail: null,
                     userUID: null
                 });
-           /*  } */
-       /*  }); */
+             } 
+         }); 
     };
 
     // this function grabs any parameter in the url

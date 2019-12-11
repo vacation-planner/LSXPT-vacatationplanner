@@ -35,27 +35,53 @@ class DateTimePicker extends Component {
   this.state = {
     events: this.props.events,
     date: new Date(2019, 11, 12), 
-    uid: "",
+    usersUid: "",
     value: "",
+    vacationsId: this.props.vacationsId,
+    title: "",
+    location: "",
+    startDate: "",
+    endDate: "",
    };
 }
 
 componentDidMount() {
-   let uid = fire.currentUser.uid;
+   let usersUid = fire.currentUser.uid;
    this.setState({
-    uid: uid
+    usersUid: usersUid
   }); 
 };
 
 handleStartChange = event => {
-  let newDate = moment(event).format();
-   // save new value to db
-  //this.setState({value: event});
+  let startDate = moment(event).format();
+   // update the current vacation record
+   let vacationRec = {
+    title: this.props.title,
+    location: this.props.location,
+    startDate: startDate,   // if field empty, dont save it
+    /* endDate: this.state.endDate, */
+    usersUid: this.state.usersUid,
+  }
+console.log("in the vacationRec: ", vacationRec)
+axios
+    .put(`${URL}/vacations/${this.state.vacationsId}`, vacationRec)
+    .then(response => {
+        console.log("file updated")
+    })
+    .catch(err => {
+        console.log('We"ve encountered an error');
+    });
+// clear the inputs
+ this.setState({
+    startDate: startDate,    
+  });  
+
 };
 
 handleEndChange = event => {
-  let newDate = moment(event).format();
-   // save new value to db
+  let endDate = moment(event).format();
+  // update the current vacation record
+
   //this.setState({value: event}); 
 };
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { fire } from "../Auth/firebaseConfig";
+import { fire } from "../Auth/firebaseConfig";
 import { Link } from "react-router-dom";
 import withStyles from '@material-ui/core/styles/withStyles';
 import { AppContext } from '../Context/AppContext.js';
@@ -18,11 +18,11 @@ class LandingPage extends Component {
 
     //************* Added temp signout ************************
     //**   this just gives us a temporary way to signout     **
-   /*  signOut = () => {
+     signOut = () => {
         fire.signOut();
         console.log("User logged out successfully");
        };
-     */
+     
     render() {
         const { classes } = this.props;
 
@@ -54,8 +54,6 @@ class LandingPage extends Component {
                             >
                             Sign in
                         </Button>
-                         <button
-                            onClick={this.signOut}>Temp Sign out</button>
                     </LandingPageHeader>
                 </ContentDiv>
 

@@ -70,7 +70,7 @@ addVacation = () => {
     let vacationRec = {
         title: this.state.title,
         location: this.state.location,
-        /* startDate: this.state.startDate, */
+        /* startDate: this.state.startDate, */  // if field empty, dont save it
       /*   endDate: this.state.endDate, */
         usersUid: this.state.usersUid,
     }
@@ -83,21 +83,21 @@ addVacation = () => {
         .catch(err => {
             console.log('We"ve encountered an error');
         });
+
+        // need to add id to state
     // clear the inputs
-    /* this.setState({
-        usersList: usersList, 
-        firstName: "", 
-        lastName: "",
-        email: "",   
-      });  */
+    /*  this.setState({
+        title: "", 
+        location: "", 
+        startDate: "",
+        endDate: "",   
+      });   */
     
   }
 
   handleChange = event => {
-   let temp = event.target.value;
-   console.log("temp: ", temp)
-   this.setState({
-    [event.target.name]: event.target.value
+    this.setState({
+        [event.target.name]: event.target.value
   });
     
   };
@@ -148,7 +148,7 @@ render() {
              </AddUsers>   */}
                 </CardBody>
                 <CardBody  xs={12} sm={12} md={4}>
-                 <DateTimePicker>
+                 <DateTimePicker title={this.state.title} location={this.state.location}>
                </DateTimePicker>  
                 </CardBody>
                 </Card>
