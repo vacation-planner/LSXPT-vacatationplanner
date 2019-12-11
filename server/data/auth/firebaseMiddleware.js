@@ -2,10 +2,11 @@
 const dotenv = require("dotenv");
 const admin = require("firebase-admin");
 
-const serviceAccount = require("./lsxpt-vacationplanner-firebase-adminsdk-v5pc9-edde143921");
+const serviceAccount = require("./vacationplannerlx-550b0-firebase-adminsdk-jqbo3-14722dcfa3");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
+ 
 });
 
 /**** FIREBASE MIDDLEWARE AUTH ***/
@@ -14,7 +15,3 @@ module.exports = admin;
 
 
 
-/* admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount) */
- /*  databaseURL: "https://lsxpt-vacationplanner.firebaseio.com" */
-/* }); */
