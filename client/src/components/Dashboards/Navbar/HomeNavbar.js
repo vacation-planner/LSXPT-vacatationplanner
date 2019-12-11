@@ -326,6 +326,7 @@ class HomeNavbar extends React.Component {
                                     </ListItem>
                                     <ListItem className={classes.listItem}>
                                         <Button
+                                            onClick={this.signOut}
                                             href={ROUTES.LANDING}
                                             className={classes.navLink}
                                             color="transparent"
