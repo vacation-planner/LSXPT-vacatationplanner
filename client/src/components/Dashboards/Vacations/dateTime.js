@@ -60,26 +60,27 @@ handleStartChange = event => {
   } else {
   let startDate = moment(event).format();
    // update the current vacation record
-   let vacationRec = {
+    let vacationRec = {
     title: this.props.title,
     location: this.props.location,
-    startDate: startDate,   // if field empty, dont save it
-    /* endDate: this.state.endDate, */
+    startDate: startDate,  
     usersUid: this.state.usersUid,
-  }
+  } 
 
-axios
+ axios
     .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
     .then(response => {
         console.log("start day updated")
     })
     .catch(err => {
         console.log('We"ve encountered an error');
-    });
+    }); 
 // clear the inputs
  this.setState({
     startDate: startDate,    
-  });  
+  }); 
+  
+  //this.props.startDate(this.state.startDate)
   }
 };
 

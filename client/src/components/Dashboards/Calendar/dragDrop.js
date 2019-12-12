@@ -8,7 +8,7 @@ const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
-const events = [
+/* const events = [
     {
       id: 0,
       title: 'vacation meeting',
@@ -65,7 +65,7 @@ const events = [
       end: new Date(2018, 0, 30, 13, 0, 0),
       resourceId: 4,
     },
-  ]
+  ] */
   
 const resourceMap = [
   { resourceId: 1, resourceTitle: 'Vacation Date' },
@@ -78,7 +78,7 @@ class Dnd extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      events: events,
+      events: this.props.events,
     }
 
     this.moveEvent = this.moveEvent.bind(this)
@@ -153,14 +153,14 @@ class Dnd extends React.Component {
       <DragAndDropCalendar
         selectable
         localizer={localizer}
-        events={this.state.events}
+        events={this.props.events}
         onEventDrop={event => this.moveEvent(event)}
         resizable
         resources={resourceMap} 
         resourceIdAccessor="resourceId" 
         resourceTitleAccessor="resourceTitle" 
         onEventResize={this.resizeEvent}
-        defaultView="day"
+        defaultView="month"
         step={15}
         showMultiDayTimes={true}
         defaultDate={new Date(2018, 0, 29)}

@@ -1,6 +1,6 @@
 import React from "react";
 //import { render } from "react-dom";
-import Cal from "./calendar.js";
+//import Cal from "./calendar.js";
 import Dnd from "./dragDrop.js";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
@@ -11,13 +11,14 @@ import CardBody from "../../StyledComponents/Dashboards/Calendar/js/CardBody.js"
 
 import styles from "../../StyledComponents/Dashboards/Calendar/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
+import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
 const useStyles = makeStyles(styles);
 
 //const URL = "http://localhost:5500/api";
 const URL = 'https://vacationplannerlx.herokuapp.com/api';
 
-  class Vacation extends React.Component {
+  class Calendar extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -95,7 +96,7 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
   //let vacationDate = [];
   let events = [];
   this.state.vacation.forEach((item, index) => {
-      let vStart = item.startDate.toString();
+      /* let vStart = item.startDate.toString();
       let sD =  vStart.slice(3,5);
       let sM = vStart.slice(0,2);
       let sY =  vStart.slice(-4);
@@ -103,13 +104,13 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
       let vEnd = item.endDate.toString();
       let eD =  vEnd.slice(3,5);
       let eM = vEnd.slice(0,2);
-      let eY =  vEnd.slice(-4);
+      let eY =  vEnd.slice(-4); */
  
       events.push({
         //id: item.id,
         title: item.title,
-        start: new Date(sY, sM, sD),
-        end: new Date(eY, eM, eD),
+        start: item.startDate,
+        end: item.endDate,
         desc: item.location,
         resourceId: 1,
       })  
@@ -117,7 +118,7 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
     
     this.state.eventData.forEach((item, index) => {
       // extract time from startTime
-      let tmpDate = item.startDate.toString();
+      /* let tmpDate = item.startDate.toString();
       let d =  tmpDate.slice(3,5);
       let m = tmpDate.slice(0,2);
       let y =  tmpDate.slice(-4);
@@ -149,13 +150,13 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
       } else {
         endHrs = tmpEndTime.slice(0,2);
         endMins =  tmpEndTime.slice(2,4);
-      }
+      } */
      
       events.push({
-        id: item.id,
+        //id: item.id,
         title: item.eventName,
-        start: new Date(y, m, d, hrs, mins),
-        end: new Date(endY, endM, endD, endHrs, endMins),
+        start: item.startTimeDate,
+        end: item.endTimeDate,
         desc: item.description
       })  
         
@@ -173,7 +174,7 @@ render () {
 
   return (
   <div className="cal-outer">
-    <Card style={{ width: "900px", height: "40%" }}>
+    <Card style={{ width: "20%", top: "0px", }}>
     <CardBody>
      {/*  <Cal events={this.state.events}>
       </Cal> */}
@@ -181,9 +182,16 @@ render () {
       </Dnd>
       </CardBody>
     </Card>
+    <Card style={{ width: "20%", top: "0px", }}>
+    <CardBody>
+     {/*  <Cal events={this.state.events}>
+      </Cal> */}
+     
+      </CardBody>
+    </Card>
     
   </div>
   );
 }
 }
-export default Vacation;
+export default Calendar;

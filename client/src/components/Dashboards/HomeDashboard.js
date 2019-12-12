@@ -8,6 +8,7 @@ import LeftSideBar from './LeftSideBar.js';
 import Vacation from "./Vacations/index.js";
 import CardHeaderTypes from "./Vacations/test.js";
 import Dnd from "./Calendar/dragDrop.js";
+import Calendar from "./Calendar/index.js";
 import Events from "./Events/events.js";
 import AddUsers from "./AddUsers/addUsers.js";
 
@@ -44,14 +45,16 @@ class HomeDashboard extends React.Component {
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
                      {/*    <h1>Test 2</h1>   */} 
-                   {/*  <Dnd>
-                        </Dnd> */}
+                     <Calendar>
+                        </Calendar> 
+                    {/*  <Dnd>
+                        </Dnd>  */}
                           {/*  <AddUsers>
                             </AddUsers>    */}
                          {/*    <CardHeaderTypes> 
                                 </CardHeaderTypes>  */}                      
-                                       <Vacation> 
-                         </Vacation>         
+                      {/*                  <Vacation> 
+                         </Vacation>          */}
                         {/*  <Events> 
                              </Events>  */}
                 </Paper>

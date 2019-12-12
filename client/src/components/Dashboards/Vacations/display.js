@@ -22,7 +22,7 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
 
 const styles = theme => ({
   cardBody: {
-      /* backgroundColor: "#E91E63",  */
+       backgroundColor: "#E91E63",  
       /* height: "10%", */
       [theme.breakpoints.up("sm")]: {
           width: "100%",
@@ -56,7 +56,7 @@ class Display extends Component {
     startDate: "",
     endDate: "",
     vacationsId: "",
-    disabled: true,
+    disabled: false,
    };
 };
 
@@ -105,6 +105,11 @@ addVacation = () => {
       });
   };
 
+  handleStartDate = startDate => {
+    console.log('am i doing this right: ', startDate);
+
+  }
+
   handleChange = event => {
     this.setState({
         [event.target.name]: event.target.value
@@ -145,6 +150,15 @@ render() {
                                 </h5>
                             </CardBody>
                         </CardBody>
+                        <CardBody  xs={12} sm={12} md={4}>
+                            <DateTimePicker 
+                                title={this.state.title} 
+                                location={this.state.location} 
+                                vacationsId={this.state.vacationsId} 
+                                disabled={this.state.disabled}
+                                startDate={() => this.handleStartDate(this.state.startDate)}>
+                            </DateTimePicker>  
+                        </CardBody>
                         <CardBody  className={classes.cardBody}>
                             <Button  
                                 onClick={() => this.addVacation()} 
@@ -157,14 +171,7 @@ render() {
                             {/*  <AddUsers>
                             </AddUsers>   */}
                         </CardBody>
-                        <CardBody  xs={12} sm={12} md={4}>
-                            <DateTimePicker 
-                                title={this.state.title} 
-                                location={this.state.location} 
-                                vacationsId={this.state.vacationsId} 
-                                disabled={this.state.disabled}>
-                            </DateTimePicker>  
-                        </CardBody>
+                        
                     </Card>
             </GridItem>
         </GridContainer>
