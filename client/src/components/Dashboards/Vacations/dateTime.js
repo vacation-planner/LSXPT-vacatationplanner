@@ -62,7 +62,7 @@ handleStartChange = event => {
     /* endDate: this.state.endDate, */
     usersUid: this.state.usersUid,
   }
-console.log("vacationsId: ", this.props.vacationsId)
+
 axios
     .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
     .then(response => {
@@ -87,7 +87,7 @@ handleEndChange = event => {
     endDate: endDate,   // if field empty, dont save it
     usersUid: this.state.usersUid,
   }
-console.log("in the vacationRec: ", vacationRec)
+
 axios
     .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
     .then(response => {

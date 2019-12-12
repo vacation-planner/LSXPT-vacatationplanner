@@ -55,8 +55,8 @@ async function verifyToken(req, res, next) {
 
 /********* Get Users *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
- router.get('/', protect, (req, res) => {
-//router.get("/", (req, res) => {
+// router.get('/', protect, (req, res) => {
+router.get("/", (req, res) => {
   users
     .get()
     .then(user => {
