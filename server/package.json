@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "batch": "knex migrate:rollback && knex migrate:latest",
     "start": "node index.js",
     "server": "nodemon",
     "test": "jest --watchAll --verbose"
