@@ -62,7 +62,7 @@ componentDidMount() {
        this.setState({
         usersUid: usersUid
       }); 
-      console.log("state: ", this.state)
+     
     };
 
 addVacation = () => {
@@ -93,7 +93,7 @@ addVacation = () => {
        
         response.data.forEach((item, index) => {
           if (item.title === this.state.title) {
-            console.log("match found: ", item.id );    
+                
             this.setState({
                 vacationsId: item.id
             });
