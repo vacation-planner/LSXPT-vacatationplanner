@@ -163,7 +163,7 @@ class Dnd extends React.Component {
         defaultView="month"
         step={15}
         showMultiDayTimes={true}
-        defaultDate={new Date(2018, 0, 29)}
+        defaultDate={new Date(2019, 0, 29)}
         eventPropGetter={event => this.eventStyleGetter(event)}
       />
     )

@@ -25,7 +25,7 @@ const cardStyle = {
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
-    minWidth: "700px",
+    minWidth: "450px",
     minHeight: "500px",
     wordWrap: "break-word",
     fontSize: ".875rem",

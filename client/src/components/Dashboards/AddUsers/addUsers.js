@@ -118,12 +118,9 @@ class AddUsers extends Component {
 
   invite = () => {
     // send emails to all the users on list
-    let userList = this.state.usersList;
-   /*  this.state.usersList.forEach((user, index) => {
-      userList.push(user.email)  
-    }); */
-    
-    // now goto email component
+    const userList = this.state.usersList;
+   
+    // send the user list via post to the email router
     axios
       .post(`${URL}/emails/`, userList) // Get User Data
       .then(response => {
