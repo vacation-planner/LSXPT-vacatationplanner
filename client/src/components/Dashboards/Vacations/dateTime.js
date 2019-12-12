@@ -42,6 +42,8 @@ class DateTimePicker extends Component {
     location: "",
     startDate: "",
     endDate: "",
+    disabled: this.props.disabled,
+
    };
 }
 
@@ -53,6 +55,9 @@ componentDidMount() {
 };
 
 handleStartChange = event => {
+  if (this.props.disabled) {
+    alert("Please create a vacation first.")
+  } else {
   let startDate = moment(event).format();
    // update the current vacation record
    let vacationRec = {
@@ -75,10 +80,13 @@ axios
  this.setState({
     startDate: startDate,    
   });  
-
+  }
 };
 
 handleEndChange = event => {
+  if (this.props.disabled) {
+    alert("Please create a vacation first.")
+  } else {
   let endDate = moment(event).format();
   // update the current vacation record
   let vacationRec = {
@@ -87,6 +95,7 @@ handleEndChange = event => {
     endDate: endDate,   // if field empty, dont save it
     usersUid: this.state.usersUid,
   }
+
 
 axios
     .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
@@ -100,7 +109,7 @@ axios
  this.setState({
     endDate: endDate,    
   });  
-  
+}
 };
 
 
@@ -117,7 +126,8 @@ axios
         value={this.props.value}
          onChange={event => this.handleStartChange(event)} 
           inputProps={{ 
-            placeholder: "Start Vacation" }}
+            placeholder: "Start Vacation"
+             }}
         />
       </FormControl>
       <InputLabel className={classes.label}>
