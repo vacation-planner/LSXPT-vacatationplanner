@@ -8,6 +8,7 @@ const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
+ let eventSave = [];
 /* const events = [
     {
       id: 0,
@@ -65,7 +66,7 @@ const DragAndDropCalendar = withDragAndDrop(Calendar)
       end: new Date(2018, 0, 30, 13, 0, 0),
       resourceId: 4,
     },
-  ] */
+  ]  */
   
 const resourceMap = [
   { resourceId: 1, resourceTitle: 'Vacation Date' },
@@ -76,14 +77,26 @@ const resourceMap = [
 
 class Dnd extends React.Component {
   constructor(props) {
-    super(props)
+     super(props)  
+    
     this.state = {
       events: this.props.events,
     }
 
     this.moveEvent = this.moveEvent.bind(this)
+    
   }
 
+  componentDidMount() {
+  
+    //let usersUid = fire.currentUser.uid;
+     this.setState({
+     events: this.props.events
+   });  
+   eventSave = this.state;
+   console.log("eventSave: ", eventSave)
+ };
+ 
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
     const { events } = this.state
 
@@ -163,7 +176,7 @@ class Dnd extends React.Component {
         defaultView="month"
         step={15}
         showMultiDayTimes={true}
-        defaultDate={new Date(2019, 0, 29)}
+        defaultDate={new Date(2019, 11, 29)}
         eventPropGetter={event => this.eventStyleGetter(event)}
       />
     )

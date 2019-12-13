@@ -9,7 +9,7 @@ import Vacation from "./Vacations/index.js";
 import CardHeaderTypes from "./Vacations/test.js";
 import Dnd from "./Calendar/dragDrop.js";
 import Calendar from "./Calendar/index.js";
-import Events from "./Events/events.js";
+//import Events from "./Events/events.js";
 import AddUsers from "./AddUsers/addUsers.js";
 
 

@@ -123,9 +123,9 @@ render() {
        <div className="vacation"> 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-                <Card style={{ width: "800px", height: "400px", marginLeft: "40px", marginTop: "340px"}}>
+                <Card style={{ width: "700px", height: "400px", marginRight: "100px"}}>
                     {/*  <div className="images"> </div> */}
-                    <h4>Current Vacation Name: {this.state.title}</h4>
+                    <h3>Create Vacation: {this.state.title}</h3>
                         <CardBody   className={classes.cardBody2}>
                             <CardBody>
                                 <h5>Name of New Vacation:{" "}

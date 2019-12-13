@@ -2,6 +2,7 @@ import React from "react";
 //import { render } from "react-dom";
 import AddUsers from "../AddUsers/addUsers.js";
 import Dnd from "./dragDrop.js";
+import Display from "../Vacations/display.js";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -96,16 +97,7 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
   //let vacationDate = [];
   let events = [];
   this.state.vacation.forEach((item, index) => {
-      /* let vStart = item.startDate.toString();
-      let sD =  vStart.slice(3,5);
-      let sM = vStart.slice(0,2);
-      let sY =  vStart.slice(-4);
      
-      let vEnd = item.endDate.toString();
-      let eD =  vEnd.slice(3,5);
-      let eM = vEnd.slice(0,2);
-      let eY =  vEnd.slice(-4); */
- 
       events.push({
         //id: item.id,
         title: item.title,
@@ -117,40 +109,6 @@ const URL = 'https://vacationplannerlx.herokuapp.com/api';
     })
     
     this.state.eventData.forEach((item, index) => {
-      // extract time from startTime
-      /* let tmpDate = item.startDate.toString();
-      let d =  tmpDate.slice(3,5);
-      let m = tmpDate.slice(0,2);
-      let y =  tmpDate.slice(-4);
-
-      let tmpTime = item.startTime.toString();
-      let hrs = 0
-      let mins = 0
-      
-      if (tmpTime.length === 3) {
-        hrs = tmpTime.slice(0,1);
-        mins =  tmpTime.slice(1,3);
-      } else {
-        hrs = tmpTime.slice(0,2);
-        mins =  tmpTime.slice(2,4);
-      }
-      
-      let tmpEndDate = item.endDate.toString();
-      let endD =  tmpEndDate.slice(3,5);
-      let endM = tmpEndDate.slice(0,2);
-      let endY =  tmpEndDate.slice(-4);
-
-      let tmpEndTime = item.endTime.toString();
-      let endHrs = 0
-      let endMins = 0
-      
-      if (tmpTime.length === 3) {
-        endHrs = tmpEndTime.slice(0,1);
-        endMins =  tmpEndTime.slice(1,3);
-      } else {
-        endHrs = tmpEndTime.slice(0,2);
-        endMins =  tmpEndTime.slice(2,4);
-      } */
      
       events.push({
         //id: item.id,
@@ -176,7 +134,7 @@ render () {
   <div className="cal-outer">
     <Card style={{ marginLeft: "20px", width: "10%", top: "0px", }}>
     <CardBody>
-      <Dnd events={this.state.events}>
+      <Dnd  events={this.state.events} >
       </Dnd>
       </CardBody>
     </Card>
@@ -186,6 +144,9 @@ render () {
     </Card> */}
     <AddUsers>
       </AddUsers>
+      <Display>
+        </Display>
+
     
   </div>
   );
