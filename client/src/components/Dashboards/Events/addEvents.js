@@ -11,8 +11,8 @@ import moment from "moment";
 
 import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 
-const URL = 'https://vacationplannerlx.herokuapp.com/api';
-//const URL = "http://localhost:5500/api";
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
+const URL = "http://localhost:5500/api";
 
 const style = {
   label: {
@@ -38,8 +38,8 @@ class AddEvents extends Component {
     usersUid: "",
     value: "",
     eventsId: this.props.eventsId,
-    eventName: "",
-    description: "",
+    eventName: this.props.eventName,
+    description: this.props.description,
     startTimeDate: "",
     endTimeDate: "",
     disabled: this.props.disabled,

@@ -16,8 +16,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { makeStyles } from "@material-ui/core/styles";
 
 
-const URL = 'https://vacationplannerlx.herokuapp.com/api';
-//const URL = "http://localhost:5500/api";
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
+const URL = "http://localhost:5500/api";
 
 const styles = theme => ({
   cardBody: {
@@ -51,7 +51,8 @@ class Events extends Component {
     usersUid: "",
     value: "",
     eventName: "",
-    vacationsId: "",
+    vacation: "",
+    vacationsId: 1,
     startTimeDate: "",
     endTimeDate: "",
     description: "",
@@ -62,10 +63,33 @@ class Events extends Component {
 
 componentDidMount() {
       let usersUid = fire.currentUser.uid;
+      console.log("we in events: ", this.state.vacationsId)
+
+    this.fetchVacationTitle(this.state.vacationsId);
+
        this.setState({
         usersUid: usersUid
       }); 
     };
+
+fetchVacationTitle = (vacationsId) => {
+    axios
+    .get(`${URL}/vacations/${vacationsId}`)
+    .then(response => {
+      response.data.forEach((item, index) => {
+        if (item.id === vacationsId) {          
+          this.setState({
+              vacation: item.title,
+          });
+          console.log('vacation found: ', this.state.vacation); 
+        }
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+
+}    
 
 addEvent = () => {
     // create a record using the input
@@ -126,6 +150,7 @@ render() {
                 <Card style={{ width: "700px", height: "400px", marginRight: "100px"}}>
                     {/*  <div className="images"> </div> */}
                     <h3>Create Event: {this.state.eventName}</h3>
+                    <h4>Current Vacation: {this.state.vacation}</h4>
                         <CardBody   className={classes.cardBody2}>
                             <CardBody>
                                 <h5>Name of New Event:{" "}

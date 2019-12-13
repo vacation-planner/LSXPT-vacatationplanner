@@ -6,6 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import LeftSideBar from './LeftSideBar.js';
 import Vacation from "./Vacations/index.js";
+import Events from "./Events/index.js";
 import CardHeaderTypes from "./Vacations/test.js";
 import Dnd from "./Calendar/dragDrop.js";
 import Calendar from "./Calendar/index.js";
@@ -44,19 +45,19 @@ class HomeDashboard extends React.Component {
                 <HomeNavbar />
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
-                     {/*    <h1>Test 2</h1>   */} 
-                     <Calendar>
-                        </Calendar> 
+                        {/*  <h1>Test 2</h1>    */} 
+                      <Calendar>
+                        </Calendar>  
                     {/*  <Dnd>
                         </Dnd>  */}
                           {/*  <AddUsers>
                             </AddUsers>    */}
                          {/*    <CardHeaderTypes> 
                                 </CardHeaderTypes>  */}                      
-                      {/*                  <Vacation> 
-                         </Vacation>          */}
-                        {/*  <Events> 
-                             </Events>  */}
+                      {/*                   <Vacation> 
+                         </Vacation>      */}     
+                          {/*  <Events> 
+                             </Events>    */}
                 </Paper>
             </main>
         );
