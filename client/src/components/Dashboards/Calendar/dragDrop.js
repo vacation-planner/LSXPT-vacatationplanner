@@ -134,20 +134,17 @@ class Dnd extends React.Component {
   }
 
   eventStyleGetter = (event) => {
-    console.log("this.event.resouceId: ", event.resourceId);
+    //console.log("this.event.resouceId: ", event.resourceId);
     //const { events } = this.state
     let hexColor = "";
-        if (event.resourceId === 1) {
-            console.log("Here in hexC  ");
+        if (event.resourceId === 1) { 
             hexColor = "04068a"
             
         } else {
-            console.log("Here hexB: ");
             hexColor = "3f022b"
         }
        
-      
-      console.log("hexColor: ", hexColor);
+     // console.log("hexColor: ", hexColor);
       let backgroundColor = '#' + hexColor;
     let style = {
         backgroundColor: backgroundColor,

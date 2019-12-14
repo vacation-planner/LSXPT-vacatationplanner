@@ -39,7 +39,7 @@ class AddUsers extends Component {
             email: "",
 //          vacationsId: this.props.id,
             vacationsId: 1,         
-//          vacationsTitle: this.props.title,
+            //vacationsTitle: this.props.title,
             vacationsTitle: "Winter",
             checked: false,
         };
@@ -125,7 +125,7 @@ class AddUsers extends Component {
    
     // send the user list via post to the email router
     axios
-      .post(`${URL}/emails/`, userList) // Get User Data
+      .post(`${URL}/emails/`, userList) 
       .then(response => {
         console.log("emails sent") 
       })

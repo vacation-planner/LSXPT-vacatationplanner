@@ -6,6 +6,13 @@
 .logo {
     width: 75px;
     height: 75px;
-    background-image: url("../../../images/vplanner1_75px.png");
+    background-image: url("../../../images/vplanner5_1.png");
+    /* background-image: url("../../../images/vplanner1_75px.png"); */
+}
+
+.vacation {
+   
+    background-image: url("../../../images/vplanner5_1.png");
+    border: 2px solid green;
 }
  
