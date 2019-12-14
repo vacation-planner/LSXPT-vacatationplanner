@@ -14,6 +14,7 @@ import { Row,
     } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
 import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, Zoom } from "@material-ui/core";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
 
 const useStyles = makeStyles(styles);
@@ -40,10 +41,12 @@ class AddUsers extends Component {
             vacationsId: 1,         
 //          vacationsTitle: this.props.title,
             vacationsTitle: "Winter",
+            checked: false,
         };
   }
 
   componentDidMount() {
+    this.setState(state => ({ checked: !state.checked }));
   // i dont think i need this...
     let uid = fire.currentUser.uid;
      this.setState({
@@ -137,7 +140,7 @@ class AddUsers extends Component {
         // returns loading sign while data is being retrieved from API
         return <Loading>Loading Users...</Loading>;
       } */
-  
+      const { checked } = this.state;
       let rows = [];
       // **************************************
       // NOTE: need to correct the formatting
@@ -151,8 +154,10 @@ class AddUsers extends Component {
             );
         });
     return (
+        <Zoom in={checked}>
         <GridContainer>
             <GridItem>
+           
                  <Card style={{ width: "600px", height: "420px", marginLeft: "40px", marginTop: "10px"}}>
                     <CardBody>
                         <form className="addUsers" onSubmit={this.onSubmit}>
@@ -208,8 +213,10 @@ class AddUsers extends Component {
                         </form>
                     </CardBody>
                 </Card>
+              
             </GridItem>
       </GridContainer>
+      </Zoom>
     );
   }
 }

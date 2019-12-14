@@ -14,6 +14,7 @@ import CardHeader from "../../StyledComponents/Dashboards/Events/js/CardHeader.j
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
 import { makeStyles } from "@material-ui/core/styles";
+import "../../StyledComponents/Dashboards/DashBoards.css";
 
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -21,6 +22,8 @@ const URL = "http://localhost:5500/api";
 
 const styles = theme => ({
   cardBody: {
+      display: "flex",
+      /* justifyContent: "space-between", */
        backgroundColor: "#E91E63",  
       /* height: "10%", */
       [theme.breakpoints.up("sm")]: {
@@ -58,6 +61,7 @@ class Events extends Component {
     description: "",
     eventsId: "",
     disabled: false,
+    secondaryUsersId: 1,
    };
 };
 
@@ -181,18 +185,25 @@ render() {
                                 description={this.state.description} 
                                 eventsId={this.state.eventsId} 
                                 disabled={this.state.disabled}
+                                secondaryUsersId={this.state.secondaryUsersId}
+                                vacationsId={this.state.vacationsId}
                                 startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
                             </AddEvents>  
                         </CardBody>
                         <CardBody  className={classes.cardBody}>
+                           <div className="logo">
+                           </div>
                             <Button  
+                                 style={{ marginLeft:"150px"}}
                                 onClick={() => this.addEvent()} 
                                 color="rose">Create
                             </Button>
                             <Button  
                                 onClick={() => this.removeEvent()} 
                                 color="rose">Remove
-                            </Button>                               
+                            </Button> 
+                           {/*  <div className="logo">
+                            </div> */}                              
                             {/*  <AddUsers>
                             </AddUsers>   */}
                         </CardBody>

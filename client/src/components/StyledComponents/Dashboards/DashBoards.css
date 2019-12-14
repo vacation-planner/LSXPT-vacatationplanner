@@ -1,5 +1,11 @@
  .calendar {
-    background-color: white;
+    background-color: #23b0e7;
 
+}
+
+.logo {
+    width: 75px;
+    height: 75px;
+    background-image: url("../../../images/vplanner1_75px.png");
 }
  

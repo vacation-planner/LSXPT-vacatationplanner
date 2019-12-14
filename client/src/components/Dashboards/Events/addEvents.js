@@ -43,7 +43,8 @@ class AddEvents extends Component {
     startTimeDate: "",
     endTimeDate: "",
     disabled: this.props.disabled,
-
+    secondaryUsersId: this.props.secondaryUsersId,
+    vacationsId: this.props.vacationsId,
    };
 }
 
@@ -59,12 +60,15 @@ handleStartChange = event => {
     alert("Please create a event first.")
   } else {
   let startTimeDate = moment(event).format();
+  console.log("startTimeDate: ", startTimeDate)
    // update the current event record
     let eventsRec = {
     eventName: this.props.eventName,
     description: this.props.description,
-    startTimeDate: startTimeDate,  
+    startTimeDate: startTimeDate,
     usersUid: this.state.usersUid,
+    vacationsId: this.props.vacationsId,
+    secondaryUsersId: this.props.secondaryUsersId,
   } 
 
  axios
@@ -123,7 +127,7 @@ axios
       </InputLabel>
       <br />
       <FormControl fullWidth>
-        <Datetime timeFormat={false}
+        <Datetime /* timeFormat={false} */
         value={this.props.value}
          onChange={event => this.handleStartChange(event)} 
           inputProps={{ 
@@ -137,7 +141,7 @@ axios
       <br />
       <FormControl fullWidth>
         <Datetime
-          timeFormat={false}
+         /*  timeFormat={false} */
           value={this.props.value}
          onChange={event => this.handleEndChange(event)} 
           inputProps={{ placeholder: "End Event" }}

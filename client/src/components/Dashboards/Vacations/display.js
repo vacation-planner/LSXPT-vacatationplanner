@@ -15,6 +15,7 @@ import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeade
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
 import { makeStyles } from "@material-ui/core/styles";
+import { Zoom } from "@material-ui/core";
 
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -57,10 +58,12 @@ class Display extends Component {
     endDate: "",
     vacationsId: "",
     disabled: false,
+    checked: false,
    };
 };
 
 componentDidMount() {
+    this.setState(state => ({ checked: !state.checked }));
       let usersUid = fire.currentUser.uid;
        this.setState({
         usersUid: usersUid
@@ -119,8 +122,10 @@ addVacation = () => {
 
 render() {
   const { classes } = this.props;
+  const { checked } = this.state;
     return (
        <div className="vacation"> 
+        <Zoom in={checked} > 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
                 <Card style={{ width: "700px", height: "400px", marginRight: "100px"}}>
@@ -175,6 +180,7 @@ render() {
                     </Card>
             </GridItem>
         </GridContainer>
+        </Zoom>
        </div> 
     );
   }

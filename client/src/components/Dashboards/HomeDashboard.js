@@ -46,8 +46,8 @@ class HomeDashboard extends React.Component {
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
                         {/*  <h1>Test 2</h1>    */} 
-                      <Calendar>
-                        </Calendar>  
+                     {/*  <Calendar>
+                        </Calendar>   */}
                     {/*  <Dnd>
                         </Dnd>  */}
                           {/*  <AddUsers>
@@ -56,8 +56,8 @@ class HomeDashboard extends React.Component {
                                 </CardHeaderTypes>  */}                      
                       {/*                   <Vacation> 
                          </Vacation>      */}     
-                          {/*  <Events> 
-                             </Events>    */}
+                            <Events> 
+                             </Events>    
                 </Paper>
             </main>
         );

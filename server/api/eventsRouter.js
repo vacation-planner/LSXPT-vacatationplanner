@@ -114,16 +114,22 @@ router.put("/:id", (req, res) => {
   const changes = req.body;
   events
     .update(id, changes)
-    .then(count => {
-      if (count) {
+    .then(event => {
+      if (event) {
         events
           .getByid(id)
-          .then(event => {
-            // If event has been updated, return the updated event.
-            res.status(201).json(event);
+          .then(event2 => {
+            if (event2) {
+              // If event has been updated, return the updated event.
+              res.status(201).json(event);
+            } else {
+              res.status(500).json({
+                message: "There was an error retrieving the current event."
+              })
+            }
           })
           .catch(err => {
-            // Return an error if there's an error retrieving that current event.
+          // Return an error if there's an error retrieving that current event.
             res.status(500).json({
               message: "There was an error retrieving the current event."
             });
@@ -138,7 +144,7 @@ router.put("/:id", (req, res) => {
     .catch(err => {
       // If there's an error in the helper method or database, return a 500 error.
       res.status(500).json({
-        message: `The events could not be updated at this time.`
+        message: `The events were updated at this time.`
       });
     });
 });
