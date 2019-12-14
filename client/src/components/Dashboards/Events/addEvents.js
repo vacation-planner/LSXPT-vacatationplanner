@@ -121,43 +121,66 @@ axios
  render() {
   const classes = this.props;
   return (
-    <div>
-      <InputLabel className={classes.label}>
-        Event Start Date
-      </InputLabel>
-      <br />
-      <FormControl fullWidth>
-        <Datetime /* timeFormat={false} */
-        value={this.props.value}
-         onChange={event => this.handleStartChange(event)} 
-          inputProps={{ 
-            placeholder: "Start Event"
-             }}
+    <div className="eventContainer">
+      <div className="left">
+        <InputLabel className={classes.label}>
+          Event Start Date
+        </InputLabel>
+        <br />
+        <FormControl fullWidth>
+          <Datetime /* timeFormat={false} */
+            value={this.props.value}
+            onChange={event => this.handleStartChange(event)} 
+            inputProps={{ 
+              placeholder: "Start Event"
+            }}
+          />
+        </FormControl>
+        <InputLabel className={classes.label}>
+          Event End Date
+        </InputLabel>
+        <br />
+        <FormControl fullWidth>
+          <Datetime
+            /*  timeFormat={false} */
+            value={this.props.value}
+            onChange={event => this.handleEndChange(event)} 
+            inputProps={{ placeholder: "End Event" }}
+          />
+        </FormControl>
+      </div>
+      <div className="right">
+      <p>Event Cost: 
+        <input
+          type="text"
+          name="eventCost"
+          onChange={this.handleChange}
+          value={this.state.eventName}
+          className="eventCost"
         />
-      </FormControl>
-      <InputLabel className={classes.label}>
-      Event End Date
-      </InputLabel>
-      <br />
-      <FormControl fullWidth>
-        <Datetime
-         /*  timeFormat={false} */
-          value={this.props.value}
-         onChange={event => this.handleEndChange(event)} 
-          inputProps={{ placeholder: "End Event" }}
+      </p>
+      <p>Participant:
+        <input
+          type="text"
+          name="participant"
+          onChange={this.handleChange}
+          value={this.state.eventName}
+          className="participant"
         />
-      </FormControl>
-     {/*  <InputLabel className={classes.label}>
-        Time Picker
-      </InputLabel> */}
-      <br />
-     {/*  <FormControl fullWidth>
-        <Datetime
-          dateFormat={false}
-          inputProps={{ placeholder: "Time Picker Here" }}
+      </p>
+      <p>Amount Participant Owes: 
+        <input
+          type="text"
+          name="amountOwed"
+          onChange={this.handleChange}
+          value={this.state.eventName}
+          className="amountOwed"
         />
-      </FormControl> */}
+      </p>
+
+      </div>
     </div>
+    
   );
 }
 }

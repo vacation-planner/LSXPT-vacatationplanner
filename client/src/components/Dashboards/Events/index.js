@@ -151,7 +151,7 @@ render() {
        <div className="events"> 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-                <Card style={{ width: "700px", height: "400px", marginRight: "100px"}}>
+                <Card style={{ width: "1200px", height: "600px", marginRight: "100px"}}>
                     {/*  <div className="images"> </div> */}
                     <h3>Create Event: {this.state.eventName}</h3>
                     <h4>Current Vacation: {this.state.vacation}</h4>
@@ -177,6 +177,12 @@ render() {
                                         className="description"
                                     />  
                                 </h5>
+                            </CardBody>
+                            <CardBody> 
+                                <h5>Vacation Participants:</h5>{" "}
+                                   <div className="participantsList">
+                                   </div>
+                            
                             </CardBody>
                         </CardBody>
                         <CardBody  xs={12} sm={12} md={4}>
