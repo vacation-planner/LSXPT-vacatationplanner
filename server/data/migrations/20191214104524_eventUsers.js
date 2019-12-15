@@ -2,7 +2,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('eventUsers', (eventUsers) => {
         eventUsers.increments();
-        eventUsers.integer('vacationsId').references('vacations.id');
+        eventUsers.integer('eventsId').references('events.id');
         eventUsers.integer('secondaryUsersId').references('secondaryUsers.id');
         eventUsers.decimal('eventPaid');
         eventUsers.decimal('eventCost');

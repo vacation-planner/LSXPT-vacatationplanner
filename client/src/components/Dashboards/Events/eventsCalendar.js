@@ -4,8 +4,9 @@ import { fire } from "../../Auth/firebaseConfig";
 import { Calendar as  BigCalendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from "moment";
+import swal from '@sweetalert/with-react'
 //import "react-big-calendar/lib/css/react-big-calendar.css";
-//import "../../StyledComponents/Dashboards/Events/Calendar.css";
+import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 const URL = "http://localhost:5500/api";
@@ -23,56 +24,7 @@ const DragAndDropCalendar = withDragAndDrop(BigCalendar)
       title: 'vacation meeting',
       start: new Date(2018, 0, 29, 9, 0, 0),
       end: new Date(2018, 0, 29, 13, 0, 0),
-      resourceId: 1,
-    },
-    {
-      id: 1,
-      title: 'MS training',
-      start: new Date(2018, 0, 29, 14, 0, 0),
-      end: new Date(2018, 0, 29, 16, 30, 0),
-      resourceId: 2,
-    },
-    {
-      id: 2,
-      title: 'Team lead meeting',
-      start: new Date(2018, 0, 29, 8, 30, 0),
-      end: new Date(2018, 0, 29, 12, 30, 0),
-      resourceId: 3,
-    },
-    {
-      id: 10,
-      title: 'vac2 meeting',
-      start: new Date(2018, 0, 30, 23, 0, 0),
-      end: new Date(2018, 0, 30, 23, 59, 0),
-      resourceId: 1,
-    },
-    {
-      id: 11,
-      title: 'Birthday Party',
-      start: new Date(2018, 0, 30, 7, 0, 0),
-      end: new Date(2018, 0, 30, 10, 30, 0),
-      resourceId: 4,
-    },
-    {
-      id: 12,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 59, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 1,
-    },
-    {
-      id: 13,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 50, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 2,
-    },
-    {
-      id: 14,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 40, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 4,
+      resourceId: 1,   
     },
   ]   */
   
@@ -94,6 +46,9 @@ class EventsCalendar extends React.Component {
       vacation: [],
       events: [],
       eventData: [],
+      eventName: "",
+      description: "",
+      value: "",
     }
 
     this.moveEvent = this.moveEvent.bind(this)
@@ -164,7 +119,88 @@ class EventsCalendar extends React.Component {
 
   }
 
+ /*  handleChange = event => {
+    this.setState({[event.target.name]: this.state.value + event.target.value});
+    console.log("value: ", this.state.value)
+  } */
+  handleChange = event => {
+    this.setState({
+        [event.target.name]:  this.props.value +  event.target.value
+  });
+  console.log("value: ", event.target.value) 
+  };
+
+  selectedEvent = event => {
+    console.log("in the selectedevent: ", event)
+    swal(
+      <div>
+        <form onSubmit={this.submitForm} >
+          <h1>Hello!</h1>        
+          <p>Please enter a name for the event:</p>
+          <input 
+            type="text"
+            name="eventName"
+            onChange={this.handleChange}
+            value={this.props.value}
+            className="eventName"
+          />
+           <p>Please enter a description for the event:</p>
+          <input 
+            type="text" 
+            name="description"
+            onChange={this.handleChange}
+            value={this.props.value}
+            className="description"
+          />
+         {/*  <input 
+            type="submit" 
+            value="Submit" 
+          /> */}
+        </form>
+      </div>
+    )
+  }
  
+  addNewEventAlert = slotInfo => {
+    console.log("in the addnew: ", slotInfo)
+    let events = this.state.events;
+    //slotInfo.slots.forEach((vacation, index) => {
+   
+    events.push({
+      //id: item.id,
+      title: "test",
+      start: slotInfo.start,
+      end: slotInfo.end,
+      desc: "item.location",
+    }) 
+  //})
+    console.log("events: ", events)
+    this.setState({
+      events: events
+    });
+  
+    this.writeToDb(slotInfo); 
+  }
+
+  writeToDb = slotInfo => {
+    const eventRec = {
+      eventName: "test",
+      vacationsId: slotInfo.start,
+      startTimeDate: slotInfo.end,
+      endTimeDate: "item.location",
+      description: "",
+  
+    }
+    axios
+    .post(`${URL}/events/`, eventRec)
+    .then(response => {
+      console.log("file written")
+     })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+  }
+
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
     const { events } = this.state
 
@@ -226,6 +262,13 @@ class EventsCalendar extends React.Component {
         style: style
     };
   }
+
+  submitForm = () => {
+    // save the data to db
+    window.alert("alert")
+  }
+
+
   render() {
     return (
       <DragAndDropCalendar
@@ -233,6 +276,8 @@ class EventsCalendar extends React.Component {
         localizer={localizer}
         events={this.state.events}
         onEventDrop={event => this.moveEvent(event)}
+        onSelectEvent={event => this.selectedEvent(event)}
+        onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
         resizable
         resources={resourceMap} 
         resourceIdAccessor="resourceId" 

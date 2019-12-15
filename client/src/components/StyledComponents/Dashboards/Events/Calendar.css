@@ -32,7 +32,8 @@
   }
   .rbc-calendar {
     box-sizing: border-box;
-    height: 400px;  
+    height: 500px;
+    width: 500px;  
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -41,8 +42,8 @@
     flex-direction: column;
     /* -webkit-align-items: stretch; */
     /* -ms-flex-align: stretch; */
-    /* align-items: stretch; */
-    background-color: white;
+     /* align-items: stretch; */ 
+     background-color: white; 
     
     
    
@@ -114,7 +115,7 @@
     user-select: none;
     -webkit-user-select: none;
     z-index: 4;
-    min-height: 100px;
+    min-height: 76px;
   }
   .rbc-toolbar {
     display: -webkit-flex;
@@ -123,7 +124,7 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     font-size: 10px;
     padding-top: 10px;
     padding-left: 5px;
