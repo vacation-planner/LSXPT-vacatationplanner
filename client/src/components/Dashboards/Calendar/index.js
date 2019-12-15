@@ -1,18 +1,26 @@
 import React from "react";
-//import { render } from "react-dom";
 import AddUsers from "../AddUsers/addUsers.js";
 import Dnd from "./dragDrop.js";
 import Display from "../Vacations/display.js";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import Button from "../../StyledComponents/Dashboards/Calendar/js/Button.js";
 import Card from "../../StyledComponents/Dashboards/Calendar/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Calendar/js/CardBody.js";
-
 import styles from "../../StyledComponents/Dashboards/Calendar/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
+// this is where all the calendar styles come from
 import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
+
+// this has a different set of styles for the calendar
+//import "react-big-calendar/lib/css/react-big-calendar.css";
+
+// *************************************************************************************/
+// **  NOTE: I am using this page as a container to display several other components  **/
+// **  they were not meant to be used together so only use the Dnd component          **/
+// **  with this page in the final product.                                           **/
+// *************************************************************************************/
+
 
 const useStyles = makeStyles(styles);
 
@@ -66,6 +74,7 @@ const URL = "http://localhost:5500/api";
       });
   };
  
+  // you dont need the event data here
   fetchEventData = id => {
     axios
       .get(`${URL}/events/`)
@@ -107,7 +116,7 @@ const URL = "http://localhost:5500/api";
         resourceId: 1,
       })  
     })
-    
+   // remove this code 
     this.state.eventData.forEach((item, index) => {
      
       events.push({

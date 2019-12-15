@@ -1,18 +1,23 @@
 import React from 'react'
-import { Calendar, momentLocalizer } from 'react-big-calendar'
+import axios from "axios";
+import { fire } from "../../Auth/firebaseConfig";
+import { Calendar as  BigCalendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from "moment";
+//import "react-big-calendar/lib/css/react-big-calendar.css";
+//import "../../StyledComponents/Dashboards/Events/Calendar.css";
+//import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
+const URL = "http://localhost:5500/api";
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
 
-// *************************************************
-// the calendar gets its styles from the index page
-// *************************************************
 
 const localizer = momentLocalizer(moment)
 
-const DragAndDropCalendar = withDragAndDrop(Calendar)
+const DragAndDropCalendar = withDragAndDrop(BigCalendar)
 
  let eventSave = [];
-/* const events = [
+ /* const events = [
     {
       id: 0,
       title: 'vacation meeting',
@@ -69,7 +74,7 @@ const DragAndDropCalendar = withDragAndDrop(Calendar)
       end: new Date(2018, 0, 30, 13, 0, 0),
       resourceId: 4,
     },
-  ]  */
+  ]   */
   
 const resourceMap = [
   { resourceId: 1, resourceTitle: 'Vacation Date' },
@@ -78,12 +83,17 @@ const resourceMap = [
   { resourceId: 4, resourceTitle: 'Meeting room 2' },
 ]
 
-class Dnd extends React.Component {
+
+class EventsCalendar extends React.Component {
   constructor(props) {
      super(props)  
     
     this.state = {
-      events: this.props.events,
+      uid: "",
+      vacationsId: 1,    //this.props.id,
+      vacation: [],
+      events: [],
+      eventData: [],
     }
 
     this.moveEvent = this.moveEvent.bind(this)
@@ -91,14 +101,69 @@ class Dnd extends React.Component {
   }
 
   componentDidMount() {
+    let id = this.state.vacationsId;
+    let uid = fire.currentUser.uid;
+
+    this.setState({
+      uid: uid,
+     /*  events: events, */
+    });
+    console.log("state: ", this.state)
+    // get the data needed to populate the calendar component
+
+    this.fetchEventData(id);
+  }
   
-    //let usersUid = fire.currentUser.uid;
-     this.setState({
-     events: this.props.events
-   });  
-   eventSave = this.state;
-   console.log("eventSave: ", eventSave)
- };
+  fetchEventData = id => {
+    axios
+      .get(`${URL}/events/`)
+      .then(response => {
+        let eventsData = [];
+ 
+        if (response.data) {
+            response.data.forEach((event, index) => {
+                if (event.vacationsId === id) {
+                    eventsData.push(event);
+                }
+            })   
+        };
+        
+        console.log("eventsData: ", eventsData)
+        this.setState({
+          eventData: eventsData
+        });
+               
+        this.formatData();
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
+  };
+
+  formatData = () => {
+ 
+    //let vacationDate = [];
+    let events = [];
+    
+    this.state.eventData.forEach((item, index) => {
+     
+      events.push({
+        //id: item.id,
+        title: item.eventName,
+        start: item.startTimeDate,
+        end: item.endTimeDate,
+        desc: item.description
+      })  
+        
+    })
+
+  console.log("events: ", events)
+  this.setState({
+    events: events
+  });
+
+  }
+
  
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
     const { events } = this.state
@@ -166,7 +231,7 @@ class Dnd extends React.Component {
       <DragAndDropCalendar
         selectable
         localizer={localizer}
-        events={this.props.events}
+        events={this.state.events}
         onEventDrop={event => this.moveEvent(event)}
         resizable
         resources={resourceMap} 
@@ -176,11 +241,11 @@ class Dnd extends React.Component {
         defaultView="month"
         step={15}
         showMultiDayTimes={true}
-        defaultDate={new Date(2019, 11, 29)}
+        defaultDate={new Date(2018, 1, 29)}
         eventPropGetter={event => this.eventStyleGetter(event)}
       />
     )
   }
 }
 
-export default Dnd
+export default EventsCalendar

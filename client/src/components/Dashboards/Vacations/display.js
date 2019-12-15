@@ -124,7 +124,7 @@ render() {
   const { classes } = this.props;
   const { checked } = this.state;
     return (
-       <div className="vacation"> 
+       <div className="vacationDisplay"> 
         <Zoom in={checked} > 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>

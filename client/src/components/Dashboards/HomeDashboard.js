@@ -5,13 +5,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import LeftSideBar from './LeftSideBar.js';
-import Vacation from "./Vacations/index.js";
+//import Vacation from "./Vacations/index.js";
+//import Cal from "./Calendar/old_calendar.js"
 import Events from "./Events/index.js";
-import CardHeaderTypes from "./Vacations/test.js";
-import Dnd from "./Calendar/dragDrop.js";
-import Calendar from "./Calendar/index.js";
+//import DnD from "./Events/testDandD.js";
+//import EventsCalendar from "./Events/eventsCalendar.js"
+//import CardHeaderTypes from "./Vacations/test.js";
+//import Dnd from "./Calendar/dragDrop.js";
+//import Calendar from "./Calendar/index.js";
 //import Events from "./Events/events.js";
-import AddUsers from "./AddUsers/addUsers.js";
+//import AddUsers from "./AddUsers/addUsers.js";
 
 
 const styles = () => ({
@@ -46,8 +49,8 @@ class HomeDashboard extends React.Component {
                 <Paper className={classes.paper}>
                     {/* <LeftSideBar /> */}
                         {/*  <h1>Test 2</h1>    */} 
-                     {/*  <Calendar>
-                        </Calendar>   */}
+                      {/*  <Calendar>
+                        </Calendar>  */} 
                     {/*  <Dnd>
                         </Dnd>  */}
                           {/*  <AddUsers>
@@ -56,8 +59,14 @@ class HomeDashboard extends React.Component {
                                 </CardHeaderTypes>  */}                      
                       {/*                   <Vacation> 
                          </Vacation>      */}     
-                            <Events> 
-                             </Events>    
+                             <Events> 
+                             </Events> 
+                             {/*  <EventsCalendar>
+                                 </EventsCalendar>   */}
+                                 {/* <DnD>
+                                     </DnD>  */} 
+                                     {/* <Cal>
+                                         </Cal>  */}
                 </Paper>
             </main>
         );

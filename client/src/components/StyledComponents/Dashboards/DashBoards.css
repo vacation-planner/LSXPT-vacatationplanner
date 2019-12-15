@@ -23,18 +23,18 @@
 }
 
 .eventContainer {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     display: flex;
     font-size: 12px;
 }
 
 .left {
-    border: 2px soild red;
+   /*  border: 2px soild red; */
     width: 50%;
 }
 
 .right {
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     width: 50%;
 }
  
