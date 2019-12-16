@@ -40,8 +40,8 @@ class AddEvents extends Component {
     eventsId: this.props.eventsId,
     eventName: this.props.eventName,
     description: this.props.description,
-    startTimeDate: "",
-    endTimeDate: "",
+    startDateTime: "",
+    endDateTime: "",
     disabled: this.props.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
@@ -59,13 +59,13 @@ handleStartChange = event => {
   if (this.props.disabled) {
     alert("Please create a event first.")
   } else {
-  let startTimeDate = moment(event).format();
-  console.log("startTimeDate: ", startTimeDate)
+  let startDateTime = moment(event).format();
+  console.log("startDateTime: ", startDateTime)
    // update the current event record
     let eventsRec = {
     eventName: this.props.eventName,
     description: this.props.description,
-    startTimeDate: startTimeDate,
+    startDateTime: startDateTime,
     usersUid: this.state.usersUid,
     vacationsId: this.props.vacationsId,
     secondaryUsersId: this.props.secondaryUsersId,
@@ -81,10 +81,10 @@ handleStartChange = event => {
     }); 
 // clear the inputs
  this.setState({
-    startTimeDate: startTimeDate,    
+    startDateTime: startDateTime,    
   }); 
   
-  //this.props.startTimeDate(this.state.startTimeDate)
+  //this.props.startDateTime(this.state.startDateTime)
   }
 };
 
@@ -92,12 +92,12 @@ handleEndChange = event => {
   if (this.props.disabled) {
     alert("Please create a event first.")
   } else {
-  let endTimeDate = moment(event).format();
+  let endDateTime = moment(event).format();
   // update the current vacation record
   let eventRec = {
     eventName: this.props.eventName,
     description: this.props.description,
-    endTimeDate: endTimeDate,   // if field empty, dont save it
+    endDateTime: endDateTime,   // if field empty, dont save it
     usersUid: this.state.usersUid,
   }
 
@@ -112,7 +112,7 @@ axios
     });
 
  this.setState({
-    endTimeDate: endTimeDate,    
+    endDateTime: endDateTime,    
   });  
 }
 };

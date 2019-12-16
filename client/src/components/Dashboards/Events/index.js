@@ -3,6 +3,8 @@ import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
 import AddEvents from "./addEvents.js"
+import EventsCalendar from "./eventsCalendar.js"
+
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
@@ -39,6 +41,30 @@ const styles = theme => ({
        
     }
 },
+cardBodyContainer1: {
+    display: "flex",
+    flexDirection: "Column",
+    [theme.breakpoints.up("sm")]: {
+        width: "25%",
+       
+    }
+},
+cardBodyContainer2: {
+    display: "flex",
+    flexDirection: "Column",
+    [theme.breakpoints.up("sm")]: {
+        width: "25%",
+       
+    }
+},
+cardBodyContainer3: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.up("sm")]: {
+        width: "50%",
+       
+    }
+},
   gridItem: {
       cursor: "pointer",
       padding: 15,
@@ -56,8 +82,8 @@ class Events extends Component {
     eventName: "",
     vacation: "",
     vacationsId: 1,
-    startTimeDate: "",
-    endTimeDate: "",
+    startDateTime: "",
+    endDateTime: "",
     description: "",
     eventsId: "",
     disabled: false,
@@ -151,11 +177,12 @@ render() {
        <div className="events"> 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-                <Card style={{ width: "1200px", height: "600px", marginRight: "100px"}}>
+                <Card style={{ width: "1100px", height: "700px", marginRight: "100px"}}>
                     {/*  <div className="images"> </div> */}
                     <h3>Create Event: {this.state.eventName}</h3>
                     <h4>Current Vacation: {this.state.vacation}</h4>
                         <CardBody   className={classes.cardBody2}>
+                        <CardBody  className={classes.cardBodyContainer1}>
                             <CardBody>
                                 <h5>Name of New Event:{" "}
                                     <input
@@ -167,6 +194,19 @@ render() {
                                     />
                                 </h5>
                             </CardBody>
+                            <CardBody  xs={12} sm={12} md={4}>
+                            <AddEvents 
+                                eventName={this.state.eventName} 
+                                description={this.state.description} 
+                                eventsId={this.state.eventsId} 
+                                disabled={this.state.disabled}
+                                secondaryUsersId={this.state.secondaryUsersId}
+                                vacationsId={this.state.vacationsId}
+                                startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
+                            </AddEvents>  
+                        </CardBody>
+                        </CardBody>
+                        <CardBody  className={classes.cardBodyContainer2}>
                             <CardBody> 
                                 <h5>Description:{" "}
                                     <input
@@ -184,18 +224,15 @@ render() {
                                    </div>
                             
                             </CardBody>
+                            </CardBody>
+                            <CardBody className={classes.cardBodyContainer3}>
+                                <EventsCalendar>
+                                    </EventsCalendar>
+
+                            </CardBody>
+
                         </CardBody>
-                        <CardBody  xs={12} sm={12} md={4}>
-                            <AddEvents 
-                                eventName={this.state.eventName} 
-                                description={this.state.description} 
-                                eventsId={this.state.eventsId} 
-                                disabled={this.state.disabled}
-                                secondaryUsersId={this.state.secondaryUsersId}
-                                vacationsId={this.state.vacationsId}
-                                startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
-                            </AddEvents>  
-                        </CardBody>
+                        
                         <CardBody  className={classes.cardBody}>
                            <div className="logo">
                            </div>

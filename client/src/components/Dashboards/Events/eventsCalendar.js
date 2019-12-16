@@ -105,8 +105,8 @@ class EventsCalendar extends React.Component {
       events.push({
         //id: item.id,
         title: item.eventName,
-        start: item.startTimeDate,
-        end: item.endTimeDate,
+        start: item.startDateTime,
+        end: item.endDateTime,
         desc: item.description
       })  
         
@@ -185,10 +185,10 @@ class EventsCalendar extends React.Component {
   writeToDb = slotInfo => {
     const eventRec = {
       eventName: "test",
-      vacationsId: slotInfo.start,
-      startTimeDate: slotInfo.end,
-      endTimeDate: "item.location",
-      description: "",
+      vacationsId: 1,
+      startDateTime: slotInfo.start,
+      endDateTime: slotInfo.end,
+      description: "item.location",
   
     }
     axios

@@ -7,9 +7,9 @@ import HomeNavbar from './Navbar/HomeNavbar.js';
 import LeftSideBar from './LeftSideBar.js';
 //import Vacation from "./Vacations/index.js";
 //import Cal from "./Calendar/old_calendar.js"
-//import Events from "./Events/index.js";
+import Events from "./Events/index.js";
 //import DnD from "./Events/testDandD.js";
-import EventsCalendar from "./Events/eventsCalendar.js"
+//import EventsCalendar from "./Events/eventsCalendar.js"
 //import CardHeaderTypes from "./Vacations/test.js";
 //import Dnd from "./Calendar/dragDrop.js";
 //import Calendar from "./Calendar/index.js";
@@ -59,10 +59,10 @@ class HomeDashboard extends React.Component {
                                 </CardHeaderTypes>  */}                      
                       {/*                   <Vacation> 
                          </Vacation>      */}     
-                           {/*   <Events> 
-                             </Events>  */}
-                              <EventsCalendar>
-                                 </EventsCalendar>  
+                              <Events> 
+                             </Events> 
+                             {/*  <EventsCalendar>
+                                 </EventsCalendar>  */} 
                                  {/* <DnD>
                                      </DnD>  */} 
                                      {/* <Cal>

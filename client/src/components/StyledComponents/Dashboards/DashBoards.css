@@ -23,18 +23,22 @@
 }
 
 .eventContainer {
-    /* border: 2px solid green; */
+    /* border: 2px solid green; */ 
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    
     font-size: 12px;
 }
 
 .left {
    /*  border: 2px soild red; */
-    width: 50%;
+    width: 100%;
 }
 
 .right {
     /* border: 2px solid orange; */
-    width: 50%;
+    width: 100%;
+    margin-top: 30px;
 }
  

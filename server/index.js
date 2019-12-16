@@ -13,6 +13,7 @@ const usersRouter = require("./api/usersRouter");
 const vacationsRouter = require("./api/vacationsRouter");
 //const expensesRouter = require("./api/expensesRouter");
 const eventsRouter = require("./api/eventsRouter");
+const eventUsersRouter = require("./api/eventUsersRouter");
 const emailsRouter = require("./api/emailsRouter");
 const secondaryUsersRouter = require("./api/secondaryUsersRouter")
 //const stripeRouter = require("./api/stripeRouter");
@@ -29,6 +30,7 @@ server.use("/api/users", usersRouter);
 server.use("/api/emails", emailsRouter);
 //server.use("/api/billing", verifyToken, billingRouter);
 server.use("/api/events", eventsRouter);
+server.use("/api/eventUsers", eventUsersRouter);
 server.use("/api/secondaryUsers", secondaryUsersRouter);
 //server.use("/api/users", verifyToken, usersRouter);
 //server.use("/api/expenses", expensesRouter);
