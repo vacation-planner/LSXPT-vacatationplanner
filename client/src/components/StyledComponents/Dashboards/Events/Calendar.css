@@ -33,7 +33,7 @@
   .rbc-calendar {
     box-sizing: border-box;
     height: 500px;
-    width: 500px;  
+    width: 500px; 
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -43,7 +43,7 @@
     /* -webkit-align-items: stretch; */
     /* -ms-flex-align: stretch; */
      /* align-items: stretch; */ 
-     background-color: white; 
+     background-color: rgb(243, 249, 253); 
     
     
    
@@ -541,7 +541,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    font-size: 75%;
+    font-size: 50%;
     width: 100%;
     padding: 3px;
   }

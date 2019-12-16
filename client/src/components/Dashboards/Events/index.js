@@ -5,6 +5,9 @@ import { fire } from "../../Auth/firebaseConfig";
 import AddEvents from "./addEvents.js"
 import EventsCalendar from "./eventsCalendar.js"
 
+import { Row,  
+    UsersContainer, 
+} from "../../StyledComponents/Dashboards/Events/events.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
@@ -88,6 +91,7 @@ class Events extends Component {
     eventsId: "",
     disabled: false,
     secondaryUsersId: 1,
+    secondaryUsers: [],
    };
 };
 
@@ -96,6 +100,10 @@ componentDidMount() {
       console.log("we in events: ", this.state.vacationsId)
 
     this.fetchVacationTitle(this.state.vacationsId);
+
+    this.fetchSecondaryUsers(this.state.vacationsId);
+
+    // need to get all secondary user data using vacation id
 
        this.setState({
         usersUid: usersUid
@@ -159,6 +167,35 @@ addEvent = () => {
       });
   };
 
+  fetchSecondaryUsers = (vacationsId) => {
+    let secondaryUsers = [];
+    axios
+    .get(`${URL}/secondaryUsers/`)
+    .then(response => {
+      response.data.forEach((user, index) => {
+        if (user.vacationsId === vacationsId) {          
+          secondaryUsers.push(user)
+          //console.log('secondaryUsers: ', user);
+        }
+          this.setState({
+            secondaryUsers: secondaryUsers
+          });
+         // this.displaySecondaryUsers(secondaryUsers); 
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+
+  }
+
+  displaySecondaryUsers = (secondaryUsers) => {
+
+
+  }
+
+
+
   handleStartDate = startDate => {
     console.log('am i doing this right: ', startDate);
 
@@ -173,11 +210,24 @@ addEvent = () => {
 
 render() {
   const { classes } = this.props;
+
+  let rows = [];
+  // **************************************
+  // NOTE: need to correct the formatting
+  // *************************************
+  this.state.secondaryUsers.forEach((user, index) => {
+    // Loops through array of secondary users and lists them in a div
+    rows.push(
+        <UsersContainer key={index}>
+            {user.firstName}, {user.lastName}      
+        </UsersContainer>
+        );
+    });
     return (
        <div className="events"> 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-                <Card style={{ width: "1100px", height: "700px", marginRight: "100px"}}>
+                <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "60px"}}>
                     {/*  <div className="images"> </div> */}
                     <h3>Create Event: {this.state.eventName}</h3>
                     <h4>Current Vacation: {this.state.vacation}</h4>
@@ -220,8 +270,10 @@ render() {
                             </CardBody>
                             <CardBody> 
                                 <h5>Vacation Participants:</h5>{" "}
-                                   <div className="participantsList">
-                                   </div>
+                                  
+                                    <div className="participantsList">
+                                    {rows} 
+                                    </div>
                             
                             </CardBody>
                             </CardBody>
