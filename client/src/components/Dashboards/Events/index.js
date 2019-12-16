@@ -89,6 +89,7 @@ class Events extends Component {
     endDateTime: "",
     description: "",
     eventsId: "",
+    events: [],
     disabled: false,
     secondaryUsersId: 1,
     secondaryUsers: [],
@@ -102,6 +103,8 @@ componentDidMount() {
     this.fetchVacationTitle(this.state.vacationsId);
 
     this.fetchSecondaryUsers(this.state.vacationsId);
+
+    this.fetchEvents(this.state.vacationsId);
 
     // need to get all secondary user data using vacation id
 
@@ -180,7 +183,7 @@ addEvent = () => {
           this.setState({
             secondaryUsers: secondaryUsers
           });
-         // this.displaySecondaryUsers(secondaryUsers); 
+        
       });
     })
     .catch(err => {
@@ -189,12 +192,28 @@ addEvent = () => {
 
   }
 
-  displaySecondaryUsers = (secondaryUsers) => {
-
+  
+  fetchEvents = (vacationsId) => {
+    let events = [];
+    axios
+    .get(`${URL}/events/`)
+    .then(response => {
+      response.data.forEach((event, index) => {
+        if (event.vacationsId === vacationsId) {          
+            events.push(event)
+          console.log('event: ', event);
+        }
+          this.setState({
+            events: events
+          });
+        
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
 
   }
-
-
 
   handleStartDate = startDate => {
     console.log('am i doing this right: ', startDate);
@@ -212,6 +231,7 @@ render() {
   const { classes } = this.props;
 
   let rows = [];
+  let eventRows = [];
   // **************************************
   // NOTE: need to correct the formatting
   // *************************************
@@ -223,6 +243,16 @@ render() {
         </UsersContainer>
         );
     });
+    this.state.events.forEach((event, index) => {
+        // Loops through array of secondary users and lists them in a div
+        eventRows.push(
+            <UsersContainer key={index}>
+                {event.eventName}      
+            </UsersContainer>
+            );
+        });
+
+
     return (
        <div className="events"> 
         <GridContainer>
@@ -269,13 +299,22 @@ render() {
                                 </h5>
                             </CardBody>
                             <CardBody> 
-                                <h5>Vacation Participants:</h5>{" "}
+                                <h3>Available Events:</h3>{" "}
+                                  
+                                    <div className="eventsList">
+                                    {eventRows} 
+                                    </div>
+                            
+                            </CardBody>
+                            <CardBody> 
+                                <h3>Vacation Participants:</h3>{" "}
                                   
                                     <div className="participantsList">
                                     {rows} 
                                     </div>
                             
                             </CardBody>
+                            
                             </CardBody>
                             <CardBody className={classes.cardBodyContainer3}>
                                 <EventsCalendar>

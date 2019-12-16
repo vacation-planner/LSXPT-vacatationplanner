@@ -286,7 +286,7 @@ class EventsCalendar extends React.Component {
         defaultView="month"
         step={15}
         showMultiDayTimes={true}
-        defaultDate={new Date(2018, 1, 29)}
+        defaultDate={new Date(2019, 11, 29)}
         eventPropGetter={event => this.eventStyleGetter(event)}
       />
     )

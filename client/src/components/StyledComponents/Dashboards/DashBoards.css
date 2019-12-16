@@ -18,6 +18,14 @@
 
 .participantsList {
     border: 1px solid gray;
+    overflow-y: auto;
+    height: 120px;
+    width: 200px;
+}
+
+.eventsList {
+    border: 1px solid gray;
+    overflow-y: auto;
     height: 120px;
     width: 200px;
 }
