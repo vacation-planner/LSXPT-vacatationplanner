@@ -1,4 +1,5 @@
 import React from 'react';
+import { fire } from "../Auth/firebaseConfig";
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -9,11 +10,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
-// import Vacation from "./Vacations/index.js";
-// import CardHeaderTypes from "./Vacations/test.js";
-// import Dnd from "./Calendar/dragDrop.js";
-// import Events from "./Events/events.js";
-// import AddUsers from "./AddUsers/addUsers.js";
+import LeftSideBar from './LeftSideBar.js';
+import Vacation from "./Vacations/index.js";
+import CardHeaderTypes from "./Vacations/test.js";
+import Dnd from "./Calendar/dragDrop.js";
+import Events from "./Events/events.js";
+import AddUsers from "./AddUsers/addUsers.js";
 
 
 const styles = theme => ({

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //import axios from "axios";
-//import { fire } from "../../Auth/firebaseConfig";
+import { fire } from "../../Auth/firebaseConfig";
 import Display from "./display.js";
 import AddVacations from "./addVacations.js";
 import AddUsers from "../AddUsers/addUsers.js"

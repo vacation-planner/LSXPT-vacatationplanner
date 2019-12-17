@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { fire } from "../Auth/firebaseConfig";
+import { Link } from "react-router-dom";
 import withStyles from '@material-ui/core/styles/withStyles';
 import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar/LPNavbar.js';
-import { fire } from "../Auth/firebaseConfig";
 import * as ROUTES from "../../constants/routes";
 import { ContentDiv, LandingPageHeader, LandingPageH2, LandingPageFooter } from '../StyledComponents';
 import Button from '../Material-UI/components/CustomButtons/Button.jsx';
@@ -10,6 +11,13 @@ import headerLinksStyle from '../Material-UI/assets/jss/material-kit-pro-react/c
 
 class LandingPage extends Component {
 
+    //************* Added temp signout ************************
+    //**   this just gives us a temporary way to signout     **
+     signOut = () => {
+        fire.signOut();
+        console.log("User logged out successfully");
+       };
+     
     render() {
         const { classes } = this.props;
         return (

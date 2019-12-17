@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 // @material-ui/core components
@@ -7,7 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
-import { fire } from "../../Auth/firebaseConfig";
+
 import "../../StyledComponents/Dashboards/AddUsers/material-dashboard-pro-react.css";
 
 const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -34,28 +35,72 @@ class DateTimePicker extends Component {
   this.state = {
     events: this.props.events,
     date: new Date(2019, 11, 12), 
-    uid: "",
+    usersUid: "",
     value: "",
+    vacationsId: this.props.vacationsId,
+    title: "",
+    location: "",
+    startDate: "",
+    endDate: "",
    };
 }
 
 componentDidMount() {
-   let uid = fire.currentUser.uid;
+   let usersUid = fire.currentUser.uid;
    this.setState({
-    uid: uid
+    usersUid: usersUid
   }); 
 };
 
 handleStartChange = event => {
-  let newDate = moment(event).format();
-   // save new value to db
-  //this.setState({value: event});
+  let startDate = moment(event).format();
+   // update the current vacation record
+   let vacationRec = {
+    title: this.props.title,
+    location: this.props.location,
+    startDate: startDate,   // if field empty, dont save it
+    /* endDate: this.state.endDate, */
+    usersUid: this.state.usersUid,
+  }
+
+axios
+    .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
+    .then(response => {
+        console.log("start day updated")
+    })
+    .catch(err => {
+        console.log('We"ve encountered an error');
+    });
+// clear the inputs
+ this.setState({
+    startDate: startDate,    
+  });  
+
 };
 
 handleEndChange = event => {
-  let newDate = moment(event).format();
-   // save new value to db
-  //this.setState({value: event}); 
+  let endDate = moment(event).format();
+  // update the current vacation record
+  let vacationRec = {
+    title: this.props.title,
+    location: this.props.location,
+    endDate: endDate,   // if field empty, dont save it
+    usersUid: this.state.usersUid,
+  }
+
+axios
+    .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
+    .then(response => {
+        console.log("end date updated")
+    })
+    .catch(err => {
+        console.log('We"ve encountered an error');
+    });
+
+ this.setState({
+    endDate: endDate,    
+  });  
+  
 };
 
 

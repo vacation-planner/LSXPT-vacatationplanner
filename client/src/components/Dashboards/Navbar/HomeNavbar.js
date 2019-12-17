@@ -1,4 +1,5 @@
 import React from "react";
+import { fire } from "../../Auth/firebaseConfig";
 // import { Link } from "react-router-dom";
 
 // nodejs library to set properties for components
@@ -21,7 +22,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 // Firebase things
 import * as ROUTES from "../../../constants/routes";
-import { fire } from "../../Auth/firebaseConfig";
+//import { fire } from "../../Auth/firebaseConfig";
 
 // core components
 import Button from "../../Material-UI/components/CustomButtons/Button.jsx";
@@ -344,6 +345,7 @@ class HomeNavbar extends React.Component {
                                     </ListItem>
                                     <ListItem className={classes.listItem}>
                                         <Button
+                                            onClick={this.signOut}
                                             href={ROUTES.LANDING}
                                             className={classes.navLink}
                                             color="transparent"
