@@ -16,7 +16,7 @@ const eventsRouter = require("./api/eventsRouter");
 const emailsRouter = require("./api/emailsRouter");
 const secondaryUsersRouter = require("./api/secondaryUsersRouter")
 //const stripeRouter = require("./api/stripeRouter");
-//const admin = require("./data/auth/firebaseMiddleware");
+const admin = require("./data/auth/firebaseMiddleware");
 //const server = require('./api/server');
 
 server.use(cors());
@@ -35,7 +35,23 @@ server.use("/api/secondaryUsers", secondaryUsersRouter);
 //server.use("/api/stripe", stripeRouter);
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-//server.use("/", verifyToken);
+server.use("/", verifyToken);
+
+async function verifyToken(req, res, next) {
+    const idToken = req.headers.authorization;
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+  
+      if (decodedToken) {
+        req.body.uid = decodedToken.uid;
+        return next();
+      } else {
+        return res.status(401).send("You are not authorized!");
+      }
+    } catch (e) {
+      return res.status(401).send("You are not authorized!");
+    }
+  }
 
 
 const PORT = process.env.PORT || 5500;

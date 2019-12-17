@@ -53,6 +53,7 @@ class Display extends Component {
     title: "",
     startDate: "",
     endDate: "",
+    vacationsId: "",
    };
 };
 
@@ -61,43 +62,52 @@ componentDidMount() {
        this.setState({
         usersUid: usersUid
       }); 
-      console.log("state: ", this.state)
+     
     };
 
 addVacation = () => {
     // create a record using the input
-    console.log("in the add")
     let vacationRec = {
         title: this.state.title,
         location: this.state.location,
-        /* startDate: this.state.startDate, */
-      /*   endDate: this.state.endDate, */
         usersUid: this.state.usersUid,
     }
     console.log("in the vacationRec: ", vacationRec)
     axios
         .post(`${URL}/vacations/`, vacationRec)
         .then(response => {
-            console.log("file written")
+            console.log("file written");
+            // get the id of the new record
+            this.fetchId(this.state.title);
+           
         })
         .catch(err => {
             console.log('We"ve encountered an error');
-        });
-    // clear the inputs
-    /* this.setState({
-        usersList: usersList, 
-        firstName: "", 
-        lastName: "",
-        email: "",   
-      });  */
-    
+        });  
   }
 
+  fetchId = title => {
+    axios
+      .get(`${URL}/vacations`)
+      .then(response => {
+       
+        response.data.forEach((item, index) => {
+          if (item.title === this.state.title) {
+                
+            this.setState({
+                vacationsId: item.id
+            });
+          }
+        });
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
+  };
+
   handleChange = event => {
-   let temp = event.target.value;
-   console.log("temp: ", temp)
-   this.setState({
-    [event.target.name]: event.target.value
+    this.setState({
+        [event.target.name]: event.target.value
   });
     
   };
@@ -110,7 +120,7 @@ render() {
             <GridItem xs={12} sm={12} md={4}>
            <Card style={{ width: "800px", height: "400px", marginLeft: "40px", marginTop: "340px"}}>
           {/*  <div className="images"> </div> */}
-           Current Vacation Name: Winter Vacation
+           <h4>Current Vacation Name: {this.state.title}</h4>
                <CardBody   className={classes.cardBody2}>
            
             <CardBody>
@@ -148,7 +158,7 @@ render() {
              </AddUsers>   */}
                 </CardBody>
                 <CardBody  xs={12} sm={12} md={4}>
-                 <DateTimePicker>
+                 <DateTimePicker title={this.state.title} location={this.state.location} vacationsId={this.state.vacationsId}>
                </DateTimePicker>  
                 </CardBody>
                 </Card>

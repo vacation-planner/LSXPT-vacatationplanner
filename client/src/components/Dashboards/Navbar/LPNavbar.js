@@ -1,4 +1,5 @@
 import React from "react";
+import { fire } from "../../Auth/firebaseConfig";
 
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -20,7 +21,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 // Firebase things
 import * as ROUTES from "../../../constants/routes";
-import { fire } from "../../Auth/firebaseConfig";
+
 
 // core components
 import Button from "../../Material-UI/components/CustomButtons/Button.jsx";
@@ -107,7 +108,6 @@ const styles = theme => ({
                 maxHeight: "400px",
                 overflow: "scroll"
             },
-            width: "100%",
         }
     },
     logo: {
@@ -220,11 +220,6 @@ class LandingPageNavbar extends React.Component {
 
     handleClose = () => {
         this.setState({ anchorEl: null, mobileOpen: false });
-    };
-
-    signOut = () => {
-        fire.signOut();
-        console.log("User logged out successfully");
     };
 
     render() {
