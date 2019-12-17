@@ -221,11 +221,6 @@ class LandingPageNavbar extends React.Component {
         this.setState({ anchorEl: null, mobileOpen: false });
     };
 
-    signOut = () => {
-        fire.signOut();
-        console.log("User logged out successfully");
-    };
-
     render() {
         const { classes } = this.props;
         const { mobileOpen } = this.state;

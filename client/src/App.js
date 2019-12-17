@@ -5,14 +5,17 @@ import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
 import * as ROUTES from './constants/routes';
 import LandingPage from './components/LandingPage';
-import Dashboards from './components/Dashboards/HomeDashboard.js';
+import HomeDashboard from './components/Dashboards/HomeDashboard.js';
+import CurrentVacationDashboard from './components/Dashboards/CurrentVacationDashboard.js';
+import PastVacationDashboard from './components/Dashboards/PastVacationDashboard.js';
+import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
 import Signin from './components/Auth/Signin';
 import { fire } from './components/Auth/firebaseConfig';
 import axios from 'axios';
 
 // ********* need heroku address ***********
 const URL = 'https://vacationplannerlx.herokuapp.com/';
-//const URL = 'http://localhost:5500/';
+// const URL = 'http://localhost:5500/';
 
 const AuthenticatedRoute = ({
     component: Component,
@@ -78,6 +81,8 @@ class App extends Component {
                             userUID: user.uid
                         });
                         console.log('User uid: ', this.state.userUID);
+                        this.context.getUserID(this.state.userUID);
+                        this.context.getVacations();
                         this.addCurrentUser(user);
                     })
                     .catch(err => console.log('error ', err));
@@ -156,8 +161,24 @@ class App extends Component {
                     />
                     <AuthenticatedRoute
                         authenticated={this.state.authenticated}
+                        exact
                         path={ROUTES.DASHBOARDS}
-                        component={Dashboards}
+                        component={HomeDashboard}
+                    />
+                    <Route
+                        authenticated={this.state.authenticated}
+                        path={ROUTES.CREATEVACATIONDETAILS}
+                        component={CreateVacationDetails}
+                    />
+                    <Route
+                        authenticated={this.state.authenticated}
+                        path={ROUTES.CURRENTVACATIONSDASHBOARDS}
+                        component={CurrentVacationDashboard}
+                    />
+                    <Route
+                        authenticated={this.state.authenticated}
+                        path={ROUTES.PASTVACATIONSDASHBOARDS}
+                        component={PastVacationDashboard}
                     />
                     <Route
                         exact

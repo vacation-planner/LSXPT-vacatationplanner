@@ -7,7 +7,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
-import CreateVacationDetails from './CreateVacationDetails.js';
+import { AppContext } from '../Context/AppContext.js';
+import { Link } from '@material-ui/core';
 
 const styles = theme => ({
     button: {
@@ -23,11 +24,44 @@ const styles = theme => ({
             backgroundColor: '#AA1649'
         }
     },
+    buttonsDiv: {
+        width: '100%',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-end'
+    },
+    cancelButton: {
+        width: '100%',
+        maxWidth: 150,
+        margin: 0,
+        color: 'black',
+        height: '40px',
+        fontSize: '1.5rem',
+        cursor: 'pointer',
+        '&:hover': {
+            color: 'white',
+            backgroundColor: '#AA1649'
+        }
+    },
     container: {
         width: '90%',
         margin: '0 auto',
         padding: 0,
         fontSize: '2.0rem',
+    },
+    createVacationButton: {
+        width: '100%',
+        maxWidth: 175,
+        margin: 0,
+        color: 'white',
+        backgroundColor: '#E91E63',
+        height: '40px',
+        fontSize: '1.5rem',
+        cursor: 'pointer',
+        '&:hover': {
+            color: 'white',
+            backgroundColor: '#AA1649'
+        }
     },
     dialogStyle: {
         margin: 0
@@ -49,7 +83,7 @@ const styles = theme => ({
 class CreateVacationForm extends React.Component {
     state = {
         open: false,
-        vacationName: ''
+        vacationName: '',
     };
 
     handleClickOpen = () => {
@@ -57,7 +91,7 @@ class CreateVacationForm extends React.Component {
     };
 
     handleClose = () => {
-        this.setState({ open: false, vacationName: '' });
+        this.setState({ open: false });
     };
 
     handleChange = e => {
@@ -65,11 +99,16 @@ class CreateVacationForm extends React.Component {
         this.setState({ [e.currentTarget.name]: e.currentTarget.value });
     };
 
+    handleNewThing = () => {
+        let newVacationName = this.state.vacationName;
+        console.log(newVacationName)
+        this.context.setTempVacationName(newVacationName)
+    }
+
     render() {
         const { classes, vacationType } = this.props;
         const price =
             vacationType === 'basic' ? 0 : vacationType === 'premium' ? 5 : null;
-
         return (
             <div className={classes.container}>
                 <Button
@@ -88,7 +127,7 @@ class CreateVacationForm extends React.Component {
                     classes={{ paper: classes.dialogStyle }}
                 >
                     <DialogTitle disableTypography id="form-dialog-title" classes={{ root: classes.dialogTitle }} >Create Vacation</DialogTitle>
-                    <DialogContent classes={{ root: classes.dialogTitle, label: classes.dialogTitle }}>
+                    <DialogContent classes={{ root: classes.dialogTitle }}>
                         <DialogContentText classes={{ root: classes.dialogContextText }}>
                             {vacationType === 'basic'
                                 ? `Please enter the name of the vacation. Then click "Create
@@ -114,22 +153,31 @@ class CreateVacationForm extends React.Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button className={classes.button} onClick={this.handleClose} color="primary">
-                            Cancel
-            </Button>
-                        {this.props.vacationType === 'basic' ? (
-                            <CreateVacationDetails 
-                                name={this.state.vacationName}
-                            />
-                        ) : (
+                        <div className={classes.buttonsDiv}>
+                            <Button className={classes.cancelButton} onClick={this.handleClose} color="primary">
+                                Cancel
+                            </Button>
+                            {this.props.vacationType === 'basic' ? (
+                                <Button
+                                className={classes.createVacationButton}
+                                onClick={this.handleNewThing}
+                                variant='contained'
+                                href='/createVacationDetails'
+                                >
+                                    Create Vacation
+                                </Button>
+                            ) : (
 
-                                "Pedro's Stripe Button"
-                            )}
+                                    "Pedro's Stripe Button"
+                                )}
+                        </div>
                     </DialogActions>
                 </Dialog>
             </div>
         );
     }
 }
+
+CreateVacationForm.contextType = AppContext;
 
 export default withStyles(styles)(CreateVacationForm);

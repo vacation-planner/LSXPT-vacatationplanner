@@ -1,11 +1,9 @@
 import React from 'react';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-// import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     nameDiv: {
@@ -34,6 +32,7 @@ class PastVacationDrawer extends React.Component {
         calendar: false,
         expenses: false,
         mobileOpen: false,
+        pastVacation: this.props.pastVacation
     };
 
     handleClose = () => {
@@ -52,6 +51,7 @@ class PastVacationDrawer extends React.Component {
         this.setState({
             [event.currentTarget.id]: true
         })
+        this.props.displayPastVacationContent(event);
     }
 
     render() {
@@ -69,23 +69,26 @@ class PastVacationDrawer extends React.Component {
         return (
             <>
                 <div className={classes.nameDiv}>
-                    past vacation name {/*  Name of Past Vacation Here */}
+                    {this.state.pastVacation.title || 'test'}
                 </div>
                 <List onClick={this.handleClose} className={classes.list}>
-                    {ListPastVacations.map((pastVacation, index) => (
-                        <>
+                    {ListPastVacations.map((pastVacation, index) => {
+                        const { name } = pastVacation
+                        return (
+                            <>
                             <ListItem
                                 button
                                 key={pastVacation.name}
                                 id={pastVacation.name}
                                 onClick={this.displayPastVacation}
-                                style={this.state[pastVacation] ? selectedDrawer : null}
+                                style={this.state[name] ? selectedDrawer : null}
                             >
                                 <ListItemText classes={{ primary: classes.listItemText }} primary={pastVacation.text} />
                             </ListItem>
                             <Divider />
                         </>
-                    ))}
+                    )
+                })}
                 </List>
             </>
         );

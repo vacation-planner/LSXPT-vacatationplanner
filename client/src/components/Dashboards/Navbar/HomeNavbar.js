@@ -53,7 +53,6 @@ const styles = theme => ({
         display: "flex",
         justifyContent: "space-betwen",
         alignItems: 'center',
-        // backgroundColor: 'black'
     },
     drawer: {
         [theme.breakpoints.up("sm")]: {
@@ -160,7 +159,6 @@ const styles = theme => ({
     },
     navLink: {
         color: "inherit",
-        // backgroundColor: '#AA1649',
         position: "relative",
         padding: "0.9375rem",
         fontWeight: "400",
@@ -180,7 +178,7 @@ const styles = theme => ({
             marginBottom: "0px",
             fontSize: "1.25rem"
         },
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down(600)]: {
             width: "calc(100% - 30px)",
             marginBottom: "8px",
             marginTop: "8px",
@@ -218,26 +216,40 @@ const styles = theme => ({
 class HomeNavbar extends React.Component {
     state = {
         mobileOpen: false,
-        testCurrent: this.context.state.testCurrent,
-        testPast: this.context.state.testPast
     };
+
+    componentDidMount() {
+        const { currentVacationMenu, pastVacationMenu, currentVacationTitle, currentVacationIndex, currentVacationId, pastVacationTitle, pastVacationIndex, pastVacationId } = this.props.data;
+
+        this.setState({
+            currentVacationMenu,
+            pastVacationMenu,
+            currentVacationTitle,
+            currentVacationIndex,
+            currentVacationId,
+            pastVacationTitle,
+            pastVacationIndex,
+            pastVacationId,
+        });
+    }
 
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
     }
 
     handleClose = () => {
-        this.setState({ anchorEl: null, mobileOpen: false });
+        this.setState({ mobileOpen: false });
     };
 
     signOut = () => {
+        this.context.signOut();
         fire.signOut();
         console.log("User logged out successfully");
     };
 
     render() {
         const { classes } = this.props;
-        const { mobileOpen, testCurrent, testPast } = this.state;
+        const { mobileOpen, currentVacationMenu, pastVacationMenu } = this.state;
 
         const drawer = (
             <div>
@@ -249,25 +261,29 @@ class HomeNavbar extends React.Component {
                         </div>
                     ) : null}
                 </div>
-                {!testCurrent && !testPast && (
+                {!currentVacationMenu && !pastVacationMenu && (
                     <>
                         <Divider />
                         <HomeDrawer
-                            currentVacations={this.context.state.currentVacations}
-                            pastVacations={this.context.state.pastVacations}
+                            currentVacations={this.context.state.myCurrentVacations}
+                            pastVacations={this.context.state.myPastVacations}
                         />
                     </>
                 )}
-                {testCurrent && !testPast && (
+                {currentVacationMenu && !pastVacationMenu && (
                     <CurrentVacationDrawer
-                        currentVacations={this.context.state.currentVacations}
-                        pastVacations={this.context.state.pastVacations}
+                        currentVacations={this.context.state.myCurrentVacations}
+                        pastVacations={this.context.state.myPastVacations}
+                        currentVacation={this.context.state.myCurrentVacations[this.state.currentVacationIndex]}
+                        displayCurrentVacationContent={this.props.displayCurrentVacationContent}
                     />
                 )}
-                {!testCurrent && testPast && (
+                {!currentVacationMenu && pastVacationMenu && (
                     <PastVacationDrawer
-                        currentVacations={this.context.state.currentVacations}
-                        pastVacations={this.context.state.pastVacations}
+                        currentVacations={this.context.state.myCurrentVacations}
+                        pastVacations={this.context.state.myPastVacations}
+                        pastVacation={this.context.state.myPastVacations[this.state.pastVacationIndex]}
+                        displayPastVacationContent={this.props.displayPastVacationContent}
                     />
                 )}
                 <div className={classes.hideDrawerButtons}>
@@ -287,6 +303,7 @@ class HomeNavbar extends React.Component {
                                 href={ROUTES.LANDING}
                                 className={classes.navLink}
                                 color="transparent"
+                                onClick={this.signOut}
                             >
                                 Sign Out
                     </Button>
@@ -309,7 +326,7 @@ class HomeNavbar extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                         </Hidden>
-                        <Button className={classes.logo} href="/">
+                        <Button className={classes.logo} href="/dashboards">
                             Vacation Planner
                     </Button>
 
@@ -330,6 +347,7 @@ class HomeNavbar extends React.Component {
                                             href={ROUTES.LANDING}
                                             className={classes.navLink}
                                             color="transparent"
+                                            onClick={this.signOut}
                                         >
                                             Sign Out
                                         </Button>

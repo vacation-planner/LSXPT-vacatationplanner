@@ -40,6 +40,7 @@ const LandingPageFooter = styled.footer`
     padding-top: 25px;
     font-size: 2.0rem;
     text-decoration: none;
+    background-color: #e2e2e2;
 `;
 
 export {
