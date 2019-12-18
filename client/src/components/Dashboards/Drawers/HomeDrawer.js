@@ -1,5 +1,4 @@
 import React from 'react';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -8,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../../Context/AppContext'
 
 const styles = theme => ({
@@ -21,6 +20,10 @@ const styles = theme => ({
         borderRight: '1px solid #BBC1C5',
         padding: '0px',
         margin: '0px',
+    },
+    link: {
+        textDecoration: 'none',
+        color: 'black',
     },
     list: {
         padding: '0px',
@@ -76,7 +79,7 @@ class HomeDrawer extends React.Component {
 
     render() {
         const { classes, currentVacations, pastVacations } = this.props;
-        console.log(currentVacations, this.context.state.currentVacations)
+
         return (
             <main className={classes.main}>
                 <List className={classes.list}>
@@ -89,7 +92,6 @@ class HomeDrawer extends React.Component {
                         style={!currentVacations.length ? { display: 'none' } : null}
                     >
                         <ListItemText classes={{ primary: classes.listItemText }} primary="Current Vacations" />
-
                         {this.state.expandCurrentVacations ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Divider />
@@ -97,21 +99,31 @@ class HomeDrawer extends React.Component {
                         <List component="div" disablePadding>
                             {currentVacations.map((currentVacation, index) => (
                                 <>
-                                    {/* Add Link for each vacation */}
-                                    <ListItem
-                                        button
-                                        key={currentVacation.id}
-                                        onClick={this.selectCurrentVacation}
-                                        className={classes.nested}
+                                    <Link
+                                        className={classes.link}
+                                        to={{
+                                            pathname: '/dashboards/current',
+                                            state: {
+                                                currentVacationIndex: index,
+                                                currentVacationId: currentVacation.id,
+                                                currentVacationTitle: currentVacation.title,
+                                            }
+                                        }}
                                     >
-                                        <ListItemText
-                                            id={currentVacation.id}
-                                            currentVacationIndex={index}
-                                            primary={currentVacation.name}
-                                            classes={{ primary: classes.listItemTextLayerTwo }}
-                                        />
-                                    </ListItem>
-                                    {/* </Link> */}
+                                        <ListItem
+                                            button
+                                            key={currentVacation.id}
+                                            onClick={this.selectCurrentVacation}
+                                            className={classes.nested}
+                                        >
+                                            <ListItemText
+                                                id={currentVacation.id}
+                                                currentVacationIndex={index}
+                                                primary={currentVacation.title}
+                                                classes={{ primary: classes.listItemTextLayerTwo }}
+                                            />
+                                        </ListItem>
+                                    </Link>
                                     <Divider />
                                 </>
                             ))}
@@ -133,21 +145,31 @@ class HomeDrawer extends React.Component {
                         <List component="div" disablePadding>
                             {pastVacations.map((pastVacation, index) => (
                                 <>
-                                    {/* Add Link for each vacation */}
-                                    <ListItem
-                                        button
-                                        key={pastVacation.id}
-                                        onClick={this.selectPastVacation}
-                                        className={classes.nested}
+                                    <Link
+                                        className={classes.link}
+                                        to={{
+                                            pathname: '/dashboards/past',
+                                            state: {
+                                                pastVacationIndex: index,
+                                                pastVacationId: pastVacation.id,
+                                                pastVacationTitle: pastVacation.title,
+                                            }
+                                        }}
                                     >
-                                        <ListItemText
-                                            id={pastVacation.id}
-                                            pastVacationIndex={index}
-                                            primary={pastVacation.name}
-                                            classes={{ primary: classes.listItemTextLayerTwo }}
-                                        />
-                                    </ListItem>
-                                    {/* </Link> */}
+                                        <ListItem
+                                            button
+                                            key={pastVacation.id}
+                                            onClick={this.selectPastVacation}
+                                            className={classes.nested}
+                                        >
+                                            <ListItemText
+                                                id={pastVacation.id}
+                                                pastVacationIndex={index}
+                                                primary={pastVacation.title}
+                                                classes={{ primary: classes.listItemTextLayerTwo }}
+                                            />
+                                        </ListItem>
+                                    </Link>
                                     <Divider />
                                 </>
                             ))}

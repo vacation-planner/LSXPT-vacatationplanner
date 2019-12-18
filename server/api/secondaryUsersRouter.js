@@ -41,7 +41,7 @@ router.get("/", (req, res) => {
 //Get All vacations for email
 router.get('/:email', async (req, res) => {
     const {email} = req.params;
-    await secondaryUsers.getByEmail(email).then(vacationData => {
+    secondaryUsers.getByEmail(email).then(vacationData => {
         if (vacationData) {
             res.status(200).json(vacationData);
         }

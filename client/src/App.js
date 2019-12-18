@@ -6,7 +6,10 @@ import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
 import * as ROUTES from './constants/routes';
 import LandingPage from './components/LandingPage';
-import Dashboards from './components/Dashboards/HomeDashboard.js';
+import HomeDashboard from './components/Dashboards/HomeDashboard.js';
+import CurrentVacationDashboard from './components/Dashboards/CurrentVacationDashboard.js';
+import PastVacationDashboard from './components/Dashboards/PastVacationDashboard.js';
+import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
 import Signin from './components/Auth/Signin';
 
 import axios from 'axios';
@@ -82,6 +85,8 @@ class App extends Component {
                             userUID: user.uid
                         });
                         console.log('User uid: ', this.state.userUID);
+                        this.context.getUserID(this.state.userUID);
+                        this.context.getVacations();
                         this.addCurrentUser(user);
                     })
                     .catch(err => console.log('error ', err));
@@ -157,8 +162,24 @@ class App extends Component {
                     <Route exact path={ROUTES.LANDING} component={LandingPage} />
                     <AuthenticatedRoute
                         authenticated={this.state.authenticated}
+                        exact
                         path={ROUTES.DASHBOARDS}
-                        component={Dashboards}
+                        component={HomeDashboard}
+                    />
+                    <Route
+                        authenticated={this.state.authenticated}
+                        path={ROUTES.CREATEVACATIONDETAILS}
+                        component={CreateVacationDetails}
+                    />
+                    <Route
+                        authenticated={this.state.authenticated}
+                        path={ROUTES.CURRENTVACATIONSDASHBOARDS}
+                        component={CurrentVacationDashboard}
+                    />
+                    <Route
+                        authenticated={this.state.authenticated}
+                        path={ROUTES.PASTVACATIONSDASHBOARDS}
+                        component={PastVacationDashboard}
                     />
                     <Route
                         exact

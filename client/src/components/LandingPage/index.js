@@ -10,11 +10,6 @@ import Button from '../Material-UI/components/CustomButtons/Button.jsx';
 import headerLinksStyle from '../Material-UI/assets/jss/material-kit-pro-react/components/headerLinksStyle.jsx';
 
 class LandingPage extends Component {
-    componentDidMount() {
-        // Get Token
-        // If Token exists good
-        // Else make sure signed out
-    }
 
     //************* Added temp signout ************************
     //**   this just gives us a temporary way to signout     **
@@ -25,16 +20,6 @@ class LandingPage extends Component {
      
     render() {
         const { classes } = this.props;
-
-        // Check if logged in
-        // If logged In
-        // return (
-        //     <>
-        //         <Redirect to='/dashboards' />
-        //     </>
-        // )
-
-        // else
         return (
             <>
                 <Navbar />
@@ -46,7 +31,6 @@ class LandingPage extends Component {
                         </LandingPageH2>
                         <p>
                             Do you want a fast, east way to plan your vacation?  We can help with that!
-                            {/* Planning a vacation with friends or family can become very complicated and stressful.  Using Vacation Planner can allow everyone to plan out the vacation ahead of time, so there everyone can enjoy their vacation without arguments and anxiety. */}
                         </p>
                         <Button
                             href={ROUTES.SIGNIN}
