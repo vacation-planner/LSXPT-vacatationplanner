@@ -21,6 +21,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 
+//
+
+//import ListBox from 'react-listbox';
+//import 'react-listbox/dist/react-listbox.css'
+
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
@@ -219,8 +224,13 @@ addEvent = () => {
     console.log('am i doing this right: ', startDate);
 
   }
+  listSelect = event => {
+        console.log("in the list selelct: ", event.target.value);
+
+  }
 
   handleChange = event => {
+
     this.setState({
         [event.target.name]: event.target.value
   });
@@ -238,7 +248,7 @@ render() {
   this.state.secondaryUsers.forEach((user, index) => {
     // Loops through array of secondary users and lists them in a div
     rows.push(
-        <UsersContainer key={index}>
+        <UsersContainer key={index} onSelect={this.listSelect} onClick={this.listSelect}>
             {user.firstName}, {user.lastName}      
         </UsersContainer>
         );

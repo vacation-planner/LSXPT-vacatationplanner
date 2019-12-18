@@ -279,9 +279,9 @@ class EventsCalendar extends React.Component {
         onSelectEvent={event => this.selectedEvent(event)}
         onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
         resizable
-        resources={resourceMap} 
-        resourceIdAccessor="resourceId" 
-        resourceTitleAccessor="resourceTitle" 
+       /*  resources={resourceMap}  */
+       /*  resourceIdAccessor="resourceId"  */
+       /*  resourceTitleAccessor="resourceTitle"  */
         onEventResize={this.resizeEvent}
         defaultView="month"
         step={15}
