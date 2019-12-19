@@ -11,12 +11,7 @@ import headerLinksStyle from '../Material-UI/assets/jss/material-kit-pro-react/c
 
 class LandingPage extends Component {
 
-    //************* Added temp signout ************************
-    //**   this just gives us a temporary way to signout     **
-     signOut = () => {
-        fire.signOut();
-        console.log("User logged out successfully");
-       };
+    
      
     render() {
         const { classes } = this.props;

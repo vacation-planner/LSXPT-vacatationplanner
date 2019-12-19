@@ -5,7 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import TextField from '@material-ui/core/TextField';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
 import Button from '@material-ui/core/Button';
-
+import Vacations from "../Dashboards/Vacations/index.js"
 import Navbar from '../Dashboards/Navbar/HomeNavbar';
 import { AppContext } from '../Context/AppContext.js';
 
@@ -101,7 +101,8 @@ class CreateVacationDetails extends React.Component {
                 <Navbar />
                 <div className={classes.all}>
                     {/* {this.context.state.tempVacationName}, {this.props.state}, test */}
-
+                    <Vacations>
+                        </Vacations>
                 </div>
 
             </div>
