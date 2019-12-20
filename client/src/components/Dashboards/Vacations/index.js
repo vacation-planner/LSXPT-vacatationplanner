@@ -26,6 +26,8 @@ class Vacations extends Component {
   this.state = {
     uid: "",
     value: "",
+    title: this.props.title,
+    vacationsId: this.props.vacationsId,
    };
 };
 
@@ -38,7 +40,7 @@ render() {
             <GridItem xs={12} sm={12} md={4}>
                
             {/*  <AddUsers>  </AddUsers>  */}
-                          <Display>
+                          <Display title={this.state.title} vacationsId={this.state.vacationsId}>
                         </Display> 
                    
                   

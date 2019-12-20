@@ -41,8 +41,8 @@ class DateTimePicker extends Component {
     vacationsId: this.props.vacationsId,
     title: "",
     location: "",
-    startDate: "",
-    endDate: "",
+    startDate: this.props.startDate,
+    endDate: this.props.endDate,
     disabled: this.props.disabled,
    };
 }
@@ -129,7 +129,7 @@ axios
         value={this.props.value}
          onChange={event => this.handleStartChange(event)} 
           inputProps={{ 
-            placeholder: "Start Vacation"
+            placeholder: this.props.startDate
              }}
         />
       </FormControl>
@@ -142,7 +142,7 @@ axios
           timeFormat={false}
           value={this.props.value}
          onChange={event => this.handleEndChange(event)} 
-          inputProps={{ placeholder: "End Vacation" }}
+          inputProps={{ placeholder: this.props.endDate }}
         />
       </FormControl>
      {/*  <InputLabel className={classes.label}>

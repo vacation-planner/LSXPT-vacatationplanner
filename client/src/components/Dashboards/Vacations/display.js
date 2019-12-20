@@ -53,10 +53,10 @@ class Display extends Component {
     usersUid: "",
     value: "",
     location: "",
-    title: "",
+    title: this.props.title,
     startDate: "",
     endDate: "",
-    vacationsId: "",
+    vacationsId: this.props.vacationsId,
     disabled: false,
     checked: false,
    };
@@ -68,40 +68,47 @@ componentDidMount() {
        this.setState({
         usersUid: usersUid
       }); 
+      this.fetchVacation();
     };
 
 addVacation = () => {
     // create a record using the input
     let vacationRec = {
-        title: this.state.title,
+        title: this.props.title,
         location: this.state.location,
         usersUid: this.state.usersUid,
     }
     console.log("in the vacationRec: ", vacationRec)
     axios
-        .post(`${URL}/vacations/`, vacationRec)
+    .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
         .then(response => {
             console.log("file written");
             // get the id of the new record
-            this.fetchId(this.state.title);
+            //this.fetchId(this.state.title);
         })
         .catch(err => {
             console.log('We"ve encountered an error');
         });  
   }
 
-  fetchId = title => {
+  fetchVacation = () => {
     axios
-      .get(`${URL}/vacations`)
+      .get(`${URL}/vacations/${this.props.vacationsId}`)
       .then(response => {
+         // if (response) {
+
+           // console.log('location: ', response.data); 
         response.data.forEach((item, index) => {
-          if (item.title === this.state.title) {          
+                 
             this.setState({
-                vacationsId: item.id,
-                disabled: false
+                vacationsId: this.props.vacationsId,
+                location: item.location,
+                startDate: item.startDate,
+                endDate: item.endDate,
             });
-          }
-        });
+         // }
+        })
+        console.log('state: ', this.state);
       })
       .catch(err => {
         console.log('We"ve encountered an error');
@@ -128,18 +135,19 @@ render() {
         <Zoom in={checked} > 
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-                <Card style={{ width: "700px", height: "400px", marginRight: "100px"}}>
+                <Card style={{ width: "700px", height: "400px", marginLeft: "50px"}}>
                     {/*  <div className="images"> </div> */}
-                    <h3>Create Vacation: {this.state.title}</h3>
+                    <h3>Vacation Details: {this.props.title}</h3>
                         <CardBody   className={classes.cardBody2}>
                             <CardBody>
-                                <h5>Name of New Vacation:{" "}
+                                <h5>Name of Vacation:{" "}
                                     <input
                                         type="text"
                                         name="title"
                                         onChange={this.handleChange}
-                                        value={this.state.title}
+                                        value={this.props.title}
                                         className="title"
+                                        placeHolder={this.props.title}
                                     />
                                 </h5>
                             </CardBody>
@@ -151,6 +159,7 @@ render() {
                                         onChange={this.handleChange}
                                         value={this.state.location}
                                         className="location"
+                                        placeHolder={this.state.location}
                                     />  
                                 </h5>
                             </CardBody>
@@ -161,7 +170,10 @@ render() {
                                 location={this.state.location} 
                                 vacationsId={this.state.vacationsId} 
                                 disabled={this.state.disabled}
-                                startDate={() => this.handleStartDate(this.state.startDate)}>
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                                //startDate={() => this.handleStartDate(this.state.startDate)}
+                                >
                             </DateTimePicker>  
                         </CardBody>
                         <CardBody  className={classes.cardBody}>

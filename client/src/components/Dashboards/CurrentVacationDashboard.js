@@ -1,7 +1,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
-
+import Vacations from "../Dashboards/Vacations/index.js"
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
 
@@ -59,6 +59,8 @@ class CurrentVacationDashboard extends React.Component {
                 displayCurrentVacationContent = {this.displayCurrentVacationContent}
                 />
                 <div className={classes.innerContainer}>
+                <Vacations  title={currentVacationTitle} vacationsId={currentVacationId}>
+                        </Vacations>
                     {vacationDetails ? (
                         <h1>In Vacation Details Page<br /> <br/>
                         Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1>
