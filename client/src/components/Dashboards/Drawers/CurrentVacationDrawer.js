@@ -1,11 +1,9 @@
 import React from 'react';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-// import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     nameDiv: {
@@ -34,6 +32,7 @@ class CurrentVacationDrawer extends React.Component {
         calendar: false,
         expenses: false,
         mobileOpen: false,
+        currentVacation: this.props.currentVacation
     };
 
     handleClose = () => {
@@ -52,6 +51,7 @@ class CurrentVacationDrawer extends React.Component {
         this.setState({
             [event.currentTarget.id]: true
         });
+        this.props.displayCurrentVacationContent(event);
     };
 
     render() {
@@ -69,23 +69,26 @@ class CurrentVacationDrawer extends React.Component {
         return (
             <>
                 <div className={classes.nameDiv}>
-                    current vacation name {/*  Name of Current Vacation Here */}
+                    {this.state.currentVacation.title || 'test'}
                 </div>
                 <List onClick={this.handleClose} className={classes.list}>
-                    {ListCurrentVacations.map((currentVacation, index) => (
-                        <>
-                            <ListItem
-                                button
-                                key={currentVacation.name}
-                                id={currentVacation.name}
-                                onClick={this.displayCurrentVacation}
-                                style={this.state[currentVacation] ? selectedDrawer : null}
-                            >
-                                <ListItemText classes={{ primary: classes.listItemText }} primary={currentVacation.text} />
-                            </ListItem>
-                            <Divider />
-                        </>
-                    ))}
+                    {ListCurrentVacations.map((currentVacation, index) => {
+                        const { name } = currentVacation
+                        return (
+                            <>
+                                <ListItem
+                                    button
+                                    key={currentVacation.name}
+                                    id={currentVacation.name}
+                                    onClick={this.displayCurrentVacation}
+                                    style={this.state[name] ? selectedDrawer : null}
+                                >
+                                    <ListItemText classes={{ primary: classes.listItemText }} primary={currentVacation.text} />
+                                </ListItem>
+                                <Divider />
+                            </>
+                        )
+                    })}
                 </List>
             </>
         );
