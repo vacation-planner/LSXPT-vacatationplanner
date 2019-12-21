@@ -186,10 +186,10 @@ addEvent = () => {
           secondaryUsers.push(user)
           //console.log('secondaryUsers: ', user);
         }
+         
+          });
           this.setState({
             secondaryUsers: secondaryUsers
-          });
-        
       });
     })
     .catch(err => {
@@ -207,7 +207,7 @@ addEvent = () => {
       response.data.forEach((event, index) => {
         if (event.vacationsId === vacationsId) {          
             events.push(event)
-          console.log('event: ', event);
+          //console.log('event: ', event);
         }
           this.setState({
             events: events
@@ -268,7 +268,7 @@ render() {
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "60px"}}>
+                        <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
                             <h3>Create Event: {this.state.eventName}</h3>
                             <h4>Current Vacation: {this.state.vacation}</h4>
@@ -337,7 +337,8 @@ render() {
                                 </Button>
                                 <Button  
                                     onClick={() => this.removeEvent()} 
-                                    color="rose">Remove
+                                    color="rose"
+                                    disabled="true">Remove
                                 </Button> 
                             </CardBody>
                         </Card>

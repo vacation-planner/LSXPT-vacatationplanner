@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
-import AddUsers from "../AddUsers/addUsers.js"
 import DateTimePicker from "./dateTime.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Vacations/js/Button.js";
@@ -74,7 +73,7 @@ componentDidMount() {
 addVacation = () => {
     // create a record using the input
     let vacationRec = {
-        title: this.props.title,
+        title: this.state.title,
         location: this.state.location,
         usersUid: this.state.usersUid,
     }
@@ -83,8 +82,6 @@ addVacation = () => {
     .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
         .then(response => {
             console.log("file written");
-            // get the id of the new record
-            //this.fetchId(this.state.title);
         })
         .catch(err => {
             console.log('We"ve encountered an error');
@@ -95,9 +92,6 @@ addVacation = () => {
     axios
       .get(`${URL}/vacations/${this.props.vacationsId}`)
       .then(response => {
-         // if (response) {
-
-           // console.log('location: ', response.data); 
         response.data.forEach((item, index) => {
                  
             this.setState({
@@ -106,9 +100,8 @@ addVacation = () => {
                 startDate: item.startDate,
                 endDate: item.endDate,
             });
-         // }
         })
-        console.log('state: ', this.state);
+        //console.log('state: ', this.state);
       })
       .catch(err => {
         console.log('We"ve encountered an error');
@@ -116,7 +109,7 @@ addVacation = () => {
   };
 
   handleStartDate = startDate => {
-    console.log('am i doing this right: ', startDate);
+    console.log('startdate: ', startDate);
 
   }
 
@@ -179,16 +172,14 @@ render() {
                         <CardBody  className={classes.cardBody}>
                             <Button  
                                 onClick={() => this.addVacation()} 
-                                color="rose">Create
+                                color="rose">Update
                             </Button>
                             <Button  
                                 onClick={() => this.removeUser()} 
-                                color="rose">Remove
+                                color="rose"
+                                disabled="true">Remove
                             </Button>                               
-                            {/*  <AddUsers>
-                            </AddUsers>   */}
-                        </CardBody>
-                        
+                        </CardBody>   
                     </Card>
             </GridItem>
         </GridContainer>
