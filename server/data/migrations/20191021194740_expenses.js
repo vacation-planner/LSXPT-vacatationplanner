@@ -4,7 +4,7 @@ exports.up = function (knex) {
         expenses.increments();
         expenses.string('title', 128).notNullable();
         expenses.decimal('amount');
-        expenses.integer('vacationID').references('vacations.id');
+        expenses.integer('vacationId').references('vacations.id');
         expenses
         .string('usersUid')
         .references('users.uid');

@@ -22,9 +22,8 @@ function getByUid(uid) {
     return db('expenses').where('uid', uid);
 }
 
-// If we decide to add in the ability to get all expenses associated with a vacation id.
-function getByVacId(vacId) {
-    //return db('expenses').where('vacId', vacId);
+function getByVacId(vacationId) {
+    return db('expenses').where('vacationId', vacationId);
 }
 
 function insert(data) {
