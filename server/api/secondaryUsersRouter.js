@@ -5,14 +5,14 @@ const jwt = require("jsonwebtoken");
 const secret = "shhhisthisasecret";
 
 
-module.exports = router => {
-    router.get("/");   
-    router.get("/vacations/:vacationsId", getByVacationsId);
+/* module.exports = router => {
+    //router.get("/");   
+    //router.get("/vacations/:vacationsId", getByVacationsId);
     //router.get("/:id", id);
-    router.get("/:email", email);
-    router.post("/");
+    //router.get("/:email", email);
+    //router.post("/");
     router.delete("/:id", recordId)
-};
+}; */
 
 router.get("/", (req, res) => {
     secondaryUsers
@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
   });
 
 //Get All users for vacation ID
- router.get('/vacations/:vacationsId', async (req, res) => {
+  router.get('/vacations/:vacationsId', async (req, res) => {
     const {vacationsId} = req.params; 
     await secondaryUsers.getByVacationsId(vacationsId).then(vacation => {
         if (vacation) {
@@ -36,7 +36,7 @@ router.get("/", (req, res) => {
             res.status(400).json({'error': 'No vacation by that id.'});
         }
     }) 
-}) 
+})  
 
 //Get All vacations for email
 router.get('/:email', async (req, res) => {
@@ -54,7 +54,8 @@ router.get('/:email', async (req, res) => {
 //Add secondaryUser record
 router.post('/', (req, res) => {
     const record = req.body;
-    if (record.firstName && record.lastName && record.email && record.vacationid) {
+    if (record.firstName && record.lastName && record.email && record.vacationsId) {
+    //if (record.length) {
         secondaryUsers
         .insert(record)
         .then(record => {
@@ -79,4 +80,6 @@ router.delete('/:id', (req, res) => {
         res.status(500).send(err)
     })
 })
+
+module.exports = router;
 

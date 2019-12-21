@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { fire } from './components/Auth/firebaseConfig';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import { AppContext } from './components/Context/AppContext.js';
@@ -7,12 +8,11 @@ import * as ROUTES from './constants/routes';
 import LandingPage from './components/LandingPage';
 import Dashboards from './components/Dashboards/HomeDashboard.js';
 import Signin from './components/Auth/Signin';
-import { fire } from './components/Auth/firebaseConfig';
+
 import axios from 'axios';
 
-// ********* need heroku address ***********
-//const URL = "https://?????.herokuapp.com/";
-const URL = 'http://localhost:5500/';
+const URL = 'https://vacationplannerlx.herokuapp.com/';
+//const URL = 'http://localhost:5500/';
 
 const AuthenticatedRoute = ({
     component: Component,
@@ -46,11 +46,23 @@ class App extends Component {
         lastName: null,
         currentEmail: null,
         userUID: null,
-        redirect: false
+        redirect: false,
+        vacationsId: "",
     };
 
     componentDidMount = () => {
-        this.removeAuthListener = fire.onAuthStateChanged(user => {
+        // this checks the url for any parameters and returns empty if it is
+        let vacationsId = this.getUrlParam('id','Empty');
+        // if we do have a param, it means the user has arrived from a link
+        // in the invitation email we sent them
+        if (vacationsId !== 'Empty') {
+            // save the id to local storage
+            localStorage.setItem('vacationsId', vacationsId);
+        }
+        // the app redirects and loses the parameter, so i saved it to local storage
+       // console.log('vacationsId: ', vacationsId)
+
+         this.removeAuthListener = fire.onAuthStateChanged(user => {
             if (user) {
                 // Last # of occurrence of Space
                 return fire.currentUser
@@ -75,21 +87,38 @@ class App extends Component {
                     .catch(err => console.log('error ', err));
 
                 // If the user is the Authenticated use pass their information to the database
-            } else {
+            } else { 
                 this.setState({
                     currentUser: null,
                     authenticated: false,
                     redirect: false,
                     currentEmail: null,
-                    balance: null,
                     userUID: null
                 });
-            }
-        });
+             } 
+         }); 
     };
 
+    // this function grabs any parameter in the url
+    getUrlVars = () => {
+        let vars = {};
+        let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars;
+    };
+
+    // this function keeps it from crashing if there is no parameter
+    getUrlParam = (parameter,defaultvalue) => {
+        let urlparameter = defaultvalue;
+        if(window.location.href.indexOf(parameter) > -1){
+            urlparameter = this.getUrlVars()[parameter];
+            }
+        return urlparameter;
+    };
+    
     //To sign out an get no error with firebase dropping the widget
-    //   removeAuthListener: any;
+    removeAuthListener: any;
     // Add current user method will grab the information from state create new user in our database
 
     addCurrentUser = () => {
@@ -125,11 +154,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Switch>
-                    <Route
-                        exact
-                        path={ROUTES.LANDING}
-                        component={LandingPage}
-                    />
+                    <Route exact path={ROUTES.LANDING} component={LandingPage} />
                     <AuthenticatedRoute
                         authenticated={this.state.authenticated}
                         path={ROUTES.DASHBOARDS}
@@ -148,6 +173,9 @@ class App extends Component {
                             );
                         }}
                     />
+                   {/*  <Route
+                        path={ROUTES.LANDING}
+                    /> */}
                 </Switch>
             </div>
         );

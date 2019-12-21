@@ -7,7 +7,7 @@ exports.up = function (knex) {
         vacations.date('startDate');
         vacations.date('endDate');
         vacations
-        .string('usersUid')
+        .string('usersUid', 128)
         .references('users.uid');
       })
   };

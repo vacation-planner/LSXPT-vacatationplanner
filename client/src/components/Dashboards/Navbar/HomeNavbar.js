@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { fire } from "../../Auth/firebaseConfig";
+// import { Link } from "react-router-dom";
 
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -12,8 +13,6 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -23,7 +22,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 // Firebase things
 import * as ROUTES from "../../../constants/routes";
-import { fire } from "../../Auth/firebaseConfig";
+//import { fire } from "../../Auth/firebaseConfig";
 
 // core components
 import Button from "../../Material-UI/components/CustomButtons/Button.jsx";
@@ -116,7 +115,6 @@ const styles = theme => ({
                 maxHeight: "400px",
                 overflow: "scroll"
             },
-            width: "100%",
         }
     },
     logo: {
@@ -328,6 +326,7 @@ class HomeNavbar extends React.Component {
                                     </ListItem>
                                     <ListItem className={classes.listItem}>
                                         <Button
+                                            onClick={this.signOut}
                                             href={ROUTES.LANDING}
                                             className={classes.navLink}
                                             color="transparent"
