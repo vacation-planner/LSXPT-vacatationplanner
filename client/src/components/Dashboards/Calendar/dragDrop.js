@@ -12,65 +12,7 @@ const localizer = momentLocalizer(moment)
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
  let eventSave = [];
-/* const events = [
-    {
-      id: 0,
-      title: 'vacation meeting',
-      start: new Date(2018, 0, 29, 9, 0, 0),
-      end: new Date(2018, 0, 29, 13, 0, 0),
-      resourceId: 1,
-    },
-    {
-      id: 1,
-      title: 'MS training',
-      start: new Date(2018, 0, 29, 14, 0, 0),
-      end: new Date(2018, 0, 29, 16, 30, 0),
-      resourceId: 2,
-    },
-    {
-      id: 2,
-      title: 'Team lead meeting',
-      start: new Date(2018, 0, 29, 8, 30, 0),
-      end: new Date(2018, 0, 29, 12, 30, 0),
-      resourceId: 3,
-    },
-    {
-      id: 10,
-      title: 'vac2 meeting',
-      start: new Date(2018, 0, 30, 23, 0, 0),
-      end: new Date(2018, 0, 30, 23, 59, 0),
-      resourceId: 1,
-    },
-    {
-      id: 11,
-      title: 'Birthday Party',
-      start: new Date(2018, 0, 30, 7, 0, 0),
-      end: new Date(2018, 0, 30, 10, 30, 0),
-      resourceId: 4,
-    },
-    {
-      id: 12,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 59, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 1,
-    },
-    {
-      id: 13,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 50, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 2,
-    },
-    {
-      id: 14,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 40, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 4,
-    },
-  ]  */
-  
+
 const resourceMap = [
   { resourceId: 1, resourceTitle: 'Vacation Date' },
   { resourceId: 2, resourceTitle: 'Event' },
@@ -91,13 +33,12 @@ class Dnd extends React.Component {
   }
 
   componentDidMount() {
-  
     //let usersUid = fire.currentUser.uid;
      this.setState({
      events: this.props.events
    });  
    eventSave = this.state;
-   console.log("eventSave: ", eventSave)
+   //console.log("eventSave: ", eventSave)
  };
  
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
@@ -137,8 +78,6 @@ class Dnd extends React.Component {
   }
 
   eventStyleGetter = (event) => {
-    //console.log("this.event.resouceId: ", event.resourceId);
-    //const { events } = this.state
     let hexColor = "";
         if (event.resourceId === 1) { 
             hexColor = "04068a"

@@ -74,13 +74,13 @@ class PastVacationDashboard extends React.Component {
                     ): null }
                     {calendar ? (
                        /*  <h1>In Calendar */
-                        <Events  vacationsId={pastVacationId}>
+                        <Events title={pastVacationTitle} vacationsId={pastVacationId}>
                             </Events>
                        /*  Past Vacation Details: Index: {pastVacationIndex}, ID: {pastVacationId}, Title: {pastVacationTitle}</h1> */
                     ): null }
                     {expenses ? (
                       /*   <h1>In Expenses<br /> <br/> */
-                      <AddUsers   title={pastVacationTitle} vacationsId={pastVacationId}>
+                      <AddUsers title={pastVacationTitle} vacationsId={pastVacationId}>
                           </AddUsers>
                        /*  Past Vacation Details: Index: {pastVacationIndex}, ID: {pastVacationId}, Title: {pastVacationTitle}</h1> */
                     ): null}

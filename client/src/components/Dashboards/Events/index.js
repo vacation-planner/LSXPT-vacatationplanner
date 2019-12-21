@@ -87,7 +87,7 @@ class Events extends Component {
     usersUid: "",
     value: "",
     eventName: "",
-    vacation: "",
+    title: this.props.title,
     vacationsId: this.props.vacationsId,
     startDateTime: "",
     endDateTime: "",
@@ -104,31 +104,28 @@ class Events extends Component {
 componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
-      console.log("we in events: ", this.state.vacationsId)
-
-    this.fetchVacationTitle(this.state.vacationsId);
+   
+    //this.fetchVacationTitle(this.state.vacationsId);
 
     this.fetchSecondaryUsers(this.state.vacationsId);
 
     this.fetchEvents(this.state.vacationsId);
-
-    // need to get all secondary user data using vacation id
 
        this.setState({
         usersUid: usersUid
       }); 
     };
 
-fetchVacationTitle = (vacationsId) => {
+/* fetchVacationTitle = (vacationsId) => {
     axios
     .get(`${URL}/vacations/${vacationsId}`)
     .then(response => {
       response.data.forEach((item, index) => {
         if (item.id === vacationsId) {          
           this.setState({
-              vacation: item.title,
+              title: item.title,
           });
-          console.log('vacation found: ', this.state.vacation); 
+          console.log('title found: ', this.state.title); 
         }
       });
     })
@@ -136,7 +133,7 @@ fetchVacationTitle = (vacationsId) => {
       console.log('We"ve encountered an error');
     });
 
-}    
+}     */
 
 addEvent = () => {
     // create a record using the input
@@ -271,7 +268,7 @@ render() {
                         <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
                             <h3>Create Event: {this.state.eventName}</h3>
-                            <h4>Current Vacation: {this.state.vacation}</h4>
+                            <h4>Current Vacation: {this.props.title}</h4>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
                                     <CardBody>
@@ -323,7 +320,7 @@ render() {
                                     </CardBody>
                                 </CardBody>
                                 <CardBody className={classes.cardBodyContainer3}>
-                                    <EventsCalendar>
+                                    <EventsCalendar  title={this.props.title} vacationsId={this.state.vacationsId}>
                                     </EventsCalendar>
                                 </CardBody>
                             </CardBody>                        

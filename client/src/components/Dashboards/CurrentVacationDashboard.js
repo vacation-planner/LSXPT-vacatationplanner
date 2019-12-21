@@ -1,8 +1,8 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
-import Vacations from "../Dashboards/Vacations/index.js"
-import Events from "../Dashboards/Events/index.js"
+import Vacations from "../Dashboards/Vacations/"
+import Events from "../Dashboards/Events/"
 import AddUsers from "../Dashboards/AddUsers/addUsers.js"
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
@@ -69,13 +69,13 @@ class CurrentVacationDashboard extends React.Component {
                        /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
                     ): null }
                     {calendar ? (
-                              <Events  vacationsId={currentVacationId}>
+                              <Events title={currentVacationTitle} vacationsId={currentVacationId}>
                               </Events>
                         /*  <h1>In Calendar<br /> <br/> */
                        /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
                     ): null }
                     {expenses ? (
-                        <AddUsers   title={currentVacationTitle} vacationsId={currentVacationId}>
+                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId}>
                         </AddUsers>
                        /*   <h1>In Expenses<br /> <br/> */
                        /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 

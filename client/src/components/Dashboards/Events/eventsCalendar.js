@@ -9,9 +9,9 @@ import swal from '@sweetalert/with-react'
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
+
 const URL = "http://localhost:5500/api";
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
-
 
 const localizer = momentLocalizer(moment)
 
@@ -42,7 +42,7 @@ class EventsCalendar extends React.Component {
     
     this.state = {
       uid: "",
-      vacationsId: 1,    //this.props.id,
+      vacationsId: this.props.vacationsId,
       vacation: [],
       events: [],
       eventData: [],
@@ -56,7 +56,7 @@ class EventsCalendar extends React.Component {
   }
 
   componentDidMount() {
-    let id = this.state.vacationsId;
+    let vacationsId = this.state.vacationsId;
     let uid = fire.currentUser.uid;
 
     this.setState({
@@ -66,10 +66,10 @@ class EventsCalendar extends React.Component {
     console.log("state: ", this.state)
     // get the data needed to populate the calendar component
 
-    this.fetchEventData(id);
+    this.fetchEventData(vacationsId);
   }
   
-  fetchEventData = id => {
+  fetchEventData = vacationsId => {
     axios
       .get(`${URL}/events/`)
       .then(response => {
@@ -77,7 +77,7 @@ class EventsCalendar extends React.Component {
  
         if (response.data) {
             response.data.forEach((event, index) => {
-                if (event.vacationsId === id) {
+                if (event.vacationsId === vacationsId) {
                     eventsData.push(event);
                 }
             })   
@@ -185,7 +185,7 @@ class EventsCalendar extends React.Component {
   writeToDb = slotInfo => {
     const eventRec = {
       eventName: "test",
-      vacationsId: 1,
+      vacationsId: this.props.vacationsId,
       startDateTime: slotInfo.start,
       endDateTime: slotInfo.end,
       description: "item.location",

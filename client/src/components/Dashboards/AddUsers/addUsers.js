@@ -4,13 +4,10 @@ import { fire } from "../../Auth/firebaseConfig";
 import Button from "../../StyledComponents/Dashboards/AddUsers/js/Button.js";
 import Card from "../../StyledComponents/Dashboards/AddUsers/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/AddUsers/js/CardBody.js";
-//import CustomInput from "../../StyledComponents/Dashboards/AddUsers/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/AddUsers/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js";
-import { Row, 
-        //CardBlock, 
-        UsersContainer, 
-        //Loading 
+import { Row,  
+        UsersContainer,  
     } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
 import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,12 +19,6 @@ const useStyles = makeStyles(styles);
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-// this component needs the vacationsId passed down to it
-// the vacation title would be helpful, if it is unavailable
-// i can just grab it from the table.
-
-// they are hard coded right now for testing
-
 class AddUsers extends Component {
     constructor(props) {
       super(props);
@@ -37,22 +28,18 @@ class AddUsers extends Component {
             usersList: [],
             uid: "",
             email: "",
-            vacationsId: this.props.vacationsId,
-            //vacationsId: 1,         
+            vacationsId: this.props.vacationsId,        
             vacationsTitle: this.props.title,
-            //vacationsTitle: "Winter",
             checked: false,
         };
   }
 
   componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));
-  // i dont think i need this...
     let uid = fire.currentUser.uid;
      this.setState({
       uid: uid
     }); 
-    console.log("state: ", this.state)
     // check for any current secondary users
     this.displayUsers();
   }
@@ -76,8 +63,7 @@ class AddUsers extends Component {
         })
         this.setState({
             usersList: usersList, 
-          }); 
-       
+          });  
       })
       .catch(err => {
         console.log("There was an error accessing secondary users table", err);
@@ -122,7 +108,6 @@ class AddUsers extends Component {
   invite = () => {
     // send emails to all the users on list
     const userList = this.state.usersList;
-   
     // send the user list via post to the email router
     axios
       .post(`${URL}/emails/`, userList) 
@@ -157,7 +142,6 @@ class AddUsers extends Component {
         <Zoom in={checked}>
         <GridContainer>
             <GridItem>
-           
                  <Card style={{ width: "600px", height: "420px", marginLeft: "40px", marginTop: "10px"}}>
                     <CardBody>
                         <form className="addUsers" onSubmit={this.onSubmit}>
@@ -198,12 +182,12 @@ class AddUsers extends Component {
                             </Button>
                             <Button  
                                 onClick={() => this.removeUser()} 
-                                color="rose">Remove
+                                color="rose"
+                                disabled="true">Remove
                             </Button>                                                    
                             <div className="users-list">
                                 {rows}
-                            </div>
-                            
+                            </div> 
                             <h5>Press the invite button to send emails to the people on your list.</h5>
                             {/* <p> </p> */}
                             <Button  
@@ -213,7 +197,6 @@ class AddUsers extends Component {
                         </form>
                     </CardBody>
                 </Card>
-              
             </GridItem>
       </GridContainer>
       </Zoom>

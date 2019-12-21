@@ -57,19 +57,19 @@ componentDidMount() {
 
 handleStartChange = event => {
   if (this.props.disabled) {
-    alert("Please create a event first.")
+    alert("Please create an event first.")
   } else {
   let startDateTime = moment(event).format();
   console.log("startDateTime: ", startDateTime)
    // update the current event record
     let eventsRec = {
-    eventName: this.props.eventName,
-    description: this.props.description,
-    startDateTime: startDateTime,
-    usersUid: this.state.usersUid,
-    vacationsId: this.props.vacationsId,
-    secondaryUsersId: this.props.secondaryUsersId,
-  } 
+      eventName: this.props.eventName,
+      description: this.props.description,
+      startDateTime: startDateTime,
+      usersUid: this.state.usersUid,
+      vacationsId: this.props.vacationsId,
+      secondaryUsersId: this.props.secondaryUsersId,
+    } 
 
  axios
     .put(`${URL}/events/${this.props.eventsId}`, eventsRec)
@@ -84,7 +84,6 @@ handleStartChange = event => {
     startDateTime: startDateTime,    
   }); 
   
-  //this.props.startDateTime(this.state.startDateTime)
   }
 };
 
