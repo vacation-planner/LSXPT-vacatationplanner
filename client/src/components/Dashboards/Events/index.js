@@ -20,8 +20,7 @@ import CardHeader from "../../StyledComponents/Dashboards/Events/js/CardHeader.j
 import withStyles from "@material-ui/core/styles/withStyles";
 import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
-
-//
+import { Zoom } from "@material-ui/core";
 
 //import ListBox from 'react-listbox';
 //import 'react-listbox/dist/react-listbox.css'
@@ -89,7 +88,7 @@ class Events extends Component {
     value: "",
     eventName: "",
     vacation: "",
-    vacationsId: 1,
+    vacationsId: this.props.vacationsId,
     startDateTime: "",
     endDateTime: "",
     description: "",
@@ -98,11 +97,13 @@ class Events extends Component {
     disabled: false,
     secondaryUsersId: 1,
     secondaryUsers: [],
+    checked: false,
    };
 };
 
 componentDidMount() {
-      let usersUid = fire.currentUser.uid;
+    this.setState(state => ({ checked: !state.checked }));  
+    let usersUid = fire.currentUser.uid;
       console.log("we in events: ", this.state.vacationsId)
 
     this.fetchVacationTitle(this.state.vacationsId);
@@ -144,7 +145,7 @@ addEvent = () => {
         description: this.state.description,
         usersUid: this.state.usersUid,
     }
-    console.log("in the eventsRec: ", eventsRec)
+
     axios
         .post(`${URL}/events/`, eventsRec)
         .then(response => {
@@ -221,7 +222,7 @@ addEvent = () => {
   }
 
   handleStartDate = startDate => {
-    console.log('am i doing this right: ', startDate);
+    console.log('startdate: ', startDate);
 
   }
   listSelect = event => {
@@ -239,7 +240,7 @@ addEvent = () => {
 
 render() {
   const { classes } = this.props;
-
+  const { checked } = this.state;
   let rows = [];
   let eventRows = [];
   // **************************************
@@ -262,100 +263,88 @@ render() {
             );
         });
 
-
     return (
-       <div className="events"> 
-        <GridContainer>
-            <GridItem xs={12} sm={12} md={4}>
-                <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "60px"}}>
-                    {/*  <div className="images"> </div> */}
-                    <h3>Create Event: {this.state.eventName}</h3>
-                    <h4>Current Vacation: {this.state.vacation}</h4>
-                        <CardBody   className={classes.cardBody2}>
-                        <CardBody  className={classes.cardBodyContainer1}>
-                            <CardBody>
-                                <h5>Name of New Event:{" "}
-                                    <input
-                                        type="text"
-                                        name="eventName"
-                                        onChange={this.handleChange}
-                                        value={this.state.eventName}
-                                        className="eventName"
-                                    />
-                                </h5>
-                            </CardBody>
-                            <CardBody  xs={12} sm={12} md={4}>
-                            <AddEvents 
-                                eventName={this.state.eventName} 
-                                description={this.state.description} 
-                                eventsId={this.state.eventsId} 
-                                disabled={this.state.disabled}
-                                secondaryUsersId={this.state.secondaryUsersId}
-                                vacationsId={this.state.vacationsId}
-                                startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
-                            </AddEvents>  
-                        </CardBody>
-                        </CardBody>
-                        <CardBody  className={classes.cardBodyContainer2}>
-                            <CardBody> 
-                                <h5>Description:{" "}
-                                    <input
-                                        type="text"
-                                        name="description"
-                                        onChange={this.handleChange}
-                                        value={this.state.description}
-                                        className="description"
-                                    />  
-                                </h5>
-                            </CardBody>
-                            <CardBody> 
-                                <h3>Available Events:</h3>{" "}
-                                  
-                                    <div className="eventsList">
-                                    {eventRows} 
-                                    </div>
-                            
-                            </CardBody>
-                            <CardBody> 
-                                <h3>Vacation Participants:</h3>{" "}
-                                  
-                                    <div className="participantsList">
-                                    {rows} 
-                                    </div>
-                            
-                            </CardBody>
-                            
-                            </CardBody>
-                            <CardBody className={classes.cardBodyContainer3}>
-                                <EventsCalendar>
+        <div className="events"> 
+            <Zoom in={checked} > 
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={4}>
+                        <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "60px"}}>
+                            {/*  <div className="images"> </div> */}
+                            <h3>Create Event: {this.state.eventName}</h3>
+                            <h4>Current Vacation: {this.state.vacation}</h4>
+                            <CardBody   className={classes.cardBody2}>
+                                <CardBody  className={classes.cardBodyContainer1}>
+                                    <CardBody>
+                                        <h5>Name of New Event:{" "}
+                                            <input
+                                                type="text"
+                                                name="eventName"
+                                                onChange={this.handleChange}
+                                                value={this.state.eventName}
+                                                className="eventName"
+                                            />
+                                        </h5>
+                                    </CardBody>
+                                    <CardBody  xs={12} sm={12} md={4}>
+                                        <AddEvents 
+                                            eventName={this.state.eventName} 
+                                            description={this.state.description} 
+                                            eventsId={this.state.eventsId} 
+                                            disabled={this.state.disabled}
+                                            secondaryUsersId={this.state.secondaryUsersId}
+                                            vacationsId={this.state.vacationsId}
+                                            startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
+                                        </AddEvents>  
+                                    </CardBody>
+                                </CardBody>
+                                <CardBody  className={classes.cardBodyContainer2}>
+                                    <CardBody> 
+                                        <h5>Description:{" "}
+                                            <input
+                                                type="text"
+                                                name="description"
+                                                onChange={this.handleChange}
+                                                value={this.state.description}
+                                                className="description"
+                                            />  
+                                        </h5>
+                                    </CardBody>
+                                    <CardBody> 
+                                        <h3>Available Events:</h3>{" "}                                
+                                        <div className="eventsList">
+                                            {eventRows} 
+                                        </div>          
+                                    </CardBody>
+                                    <CardBody> 
+                                        <h3>Vacation Participants:</h3>{" "}  
+                                        <div className="participantsList">
+                                            {rows} 
+                                        </div>
+                                    </CardBody>
+                                </CardBody>
+                                <CardBody className={classes.cardBodyContainer3}>
+                                    <EventsCalendar>
                                     </EventsCalendar>
-
+                                </CardBody>
+                            </CardBody>                        
+                            <CardBody  className={classes.cardBody}>
+                                <div className="logo">
+                                </div>
+                                <Button  
+                                    style={{ marginLeft:"150px"}}
+                                    onClick={() => this.addEvent()} 
+                                    color="rose">Create
+                                </Button>
+                                <Button  
+                                    onClick={() => this.removeEvent()} 
+                                    color="rose">Remove
+                                </Button> 
                             </CardBody>
-
-                        </CardBody>
-                        
-                        <CardBody  className={classes.cardBody}>
-                           <div className="logo">
-                           </div>
-                            <Button  
-                                 style={{ marginLeft:"150px"}}
-                                onClick={() => this.addEvent()} 
-                                color="rose">Create
-                            </Button>
-                            <Button  
-                                onClick={() => this.removeEvent()} 
-                                color="rose">Remove
-                            </Button> 
-                           {/*  <div className="logo">
-                            </div> */}                              
-                            {/*  <AddUsers>
-                            </AddUsers>   */}
-                        </CardBody>
-                        
-                    </Card>
-            </GridItem>
-        </GridContainer>
-       </div> 
+                        </Card>
+                    </GridItem>
+                </GridContainer>
+            </Zoom>
+        </div> 
     );
   }
 }

@@ -37,10 +37,10 @@ class AddUsers extends Component {
             usersList: [],
             uid: "",
             email: "",
-//          vacationsId: this.props.id,
-            vacationsId: 1,         
-            //vacationsTitle: this.props.title,
-            vacationsTitle: "Winter",
+            vacationsId: this.props.vacationsId,
+            //vacationsId: 1,         
+            vacationsTitle: this.props.title,
+            //vacationsTitle: "Winter",
             checked: false,
         };
   }
