@@ -4,28 +4,20 @@ import { fire } from "../../Auth/firebaseConfig";
 import Button from "../../StyledComponents/Dashboards/AddUsers/js/Button.js";
 import Card from "../../StyledComponents/Dashboards/AddUsers/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/AddUsers/js/CardBody.js";
-//import CustomInput from "../../StyledComponents/Dashboards/AddUsers/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/AddUsers/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js";
-import { Row, 
-        //CardBlock, 
-        UsersContainer, 
-        //Loading 
+import { Row,  
+        UsersContainer,  
     } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
 import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
 import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, Zoom } from "@material-ui/core";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
 
 const useStyles = makeStyles(styles);
 
-const URL = 'https://vacationplannerlx.herokuapp.com/api';
-//const URL = "http://localhost:5500/api";
-
-// this component needs the vacationsId passed down to it
-// the vacation title would be helpful, if it is unavailable
-// i can just grab it from the table.
-
-// they are hard coded right now for testing
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
+const URL = "http://localhost:5500/api";
 
 class AddUsers extends Component {
     constructor(props) {
@@ -36,20 +28,18 @@ class AddUsers extends Component {
             usersList: [],
             uid: "",
             email: "",
-//          vacationsId: this.props.id,
-            vacationsId: 1,         
-//          vacationsTitle: this.props.title,
-            vacationsTitle: "Winter",
+            vacationsId: this.props.vacationsId,        
+            vacationsTitle: this.props.title,
+            checked: false,
         };
   }
 
   componentDidMount() {
-  // i dont think i need this...
+    this.setState(state => ({ checked: !state.checked }));
     let uid = fire.currentUser.uid;
      this.setState({
       uid: uid
     }); 
-    console.log("state: ", this.state)
     // check for any current secondary users
     this.displayUsers();
   }
@@ -73,8 +63,7 @@ class AddUsers extends Component {
         })
         this.setState({
             usersList: usersList, 
-          }); 
-       
+          });  
       })
       .catch(err => {
         console.log("There was an error accessing secondary users table", err);
@@ -118,14 +107,10 @@ class AddUsers extends Component {
 
   invite = () => {
     // send emails to all the users on list
-    let userList = this.state.usersList;
-   /*  this.state.usersList.forEach((user, index) => {
-      userList.push(user.email)  
-    }); */
-    
-    // now goto email component
+    const userList = this.state.usersList;
+    // send the user list via post to the email router
     axios
-      .post(`${URL}/emails/`, userList) // Get User Data
+      .post(`${URL}/emails/`, userList) 
       .then(response => {
         console.log("emails sent") 
       })
@@ -140,7 +125,7 @@ class AddUsers extends Component {
         // returns loading sign while data is being retrieved from API
         return <Loading>Loading Users...</Loading>;
       } */
-  
+      const { checked } = this.state;
       let rows = [];
       // **************************************
       // NOTE: need to correct the formatting
@@ -154,6 +139,7 @@ class AddUsers extends Component {
             );
         });
     return (
+        <Zoom in={checked}>
         <GridContainer>
             <GridItem>
                  <Card style={{ width: "600px", height: "420px", marginLeft: "40px", marginTop: "10px"}}>
@@ -196,12 +182,12 @@ class AddUsers extends Component {
                             </Button>
                             <Button  
                                 onClick={() => this.removeUser()} 
-                                color="rose">Remove
+                                color="rose"
+                                disabled="true">Remove
                             </Button>                                                    
                             <div className="users-list">
                                 {rows}
-                            </div>
-                            
+                            </div> 
                             <h5>Press the invite button to send emails to the people on your list.</h5>
                             {/* <p> </p> */}
                             <Button  
@@ -213,6 +199,7 @@ class AddUsers extends Component {
                 </Card>
             </GridItem>
       </GridContainer>
+      </Zoom>
     );
   }
 }

@@ -1,14 +1,12 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
-// import Vacation from "./Calendar/index.js";
+import Vacations from "../Dashboards/Vacations/"
+import Events from "../Dashboards/Events/"
+import AddUsers from "../Dashboards/AddUsers/addUsers.js"
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
-// import Vacation from "./Vacations/index.js";
-// import CardHeaderTypes from "./Vacations/test.js";
-// import Dnd from "./Calendar/dragDrop.js";
-// import Events from "./Events/events.js";
-// import AddUsers from "./AddUsers/addUsers.js";
+
 
 const styles = theme => ({
     innerContainer: {
@@ -63,17 +61,24 @@ class CurrentVacationDashboard extends React.Component {
                 displayCurrentVacationContent = {this.displayCurrentVacationContent}
                 />
                 <div className={classes.innerContainer}>
+                
                     {vacationDetails ? (
-                        <h1>In Vacation Details Page<br /> <br/>
-                        Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1>
+                        <Vacations  title={currentVacationTitle} vacationsId={currentVacationId}>
+                        </Vacations>
+                       /*  <h1>In Vacation Details Page<br /> <br/> */
+                       /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
                     ): null }
                     {calendar ? (
-                        <h1>In Calendar<br /> <br/>
-                        Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1>
+                              <Events title={currentVacationTitle} vacationsId={currentVacationId}>
+                              </Events>
+                        /*  <h1>In Calendar<br /> <br/> */
+                       /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
                     ): null }
                     {expenses ? (
-                        <h1>In Expenses<br /> <br/>
-                        Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1>
+                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId}>
+                        </AddUsers>
+                       /*   <h1>In Expenses<br /> <br/> */
+                       /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
                     ): null}
                 </div>
             </main>

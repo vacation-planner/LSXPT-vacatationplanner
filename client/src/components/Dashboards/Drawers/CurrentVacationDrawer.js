@@ -12,7 +12,7 @@ const styles = theme => ({
         padding: '15px',
         // color: 'black',
         color: 'white',
-        // backgroundColor: '#DDDDDD',
+        //backgroundColor: '#DDDDDD',
         backgroundColor: 'black',
         fontSize: '1.75rem'
     },

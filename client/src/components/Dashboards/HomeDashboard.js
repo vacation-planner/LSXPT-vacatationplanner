@@ -4,18 +4,15 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import HomeNavbar from './Navbar/HomeNavbar.js';
-// import Vacation from "./Calendar/index.js";
+
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
 import LeftSideBar from './LeftSideBar.js';
-import Vacation from "./Vacations/index.js";
-import CardHeaderTypes from "./Vacations/test.js";
-import Dnd from "./Calendar/dragDrop.js";
-import Events from "./Events/events.js";
-import AddUsers from "./AddUsers/addUsers.js";
+
+
 
 
 const styles = theme => ({

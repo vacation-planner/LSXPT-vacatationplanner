@@ -13,7 +13,8 @@ export default class AppProvider extends Component {
         myVacations: JSON.parse(localStorage.getItem('myVacations')) || [],
         myCurrentVacations: JSON.parse(localStorage.getItem('myCurrentVacations')) || [],
         myPastVacations: JSON.parse(localStorage.getItem('myPastVacations')) || [], 
-        backendURL: 'https://vacationplannerlx.herokuapp.com/api',
+        //backendURL: 'https://vacationplannerlx.herokuapp.com/api',
+        backendURL: 'http://localhost:5500/api',
     };
 
     render() {

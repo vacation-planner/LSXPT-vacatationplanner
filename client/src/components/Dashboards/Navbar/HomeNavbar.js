@@ -37,7 +37,7 @@ const drawerWidth = 240;
 
 const styles = theme => ({
     appBar: {
-        backgroundColor: "#E91E63",
+         backgroundColor: "#E91E63",
         [theme.breakpoints.up("sm")]: {
             width: "100%",
             zIndex: theme.zIndex.drawer + 1
@@ -62,8 +62,8 @@ const styles = theme => ({
         }
     },
     drawerPaper: {
-        width: "100%",
-        backgroundColor: "#eee",
+        width: "100%",  
+         backgroundColor: "#eee", 
         color: 'black',
         [theme.breakpoints.up("sm")]: {
             width: drawerWidth
