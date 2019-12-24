@@ -63,7 +63,7 @@ class EventsCalendar extends React.Component {
       uid: uid,
      /*  events: events, */
     });
-    console.log("state: ", this.state)
+   // console.log("state: ", this.state)
     // get the data needed to populate the calendar component
 
     this.fetchEventData(vacationsId);
@@ -83,7 +83,7 @@ class EventsCalendar extends React.Component {
             })   
         };
         
-        console.log("eventsData: ", eventsData)
+       // console.log("eventsData: ", eventsData)
         this.setState({
           eventData: eventsData
         });
@@ -112,7 +112,7 @@ class EventsCalendar extends React.Component {
         
     })
 
-  console.log("events: ", events)
+  //console.log("events: ", events)
   this.setState({
     events: events
   });
@@ -131,7 +131,7 @@ class EventsCalendar extends React.Component {
   };
 
   selectedEvent = event => {
-    console.log("in the selectedevent: ", event)
+    //console.log("in the selectedevent: ", event)
     swal(
       <div>
         <form onSubmit={this.submitForm} >

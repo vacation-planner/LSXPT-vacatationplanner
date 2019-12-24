@@ -22,10 +22,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import { Zoom } from "@material-ui/core";
 
-//import ListBox from 'react-listbox';
-//import 'react-listbox/dist/react-listbox.css'
-
-
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
@@ -36,40 +32,35 @@ const styles = theme => ({
        backgroundColor: "#E91E63",  
       /* height: "10%", */
       [theme.breakpoints.up("sm")]: {
-          width: "100%",
-         
+          width: "100%",    
       }
   },
   cardBody2: {
     display: "flex",
     flexDirection: "row",
     [theme.breakpoints.up("sm")]: {
-        width: "100%",
-       
+        width: "100%",   
     }
 },
 cardBodyContainer1: {
     display: "flex",
     flexDirection: "Column",
     [theme.breakpoints.up("sm")]: {
-        width: "25%",
-       
+        width: "25%",   
     }
 },
 cardBodyContainer2: {
     display: "flex",
     flexDirection: "Column",
     [theme.breakpoints.up("sm")]: {
-        width: "25%",
-       
+        width: "25%",   
     }
 },
 cardBodyContainer3: {
     display: "flex",
     flexDirection: "row",
     [theme.breakpoints.up("sm")]: {
-        width: "50%",
-       
+        width: "50%",   
     }
 },
   gridItem: {
@@ -106,8 +97,6 @@ componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
    
-    //this.fetchVacationTitle(this.state.vacationsId);
-
     this.fetchSecondaryUsers(this.state.vacationsId);
 
     this.fetchEvents(this.state.vacationsId);
@@ -116,25 +105,6 @@ componentDidMount() {
         usersUid: usersUid
       }); 
     };
-
-/* fetchVacationTitle = (vacationsId) => {
-    axios
-    .get(`${URL}/vacations/${vacationsId}`)
-    .then(response => {
-      response.data.forEach((item, index) => {
-        if (item.id === vacationsId) {          
-          this.setState({
-              title: item.title,
-          });
-          console.log('title found: ', this.state.title); 
-        }
-      });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
-
-}     */
 
 addEvent = () => {
     // create a record using the input
@@ -182,29 +152,21 @@ addEvent = () => {
       response.data.forEach((user, index) => {
         if (user.vacationsId === vacationsId) {          
           secondaryUsers.push(user)
-          //console.log('secondaryUsers: ', user);
-        }
-         
-          });
+        } 
+        });
           this.setState({
             secondaryUsers: secondaryUsers
-      });
+        });
     })
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-
   }
 
   fetchSecondaryUser = id => {
-    //let secondaryUsers = [];
     axios
     .get(`${URL}/secondaryUsers/${id}`)
     .then(response => {
-     // response.data.forEach((user, index) => {
-        console.log('response.data.firstName: ', response.data.firstName);
-         
-        //  });
           this.setState({
             participant: response.data.firstName,
             secondaryUsersId: id
@@ -213,7 +175,6 @@ addEvent = () => {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-
   }
 
   fetchEvents = (vacationsId) => {
@@ -224,18 +185,15 @@ addEvent = () => {
       response.data.forEach((event, index) => {
         if (event.vacationsId === vacationsId) {          
             events.push(event)
-          //console.log('event: ', event);
         }
           this.setState({
             events: events
           });
-        
       });
     })
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-
   }
 
   fetchEvent = (eventsId) => {
@@ -256,33 +214,26 @@ addEvent = () => {
     });
 
   }
+
   handleStartDate = startDate => {
     console.log('startdate: ', startDate);
-
   }
 
   listSelect = (id) => {        
-    //console.log("in the list selelct: ", event.target.value);
-    console.log("in the list index: ", id);
     this.fetchSecondaryUser(id);
   }
 
   eventSelect = (id) => {        
-    //console.log("in the list selelct: ", event.target.value);
-    console.log("in the event index: ", id);
     this.fetchEvent(id);
   }
 
   handleChange = event => {
-
     this.setState({
         [event.target.name]: event.target.value
-  });
-    
+    }); 
   };
 
   eventList = (props) => {
-    //const numbers = props.numbers;
     const eventItems = this.state.events.map((event) =>
       <li className="event" onClick={() => {this.eventSelect(event.id)}} >{event.eventName}</li>
     );
@@ -292,7 +243,6 @@ addEvent = () => {
   }
 
   participantList = (props) => {
-    //const numbers = props.numbers;
     const listItems = this.state.secondaryUsers.map((user) =>
       <li className="participants" onClick={() => {this.listSelect(user.id)}} >{user.firstName}, {user.lastName}</li>
     );

@@ -47,6 +47,7 @@ class AddEvents extends Component {
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
     eventCost: "",
+    secondaryUsersCost: "",
 
    };
 }
@@ -71,7 +72,7 @@ handleStartChange = event => {
     alert("Please create an event first.")
   } else {
   let startDateTime = moment(event).format();
-  console.log("startDateTime: ", startDateTime)
+  //console.log("startDateTime: ", startDateTime)
    // update the current event record
     let eventsRec = {
       eventName: this.props.eventName,
@@ -130,8 +131,10 @@ axios
 saveExpense = () => {
 let expenseRec = {
   eventsId: this.props.eventsId,
+  vacationsId: this.props.vacationsId,
   secondaryUsersId: this.props.secondaryUsersId,
   eventCost: this.state.eventCost,
+  secondaryUsersCost: this.state.secondaryUsersCost
 }
 
 axios
@@ -200,10 +203,10 @@ axios
       <p>Amount Participant Owes: 
         <input
           type="text"
-          name="amountOwed"
+          name="secondaryUsersCost"
           onChange={this.handleChange}
-          value={this.state.eventName}
-          className="amountOwed"
+          value={this.state.secondaryUsersCost}
+          className="secondaryUsersCost"
         />
       </p>
             <button

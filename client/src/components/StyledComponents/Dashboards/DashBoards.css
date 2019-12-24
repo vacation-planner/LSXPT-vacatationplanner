@@ -31,8 +31,17 @@
 
 .participants:hover {
     background-color: rgb(250, 23, 129);
-    color: white;
-    
+    color: white;  
+}
+
+.participants:active {
+    background-color: rgb(192, 20, 100);
+    color: white;  
+}
+
+.participants:focus {
+    background-color: rgb(136, 18, 73);
+    color: white;  
 }
 
 .ul {
