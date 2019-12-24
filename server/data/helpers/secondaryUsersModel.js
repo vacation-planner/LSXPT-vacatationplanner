@@ -24,15 +24,19 @@ module.exports = {
     }
     return db("secondaryUsers");
   },
-
-  getByEmail: email => {
+  getById: id =>{
+    return db('secondaryUsers')
+           .where('id', id)
+           .first()
+   },
+  /* getById: id => {
     let query = db("secondaryUsers");
-    if (email) {
-      query.where("email", email)
+    if (id) {
+      query.where("id", id)
       return query;
     }
     return db("secondaryUsers");
-  },
+  }, */
 
   remove: recordId => {
     return db("secondaryUsers")

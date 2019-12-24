@@ -21,6 +21,35 @@
     overflow-y: auto;
     height: 120px;
     width: 200px;
+    font-size: 12px;
+}
+
+.participants {
+    /* background-color: white; */
+    cursor: pointer;
+}
+
+.participants:hover {
+    background-color: rgb(250, 23, 129);
+    color: white;
+    
+}
+
+.ul {
+    /* background-color: aquamarine; */
+}
+
+.ul:hover {
+   /*  background-color: rgb(16, 20, 9); */
+}
+
+.event {
+    cursor: pointer;
+}
+
+.event:hover {
+    background-color: rgb(250, 23, 129);
+    color: white;
 }
 
 .eventsList {
@@ -28,6 +57,7 @@
     overflow-y: auto;
     height: 120px;
     width: 200px;
+    font-size: 12px;
 }
 
 .eventContainer {

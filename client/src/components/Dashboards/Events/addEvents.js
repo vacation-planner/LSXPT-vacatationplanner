@@ -42,9 +42,12 @@ class AddEvents extends Component {
     description: this.props.description,
     startDateTime: "",
     endDateTime: "",
+    participant: this.props.participant,
     disabled: this.props.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
+    eventCost: "",
+
    };
 }
 
@@ -53,6 +56,14 @@ componentDidMount() {
    this.setState({
     usersUid: usersUid
   }); 
+};
+
+handleChange = event => {
+
+  this.setState({
+      [event.target.name]: event.target.value
+});
+  
 };
 
 handleStartChange = event => {
@@ -68,7 +79,7 @@ handleStartChange = event => {
       startDateTime: startDateTime,
       usersUid: this.state.usersUid,
       vacationsId: this.props.vacationsId,
-      secondaryUsersId: this.props.secondaryUsersId,
+      //secondaryUsersId: this.props.secondaryUsersId,
     } 
 
  axios
@@ -116,6 +127,25 @@ axios
 }
 };
 
+saveExpense = () => {
+let expenseRec = {
+  eventsId: this.props.eventsId,
+  secondaryUsersId: this.props.secondaryUsersId,
+  eventCost: this.state.eventCost,
+}
+
+axios
+.post(`${URL}/eventUsers/`, expenseRec)
+.then(response => {
+    console.log("file written");
+    // get the id of the new record
+    //this.fetchId(this.state.eventName);
+})
+.catch(err => {
+    console.log('We"ve encountered an error');
+});  
+
+}
 
  render() {
   const classes = this.props;
@@ -154,7 +184,7 @@ axios
           type="text"
           name="eventCost"
           onChange={this.handleChange}
-          value={this.state.eventName}
+          value={this.state.evenCost}
           className="eventCost"
         />
       </p>
@@ -163,7 +193,7 @@ axios
           type="text"
           name="participant"
           onChange={this.handleChange}
-          value={this.state.eventName}
+          value={this.props.participant}
           className="participant"
         />
       </p>
@@ -176,7 +206,13 @@ axios
           className="amountOwed"
         />
       </p>
+            <button
+            onClick={this.saveExpense}
+            className="expButton"
 
+            >
+            Save Expense
+            </button>
       </div>
     </div>
     

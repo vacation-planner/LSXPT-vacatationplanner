@@ -95,6 +95,7 @@ class Events extends Component {
     eventsId: "",
     events: [],
     disabled: false,
+    participant: "",
     secondaryUsersId: 1,
     secondaryUsers: [],
     checked: false,
@@ -195,7 +196,26 @@ addEvent = () => {
 
   }
 
-  
+  fetchSecondaryUser = id => {
+    //let secondaryUsers = [];
+    axios
+    .get(`${URL}/secondaryUsers/${id}`)
+    .then(response => {
+     // response.data.forEach((user, index) => {
+        console.log('response.data.firstName: ', response.data.firstName);
+         
+        //  });
+          this.setState({
+            participant: response.data.firstName,
+            secondaryUsersId: id
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+
+  }
+
   fetchEvents = (vacationsId) => {
     let events = [];
     axios
@@ -218,13 +238,39 @@ addEvent = () => {
 
   }
 
+  fetchEvent = (eventsId) => {
+    //let events = [];
+    axios
+    .get(`${URL}/events/${eventsId}`)
+    .then(response => {         
+             this.setState({
+                eventsId: eventsId,
+                eventName: response.data.eventName,
+                startDateTime: response.data.startDateTime,
+                endDateTime: response.data.endDateTime,
+                description: response.data.description,
+            }); 
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+
+  }
   handleStartDate = startDate => {
     console.log('startdate: ', startDate);
 
   }
-  listSelect = event => {
-        console.log("in the list selelct: ", event.target.value);
 
+  listSelect = (id) => {        
+    //console.log("in the list selelct: ", event.target.value);
+    console.log("in the list index: ", id);
+    this.fetchSecondaryUser(id);
+  }
+
+  eventSelect = (id) => {        
+    //console.log("in the list selelct: ", event.target.value);
+    console.log("in the event index: ", id);
+    this.fetchEvent(id);
   }
 
   handleChange = event => {
@@ -235,30 +281,53 @@ addEvent = () => {
     
   };
 
+  eventList = (props) => {
+    //const numbers = props.numbers;
+    const eventItems = this.state.events.map((event) =>
+      <li className="event" onClick={() => {this.eventSelect(event.id)}} >{event.eventName}</li>
+    );
+    return (
+      <ul className="ul">{eventItems}</ul>
+    );
+  }
+
+  participantList = (props) => {
+    //const numbers = props.numbers;
+    const listItems = this.state.secondaryUsers.map((user) =>
+      <li className="participants" onClick={() => {this.listSelect(user.id)}} >{user.firstName}, {user.lastName}</li>
+    );
+    return (
+      <ul className="ul">{listItems}</ul>
+    );
+  }
+
 render() {
   const { classes } = this.props;
   const { checked } = this.state;
-  let rows = [];
-  let eventRows = [];
+  //let rows = [];
+ // let eventRows = [];
   // **************************************
   // NOTE: need to correct the formatting
   // *************************************
-  this.state.secondaryUsers.forEach((user, index) => {
+ // this.state.secondaryUsers.forEach((user, index) => {
     // Loops through array of secondary users and lists them in a div
-    rows.push(
-        <UsersContainer key={index} onSelect={this.listSelect} onClick={this.listSelect}>
+  //  rows.push(
+       /*  <UsersContainer key={index} onSelect={this.listSelect} onClick={this.listSelect}>
             {user.firstName}, {user.lastName}      
-        </UsersContainer>
-        );
-    });
-    this.state.events.forEach((event, index) => {
+        </UsersContainer> */
+   //          <div key={index} onSelect={this.listSelect}  className="participants" onClick={this.listSelect}>
+   //          {user.firstName}, {user.lastName}     
+   //      </div>
+   //     );
+ //   });
+ //   this.state.events.forEach((event, index) => {
         // Loops through array of secondary users and lists them in a div
-        eventRows.push(
-            <UsersContainer key={index}>
-                {event.eventName}      
-            </UsersContainer>
-            );
-        });
+  //      eventRows.push(
+   //         <UsersContainer key={index}>
+    //            {event.eventName}      
+    //        </UsersContainer>
+    //        );
+   //     });
 
     return (
         <div className="events"> 
@@ -279,14 +348,17 @@ render() {
                                                 onChange={this.handleChange}
                                                 value={this.state.eventName}
                                                 className="eventName"
+                                                placeHolder={this.state.eventName}
                                             />
                                         </h5>
                                     </CardBody>
                                     <CardBody  xs={12} sm={12} md={4}>
                                         <AddEvents 
+                                            eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
                                             eventsId={this.state.eventsId} 
+                                            participant={this.state.participant}
                                             disabled={this.state.disabled}
                                             secondaryUsersId={this.state.secondaryUsersId}
                                             vacationsId={this.state.vacationsId}
@@ -309,14 +381,14 @@ render() {
                                     <CardBody> 
                                         <h3>Available Events:</h3>{" "}                                
                                         <div className="eventsList">
-                                            {eventRows} 
+                                            {this.eventList()} 
                                         </div>          
                                     </CardBody>
                                     <CardBody> 
                                         <h3>Vacation Participants:</h3>{" "}  
                                         <div className="participantsList">
-                                            {rows} 
-                                        </div>
+                                           {/*  {rows} */} 
+                                           {this.participantList()}                                        </div>
                                     </CardBody>
                                 </CardBody>
                                 <CardBody className={classes.cardBodyContainer3}>
