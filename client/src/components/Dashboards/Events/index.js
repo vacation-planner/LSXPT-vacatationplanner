@@ -235,7 +235,7 @@ addEvent = () => {
 
   eventList = (props) => {
     const eventItems = this.state.events.map((event) =>
-      <li className="event" onClick={() => {this.eventSelect(event.id)}} >{event.eventName}</li>
+      <li className="event" onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
     );
     return (
       <ul className="ul">{eventItems}</ul>
@@ -244,7 +244,7 @@ addEvent = () => {
 
   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
-      <li className="participants" onClick={() => {this.listSelect(user.id)}} >{user.firstName}, {user.lastName}</li>
+      <li className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
     );
     return (
       <ul className="ul">{listItems}</ul>
