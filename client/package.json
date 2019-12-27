@@ -28,6 +28,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-table": "^7.0.0-rc.15",
+    "react-table-6": "^6.11.0",
     "react-with-firebase-auth": "^1.1.0",
     "sass": "^1.23.7",
     "serialize-javascript": "^2.1.2",

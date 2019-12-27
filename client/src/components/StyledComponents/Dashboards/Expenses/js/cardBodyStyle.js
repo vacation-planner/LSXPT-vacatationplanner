@@ -1,7 +1,7 @@
 import {
   whiteColor,
   hexToRgb
-} from "./material-dashboard-pro-react.js";
+} from "../material-dashboard-pro-react.js";
 
 const cardBodyStyle = {
   cardBody: {

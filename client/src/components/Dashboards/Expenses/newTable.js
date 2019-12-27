@@ -79,40 +79,39 @@ function NewTable() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
+        Header: 'Expense',
         columns: [
           {
-            Header: 'First Name',
-            accessor: 'firstName',
+            Header: 'Expense',
+            accessor: 'title',
           },
           {
-            Header: 'Last Name',
-            accessor: 'lastName',
+            Header: 'Vacations Id',
+            accessor: 'vacationsId',
+          },
+          {
+            Header: 'Events Id',
+            accessor: 'eventsId',
+          },
+          {
+            Header: 'SecondaryUsersId',
+            accessor: 'secondaryUsersId',
+          },
+          {
+            Header: 'Expense',
+            accessor: 'expense',
+          },
+          {
+            Header: 'Paid',
+            accessor: 'expensePaid',
+          },
+          {
+            Header: 'Participants Cost',
+            accessor: 'secondaryUsersExpense',
           },
         ],
       },
-      {
-        Header: 'Info',
-        columns: [
-          {
-            Header: 'Age',
-            accessor: 'age',
-          },
-          {
-            Header: 'Visits',
-            accessor: 'visits',
-          },
-          {
-            Header: 'Status',
-            accessor: 'status',
-          },
-          {
-            Header: 'Profile Progress',
-            accessor: 'progress',
-          },
-        ],
-      },
-    ],
+     ],
     []
   )
 

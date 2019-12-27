@@ -8,6 +8,7 @@ exports.up = function(knex) {
             .references('vacations.id')
             .notNullable();
         eventUsers.integer('secondaryUsersId');
+        eventUsers.string('secondaryUsersName');
         eventUsers.decimal('expensePaid');
         eventUsers.decimal('expense');
         eventUsers.decimal('secondaryUsersExpense');

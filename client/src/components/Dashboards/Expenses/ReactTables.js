@@ -1,6 +1,6 @@
 import React from "react";
 // react component for creating dynamic tables
-import ReactTable from "react-table";
+import ReactTable from "react-table-6";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
