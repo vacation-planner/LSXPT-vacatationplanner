@@ -71,6 +71,11 @@ class AddUsers extends Component {
   };
 
   addUser = () => {
+     // Need to do some validation here!
+
+    // check the firstName, lastName and email fields for valid data.
+
+    if (this.state.firstName && this.state.lastName && this.state.email) {
     // add users info to the users list
     let usersList = this.state.usersList;
     // create a record using the input
@@ -98,7 +103,10 @@ class AddUsers extends Component {
         email: "",   
       }); 
     
+  } else {
+    alert("Empty or missing fields, please check...")
   }
+}
 
   removeUser = () => {
     // add the code here to remove user from list
@@ -106,6 +114,10 @@ class AddUsers extends Component {
   }
 
   invite = () => {
+   
+   
+
+   
     // send emails to all the users on list
     const userList = this.state.usersList;
     // send the user list via post to the email router
@@ -117,8 +129,7 @@ class AddUsers extends Component {
       .catch(err => {
         console.log("There was an error sending emails", err);
       });
-
-  }
+}
 
   render() {
    /*  if (this.state.usersList.length) {

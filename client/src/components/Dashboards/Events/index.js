@@ -20,7 +20,7 @@ import CardHeader from "../../StyledComponents/Dashboards/Events/js/CardHeader.j
 import withStyles from "@material-ui/core/styles/withStyles";
 import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
-import { Zoom } from "@material-ui/core";
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
@@ -329,16 +329,37 @@ render() {
                                         </h5>
                                     </CardBody>
                                     <CardBody> 
-                                        <h3>Available Events:</h3>{" "}                                
+                                        <h3>Available Events:</h3>{" "} 
+                                        <Tooltip
+                                            placement="top"
+                                            disableFocusListener
+                                            title={
+                                                <Typography color="inherit">
+                                                    First select a participant and event then add the expense and save
+                                                </Typography>
+                                            }
+                                        >                                
                                         <div className="eventsList">
                                             {this.eventList()} 
-                                        </div>          
+                                        </div> 
+                                        </Tooltip>          
                                     </CardBody>
                                     <CardBody> 
-                                        <h3>Vacation Participants:</h3>{" "}  
+                                        <h3>Vacation Participants:</h3>{" "} 
+                                            <Tooltip
+                                                placement="top"
+                                                disableFocusListener
+                                                title={
+                                                    <Typography color="inherit">
+                                                        <h4>Select a participant then assign an expense</h4>
+                                                    </Typography>
+                                                }
+                                            > 
                                         <div className="participantsList">
                                            {/*  {rows} */} 
-                                           {this.participantList()}                                        </div>
+                                           {this.participantList()}
+                                        </div>
+                                        </Tooltip>    
                                     </CardBody>
                                 </CardBody>
                                 <CardBody className={classes.cardBodyContainer3}>

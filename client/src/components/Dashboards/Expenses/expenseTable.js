@@ -26,6 +26,7 @@ class ExpenseTable extends Component {
 
     this.state = {
       eventUsers: [],
+      vacationsId: this.props.vacationsId,
       //CatchHeaders: [],
       //species: "",
       
@@ -34,18 +35,31 @@ class ExpenseTable extends Component {
   }
 
   componentDidMount() {
-
+    
     axios
     .get('http://localhost:5500/api/eventUsers')
     .then(response => {
-      this.setState(() => ({ eventUsers: response.data }));
+      this.filterEvents(response.data);
+      //this.setState(() => ({ eventUsers: response.data }));
     })
     .catch(error => {
       console.error('Server Error', error);
     });
    // this.setState(() => ({ eventUsers: eventUsers }));
   }
-   renderEditable(cellInfo) {
+
+  filterEvents = data => {
+    console.log("data: ", data)
+    let eventUsers = [];
+    data.forEach((item, index) => {
+      if (this.props.vacationsId === item.vacationsId) {
+        eventUsers.push(item);
+      }
+    })
+    this.setState(() => ({ eventUsers: eventUsers }));
+  }
+  
+  renderEditable(cellInfo) {
     return (
       <div
         style={{ backgroundColor: "#fafafa" }}
@@ -62,6 +76,7 @@ class ExpenseTable extends Component {
       />
     );
   } 
+
   render() {
 
     return (
@@ -77,11 +92,11 @@ class ExpenseTable extends Component {
                   data={this.state.eventUsers}
                   columns=
                     {[
+                      { Header: "Title", accessor: "title", Cell: this.renderEditable, width: 150},
+                      { Header: "Participant", accessor: "secondaryUsersName", Cell: this.renderEditable, width: 140},
                       { Header: "Vacation", accessor: "vacationsId", Cell: this.renderEditable, width: 80},
                       { Header: "Participants", accessor: "secondaryUsersId", Cell: this.renderEditable, width: 80},
-                      { Header: "Participant", accessor: "secondaryUsersName", Cell: this.renderEditable, width: 140},
-                      { Header: "Event", accessor: "eventsId", Cell: this.renderEditable, width: 90},
-                      { Header: "Title", accessor: "title", Cell: this.renderEditable, width: 150},
+                      { Header: "Event", accessor: "eventsId", Cell: this.renderEditable, width: 90},   
                       { Header: "Expense Total", accessor: "expense", Cell: this.renderEditable, width: 100},
                       { Header: "Participant Expense", accessor: "secondaryUsersExpense", Cell: this.renderEditable, width: 125},
                       { Header: "Expense Paid", accessor: "expensePaid", Cell: this.renderEditable, width: 100},

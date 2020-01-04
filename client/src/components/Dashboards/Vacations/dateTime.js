@@ -6,7 +6,7 @@ import Datetime from "react-datetime";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import { withStyles, Zoom } from "@material-ui/core";
+import { withStyles, Zoom, Tooltip, Typography } from "@material-ui/core";
 import axios from "axios";
 import moment from "moment";
 
@@ -124,37 +124,48 @@ axios
         Vacation Start Date
       </InputLabel>
       <br />
-      <FormControl fullWidth>
-        <Datetime timeFormat={false}
-        value={this.props.value}
-         onChange={event => this.handleStartChange(event)} 
-          inputProps={{ 
-            placeholder: this.props.startDate
-             }}
-        />
-      </FormControl>
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit">
+              Select date the vacation begins
+            </Typography>
+          }
+        >
+        <FormControl fullWidth>
+          <Datetime timeFormat={false}
+            value={this.props.value}
+            onChange={event => this.handleStartChange(event)} 
+            inputProps={{ 
+              placeholder: this.props.startDate
+            }}
+          />
+        </FormControl>
+      </Tooltip>
       <InputLabel className={classes.label}>
-      Vacation End Date
+        Vacation End Date
       </InputLabel>
       <br />
+      <Tooltip
+        placement="top"
+        disableFocusListener
+        title={
+          <Typography color="inherit" >
+            Select date the vacation ends
+          </Typography>
+        }
+      >
       <FormControl fullWidth>
         <Datetime
           timeFormat={false}
           value={this.props.value}
-         onChange={event => this.handleEndChange(event)} 
+          onChange={event => this.handleEndChange(event)} 
           inputProps={{ placeholder: this.props.endDate }}
         />
       </FormControl>
-     {/*  <InputLabel className={classes.label}>
-        Time Picker
-      </InputLabel> */}
+      </Tooltip>
       <br />
-     {/*  <FormControl fullWidth>
-        <Datetime
-          dateFormat={false}
-          inputProps={{ placeholder: "Time Picker Here" }}
-        />
-      </FormControl> */}
     </div>
   );
 }

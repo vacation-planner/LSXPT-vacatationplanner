@@ -2,10 +2,10 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import Vacations from "../Dashboards/Vacations/index.js"
-import ExpenseTable from "../Dashboards/Expenses/expenseTable.js"
+//import ExpenseTable from "../Dashboards/Expenses/expenseTable.js"
 //import NewTable from "../Dashboards/Expenses/newTable.js"
 import Events from "../Dashboards/Events/index.js"
-//import AddUsers from "../Dashboards/AddUsers/addUsers.js"
+import AddUsers from "../Dashboards/AddUsers/addUsers.js"
 import Vacation from "./Calendar/index.js";
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
@@ -81,10 +81,10 @@ class PastVacationDashboard extends React.Component {
                        /*  Past Vacation Details: Index: {pastVacationIndex}, ID: {pastVacationId}, Title: {pastVacationTitle}</h1> */
                     ): null }
                     {expenses ? (
-                      <ExpenseTable>
-                          </ExpenseTable>
-                     /*  <AddUsers title={pastVacationTitle} vacationsId={pastVacationId}>
-                          </AddUsers> */
+                     /*  <ExpenseTable  title={pastVacationTitle} vacationsId={pastVacationId}>
+                          </ExpenseTable> */
+                       <AddUsers title={pastVacationTitle} vacationsId={pastVacationId}>
+                          </AddUsers> 
                      
                     ): null}
                 </div>

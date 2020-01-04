@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import axios from "axios";
 import { fire } from './components/Auth/firebaseConfig';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
@@ -11,8 +12,6 @@ import CurrentVacationDashboard from './components/Dashboards/CurrentVacationDas
 import PastVacationDashboard from './components/Dashboards/PastVacationDashboard.js';
 import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
 import Signin from './components/Auth/Signin';
-
-import axios from 'axios';
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/';
 const URL = 'http://localhost:5500/';
@@ -85,8 +84,15 @@ class App extends Component {
                             userUID: user.uid
                         });
                         console.log('User uid: ', this.state.userUID);
+// We need to check localStorage for the value vacationsId. If present we need to get the vacation
+// details and create a new record in the vacation table with the current users Uid combined with 
+// the saved vacation details.                        
+                        this.checkLocalStorage();
                         this.context.getUserID(this.state.userUID);
                         this.context.getVacations();
+
+// the two previous lines of code should be moved to line 154, see reasons below.
+
                         this.addCurrentUser(user);
                     })
                     .catch(err => console.log('error ', err));
@@ -103,6 +109,51 @@ class App extends Component {
              } 
          }); 
     };
+
+    checkLocalStorage = () => {
+        let vacationsId = localStorage.getItem('vacationsId');
+        if (vacationsId) {
+            axios
+            .get(`${URL}api/vacations/${vacationsId}`)
+            .then(response => {
+              response.data.forEach((item, index) => {                      
+                  this.setState({
+                      title: item.title,
+                      vacationsId: vacationsId,
+                      location: item.location,
+                      startDate: item.startDate,
+                      endDate: item.endDate,
+                  });
+              })
+              console.log('state: ', this.state);
+              this.writeToDb();
+            })
+            .catch(err => {
+              console.log('We"ve encountered an error');
+            });
+        }
+    };
+
+    writeToDb = () => {
+        let vacationRec = {
+            title: this.state.title,
+            location: this.state.location,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate,
+            usersUid: this.state.userUID
+        }
+        axios
+      .post(`${URL}api/vacations/`, vacationRec) 
+      .then(response => {
+        localStorage.removeItem('vacationsId');
+        console.log("vacation record created") 
+      })
+      .catch(err => {
+        console.log("There was an error creating vacation record", err);
+      });
+
+  }
+    
 
     // this function grabs any parameter in the url
     getUrlVars = () => {
@@ -144,6 +195,8 @@ class App extends Component {
             .post(endpoint, creds)
             .then(res => {
                 console.log('User logged in successfully');
+// I kind of think the context login code should go here because you are writing all this
+// data to the local storage before the user has successfully logged in
             })
             .catch(err => console.log('Error in getting user'));
     };

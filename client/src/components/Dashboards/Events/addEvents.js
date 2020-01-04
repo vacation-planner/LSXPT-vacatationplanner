@@ -8,6 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
 import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 
@@ -46,8 +47,8 @@ class AddEvents extends Component {
     disabled: this.props.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
-    eventCost: "",
-    secondaryUsersCost: "",
+    expense: "",
+    secondaryUsersExpense: "",
 
    };
 }
@@ -133,8 +134,8 @@ let expenseRec = {
   eventsId: this.props.eventsId,
   vacationsId: this.props.vacationsId,
   secondaryUsersId: this.props.secondaryUsersId,
-  eventCost: this.state.eventCost,
-  secondaryUsersCost: this.state.secondaryUsersCost
+  expense: this.state.expense,
+  secondaryUsersExpense: this.state.secondaryUsersExpense
 }
 
 axios
@@ -185,10 +186,10 @@ axios
       <p>Event Cost: 
         <input
           type="text"
-          name="eventCost"
+          name="expense"
           onChange={this.handleChange}
-          value={this.state.evenCost}
-          className="eventCost"
+          value={this.state.expense}
+          className="expense"
         />
       </p>
       <p>Participant:
@@ -203,10 +204,10 @@ axios
       <p>Amount Participant Owes: 
         <input
           type="text"
-          name="secondaryUsersCost"
+          name="secondaryUsersExpense"
           onChange={this.handleChange}
-          value={this.state.secondaryUsersCost}
-          className="secondaryUsersCost"
+          value={this.state.secondaryUsersExpense}
+          className="secondaryUsersExpense"
         />
       </p>
             <button

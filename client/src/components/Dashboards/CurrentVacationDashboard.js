@@ -69,7 +69,8 @@ class CurrentVacationDashboard extends React.Component {
                        /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
                     ): null }
                     {calendar ? (
-                              <Events title={currentVacationTitle} vacationsId={currentVacationId}>
+                             
+                             <Events title={currentVacationTitle} vacationsId={currentVacationId}>
                               </Events>
                         /*  <h1>In Calendar<br /> <br/> */
                        /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
