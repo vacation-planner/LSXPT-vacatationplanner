@@ -31,7 +31,7 @@ class AddUsers extends Component {
             vacationsId: this.props.vacationsId,        
             vacationsTitle: this.props.title,
             checked: false,
-            emailError: true,
+            //emailError: true,
         };
   }
 
@@ -72,14 +72,11 @@ class AddUsers extends Component {
   };
 
   addUser = () => {
-     // Need to do some validation here!
+     // validate the email address
     let emailError = this.validateEmail(this.state.email);
-    console.log("emailError: ", emailError)
+    //console.log("emailError: ", emailError)
     // check the firstName, lastName and email fields for valid data.
-
-    if (this.state.firstName && this.state.lastName && this.state.email && emailError) {
-    
-        
+    if (this.state.firstName && this.state.lastName && this.state.email && !emailError) {   
         // add users info to the users list
     let usersList = this.state.usersList;
     // create a record using the input
@@ -120,31 +117,31 @@ class AddUsers extends Component {
   validateEmail = (email) => {
     const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
     const result = pattern.test(email);
+    let emailError = true;
     if(result===true){
-      this.setState({
-        emailError:false,
-        email:email
-      })
+        emailError = false;
     } else{
-      this.setState({
-        emailError:true
-      })
+        alert("Invalid email address");
     }
-    return this.state.emailError
+    return emailError
   }
 
   invite = () => {
     // send emails to all the users on list
     const userList = this.state.usersList;
-    // send the user list via post to the email router
-    axios
-      .post(`${URL}/emails/`, userList) 
-      .then(response => {
-        console.log("emails sent") 
-      })
-      .catch(err => {
-        console.log("There was an error sending emails", err);
-      });
+    if (userList) {
+        // send the user list via post to the email router
+        axios
+        .post(`${URL}/emails/`, userList) 
+        .then(response => {
+            console.log("emails sent") 
+        })
+        .catch(err => {
+            console.log("There was an error sending emails", err);
+        });
+    } else {
+        alert("Need to add participants")
+    }
 }
 
   render() {

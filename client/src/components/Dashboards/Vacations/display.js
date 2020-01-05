@@ -41,7 +41,6 @@ const styles = theme => ({
       cursor: "pointer",
       padding: 15,
       paddingLeft: 35,
-      fontSize: "2rem",
   }
 });
 
