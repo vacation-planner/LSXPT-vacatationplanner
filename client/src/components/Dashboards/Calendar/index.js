@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import Cal from "./calendar.js";
 
 import axios from "axios";
@@ -118,7 +118,7 @@ const URL = "http://localhost:5500/api";
       let hrs = 0
       let mins = 0
       
-      if (tmpTime.length == 3) {
+      if (tmpTime.length === 3) {
         hrs = tmpTime.slice(0,1);
         mins =  tmpTime.slice(1,3);
       } else {
@@ -135,7 +135,7 @@ const URL = "http://localhost:5500/api";
       let endHrs = 0
       let endMins = 0
       
-      if (tmpTime.length == 3) {
+      if (tmpTime.length === 3) {
         endHrs = tmpEndTime.slice(0,1);
         endMins =  tmpEndTime.slice(1,3);
       } else {

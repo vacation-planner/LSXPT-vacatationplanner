@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import HomeNavbar from './Navbar/HomeNavbar.js';
-import LeftSideBar from './LeftSideBar.js';
+// import LeftSideBar from './LeftSideBar.js';
 import Vacation from "./Calendar/index.js";
 
 const styles = () => ({

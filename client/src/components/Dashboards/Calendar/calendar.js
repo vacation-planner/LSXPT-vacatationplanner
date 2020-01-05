@@ -80,7 +80,7 @@ writeToDb = slotInfo => {
 }
 
   render() {
-    const { events } = this.state
+    // const { events } = this.state
     return (
       <div className="Cal">
         <Calendar
