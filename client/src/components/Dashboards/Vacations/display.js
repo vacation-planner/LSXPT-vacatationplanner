@@ -178,7 +178,7 @@ render() {
                                 placement="top"
                                 disableFocusListener
                                 title={
-                                    <Typography color="inherit">
+                                    <Typography color="inherit" variant="h6">
                                         Click here if any changes have been made
                                     </Typography>
                                 }
@@ -192,7 +192,7 @@ render() {
                                 placement="top"
                                 disableFocusListener
                                 title={
-                                    <Typography color="inherit">
+                                    <Typography color="inherit" variant="h6">
                                         Function has not been coded yet
                                     </Typography>
                                 }

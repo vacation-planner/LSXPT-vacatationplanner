@@ -128,7 +128,7 @@ axios
           placement="top"
           disableFocusListener
           title={
-            <Typography color="inherit">
+            <Typography color="inherit" variant="h6">
               Select date the vacation begins
             </Typography>
           }
@@ -151,7 +151,7 @@ axios
         placement="top"
         disableFocusListener
         title={
-          <Typography color="inherit" >
+          <Typography color="inherit" variant="h6">
             Select date the vacation ends
           </Typography>
         }

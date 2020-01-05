@@ -31,6 +31,7 @@ class AddUsers extends Component {
             vacationsId: this.props.vacationsId,        
             vacationsTitle: this.props.title,
             checked: false,
+            emailError: true,
         };
   }
 
@@ -72,11 +73,14 @@ class AddUsers extends Component {
 
   addUser = () => {
      // Need to do some validation here!
-
+    let emailError = this.validateEmail(this.state.email);
+    console.log("emailError: ", emailError)
     // check the firstName, lastName and email fields for valid data.
 
-    if (this.state.firstName && this.state.lastName && this.state.email) {
-    // add users info to the users list
+    if (this.state.firstName && this.state.lastName && this.state.email && emailError) {
+    
+        
+        // add users info to the users list
     let usersList = this.state.usersList;
     // create a record using the input
     let userRec = {
@@ -111,13 +115,25 @@ class AddUsers extends Component {
   removeUser = () => {
     // add the code here to remove user from list
     alert("Not coded yet, sorry.")
+  };
+
+  validateEmail = (email) => {
+    const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+    const result = pattern.test(email);
+    if(result===true){
+      this.setState({
+        emailError:false,
+        email:email
+      })
+    } else{
+      this.setState({
+        emailError:true
+      })
+    }
+    return this.state.emailError
   }
 
   invite = () => {
-   
-   
-
-   
     // send emails to all the users on list
     const userList = this.state.usersList;
     // send the user list via post to the email router
@@ -194,7 +210,7 @@ class AddUsers extends Component {
                             <Button  
                                 onClick={() => this.removeUser()} 
                                 color="rose"
-                                disabled="true">Remove
+                                disabled={true}>Remove
                             </Button>                                                    
                             <div className="users-list">
                                 {rows}

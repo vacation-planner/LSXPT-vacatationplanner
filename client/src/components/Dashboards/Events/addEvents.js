@@ -184,6 +184,15 @@ axios
       </div>
       <div className="right">
       <p>Event Cost: 
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit" variant="h6">
+              Enter the total cost of the selected event
+            </Typography>
+          }
+        >
         <input
           type="text"
           name="expense"
@@ -191,8 +200,18 @@ axios
           value={this.state.expense}
           className="expense"
         />
+        </Tooltip>
       </p>
       <p>Participant:
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit" variant="h6">
+              Select a participant from the list
+            </Typography>
+          }
+        >
         <input
           type="text"
           name="participant"
@@ -200,8 +219,18 @@ axios
           value={this.props.participant}
           className="participant"
         />
+        </Tooltip>
       </p>
       <p>Amount Participant Owes: 
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit" variant="h6">
+              Enter the share of the cost for this participant
+            </Typography>
+          }
+        >
         <input
           type="text"
           name="secondaryUsersExpense"
@@ -209,7 +238,17 @@ axios
           value={this.state.secondaryUsersExpense}
           className="secondaryUsersExpense"
         />
+        </Tooltip>
       </p>
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit" variant="h6">
+              Save the expense info
+            </Typography>
+          }
+        >
             <button
             onClick={this.saveExpense}
             className="expButton"
@@ -217,6 +256,7 @@ axios
             >
             Save Expense
             </button>
+            </Tooltip>
       </div>
     </div>
     

@@ -235,7 +235,7 @@ addEvent = () => {
 
   eventList = (props) => {
     const eventItems = this.state.events.map((event) =>
-      <li className="event" onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
+      <li key={event.id} className="event" onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
     );
     return (
       <ul className="ul">{eventItems}</ul>
@@ -244,7 +244,7 @@ addEvent = () => {
 
   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
-      <li className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
+      <li key={user.id} className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
     );
     return (
       <ul className="ul">{listItems}</ul>
@@ -298,7 +298,7 @@ render() {
                                                 onChange={this.handleChange}
                                                 value={this.state.eventName}
                                                 className="eventName"
-                                                placeHolder={this.state.eventName}
+                                                placeholder={this.state.eventName}
                                             />
                                         </h5>
                                     </CardBody>
@@ -334,7 +334,7 @@ render() {
                                             placement="top"
                                             disableFocusListener
                                             title={
-                                                <Typography color="inherit">
+                                                <Typography color="inherit" variant="h6">
                                                     First select a participant and event then add the expense and save
                                                 </Typography>
                                             }
@@ -350,8 +350,8 @@ render() {
                                                 placement="top"
                                                 disableFocusListener
                                                 title={
-                                                    <Typography color="inherit">
-                                                        <h4>Select a participant then assign an expense</h4>
+                                                    <Typography color="inherit" variant="h6">
+                                                        Select a participant then assign an expense
                                                     </Typography>
                                                 }
                                             > 
@@ -378,7 +378,7 @@ render() {
                                 <Button  
                                     onClick={() => this.removeEvent()} 
                                     color="rose"
-                                    disabled="true">Remove
+                                    disabled={true}>Remove
                                 </Button> 
                             </CardBody>
                         </Card>
