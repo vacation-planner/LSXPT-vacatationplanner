@@ -1,1 +1,1 @@
-# LSXPT-vacationplanner
+# LSXPT-vacationplanner :earth_americas:

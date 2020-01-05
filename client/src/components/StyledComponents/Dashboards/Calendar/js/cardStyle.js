@@ -13,9 +13,9 @@ import {
 
 const cardStyle = {
   card: {
-    border: "0",
+    border: "",
     marginBottom: "30px",
-    marginTop: "30px",
+    marginTop: "10px",
     borderRadius: "6px",
     color: "rgba(" + hexToRgb(blackColor) + ", 0.87)",
     background: whiteColor,
@@ -24,9 +24,13 @@ const cardStyle = {
     position: "relative",
     display: "flex",
     flexDirection: "column",
-    minWidth: "0",
+    overflow: "hidden",
+    minWidth: "450px",
+    minHeight: "500px",
     wordWrap: "break-word",
-    fontSize: ".875rem"
+    fontSize: ".875rem",
+    /* borderTop: "5px solid rgba(" + hexToRgb(roseColor) + ", 1)", */
+    borderTop: "5px solid " + roseColor[1],
   },
   cardPlain: {
     background: "transparent",

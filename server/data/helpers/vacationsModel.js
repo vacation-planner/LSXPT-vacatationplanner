@@ -39,23 +39,6 @@ function getById(id) {
     return db('vacations').where('id', id);
 }
 
-function getPlansById(id) {
-    // return db('plans').where('vacationId', id);
-}
-
-function getSecondaryUsersById(id) {
-    return db('secondaryUsers').where('vacationId', id);
-}
-
-function getByUserUid(uid) {
-    return db('secondaryUsers').where('userUid', uid)
-}
-
-function getExpensesById(id) {
-    // return db('expenses').where('vacationId', id);
-}
-
-
    /*  get: () => {
         return db("vacations");
     },

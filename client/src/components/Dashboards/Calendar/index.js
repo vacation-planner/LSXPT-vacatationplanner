@@ -1,16 +1,39 @@
 import React from "react";
+<<<<<<< HEAD
 // import { render } from "react-dom";
 import Cal from "./calendar.js";
 
+=======
+import AddUsers from "../AddUsers/addUsers.js";
+import Dnd from "./dragDrop.js";
+import Display from "../Vacations/display.js";
+>>>>>>> 84b553981bcff936206e753180c38394426f21f3
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import Button from "../../StyledComponents/Dashboards/Calendar/js/Button.js";
+import Card from "../../StyledComponents/Dashboards/Calendar/js/Card.js";
+import CardBody from "../../StyledComponents/Dashboards/Calendar/js/CardBody.js";
+import styles from "../../StyledComponents/Dashboards/Calendar/js/cardImagesStyles.js";
+import { makeStyles } from "@material-ui/core/styles";
+// this is where all the calendar styles come from
+import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
+// this has a different set of styles for the calendar
+//import "react-big-calendar/lib/css/react-big-calendar.css";
+
+// *************************************************************************************/
+// **  NOTE: I am using this page as a container to display several other components  **/
+// **  they were not meant to be used together so only use the Dnd component          **/
+// **  with this page in the final product.                                           **/
+// *************************************************************************************/
+
+
+const useStyles = makeStyles(styles);
 
 const URL = "http://localhost:5500/api";
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
 
-
-  class Vacation extends React.Component {
+  class Calendar extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -57,6 +80,7 @@ const URL = "http://localhost:5500/api";
       });
   };
  
+  // you dont need the event data here
   fetchEventData = id => {
     axios
       .get(`${URL}/events/`)
@@ -88,26 +112,19 @@ const URL = "http://localhost:5500/api";
   //let vacationDate = [];
   let events = [];
   this.state.vacation.forEach((item, index) => {
-      let vStart = item.startDate.toString();
-      let sD =  vStart.slice(3,5);
-      let sM = vStart.slice(0,2);
-      let sY =  vStart.slice(-4);
-      console.log("sD: ", sD)
-      let vEnd = item.endDate.toString();
-      let eD =  vEnd.slice(3,5);
-      let eM = vEnd.slice(0,2);
-      let eY =  vEnd.slice(-4);
- 
+     
       events.push({
         //id: item.id,
         title: item.title,
-        start: new Date(sY, sM, sD),
-        end: new Date(eY, eM, eD),
+        start: item.startDate,
+        end: item.endDate,
         desc: item.location,
+        resourceId: 1,
       })  
     })
-    
+   // remove this code 
     this.state.eventData.forEach((item, index) => {
+<<<<<<< HEAD
       // extract time from startTime
       let tmpDate = item.startDate.toString();
       let d =  tmpDate.slice(3,5);
@@ -142,12 +159,14 @@ const URL = "http://localhost:5500/api";
         endHrs = tmpEndTime.slice(0,2);
         endMins =  tmpEndTime.slice(2,4);
       }
+=======
+>>>>>>> 84b553981bcff936206e753180c38394426f21f3
      
       events.push({
-        id: item.id,
+        //id: item.id,
         title: item.eventName,
-        start: new Date(y, m, d, hrs, mins),
-        end: new Date(endY, endM, endD, endHrs, endMins),
+        start: item.startTimeDate,
+        end: item.endTimeDate,
         desc: item.description
       })  
         
@@ -165,11 +184,24 @@ render () {
 
   return (
   <div className="cal-outer">
-      <Cal events={this.state.events}>
-          </Cal>
+    <Card style={{ marginLeft: "20px", width: "10%", top: "0px", }}>
+    <CardBody>
+      <Dnd  events={this.state.events} >
+      </Dnd>
+      </CardBody>
+    </Card>
+    {/* <Card style={{marginLeft: "30px", width: "30%", top: "0px", }}>
+    <CardBody>
+      </CardBody>
+    </Card> */}
+    <AddUsers>
+      </AddUsers>
+      <Display>
+        </Display>
 
-      </div>
+    
+  </div>
   );
 }
 }
-export default Vacation;
+export default Calendar;
