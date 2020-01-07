@@ -31,6 +31,7 @@ class AddUsers extends Component {
             vacationsId: this.props.vacationsId,        
             vacationsTitle: this.props.title,
             checked: false,
+            disabled: true,
             //emailError: true,
         };
   }
@@ -126,6 +127,27 @@ class AddUsers extends Component {
     return emailError
   }
 
+  secondaryUserSelect = id => {
+    console.log("id, You are here", id)
+    this.setState({
+        disabled: false
+      }); 
+  }
+
+  secondaryUsersList = (props) => {
+    const secondaryUsers = this.state.usersList.map((secondaryUser) =>
+      <li key={secondaryUser.id} className="secondaryUsers" onClick={() => {this.secondaryUserSelect(secondaryUser.id)}}>{secondaryUser.firstName},{secondaryUser.lastName},{secondaryUser.email}</li>
+    );
+    return (
+      <ul className="ul">{secondaryUsers}</ul>
+    );
+  }
+  /* rowHandler = event => {
+    
+    let participant = event.target.name;
+    console.log("participant, You are here", participant)
+  } */
+
   invite = () => {
     // send emails to all the users on list
     const userList = this.state.usersList;
@@ -150,18 +172,18 @@ class AddUsers extends Component {
         return <Loading>Loading Users...</Loading>;
       } */
       const { checked } = this.state;
-      let rows = [];
+      /* let rows = [];
       // **************************************
       // NOTE: need to correct the formatting
       // *************************************
       this.state.usersList.forEach((user, index) => {
         // Loops through array of secondary users and lists them in a div
         rows.push(
-            <UsersContainer key={index}>
+            <UsersContainer className="usersContainer" key={index} onClick={event => this.rowHandler(event)}>
                 {user.firstName}, {user.lastName}, {user.email}      
             </UsersContainer>
             );
-        });
+        }); */
     return (
         <Zoom in={checked}>
         <GridContainer>
@@ -207,10 +229,10 @@ class AddUsers extends Component {
                             <Button  
                                 onClick={() => this.removeUser()} 
                                 color="rose"
-                                disabled={true}>Remove
+                                disabled={this.state.disabled}>Remove
                             </Button>                                                    
                             <div className="users-list">
-                                {rows}
+                                {this.secondaryUsersList()}
                             </div> 
                             <h5>Press the invite button to send emails to the people on your list.</h5>
                             {/* <p> </p> */}

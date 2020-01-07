@@ -52,3 +52,12 @@
 .email:hover {
     border-bottom-color: purple;
 }
+
+.secondaryUsers {
+    cursor: pointer;
+    background-color: white;
+}
+
+.secondaryUsers:hover {
+    background-color: rgb(241, 36, 104);
+}
