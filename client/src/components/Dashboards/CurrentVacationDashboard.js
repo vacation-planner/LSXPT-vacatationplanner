@@ -33,7 +33,7 @@ class CurrentVacationDashboard extends React.Component {
         vacationDetails: true,
         calendar: false,
         expenses: false,
-        currentVacationIndex: this.props.location.state.currentVacationIndex,
+        currentVacationIndex: this.props.location.state.index,
         currentVacationId: this.props.location.state.currentVacationId,
         currentVacationTitle: this.props.location.state.currentVacationTitle
     }

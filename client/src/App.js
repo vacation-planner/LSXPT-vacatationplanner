@@ -86,6 +86,7 @@ class App extends Component {
                         });
                         console.log('User uid: ', this.state.userUID);
                         this.context.getUserID(this.state.userUID);
+                        this.context.getUserEmail(this.state.currentEmail);
                         this.context.getVacations();
                         this.addCurrentUser(user);
                     })

@@ -75,10 +75,9 @@ class CurrentVacationDrawer extends React.Component {
                     {ListCurrentVacations.map((currentVacation, index) => {
                         const { name } = currentVacation
                         return (
-                            <>
+                            <React.Fragment key={currentVacation.name}>
                                 <ListItem
                                     button
-                                    key={currentVacation.name}
                                     id={currentVacation.name}
                                     onClick={this.displayCurrentVacation}
                                     style={this.state[name] ? selectedDrawer : null}
@@ -86,7 +85,7 @@ class CurrentVacationDrawer extends React.Component {
                                     <ListItemText classes={{ primary: classes.listItemText }} primary={currentVacation.text} />
                                 </ListItem>
                                 <Divider />
-                            </>
+                            </React.Fragment>
                         )
                     })}
                 </List>

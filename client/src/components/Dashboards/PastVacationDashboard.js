@@ -34,7 +34,7 @@ class PastVacationDashboard extends React.Component {
         vacationDetails: true,
         calendar: false,
         expenses: false,
-        pastVacationIndex: this.props.location.state.pastVacationIndex,
+        pastVacationIndex: this.props.location.state.index,
         pastVacationId: this.props.location.state.pastVacationId,
         pastVacationTitle: this.props.location.state.pastVacationTitle,
     }
