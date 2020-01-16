@@ -15,8 +15,6 @@ const styles = theme => ({
         width: '100%',
         display: 'block',
         backgroundColor: '#DDDDDD',
-        //backgroundColor: '#BBC1C5',
-        // height: 'calc(100vh - 65px)',
         borderRight: '1px solid #BBC1C5',
         padding: '0px',
         margin: '0px',
@@ -24,6 +22,9 @@ const styles = theme => ({
     link: {
         textDecoration: 'none',
         color: 'black',
+        '&:hover': {
+            color: 'black',
+        },
     },
     list: {
         padding: '0px',

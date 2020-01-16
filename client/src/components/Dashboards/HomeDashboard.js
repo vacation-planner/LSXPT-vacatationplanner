@@ -1,5 +1,5 @@
 import React from 'react';
-import { fire } from "../Auth/firebaseConfig";
+// import { fire } from "../Auth/firebaseConfig";
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -10,10 +10,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
-import LeftSideBar from './LeftSideBar.js';
-
-
-
 
 const styles = theme => ({
     card: {
@@ -87,8 +83,6 @@ const styles = theme => ({
         flexWrap: 'wrap',
         width: '100%',
         backgroundColor: '#E2E2E2',
-        // minHeight: 'calc(100vh - 65px)',
-        // height: '600px',
     },
     instructions: {
         height: '42vh',
@@ -182,7 +176,6 @@ class HomeDashboard extends React.Component {
 
                                 <CardActions className={classes.cardActions}>
                                     <CreateVacationForm vacationType="premium" />
-
                                 </CardActions>
                             </Card>
                         </div>
