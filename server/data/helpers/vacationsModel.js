@@ -3,7 +3,7 @@ const db = require('../dbConfig')
 module.exports = {
     get: get,
     getById: getById,
-    getPlansById: getPlansById,
+    // getPlansById: getPlansById,
     getSecondaryUsersById: getSecondaryUsersById,
     getByUserUid: getByUserUid,
     getExpensesById: getExpensesById,

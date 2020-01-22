@@ -4,10 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import HomeNavbar from './Navbar/HomeNavbar.js';
-<<<<<<< HEAD
-// import LeftSideBar from './LeftSideBar.js';
-import Vacation from "./Calendar/index.js";
-=======
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -15,7 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import { AppContext } from '../Context/AppContext.js';
 import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
 import LeftSideBar from './LeftSideBar.js';
->>>>>>> 84b553981bcff936206e753180c38394426f21f3
 
 
 
@@ -139,15 +134,6 @@ class HomeDashboard extends React.Component {
 
         return (
             <main className={classes.main}>
-<<<<<<< HEAD
-                <HomeNavbar />
-                <Paper className={classes.paper}>
-                    {/* <LeftSideBar /> */}
-                   {/*  <h1>Test 2</h1> */}
-                    <Vacation>
-                        </Vacation>
-                </Paper>
-=======
                 <HomeNavbar 
                     data={this.state}
                 />
@@ -202,7 +188,6 @@ class HomeDashboard extends React.Component {
                         </div>
                     </Paper>
                 </div>
->>>>>>> 84b553981bcff936206e753180c38394426f21f3
             </main>
         );
     }

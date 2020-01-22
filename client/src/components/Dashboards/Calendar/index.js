@@ -1,13 +1,7 @@
 import React from "react";
-<<<<<<< HEAD
-// import { render } from "react-dom";
-import Cal from "./calendar.js";
-
-=======
 import AddUsers from "../AddUsers/addUsers.js";
 import Dnd from "./dragDrop.js";
 import Display from "../Vacations/display.js";
->>>>>>> 84b553981bcff936206e753180c38394426f21f3
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 import Button from "../../StyledComponents/Dashboards/Calendar/js/Button.js";
@@ -124,43 +118,6 @@ const URL = "http://localhost:5500/api";
     })
    // remove this code 
     this.state.eventData.forEach((item, index) => {
-<<<<<<< HEAD
-      // extract time from startTime
-      let tmpDate = item.startDate.toString();
-      let d =  tmpDate.slice(3,5);
-      let m = tmpDate.slice(0,2);
-      let y =  tmpDate.slice(-4);
-
-      let tmpTime = item.startTime.toString();
-      let hrs = 0
-      let mins = 0
-      
-      if (tmpTime.length === 3) {
-        hrs = tmpTime.slice(0,1);
-        mins =  tmpTime.slice(1,3);
-      } else {
-        hrs = tmpTime.slice(0,2);
-        mins =  tmpTime.slice(2,4);
-      }
-      
-      let tmpEndDate = item.endDate.toString();
-      let endD =  tmpEndDate.slice(3,5);
-      let endM = tmpEndDate.slice(0,2);
-      let endY =  tmpEndDate.slice(-4);
-
-      let tmpEndTime = item.endTime.toString();
-      let endHrs = 0
-      let endMins = 0
-      
-      if (tmpTime.length === 3) {
-        endHrs = tmpEndTime.slice(0,1);
-        endMins =  tmpEndTime.slice(1,3);
-      } else {
-        endHrs = tmpEndTime.slice(0,2);
-        endMins =  tmpEndTime.slice(2,4);
-      }
-=======
->>>>>>> 84b553981bcff936206e753180c38394426f21f3
      
       events.push({
         //id: item.id,

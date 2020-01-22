@@ -127,11 +127,7 @@ eventColors = event => {
   }
 
   render() {
-<<<<<<< HEAD:client/src/components/Dashboards/Calendar/calendar.js
-    // const { events } = this.state
-=======
     /* const { events } = this.state */
->>>>>>> 84b553981bcff936206e753180c38394426f21f3:client/src/components/Dashboards/Calendar/old_calendar.js
     return (
       <div className="Cal">
         <Calendar
