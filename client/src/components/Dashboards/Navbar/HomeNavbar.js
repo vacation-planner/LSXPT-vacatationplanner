@@ -349,7 +349,6 @@ class HomeNavbar extends React.Component {
                                             href={ROUTES.LANDING}
                                             className={classes.navLink}
                                             color="transparent"
-                                            onClick={this.signOut}
                                         >
                                             Sign Out
                                         </Button>

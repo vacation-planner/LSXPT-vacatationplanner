@@ -9,6 +9,7 @@ export default class AppProvider extends Component {
         pastVacationMenu: false,
         loggedIn: true,
         userID: null,
+        userEmail: null,
         allVacations: JSON.parse(localStorage.getItem('allVacations')) || [],
         myVacations: JSON.parse(localStorage.getItem('myVacations')) || [],
         myCurrentVacations: JSON.parse(localStorage.getItem('myCurrentVacations')) || [],
@@ -23,7 +24,10 @@ export default class AppProvider extends Component {
                 value={{
                     state: this.state,
                     getUserID: (value) => {
-                        this.setState({ userID: value})
+                        this.setState({ userID: value })
+                    },
+                    getUserEmail: (value) => {
+                        this.setState({ userEmail: value })
                     },
                     signOut: () => {
                         localStorage.removeItem('allVacations');
@@ -35,9 +39,11 @@ export default class AppProvider extends Component {
                     },
                     getVacations: () => {
                         const userID = this.state.userID;
-                        const endpoint = `${this.state.backendURL}/vacations`;
+                        const userEmail = this.state.userEmail;
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
+                        const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
                         axios
-                            .get(endpoint)
+                            .get(vacationsEndpoint)
                             .then(res => {
                                 const allVacations = res.data;
                                 localStorage.setItem('allVacations', JSON.stringify(allVacations));
@@ -76,10 +82,6 @@ export default class AppProvider extends Component {
                                         }
                                     };
                                 })
-                                localStorage.setItem('myVacations', JSON.stringify(myVacations));
-                                localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations));
-                                localStorage.setItem('myPastVacations', JSON.stringify(myPastVacations));
-
                                 this.setState({
                                     allVacations,
                                     myVacations,
@@ -87,8 +89,46 @@ export default class AppProvider extends Component {
                                     myCurrentVacations
                                 })
                             });
+                            axios
+                            .get(secondaryUserEndpoint)
+                            .then(res => {
+                                const secondaryUserTable = res.data;
+                                let joined = [];
+                                let joinCurrent = [];
+                                let joinPast = [];
+                                secondaryUserTable.forEach(result => {
+                                    if (result.email === userEmail) {
+                                        if (this.state.myVacations.find(x => x.id !== result.vacationsId)) {
+                                            const foundIndex = this.state.allVacations.findIndex(x => x.id === result.vacationsId);
+                                            joined = joined.concat(this.state.allVacations[foundIndex]);
+                                            if (this.state.allVacations[foundIndex].endDate === null) {
+                                                joinCurrent = joinCurrent.concat(this.state.allVacations[foundIndex]);
+                                            }
+        
+                                            else if (Date.parse(this.state.allVacations[foundIndex].endDate) < Date.parse(new Date())  + 172800000) {
+                                                joinPast = joinPast.concat(this.state.allVacations[foundIndex]);
+                                            }
+                                            else {
+                                                joinCurrent = joinCurrent.concat(this.state.allVacations[foundIndex]);
+                                            }
+                                        }
+                                    }
+                                })
+                                this.setState({
+                                    myVacations: this.state.myVacations.concat(joined),
+                                    myCurrentVacations: this.state.myCurrentVacations.concat(joinCurrent),
+                                    myPastVacations: this.state.myPastVacations.concat(joinPast),
+                                })
+                                localStorage.setItem('myVacations', JSON.stringify(this.state.myVacations));
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(this.state.myCurrentVacations));
+                                localStorage.setItem('myPastVacations', JSON.stringify(this.state.myPastVacations));
+                            });
                     },
-                }}
+                    setTempVacationName: (newVacationName) => {
+                        
+                    }
+
+            }}
             >
                 {this.props.children}
             </AppContext.Provider>

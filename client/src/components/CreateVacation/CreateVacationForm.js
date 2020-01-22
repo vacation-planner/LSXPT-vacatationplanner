@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { AppContext } from '../Context/AppContext.js';
-import { Link } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     button: {
@@ -72,6 +72,7 @@ const styles = theme => ({
     dialogTitle: {
         fontSize: '2.5rem'
     },
+
     textField: {
         fontSize: '2.5rem'
     },
@@ -99,11 +100,11 @@ class CreateVacationForm extends React.Component {
         this.setState({ [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    handleNewThing = () => {
-        let newVacationName = this.state.vacationName;
-        console.log(newVacationName)
-        this.context.setTempVacationName(newVacationName)
-    }
+    // addVacationToContext = () => {
+    //     let newVacationName = this.state.vacationName;
+    //     console.log(newVacationName)
+    //     this.context.setTempVacationName(newVacationName)
+    // }
 
     render() {
         const { classes, vacationType } = this.props;
@@ -158,14 +159,16 @@ class CreateVacationForm extends React.Component {
                                 Cancel
                             </Button>
                             {this.props.vacationType === 'basic' ? (
-                                <Button
-                                className={classes.createVacationButton}
-                                onClick={this.handleNewThing}
-                                variant='contained'
-                                href='/createVacationDetails'
-                                >
-                                    Create Vacation
-                                </Button>
+                                <Link to={{ pathname: `/createVacationDetails`, state: { title: this.state.vacationName }}} className={classes.linkStyling}>
+                                    <Button
+                                    className={classes.createVacationButton}
+                                    // onClick={this.addVacationToContext}
+                                    variant='contained'
+                                    // href='/createVacationDetails'
+                                    >
+                                        Create Vacation
+                                    </Button>
+                                </Link>
                             ) : (
 
                                     "Pedro's Stripe Button"
