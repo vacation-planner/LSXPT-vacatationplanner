@@ -118,7 +118,7 @@ class CurrentVacationDrawer extends React.Component {
                     })}
                     <Button className={classes.buttonStyling} onClick={() => this.makePremium()}>Upgrade to Premium</Button>
                 </List>
-                {this.state.batman ? <img src={Pedro} className={classes.Pedro} /> : null } {/*Delete Later*/}
+                {this.state.batman ? <img src={Pedro} className={classes.Pedro} alt='Hello Pedro' /> : null } {/*Delete Later*/}
             </>
         );
     }

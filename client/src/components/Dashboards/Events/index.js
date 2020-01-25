@@ -5,20 +5,20 @@ import { fire } from "../../Auth/firebaseConfig";
 import AddEvents from "./addEvents.js"
 import EventsCalendar from "./eventsCalendar.js"
 
-import { Row,  
+import { //Row,  
     UsersContainer, 
 } from "../../StyledComponents/Dashboards/Events/events.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
-import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
+// import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
-import CardHeader from "../../StyledComponents/Dashboards/Events/js/CardHeader.js"
+// import CardHeader from "../../StyledComponents/Dashboards/Events/js/CardHeader.js"
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import { Zoom } from "@material-ui/core";
 

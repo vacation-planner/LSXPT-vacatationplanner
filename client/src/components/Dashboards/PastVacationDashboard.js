@@ -53,7 +53,7 @@ class PastVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, calendar, events, expenses, pastVacationIndex, pastVacationId, pastVacationTitle } = this.state;
+        const { vacationDetails, calendar, events, expenses, pastVacationId, pastVacationTitle } = this.state;
         // const pastVacation = this.context.state.myPastVacations[pastVacationIndex];
 
         return (
