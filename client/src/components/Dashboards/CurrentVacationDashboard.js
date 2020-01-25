@@ -51,7 +51,7 @@ class CurrentVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, calendar, events, expenses, currentVacationIndex, currentVacationId, currentVacationTitle } = this.state;
+        const { vacationDetails, calendar, events, expenses, currentVacationId, currentVacationTitle } = this.state;
 
         return (
             <main className={classes.main}>
