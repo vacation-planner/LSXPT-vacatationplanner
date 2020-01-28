@@ -100,11 +100,11 @@ class CreateVacationForm extends React.Component {
         this.setState({ [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    // addVacationToContext = () => {
-    //     let newVacationName = this.state.vacationName;
-    //     console.log(newVacationName)
-    //     this.context.setTempVacationName(newVacationName)
-    // }
+    addVacationToContext = () => {
+        let newVacationName = this.state.vacationName;
+        console.log(newVacationName)
+        this.context.addVacation(newVacationName)
+    }
 
     render() {
         const { classes, vacationType } = this.props;
@@ -159,16 +159,16 @@ class CreateVacationForm extends React.Component {
                                 Cancel
                             </Button>
                             {this.props.vacationType === 'basic' ? (
-                                <Link to={{ pathname: `/createVacationDetails`, state: { title: this.state.vacationName }}} className={classes.linkStyling}>
+                                // <Link to={{ pathname: `/createVacationDetails`, state: { title: this.state.vacationName }}} className={classes.linkStyling}>
                                     <Button
                                     className={classes.createVacationButton}
-                                    // onClick={this.addVacationToContext}
+                                    onClick={this.addVacationToContext}
                                     variant='contained'
                                     // href='/createVacationDetails'
                                     >
                                         Create Vacation
                                     </Button>
-                                </Link>
+                                // </Link>
                             ) : (
 
                                     "Pedro's Stripe Button"

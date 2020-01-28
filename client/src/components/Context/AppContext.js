@@ -124,6 +124,40 @@ export default class AppProvider extends Component {
                                 localStorage.setItem('myPastVacations', JSON.stringify(this.state.myPastVacations));
                             });
                     },
+                    addVacation: (vacationName) => {
+                        const userID = this.state.userID;
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
+                        let vacation = {
+                            title: vacationName,
+                            usersUid: userID,
+                        }
+                        axios
+                            .post(vacationsEndpoint, vacation)
+                            .then(res => {
+                                let vacationData = res.data;
+                                console.log(vacationData, vacationData.id)
+                                let newVacation = {
+                                    id: vacationData.id,
+                                    title: vacationName,
+                                    location: null,
+                                    startDate: null,
+                                    endDate: null,
+                                    usersUid: userID
+                                }
+                                const joined = this.state.myVacations.concat(newVacation);
+                                localStorage.setItem('myVacations', JSON.stringify(joined));
+                                const currentJoined = this.state.myCurrentVacations.concat(newVacation);
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(currentJoined));
+                                this.setState({
+                                    myVacations: joined,
+                                    myCurrentVacations: currentJoined
+                                });
+                            })
+                            .catch(err => {
+                                console.log('error adding vacation', err)
+                            });
+
+                    },
                     setTempVacationName: (newVacationName) => {
                         
                     }
