@@ -73,7 +73,6 @@ router.post('/', async (req, res) => {
         await vacations
         .insert(data)
         .then(data => {
-            console.log(data)
             res.status(201).json({ id: data[0] });
           })
         .catch(err => {
