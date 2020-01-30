@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { AppContext } from '../Context/AppContext.js';
 import { Link } from 'react-router-dom';
+import DelayLink from 'react-delay-link';
 
 const styles = theme => ({
     button: {
@@ -85,6 +86,7 @@ class CreateVacationForm extends React.Component {
     state = {
         open: false,
         vacationName: '',
+        disabledButton: false,
     };
 
     handleClickOpen = () => {
@@ -101,8 +103,8 @@ class CreateVacationForm extends React.Component {
     };
 
     addVacationToContext = () => {
+        this.setState({ disabledButton: true})
         let newVacationName = this.state.vacationName;
-        console.log(newVacationName)
         this.context.addVacation(newVacationName)
     }
 
@@ -158,17 +160,29 @@ class CreateVacationForm extends React.Component {
                             <Button className={classes.cancelButton} onClick={this.handleClose} color="primary">
                                 Cancel
                             </Button>
+
                             {this.props.vacationType === 'basic' ? (
-                                // <Link to={{ pathname: `/createVacationDetails`, state: { title: this.state.vacationName }}} className={classes.linkStyling}>
-                                    <Button
+                                <Button
                                     className={classes.createVacationButton}
                                     onClick={this.addVacationToContext}
                                     variant='contained'
-                                    // href='/createVacationDetails'
+                                    disabled={this.state.disabledButton === true}
+                                >
+                                    <DelayLink
+                                        className={classes.linkStyling}
+                                        delay={700}
+                                        to={{
+                                            pathname: '/dashboards/current',
+                                            state: {
+                                                currentVacationTitle: this.state.vacationName,
+                                                title: this.state.vacationName,
+                                            }
+                                        }}
+                                        
                                     >
                                         Create Vacation
-                                    </Button>
-                                // </Link>
+                                         </DelayLink>
+                                </Button>
                             ) : (
 
                                     "Pedro's Stripe Button"

@@ -16,6 +16,7 @@ export default class AppProvider extends Component {
         myPastVacations: JSON.parse(localStorage.getItem('myPastVacations')) || [], 
         //backendURL: 'https://vacationplannerlx.herokuapp.com/api',
         backendURL: 'http://localhost:5500/api',
+        tempVacationHolder: JSON.parse(localStorage.getItem('tempVacationHolder')) || [],
     };
 
     render() {
@@ -135,22 +136,23 @@ export default class AppProvider extends Component {
                             .post(vacationsEndpoint, vacation)
                             .then(res => {
                                 let vacationData = res.data;
-                                console.log(vacationData, vacationData.id)
                                 let newVacation = {
                                     id: vacationData.id,
                                     title: vacationName,
                                     location: null,
                                     startDate: null,
                                     endDate: null,
-                                    usersUid: userID
+                                    usersUid: userID,
+                                    premium: false
                                 }
                                 const joined = this.state.myVacations.concat(newVacation);
                                 localStorage.setItem('myVacations', JSON.stringify(joined));
                                 const currentJoined = this.state.myCurrentVacations.concat(newVacation);
                                 localStorage.setItem('myCurrentVacations', JSON.stringify(currentJoined));
+                                localStorage.setItem('tempVacationHolder', JSON.stringify(newVacation));
                                 this.setState({
                                     myVacations: joined,
-                                    myCurrentVacations: currentJoined
+                                    myCurrentVacations: currentJoined,
                                 });
                             })
                             .catch(err => {
@@ -158,9 +160,7 @@ export default class AppProvider extends Component {
                             });
 
                     },
-                    setTempVacationName: (newVacationName) => {
-                        
-                    }
+
 
             }}
             >

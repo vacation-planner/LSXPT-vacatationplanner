@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { AppContext } from '../../Context/AppContext.js';
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
@@ -123,6 +124,7 @@ addVacation = () => {
 render() {
   const { classes } = this.props;
   const { checked } = this.state;
+  console.log(this.props)
     return (
        <div className="vacationDisplay"> 
         <Zoom in={checked} > 
@@ -130,7 +132,7 @@ render() {
             <GridItem xs={12} sm={12} md={4}>
                 <Card style={{ width: "700px", height: "400px", marginLeft: "50px"}}>
                     {/*  <div className="images"> </div> */}
-                    <h3>Vacation Details: {this.props.title}</h3>
+                    <h3>Vacation Details: {this.props.title || this.context.state.tempVacationHolder}</h3>
                         <CardBody   className={classes.cardBody2}>
                             <CardBody>
                                 <h5>Name of Vacation:{" "}
@@ -140,7 +142,7 @@ render() {
                                         onChange={this.handleChange}
                                         value={this.props.title}
                                         className="title"
-                                        placeHolder={this.props.title}
+                                        placeholder={this.props.title}
                                     />
                                 </h5>
                             </CardBody>
@@ -152,7 +154,7 @@ render() {
                                         onChange={this.handleChange}
                                         value={this.state.location}
                                         className="location"
-                                        placeHolder={this.state.location}
+                                        placeholder={this.state.location}
                                     />  
                                 </h5>
                             </CardBody>
@@ -188,6 +190,8 @@ render() {
     );
   }
 }
+
+Display.contextType = AppContext;
 
 export default withStyles(styles)(Display);
 //export default Vacations;
