@@ -99,7 +99,6 @@ class CreateVacationDetails extends React.Component {
             <div className={classes.container}>
                 <Navbar />
                 <div className={classes.all}>
-                    {/* {this.context.state.tempVacationName}, {this.props.state}, test */}
                     <Vacations>
                         </Vacations>
                 </div>

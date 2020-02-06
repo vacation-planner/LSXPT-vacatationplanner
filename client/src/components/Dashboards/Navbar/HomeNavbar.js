@@ -275,7 +275,7 @@ class HomeNavbar extends React.Component {
                     <CurrentVacationDrawer
                         currentVacations={this.context.state.myCurrentVacations}
                         pastVacations={this.context.state.myPastVacations}
-                        currentVacation={this.context.state.myCurrentVacations[this.state.currentVacationIndex] || this.context.state.myCurrentVacations[this.context.state.myCurrentVacations.length - 1]}//this.context.state.tempVacationHolder
+                        currentVacation={this.context.state.myCurrentVacations[this.state.currentVacationIndex] || this.context.state.myCurrentVacations[this.context.state.myCurrentVacations.length - 1]}
                         displayCurrentVacationContent={this.props.displayCurrentVacationContent}
                     />
                 )}

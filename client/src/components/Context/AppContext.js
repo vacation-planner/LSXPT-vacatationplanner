@@ -131,6 +131,10 @@ export default class AppProvider extends Component {
                         let vacation = {
                             title: vacationName,
                             usersUid: userID,
+                            premium: false,
+                            location: "",
+                            startDate: "",
+                            endDate: ""
                         }
                         axios
                             .post(vacationsEndpoint, vacation)
@@ -139,17 +143,20 @@ export default class AppProvider extends Component {
                                 let newVacation = {
                                     id: vacationData.id,
                                     title: vacationName,
-                                    location: null,
-                                    startDate: null,
-                                    endDate: null,
+                                    location: "",
+                                    startDate: "",
+                                    endDate: "",
                                     usersUid: userID,
-                                    premium: false
+                                    premium: vacation.premium
                                 }
+                                this.setState({
+                                    tempVacationHolder: newVacation
+                                })
+                                localStorage.setItem('tempVacationHolder', JSON.stringify(newVacation));
                                 const joined = this.state.myVacations.concat(newVacation);
                                 localStorage.setItem('myVacations', JSON.stringify(joined));
                                 const currentJoined = this.state.myCurrentVacations.concat(newVacation);
                                 localStorage.setItem('myCurrentVacations', JSON.stringify(currentJoined));
-                                localStorage.setItem('tempVacationHolder', JSON.stringify(newVacation));
                                 this.setState({
                                     myVacations: joined,
                                     myCurrentVacations: currentJoined,
@@ -158,10 +165,25 @@ export default class AppProvider extends Component {
                             .catch(err => {
                                 console.log('error adding vacation', err)
                             });
-
                     },
-
-
+                    updateVacation: (id, location, title, startDate, endDate, userID, premium) => {
+                        let vacation = {
+                            id: id,
+                            title: title,
+                            location: location,
+                            startDate: startDate,
+                            endDate: endDate,
+                            usersUid: userID,
+                            premium: premium
+                        }
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations/${id}`;
+                        axios
+                            .put(vacationsEndpoint, vacation)
+                            .then(res => {
+                                let vacationData = res.data;
+                                console.log(vacationData);
+                            })
+                    },
             }}
             >
                 {this.props.children}

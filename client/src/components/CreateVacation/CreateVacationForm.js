@@ -8,7 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { AppContext } from '../Context/AppContext.js';
-import { Link } from 'react-router-dom';
 import DelayLink from 'react-delay-link';
 
 const styles = theme => ({
@@ -170,7 +169,7 @@ class CreateVacationForm extends React.Component {
                                 >
                                     <DelayLink
                                         className={classes.linkStyling}
-                                        delay={700}
+                                        delay={1500}
                                         to={{
                                             pathname: '/dashboards/current',
                                             state: {
