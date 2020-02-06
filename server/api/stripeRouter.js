@@ -2,31 +2,18 @@ const express = require("express");
 const router = express.Router();
 const stripe = require("../constants/stripe");
 
-router.post("/", (req, res) => {
-    stripe.customers.create(
-        {
-            source: req.body.source,
-            email: req.body.email
-        },
+const stripeCharge = res => (stripeErr, stripeRes) => {
+  if (stripeErr) {
+    res.status(500).send({ error: stripeErr })
+  } else {
+    res.status(200).send({ success: stripeRes })
+  }
+}
 
-        function (err, customer) {
-            if (err) {
-                res.send({
-                    success: false,
-                    message: "Error"
-                });
-            } else {
-                res.send({
-                    success: true,
-                    message: "Success"
-                });
-            }
-            stripe.subscriptions.create({
-                customer: customer.id,
-                plan: req.body.plan
-            });
-        }
-    );
+router.post("/", (req, res) => {
+
+    stripe.charges.create(req.body, stripeCharge(res))
+
 });
 
 module.exports = router;

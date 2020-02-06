@@ -26,6 +26,7 @@
     "react-listbox": "^1.2.7",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
+    "react-stripe-checkout": "^2.6.3",
     "react-with-firebase-auth": "^1.1.0",
     "sass": "^1.23.7",
     "serialize-javascript": "^2.1.2",
