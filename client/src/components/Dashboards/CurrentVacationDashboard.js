@@ -5,8 +5,6 @@ import Vacations from "../Dashboards/Vacations/"
 import Events from "../Dashboards/Events/"
 import AddUsers from "../Dashboards/AddUsers/addUsers.js"
 import { AppContext } from '../Context/AppContext.js';
-import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
-
 
 const styles = theme => ({
     innerContainer: {
@@ -32,8 +30,9 @@ class CurrentVacationDashboard extends React.Component {
         pastVacationMenu: false,
         vacationDetails: true,
         calendar: false,
+        events: false,
         expenses: false,
-        currentVacationIndex: this.props.location.state.currentVacationIndex,
+        currentVacationIndex: this.props.location.state.index,
         currentVacationId: this.props.location.state.currentVacationId,
         currentVacationTitle: this.props.location.state.currentVacationTitle
     }
@@ -42,6 +41,7 @@ class CurrentVacationDashboard extends React.Component {
         this.setState({
             vacationDetails: false,
             calendar: false,
+            events: false,
             expenses: false,
         });
         this.setState({
@@ -51,35 +51,33 @@ class CurrentVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, calendar, expenses, currentVacationIndex, currentVacationId, currentVacationTitle } = this.state;
-        const currentVacation = this.context.state.myCurrentVacations[currentVacationIndex];
+        const { vacationDetails, calendar, events, expenses, currentVacationId, currentVacationTitle } = this.state;
 
         return (
             <main className={classes.main}>
-                <HomeNavbar 
-                data={this.state}
-                displayCurrentVacationContent = {this.displayCurrentVacationContent}
+                <HomeNavbar
+                    data={this.state}
+                    displayCurrentVacationContent={this.displayCurrentVacationContent}
                 />
                 <div className={classes.innerContainer}>
-                
+
                     {vacationDetails ? (
-                        <Vacations  title={currentVacationTitle} vacationsId={currentVacationId}>
+                        <Vacations title={currentVacationTitle} vacationsId={currentVacationId}>
                         </Vacations>
-                       /*  <h1>In Vacation Details Page<br /> <br/> */
-                       /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
-                    ): null }
+                    ) : null}
+
                     {calendar ? (
-                              <Events title={currentVacationTitle} vacationsId={currentVacationId}>
-                              </Events>
-                        /*  <h1>In Calendar<br /> <br/> */
-                       /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
-                    ): null }
+                        <Events title={currentVacationTitle} vacationsId={currentVacationId}>
+                        </Events>
+                    ) : null}
+
+                    {events ? (
+                        <h1>In events Page</h1>
+                    ) : null}
+
                     {expenses ? (
-                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId}>
-                        </AddUsers>
-                       /*   <h1>In Expenses<br /> <br/> */
-                       /*  Current Vacation Details: Index: {currentVacationIndex}, ID: {currentVacationId}, Title: {currentVacationTitle}</h1> */ 
-                    ): null}
+                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
+                    ) : null}
                 </div>
             </main>
         );

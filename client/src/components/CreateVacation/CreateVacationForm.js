@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import { AppContext } from '../Context/AppContext.js';
-import { Link } from '@material-ui/core';
+import DelayLink from 'react-delay-link';
 
 const styles = theme => ({
     button: {
@@ -72,6 +72,7 @@ const styles = theme => ({
     dialogTitle: {
         fontSize: '2.5rem'
     },
+
     textField: {
         fontSize: '2.5rem'
     },
@@ -84,6 +85,7 @@ class CreateVacationForm extends React.Component {
     state = {
         open: false,
         vacationName: '',
+        disabledButton: false,
     };
 
     handleClickOpen = () => {
@@ -99,10 +101,10 @@ class CreateVacationForm extends React.Component {
         this.setState({ [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    handleNewThing = () => {
+    addVacationToContext = () => {
+        this.setState({ disabledButton: true})
         let newVacationName = this.state.vacationName;
-        console.log(newVacationName)
-        this.context.setTempVacationName(newVacationName)
+        this.context.addVacation(newVacationName)
     }
 
     render() {
@@ -157,14 +159,28 @@ class CreateVacationForm extends React.Component {
                             <Button className={classes.cancelButton} onClick={this.handleClose} color="primary">
                                 Cancel
                             </Button>
+
                             {this.props.vacationType === 'basic' ? (
                                 <Button
-                                className={classes.createVacationButton}
-                                onClick={this.handleNewThing}
-                                variant='contained'
-                                href='/createVacationDetails'
+                                    className={classes.createVacationButton}
+                                    onClick={this.addVacationToContext}
+                                    variant='contained'
+                                    disabled={this.state.disabledButton === true}
                                 >
-                                    Create Vacation
+                                    <DelayLink
+                                        className={classes.linkStyling}
+                                        delay={1500}
+                                        to={{
+                                            pathname: '/dashboards/current',
+                                            state: {
+                                                currentVacationTitle: this.state.vacationName,
+                                                title: this.state.vacationName,
+                                            }
+                                        }}
+                                        
+                                    >
+                                        Create Vacation
+                                         </DelayLink>
                                 </Button>
                             ) : (
 

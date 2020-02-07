@@ -1,5 +1,5 @@
 import React from "react";
-import { fire } from "../../Auth/firebaseConfig";
+// import { fire } from "../../Auth/firebaseConfig";
 
 // nodejs library to set properties for components
 import PropTypes from "prop-types";

@@ -1,19 +1,20 @@
 import React, { Component } from "react";
+import { AppContext } from '../../Context/AppContext.js';
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
 import DateTimePicker from "./dateTime.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Vacations/js/Button.js";
-import CustomInput from "../../StyledComponents/Dashboards/Vacations/js/CustomInput.js";
+// import CustomInput from "../../StyledComponents/Dashboards/Vacations/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Vacations/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
-import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
+// import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import { Zoom } from "@material-ui/core";
 
 
@@ -70,42 +71,66 @@ componentDidMount() {
       this.fetchVacation();
     };
 
-addVacation = () => {
+updateVacation = () => {
     // create a record using the input
-    let vacationRec = {
-        title: this.state.title,
-        location: this.state.location,
-        usersUid: this.state.usersUid,
-    }
-    console.log("in the vacationRec: ", vacationRec)
-    axios
-    .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
-        .then(response => {
-            console.log("file written");
-        })
-        .catch(err => {
-            console.log('We"ve encountered an error');
-        });  
+    // let vacationRec = {
+    //     title: this.state.title,
+    //     location: this.state.location,
+    //     usersUid: this.state.usersUid,
+    // }
+    // console.log("in the vacationRec: ", vacationRec)
+    // axios
+    // .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
+    //     .then(response => {
+    //         console.log("file written");
+    //     })
+    //     .catch(err => {
+    //         console.log('We"ve encountered an error');
+    //     });  
+    console.log('Running updateVacation');
+    this.context.updateVacation(this.state.vacationsId, this.state.location, this.state.title, this.state.startDate, this.state.endDate, this.state.usersUid, this.state.premium);
+    this.context.getVacations();
   }
 
   fetchVacation = () => {
-    axios
-      .get(`${URL}/vacations/${this.props.vacationsId}`)
-      .then(response => {
-        response.data.forEach((item, index) => {
-                 
-            this.setState({
-                vacationsId: this.props.vacationsId,
-                location: item.location,
-                startDate: item.startDate,
-                endDate: item.endDate,
-            });
+      if (this.props.vacationsId !== undefined) {
+        axios
+        .get(`${URL}/vacations/${this.props.vacationsId}`)
+        .then(response => {
+          response.data.forEach((item, index) => {
+                   
+              this.setState({
+                  vacationsId: this.props.vacationsId,
+                  location: item.location,
+                  startDate: item.startDate,
+                  endDate: item.endDate,
+                  premium: item.premium
+              });
+          })
         })
-        //console.log('state: ', this.state);
-      })
-      .catch(err => {
-        console.log('We"ve encountered an error');
-      });
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        });
+      }
+      else if (this.context.state.tempVacationHolder.title = this.props.title) {
+        axios
+        .get(`${URL}/vacations/${this.context.state.tempVacationHolder.id}`)
+        .then(response => {
+          response.data.forEach((item, index) => {
+                   
+              this.setState({
+                  vacationsId: this.context.state.tempVacationHolder.id,
+                  location: item.location,
+                  startDate: item.startDate,
+                  endDate: item.endDate,
+                  premium: item.premium
+              });
+          })
+        })
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        });
+      }
   };
 
   handleStartDate = startDate => {
@@ -130,7 +155,7 @@ render() {
             <GridItem xs={12} sm={12} md={4}>
                 <Card style={{ width: "700px", height: "400px", marginLeft: "50px"}}>
                     {/*  <div className="images"> </div> */}
-                    <h3>Vacation Details: {this.props.title}</h3>
+                    <h3>Vacation Details:</h3>
                         <CardBody   className={classes.cardBody2}>
                             <CardBody>
                                 <h5>Name of Vacation:{" "}
@@ -138,9 +163,9 @@ render() {
                                         type="text"
                                         name="title"
                                         onChange={this.handleChange}
-                                        value={this.props.title}
+                                        value={this.state.title}
                                         className="title"
-                                        placeHolder={this.props.title}
+                                        placeholder={this.props.title}
                                     />
                                 </h5>
                             </CardBody>
@@ -152,7 +177,7 @@ render() {
                                         onChange={this.handleChange}
                                         value={this.state.location}
                                         className="location"
-                                        placeHolder={this.state.location}
+                                        placeholder={this.state.location}
                                     />  
                                 </h5>
                             </CardBody>
@@ -171,13 +196,13 @@ render() {
                         </CardBody>
                         <CardBody  className={classes.cardBody}>
                             <Button  
-                                onClick={() => this.addVacation()} 
+                                onClick={() => this.updateVacation()} 
                                 color="rose">Update
                             </Button>
                             <Button  
                                 onClick={() => this.removeUser()} 
                                 color="rose"
-                                disabled="true">Remove
+                                disabled={true}>Remove
                             </Button>                               
                         </CardBody>   
                     </Card>
@@ -189,5 +214,6 @@ render() {
   }
 }
 
+Display.contextType = AppContext;
+
 export default withStyles(styles)(Display);
-//export default Vacations;

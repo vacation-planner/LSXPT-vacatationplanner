@@ -15,8 +15,6 @@ const styles = theme => ({
         width: '100%',
         display: 'block',
         backgroundColor: '#DDDDDD',
-        //backgroundColor: '#BBC1C5',
-        // height: 'calc(100vh - 65px)',
         borderRight: '1px solid #BBC1C5',
         padding: '0px',
         margin: '0px',
@@ -24,6 +22,9 @@ const styles = theme => ({
     link: {
         textDecoration: 'none',
         color: 'black',
+        '&:hover': {
+            color: 'black',
+        },
     },
     list: {
         padding: '0px',
@@ -85,7 +86,6 @@ class HomeDrawer extends React.Component {
                 <List className={classes.list}>
                     <ListItem
                         button
-                        key="currentVacations"
                         id="expandCurrentVacations"
                         onClick={this.handleClick}
                         color="inherit"
@@ -96,42 +96,40 @@ class HomeDrawer extends React.Component {
                     </ListItem>
                     <Divider />
                     <Collapse in={this.state.expandCurrentVacations} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
+                        <List component="div" disablePadding >
                             {currentVacations.map((currentVacation, index) => (
-                                <>
+                                <React.Fragment key={`current${currentVacation.id}`}>
                                     <Link
                                         className={classes.link}
                                         to={{
                                             pathname: '/dashboards/current',
                                             state: {
-                                                currentVacationIndex: index,
+                                                index: index,
                                                 currentVacationId: currentVacation.id,
                                                 currentVacationTitle: currentVacation.title,
                                             }
                                         }}
-                                    >
+                                        >
                                         <ListItem
                                             button
-                                            key={currentVacation.id}
                                             onClick={this.selectCurrentVacation}
                                             className={classes.nested}
                                         >
                                             <ListItemText
                                                 id={currentVacation.id}
-                                                currentVacationIndex={index}
+                                                index={index}
                                                 primary={currentVacation.title}
                                                 classes={{ primary: classes.listItemTextLayerTwo }}
                                             />
                                         </ListItem>
                                     </Link>
                                     <Divider />
-                                </>
+                                </React.Fragment>
                             ))}
                         </List>
                     </Collapse>
                     <ListItem
                         button
-                        key="pastVacations"
                         id="expandPastVacations"
                         onClick={this.handleClick}
                         color="inherit" 
@@ -144,13 +142,13 @@ class HomeDrawer extends React.Component {
                     <Collapse in={this.state.expandPastVacations} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             {pastVacations.map((pastVacation, index) => (
-                                <>
+                                <React.Fragment key={`past${pastVacation.id}`}>
                                     <Link
                                         className={classes.link}
                                         to={{
                                             pathname: '/dashboards/past',
                                             state: {
-                                                pastVacationIndex: index,
+                                                index: index,
                                                 pastVacationId: pastVacation.id,
                                                 pastVacationTitle: pastVacation.title,
                                             }
@@ -158,20 +156,19 @@ class HomeDrawer extends React.Component {
                                     >
                                         <ListItem
                                             button
-                                            key={pastVacation.id}
                                             onClick={this.selectPastVacation}
                                             className={classes.nested}
                                         >
                                             <ListItemText
                                                 id={pastVacation.id}
-                                                pastVacationIndex={index}
+                                                index={index}
                                                 primary={pastVacation.title}
                                                 classes={{ primary: classes.listItemTextLayerTwo }}
                                             />
                                         </ListItem>
                                     </Link>
                                     <Divider />
-                                </>
+                                </React.Fragment>
                             ))}
                         </List>
                     </Collapse>

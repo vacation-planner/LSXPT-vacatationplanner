@@ -17,7 +17,7 @@ const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar)
 
- let eventSave = [];
+//  let eventSave = [];
  /* const events = [
     {
       id: 0,
@@ -28,12 +28,12 @@ const DragAndDropCalendar = withDragAndDrop(BigCalendar)
     },
   ]   */
   
-const resourceMap = [
-  { resourceId: 1, resourceTitle: 'Vacation Date' },
-  { resourceId: 2, resourceTitle: 'Event' },
-  { resourceId: 3, resourceTitle: 'Meeting room 1' },
-  { resourceId: 4, resourceTitle: 'Meeting room 2' },
-]
+// const resourceMap = [
+//   { resourceId: 1, resourceTitle: 'Vacation Date' },
+//   { resourceId: 2, resourceTitle: 'Event' },
+//   { resourceId: 3, resourceTitle: 'Meeting room 1' },
+//   { resourceId: 4, resourceTitle: 'Meeting room 2' },
+// ]
 
 
 class EventsCalendar extends React.Component {

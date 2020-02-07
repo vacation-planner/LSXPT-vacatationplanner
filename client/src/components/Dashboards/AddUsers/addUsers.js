@@ -9,12 +9,13 @@ import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js"
 import { Row,  
         UsersContainer,  
     } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
-import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
-import { makeStyles } from "@material-ui/core/styles";
-import { withStyles, Zoom } from "@material-ui/core";
+// import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
+// import { makeStyles } from "@material-ui/core/styles";
+import { Zoom } from "@material-ui/core";
+// import { withStyles } from "@material-ui/core";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
 
-const useStyles = makeStyles(styles);
+// const useStyles = makeStyles(styles);
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
