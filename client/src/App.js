@@ -84,9 +84,7 @@ class App extends Component {
                             userUID: user.uid
                         });
                         console.log('User uid: ', this.state.userUID);
-// We need to check localStorage for the value vacationsId. If present we need to get the vacation
-// details and create a new record in the vacation table with the current users Uid combined with 
-// the saved vacation details.                        
+// We need to check localStorage for the value vacationsId.                         
                         this.checkLocalStorage();
                         this.context.getUserID(this.state.userUID);
                         this.context.getVacations();
