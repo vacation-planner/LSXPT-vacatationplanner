@@ -4,15 +4,25 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
+    buttonStyling: {
+        fontSize: '1.75rem',
+        width: '100%',
+        textTransform: 'none',
+        fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+        fontWeight: 400,
+        lineHeight: 1.5,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        padding: '8px 16px'
+    },
     nameDiv: {
         margin: '0px',
         textAlign: 'center',
         padding: '15px',
-        // color: 'black',
         color: 'white',
-        //backgroundColor: '#DDDDDD',
         backgroundColor: 'black',
         fontSize: '1.75rem'
     },
@@ -32,7 +42,7 @@ class CurrentVacationDrawer extends React.Component {
         calendar: false,
         expenses: false,
         mobileOpen: false,
-        currentVacation: this.props.currentVacation
+        currentVacation: this.props.currentVacation,
     };
 
     handleClose = () => {
@@ -54,44 +64,76 @@ class CurrentVacationDrawer extends React.Component {
         this.props.displayCurrentVacationContent(event);
     };
 
+    makePremium = () => { 
+    }
+
     render() {
         const { classes } = this.props;
         const selectedDrawer = {
             backgroundColor: 'white'
         };
-
         const ListCurrentVacations = [
             { name: 'vacationDetails', text: 'Vacation Details' },
             { name: 'calendar', text: 'Calendar' },
+            { name: 'events', text: 'Events' },
             { name: 'expenses', text: 'Expenses' }
         ];
 
-        return (
-            <>
-                <div className={classes.nameDiv}>
-                    {this.state.currentVacation.title || 'test'}
-                </div>
-                <List onClick={this.handleClose} className={classes.list}>
-                    {ListCurrentVacations.map((currentVacation, index) => {
-                        const { name } = currentVacation
-                        return (
-                            <>
-                                <ListItem
-                                    button
-                                    key={currentVacation.name}
-                                    id={currentVacation.name}
-                                    onClick={this.displayCurrentVacation}
-                                    style={this.state[name] ? selectedDrawer : null}
-                                >
-                                    <ListItemText classes={{ primary: classes.listItemText }} primary={currentVacation.text} />
-                                </ListItem>
-                                <Divider />
-                            </>
-                        )
-                    })}
-                </List>
-            </>
-        );
+        if(this.state.currentVacation.premium === 0 || this.state.currentVacation.premium === false) {
+            return (
+                <>
+                    <div className={classes.nameDiv}>
+                        {this.state.currentVacation.title || 'test'}
+                    </div>
+                    <List onClick={this.handleClose} className={classes.list}>
+                        {ListCurrentVacations.map((currentVacation, index) => {
+                            const { name } = currentVacation
+                            return (
+                                <React.Fragment key={currentVacation.name}>
+                                    <ListItem
+                                        button
+                                        id={currentVacation.name}
+                                        onClick={this.displayCurrentVacation}
+                                        style={this.state[name] ? selectedDrawer : null}
+                                    >
+                                        <ListItemText classes={{ primary: classes.listItemText }} primary={currentVacation.text} />
+                                    </ListItem>
+                                    <Divider />
+                                </React.Fragment>
+                            )
+                        })}
+                        <Button className={classes.buttonStyling} onClick={() => this.makePremium()}>Upgrade to Premium</Button>
+                    </List>
+                </>
+            );
+        }
+        else {
+            return (
+                <>
+                    <div className={classes.nameDiv}>
+                        {this.state.currentVacation.title || 'test'}
+                    </div>
+                    <List onClick={this.handleClose} className={classes.list}>
+                        {ListCurrentVacations.map((currentVacation, index) => {
+                            const { name } = currentVacation
+                            return (
+                                <React.Fragment key={currentVacation.name}>
+                                    <ListItem
+                                        button
+                                        id={currentVacation.name}
+                                        onClick={this.displayCurrentVacation}
+                                        style={this.state[name] ? selectedDrawer : null}
+                                    >
+                                        <ListItemText classes={{ primary: classes.listItemText }} primary={currentVacation.text} />
+                                    </ListItem>
+                                    <Divider />
+                                </React.Fragment>
+                            )
+                        })}
+                    </List>
+                </>
+            );
+        }
     }
 }
 

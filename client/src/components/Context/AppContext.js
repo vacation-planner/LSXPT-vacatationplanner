@@ -9,12 +9,14 @@ export default class AppProvider extends Component {
         pastVacationMenu: false,
         loggedIn: true,
         userID: null,
+        userEmail: null,
         allVacations: JSON.parse(localStorage.getItem('allVacations')) || [],
         myVacations: JSON.parse(localStorage.getItem('myVacations')) || [],
         myCurrentVacations: JSON.parse(localStorage.getItem('myCurrentVacations')) || [],
         myPastVacations: JSON.parse(localStorage.getItem('myPastVacations')) || [], 
         //backendURL: 'https://vacationplannerlx.herokuapp.com/api',
         backendURL: 'http://localhost:5500/api',
+        tempVacationHolder: JSON.parse(localStorage.getItem('tempVacationHolder')) || [],
     };
 
     render() {
@@ -23,7 +25,10 @@ export default class AppProvider extends Component {
                 value={{
                     state: this.state,
                     getUserID: (value) => {
-                        this.setState({ userID: value})
+                        this.setState({ userID: value })
+                    },
+                    getUserEmail: (value) => {
+                        this.setState({ userEmail: value })
                     },
                     signOut: () => {
                         localStorage.removeItem('allVacations');
@@ -35,9 +40,11 @@ export default class AppProvider extends Component {
                     },
                     getVacations: () => {
                         const userID = this.state.userID;
-                        const endpoint = `${this.state.backendURL}/vacations`;
+                        const userEmail = this.state.userEmail;
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
+                        const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
                         axios
-                            .get(endpoint)
+                            .get(vacationsEndpoint)
                             .then(res => {
                                 const allVacations = res.data;
                                 localStorage.setItem('allVacations', JSON.stringify(allVacations));
@@ -76,10 +83,6 @@ export default class AppProvider extends Component {
                                         }
                                     };
                                 })
-                                localStorage.setItem('myVacations', JSON.stringify(myVacations));
-                                localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations));
-                                localStorage.setItem('myPastVacations', JSON.stringify(myPastVacations));
-
                                 this.setState({
                                     allVacations,
                                     myVacations,
@@ -87,8 +90,101 @@ export default class AppProvider extends Component {
                                     myCurrentVacations
                                 })
                             });
+                            axios
+                            .get(secondaryUserEndpoint)
+                            .then(res => {
+                                const secondaryUserTable = res.data;
+                                let joined = [];
+                                let joinCurrent = [];
+                                let joinPast = [];
+                                secondaryUserTable.forEach(result => {
+                                    if (result.email === userEmail) {
+                                        if (this.state.myVacations.find(x => x.id !== result.vacationsId)) {
+                                            const foundIndex = this.state.allVacations.findIndex(x => x.id === result.vacationsId);
+                                            joined = joined.concat(this.state.allVacations[foundIndex]);
+                                            if (this.state.allVacations[foundIndex].endDate === null) {
+                                                joinCurrent = joinCurrent.concat(this.state.allVacations[foundIndex]);
+                                            }
+        
+                                            else if (Date.parse(this.state.allVacations[foundIndex].endDate) < Date.parse(new Date())  + 172800000) {
+                                                joinPast = joinPast.concat(this.state.allVacations[foundIndex]);
+                                            }
+                                            else {
+                                                joinCurrent = joinCurrent.concat(this.state.allVacations[foundIndex]);
+                                            }
+                                        }
+                                    }
+                                })
+                                this.setState({
+                                    myVacations: this.state.myVacations.concat(joined),
+                                    myCurrentVacations: this.state.myCurrentVacations.concat(joinCurrent),
+                                    myPastVacations: this.state.myPastVacations.concat(joinPast),
+                                })
+                                localStorage.setItem('myVacations', JSON.stringify(this.state.myVacations));
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(this.state.myCurrentVacations));
+                                localStorage.setItem('myPastVacations', JSON.stringify(this.state.myPastVacations));
+                            });
                     },
-                }}
+                    addVacation: (vacationName) => {
+                        const userID = this.state.userID;
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
+                        let vacation = {
+                            title: vacationName,
+                            usersUid: userID,
+                            premium: false,
+                            location: "",
+                            startDate: "",
+                            endDate: ""
+                        }
+                        axios
+                            .post(vacationsEndpoint, vacation)
+                            .then(res => {
+                                let vacationData = res.data;
+                                let newVacation = {
+                                    id: vacationData.id,
+                                    title: vacationName,
+                                    location: "",
+                                    startDate: "",
+                                    endDate: "",
+                                    usersUid: userID,
+                                    premium: vacation.premium
+                                }
+                                this.setState({
+                                    tempVacationHolder: newVacation
+                                })
+                                localStorage.setItem('tempVacationHolder', JSON.stringify(newVacation));
+                                const joined = this.state.myVacations.concat(newVacation);
+                                localStorage.setItem('myVacations', JSON.stringify(joined));
+                                const currentJoined = this.state.myCurrentVacations.concat(newVacation);
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(currentJoined));
+                                this.setState({
+                                    myVacations: joined,
+                                    myCurrentVacations: currentJoined,
+                                });
+                            })
+                            .catch(err => {
+                                console.log('error adding vacation', err)
+                            });
+                    },
+                    updateVacation: (id, location, title, startDate, endDate, userID, premium) => {
+                        let vacation = {
+                            id: id,
+                            title: title,
+                            location: location,
+                            startDate: startDate,
+                            endDate: endDate,
+                            usersUid: userID,
+                            premium: premium
+                        }
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations/${id}`;
+                        axios
+                            .put(vacationsEndpoint, vacation)
+                            .then(res => {
+                                let vacationData = res.data;
+                                console.log(vacationData);
+                            })
+                    },
+            }}
             >
                 {this.props.children}
             </AppContext.Provider>

@@ -73,7 +73,7 @@ router.post('/', async (req, res) => {
         await vacations
         .insert(data)
         .then(data => {
-            res.status(201).json({ id: data.id });
+            res.status(201).json({ id: data[0] });
           })
         .catch(err => {
             res.status(500).json({'error': `Server responded with error: ${err}`});

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { fire } from "../Auth/firebaseConfig";
-import { Link } from "react-router-dom";
+// import { fire } from "../Auth/firebaseConfig";
+// import { Link } from "react-router-dom";
 import withStyles from '@material-ui/core/styles/withStyles';
 import { AppContext } from '../Context/AppContext.js';
 import Navbar from '../Dashboards/Navbar/LPNavbar.js';

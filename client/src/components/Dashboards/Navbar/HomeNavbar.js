@@ -275,7 +275,7 @@ class HomeNavbar extends React.Component {
                     <CurrentVacationDrawer
                         currentVacations={this.context.state.myCurrentVacations}
                         pastVacations={this.context.state.myPastVacations}
-                        currentVacation={this.context.state.myCurrentVacations[this.state.currentVacationIndex]}
+                        currentVacation={this.context.state.myCurrentVacations[this.state.currentVacationIndex] || this.context.state.myCurrentVacations[this.context.state.myCurrentVacations.length - 1]}
                         displayCurrentVacationContent={this.props.displayCurrentVacationContent}
                     />
                 )}
@@ -349,7 +349,6 @@ class HomeNavbar extends React.Component {
                                             href={ROUTES.LANDING}
                                             className={classes.navLink}
                                             color="transparent"
-                                            onClick={this.signOut}
                                         >
                                             Sign Out
                                         </Button>

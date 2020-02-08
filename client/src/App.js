@@ -12,6 +12,8 @@ import CurrentVacationDashboard from './components/Dashboards/CurrentVacationDas
 import PastVacationDashboard from './components/Dashboards/PastVacationDashboard.js';
 import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
 import Signin from './components/Auth/Signin';
+import Vacations from './components/Dashboards/Vacations';
+//import axios from 'axios';
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/';
 const URL = 'http://localhost:5500/';
@@ -84,14 +86,10 @@ class App extends Component {
                             userUID: user.uid
                         });
                         console.log('User uid: ', this.state.userUID);
-// We need to check localStorage for the value vacationsId.                         
-                        this.checkLocalStorage();
-                        this.context.getUserID(this.state.userUID);
-                        this.context.getVacations();
-
-// the two previous lines of code should be moved to line 154, see reasons below.
-
                         this.addCurrentUser(user);
+                        this.context.getUserID(this.state.userUID);
+                        this.context.getUserEmail(this.state.currentEmail);
+                        this.context.getVacations();
                     })
                     .catch(err => console.log('error ', err));
 
@@ -156,9 +154,9 @@ class App extends Component {
     // this function grabs any parameter in the url
     getUrlVars = () => {
         let vars = {};
-        let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = value;
-        });
+        // let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        //     vars[key] = value;
+        // });
         return vars;
     };
 
@@ -245,9 +243,15 @@ class App extends Component {
                             );
                         }}
                     />
-                   {/*  <Route
+                    <Route
+                        path={ROUTES.VACATIONDETAILS}
+                        render={props => 
+                            <Vacations {...props} />
+                        }
+                    />
+                    <Route
                         path={ROUTES.LANDING}
-                    /> */}
+                    />
                 </Switch>
             </div>
         );

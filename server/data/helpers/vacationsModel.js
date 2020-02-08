@@ -5,7 +5,7 @@ module.exports = {
     getById: getById,
     //getPlansById: getPlansById,
     //getSecondaryUsersById: getSecondaryUsersById,
-    //getByUserUid: getByUserUid,
+    getByUserUid: getByUserUid,
     //getExpensesById: getExpensesById,
     insert: insert,
     remove: remove,
@@ -39,6 +39,9 @@ function getById(id) {
     return db('vacations').where('id', id);
 }
 
+function getByUserUid(uid) {
+    return db('vacations').where('uid', uid);
+}
    /*  get: () => {
         return db("vacations");
     },
