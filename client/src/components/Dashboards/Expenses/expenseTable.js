@@ -13,12 +13,12 @@ import {
   import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
-import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
-import CardHeader from "../../StyledComponents/Dashboards/Expenses/js/CardHeader.js"
+//import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
+//import CardHeader from "../../StyledComponents/Dashboards/Expenses/js/CardHeader.js"
 import "../../StyledComponents/Dashboards/DashBoards.css";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
+//const URL = "http://localhost:5500/api";
 
 class ExpenseTable extends Component {
   constructor(props) {

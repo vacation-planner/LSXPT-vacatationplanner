@@ -5,9 +5,9 @@ import { fire } from "../../Auth/firebaseConfig";
 import AddEvents from "./addEvents.js"
 import EventsCalendar from "./eventsCalendar.js"
 
-import { //Row,  
-    UsersContainer, 
-} from "../../StyledComponents/Dashboards/Events/events.js";
+//import { //Row,  
+ //   UsersContainer, 
+//} from "../../StyledComponents/Dashboards/Events/events.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 // import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
@@ -307,7 +307,6 @@ render() {
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
-                                            eventsId={this.state.eventsId} 
                                             participant={this.state.participant}
                                             disabled={this.state.disabled}
                                             secondaryUsersId={this.state.secondaryUsersId}

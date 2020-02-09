@@ -3,12 +3,12 @@ import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
-import { Zoom, Tooltip, Typography } from "@material-ui/core";
+import { Tooltip, Typography } from "@material-ui/core";
 
 import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 
@@ -28,7 +28,7 @@ const style = {
   }
 };
 
-const useStyles = makeStyles(style);
+//const useStyles = makeStyles(style);
 
 class AddEvents extends Component {
   constructor(props) {
