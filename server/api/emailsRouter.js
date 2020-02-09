@@ -5,27 +5,6 @@ const events = require("../data/helpers/eventsModel");
 const sgMail = require('@sendgrid/mail');
 
 
-
-// using Twilio SendGrid's v3 Node.js Library
-// https://github.com/sendgrid/sendgrid-nodejs
-
-//const sgMail = require('@sendgrid/mail');
-//sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-/* const msg = {
-  to: 'willieino@hotmail.com',
-  from: 'test@example.com',
-  subject: 'Sending with Twilio SendGrid is Fun',
-  text: 'and easy to do anywhere, even with Node.js',
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-};
-sgMail.send(msg); 
- */
-
-//const sgMail = require('@sendgrid/mail');
-//sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-
 function sendEmail(data) {
   console.log("in sendEmail");
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -38,14 +17,14 @@ function sendEmail(data) {
 
 
   let emailHtml = '<p>Greetings, you are invited to participate in planning a vacation. </p>';
-  emailHtml = emailHtml + '<p></p><a href="http://localhost:3000?id='+vacationsId+'">Click to Join</a> <p>This is to verify we can send emails from our app.</p>';
+  emailHtml = emailHtml + '<p></p><a href="http://localhost:3000?id='+vacationsId+'">Click to Join</a> <p>This is totally not spam. .</p>';
   //emailHtml = emailHtml + vacationsId
-  console.log("emailHtml: ", emailHtml);
+  //console.log("emailHtml: ", emailHtml);
   const msg2 = {
-   // to: ['willieino@hotmail.com', 'willieino@gmail.com'],
+  
     to: userList,
     from: 'vacationplannerlx@gmail.com',
-    subject: 'Hello Vacation Planner Developer',
+    subject: 'Hello Vacation Planner',
     text: 'You have been invited to go on a vacation!',
     html: emailHtml,
   };
@@ -71,22 +50,8 @@ router.post('/', (req, res) => {
   }
   
 });
-  /* try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    if (decodedToken) {
-      req.body.uid = decodedToken.uid;
-      return next();
-    } else {
-      return res.status(401).send("You are not authorized!");
-    }
-  } catch (e) {
-    return res.status(401).send("You are no authorized!");
-  } */
-
 
 router.get("/", (req, res) => {
-  
-  
   events
     .get()
     .then(event => {
