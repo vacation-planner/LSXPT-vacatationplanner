@@ -2,8 +2,10 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import Vacations from "../Dashboards/Vacations/"
-import Events from "../Dashboards/Events/"
-import AddUsers from "../Dashboards/AddUsers/addUsers.js"
+import Events from "../Dashboards/Events/";
+//import Expenses from "../Dashboards/Events/";
+import AddUsers from "../Dashboards/AddUsers/addUsers.js";
+import ExpenseTable from "../Dashboards/Expenses/expenseTable.js";
 import { AppContext } from '../Context/AppContext.js';
 
 const styles = theme => ({
@@ -67,16 +69,18 @@ class CurrentVacationDashboard extends React.Component {
                     ) : null}
 
                     {calendar ? (
-                        <Events title={currentVacationTitle} vacationsId={currentVacationId}>
-                        </Events>
+                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId}>
+                        </AddUsers>
                     ) : null}
 
                     {events ? (
-                        <h1>In events Page</h1>
+                         <Events title={currentVacationTitle} vacationsId={currentVacationId}>
+                        </Events> 
                     ) : null}
 
                     {expenses ? (
-                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
+                        <ExpenseTable title={currentVacationTitle} vacationsId={currentVacationId} >
+                         </ExpenseTable>
                     ) : null}
                 </div>
             </main>

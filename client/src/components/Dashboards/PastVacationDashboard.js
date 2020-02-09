@@ -5,8 +5,10 @@ import Vacations from "../Dashboards/Vacations/index.js"
 //import ExpenseTable from "../Dashboards/Expenses/expenseTable.js"
 //import NewTable from "../Dashboards/Expenses/newTable.js"
 import Events from "../Dashboards/Events/index.js"
+//import Expenses from "../Dashboards/Events/addEvents.js";
+import ExpenseTable from "../Dashboards/Expenses/expenseTable.js";
 import AddUsers from "../Dashboards/AddUsers/addUsers.js"
-import Vacation from "./Calendar/index.js";
+//import Vacation from "./Calendar/index.js";
 import { AppContext } from '../Context/AppContext.js';
 // import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
 
@@ -73,17 +75,18 @@ class PastVacationDashboard extends React.Component {
                     ): null }
 
                     {calendar ? (
-                        <Events title={pastVacationTitle} vacationsId={pastVacationId}>
-                            </Events>
+                        <AddUsers title={pastVacationTitle} vacationsId={pastVacationId}>
+                            </AddUsers>
                     ): null }
 
                     {events ? (
-                        <h1>In events Page</h1>
+                        <Events title={pastVacationTitle} vacationsId={pastVacationId}>
+                        </Events>
                     ): null}
 
                     {expenses ? (
-                      <AddUsers title={pastVacationTitle} vacationsId={pastVacationId}>
-                          </AddUsers>
+                      <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId}>
+                          </ExpenseTable>
                     ): null}
                 </div>
             </main>

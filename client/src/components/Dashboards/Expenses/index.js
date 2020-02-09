@@ -368,3 +368,5 @@ render() {
     );
   }
 }
+
+export default withStyles(styles)(Expenses);
