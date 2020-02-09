@@ -89,7 +89,7 @@ class AddUsers extends Component {
         vacationsId: this.state.vacationsId,
     }
     usersList.push(userRec);
-    
+    console.log("userRec: ", userRec)
     axios
         .post(`${URL}/secondaryUsers/`, userRec)
         .then(response => {
