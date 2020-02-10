@@ -45,6 +45,29 @@ router.get('/user/:uid', async (req, res) => {
     })
 });
 
+/********* Get By Event Id *************/
+// UNCOMMENT TO PROTECT THE ROUTE!
+// router.get('/:vacationId', protect, (req, res) => {
+    router.get("/events/:eventsId", (req, res) => {
+        const { eventsId } = req.params;
+        expenses
+          .getByEventsId(eventsId)
+          .then(expense => {
+            if (expense) {
+              res.json(expense);
+            } else {
+              res.status(404).json({
+                message: "The expense with the specified event ID does not exist."
+              });
+            }
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: "The expense's information could not be retrieved." });
+          });
+      }); 
+
 // Get expenses by vacation id
 router.get('/vac/:id', async (req, res) => {
     const {id} = req.params;

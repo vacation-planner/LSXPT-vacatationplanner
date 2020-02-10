@@ -47,7 +47,7 @@ class AddEvents extends Component {
     disabled: this.props.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
-    expense: "",
+    amount: "",
     secondaryUsersExpense: "",
 
    };
@@ -134,12 +134,12 @@ let expenseRec = {
   eventsId: this.props.eventsId,
   vacationsId: this.props.vacationsId,
   secondaryUsersId: this.props.secondaryUsersId,
-  expense: this.state.expense,
+  amount: this.state.amount,
   secondaryUsersExpense: this.state.secondaryUsersExpense
 }
 
 axios
-.post(`${URL}/eventUsers/`, expenseRec)
+.post(`${URL}/expenses/`, expenseRec)
 .then(response => {
     console.log("file written");
     // get the id of the new record
@@ -195,9 +195,9 @@ axios
         >
         <input
           type="text"
-          name="expense"
+          name="amount"
           onChange={this.handleChange}
-          value={this.state.expense}
+          value={this.state.amount}
           className="expense"
         />
         </Tooltip>
