@@ -9,7 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/core/styles";
 import { AppContext } from "../Context/AppContext.js";
 import { Link } from "react-router-dom";
-import StripeCheckout from "react-stripe-checkout";
+import Checkout from "../Checkout/Checkout";
 
 const styles = theme => ({
   button: {
@@ -176,7 +176,7 @@ class CreateVacationForm extends React.Component {
               <Button
                 className={classes.cancelButton}
                 onClick={this.handleClose}
-                color="primary"
+                color="secondary"
               >
                 Cancel
               </Button>
@@ -198,14 +198,22 @@ class CreateVacationForm extends React.Component {
                   </Button>
                 </Link>
               ) : (
-                <StripeCheckout
-                  stripeKey="pk_test_YaXrgpvhX1N77ScjSA8RHgj700EkOslsjn"
-                  token={this.onToken}
-                  amount="500"
-                  currency="USD"
-                  name="Vacation Planner"
-                  description="Premium Vacation Package"
-                />
+                <Link
+                  to={{
+                    pathname: `/premium`,
+                    state: { title: this.state.vacationName }
+                  }}
+                  className={classes.linkStyling}
+                >
+                  <Button
+                    className={classes.createVacationButton}
+                    // onClick={this.addVacationToContext}
+                    variant="contained"
+                    // href='/createVacationDetails'
+                  >
+                    Go to Payment
+                  </Button>
+                </Link>
               )}
             </div>
           </DialogActions>

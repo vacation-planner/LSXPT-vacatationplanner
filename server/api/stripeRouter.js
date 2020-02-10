@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 const stripe = require("../constants/stripe");
 
-const stripeCharge = res => (stripeErr, stripeRes) => {
-  if (stripeErr) {
-    res.status(500).send({ error: stripeErr })
-  } else {
-    res.status(200).send({ success: stripeRes })
-  }
-}
+router.post("/", async (req, res) => {
 
-router.post("/", (req, res) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 500,
+    currency: 'usd'
+  });
 
-    stripe.charges.create(req.body, stripeCharge(res))
+  // Send publishable key and PaymentIntent details to client
+  res.send({
+    clientSecret: paymentIntent.client_secret
+  });
 
 });
 
