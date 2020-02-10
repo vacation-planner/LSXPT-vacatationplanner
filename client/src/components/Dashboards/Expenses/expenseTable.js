@@ -68,10 +68,10 @@ class ExpenseTable extends Component {
         onBlur={e => {
           const data = [...this.state.expenses];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
-          this.setState({ eventUsers: data });
+          this.setState({ expenses: data });
         }}
         dangerouslySetInnerHTML={{
-          __html: this.state.eventUsers[cellInfo.index][cellInfo.column.id]
+          __html: this.state.expenses[cellInfo.index][cellInfo.column.id]
         }}
       />
     );

@@ -47,9 +47,10 @@ class AddEvents extends Component {
     disabled: this.props.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
-    amount: "",
-    secondaryUsersExpense: "",
-
+    vacationsTitle: this.props.title,
+    amount: 0,
+    secondaryUsersExpense: 0,
+    title: "",
    };
 }
 
@@ -131,13 +132,15 @@ axios
 
 saveExpense = () => {
 let expenseRec = {
+  title: this.state.title,
   eventsId: this.props.eventsId,
   vacationsId: this.props.vacationsId,
+  vacationsTitle: this.props.title,
   secondaryUsersId: this.props.secondaryUsersId,
   amount: this.state.amount,
   secondaryUsersExpense: this.state.secondaryUsersExpense
 }
-
+console.log("expenseRec: ", expenseRec);
 axios
 .post(`${URL}/expenses/`, expenseRec)
 .then(response => {
@@ -183,6 +186,25 @@ axios
         </FormControl>
       </div>
       <div className="right">
+      <p>Expense Title: 
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit" variant="h6">
+              Enter the title of the expense
+            </Typography>
+          }
+        >
+        <input
+          type="text"
+          name="title"
+          onChange={this.handleChange}
+          value={this.state.title}
+          className="title"
+        />
+        </Tooltip>
+      </p>
       <p>Event Cost: 
       <Tooltip
           placement="top"
