@@ -8,9 +8,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('expenses').insert([
-        {id: 1, title: 'jetski', amount: 10.25, usersUid: '5XVDcbsvwka_bnC'},
-        {id: 2, title: 'dinner', amount: 200.24, usersUid: '5XVDhhsvwka_bnC'},
-        {id: 3, title: 'rental', amount: 50.00, usersUid: '5XVkkbsvwka_bnC'}     
+        {id: 1, eventsId: 1, vacationId: 1, vacationsTitle: "Winter", secondaryUsersId: 2, secondaryUsersName: "Mike Smith", expensePaid: 23.50, amount: 75.00, secondaryUsersExpense: 100.00, title: "jetski"},
+        {id: 2, eventsId: 2, vacationId: 1, vacationsTitle: "Summer", secondaryUsersId: 3, secondaryUsersName: "Jane Doe", expensePaid: 15.25, amount: 175.00, secondaryUsersExpense: 200.00, title: "camp site"},
+        {id: 3, eventsId: 3, vacationId: 3, vacationsTitle: "Spring", secondaryUsersId: 1, secondaryUsersName: "Anon Anonymous", expensePaid: 22.50, amount: 65.00, secondaryUsersExpense: 50.00, title: "gas"},  
       ]);
     });
     

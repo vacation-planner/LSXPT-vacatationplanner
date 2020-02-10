@@ -5,9 +5,13 @@ exports.up = function (knex) {
         expenses.string('title', 128).notNullable();
         expenses.decimal('amount');
         expenses.integer('vacationId').references('vacations.id');
-        expenses
-        .string('usersUid')
-        .references('users.uid');
+        expenses.string('usersUid');
+        expenses.integer('eventsId');
+        expenses.string('vacationsTitle');
+        expenses.integer('secondaryUsersId');
+        expenses.string('secondaryUsersName');
+        expenses.decimal('expensePaid');
+        expenses.decimal('secondaryUsersExpense');
       })
   };
   
