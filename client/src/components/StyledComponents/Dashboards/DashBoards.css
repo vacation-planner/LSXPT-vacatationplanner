@@ -56,6 +56,11 @@
     cursor: pointer;
 }
 
+.events {
+    height: 1600px;
+    background-image: url("../../../images/lock.jpg");
+}
+
 .event:hover {
     background-color: rgb(250, 23, 129);
     color: white;
@@ -87,5 +92,15 @@
     /* border: 2px solid orange; */
     width: 100%;
     margin-top: 30px;
+}
+
+.new-table {
+    font-size: 12px;
+}
+
+.expense-table-display {
+    height: 1600px;
+    background-image: url("../../../images/bg-pricing.jpg");
+
 }
  

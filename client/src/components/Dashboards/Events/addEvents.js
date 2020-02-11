@@ -50,6 +50,7 @@ class AddEvents extends Component {
     vacationsTitle: this.props.title,
     amount: 0,
     secondaryUsersExpense: 0,
+    secondaryUsersName: "",
     title: "",
    };
 }
@@ -131,14 +132,22 @@ axios
 };
 
 saveExpense = () => {
+  let eventName = "";
+  if (this.props.eventsId !== "") {
+    eventName = this.props.eventName
+  }
+
+
 let expenseRec = {
   title: this.state.title,
   eventsId: this.props.eventsId,
   vacationsId: this.props.vacationsId,
+  eventName: eventName,
   vacationsTitle: this.props.title,
   secondaryUsersId: this.props.secondaryUsersId,
   amount: this.state.amount,
-  secondaryUsersExpense: this.state.secondaryUsersExpense
+  secondaryUsersExpense: this.state.secondaryUsersExpense,
+  secondaryUsersName: this.props.participant,
 }
 console.log("expenseRec: ", expenseRec);
 axios

@@ -90,6 +90,7 @@ class Events extends Component {
     secondaryUsersId: 1,
     secondaryUsers: [],
     checked: false,
+    displayEvents: false,
    };
 };
 
@@ -120,6 +121,9 @@ addEvent = () => {
             console.log("file written");
             // get the id of the new record
             this.fetchId(this.state.eventName);
+            this.setState({
+                displayEvents: true
+            });
         })
         .catch(err => {
             console.log('We"ve encountered an error');
@@ -225,6 +229,10 @@ addEvent = () => {
 
   eventSelect = (id) => {        
     this.fetchEvent(id);
+    this.setState({
+        displayEvents: true
+    });
+
   }
 
   handleChange = event => {
@@ -284,15 +292,15 @@ render() {
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "20px"}}>
+                        <Card style={{ width: "1100px", marginLeft: "50px", height: "700px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
-                            <h3>Create Event: {this.state.eventName}</h3>
-                            <h4>Current Vacation: {this.props.title}</h4>
+                            <h2>Create Event/Expense: {this.state.eventName}</h2>
+                            <h3>Current Vacation: {this.props.title}</h3>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
                                     <CardBody>
                                         <h5>Name of New Event:{" "}
-                                            <input
+                                        <input
                                                 type="text"
                                                 name="eventName"
                                                 onChange={this.handleChange}
@@ -300,10 +308,11 @@ render() {
                                                 className="eventName"
                                                 placeholder={this.state.eventName}
                                             />
-                                        </h5>
+                                          </h5> 
+                                        
                                     </CardBody>
                                     <CardBody  xs={12} sm={12} md={4}>
-                                        <AddEvents 
+                                        {this.state.displayEvents ? ( <AddEvents 
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
@@ -311,9 +320,10 @@ render() {
                                             participant={this.state.participant}
                                             disabled={this.state.disabled}
                                             secondaryUsersId={this.state.secondaryUsersId}
+                                            participant={this.state.participant}
                                             vacationsId={this.state.vacationsId}
                                             startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
-                                        </AddEvents>  
+                                        </AddEvents> ) : null} 
                                     </CardBody>
                                 </CardBody>
                                 <CardBody  className={classes.cardBodyContainer2}>
@@ -329,7 +339,8 @@ render() {
                                         </h5>
                                     </CardBody>
                                     <CardBody> 
-                                        <h3>Available Events:</h3>{" "} 
+                                   
+                                         <h3>Available Events:</h3>{" "} 
                                         <Tooltip
                                             placement="top"
                                             disableFocusListener
@@ -338,11 +349,12 @@ render() {
                                                     First select a participant and event then add the expense and save
                                                 </Typography>
                                             }
-                                        >                                
+                                        >
+                                                                     
                                         <div className="eventsList">
                                             {this.eventList()} 
-                                        </div> 
-                                        </Tooltip>          
+                                        </div>
+                                        </Tooltip>           
                                     </CardBody>
                                     <CardBody> 
                                         <h3>Vacation Participants:</h3>{" "} 

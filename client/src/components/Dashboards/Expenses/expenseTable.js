@@ -13,6 +13,7 @@ import {
   import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 //import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
 //import CardHeader from "../../StyledComponents/Dashboards/Expenses/js/CardHeader.js"
 import "../../StyledComponents/Dashboards/DashBoards.css";
@@ -27,6 +28,7 @@ class ExpenseTable extends Component {
     this.state = {
       expenses: [],
       vacationsId: this.props.vacationsId,
+      checked: false,
       //CatchHeaders: [],
       //species: "",
       
@@ -35,7 +37,7 @@ class ExpenseTable extends Component {
   }
 
   componentDidMount() {
-    
+    this.setState(state => ({ checked: !state.checked }));
     axios
     .get('http://localhost:5500/api/expenses')
     .then(response => {
@@ -78,12 +80,13 @@ class ExpenseTable extends Component {
   } 
 
   render() {
-
+    const { checked } = this.state;
     return (
       <div className="expense-table-display">
+      <Zoom in={checked} >
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
-            <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "20px"}}>
+            <Card style={{ width: "1100px", height: "600px", marginLeft: "50px", marginRight: "100px", top: "20px"}}>
               <div className="expense-header">
                 Expenses:
               </div>
@@ -94,16 +97,17 @@ class ExpenseTable extends Component {
                     {[
                       { Header: "Title", accessor: "title", Cell: this.renderEditable, width: 150},
                       { Header: "Participant", accessor: "secondaryUsersName", Cell: this.renderEditable, width: 140},
-                      { Header: "Vacation", accessor: "vacationsId", Cell: this.renderEditable, width: 80},
-                      { Header: "Participants", accessor: "secondaryUsersId", Cell: this.renderEditable, width: 80},
-                      { Header: "Event", accessor: "eventsId", Cell: this.renderEditable, width: 90},   
+                      { Header: "Vacation Id", accessor: "vacationsId", Cell: this.renderEditable, width: 80},
+                      { Header: "Participants Id", accessor: "secondaryUsersId", Cell: this.renderEditable, width: 80},
+                      { Header: "Event Id", accessor: "eventsId", Cell: this.renderEditable, width: 90},   
+                      { Header: "Event Name", accessor: "eventName", Cell: this.renderEditable, width: 90},   
                       { Header: "Expense Total", accessor: "amount", Cell: this.renderEditable, width: 100},
                       { Header: "Participant Expense", accessor: "secondaryUsersExpense", Cell: this.renderEditable, width: 125},
                       { Header: "Expense Paid", accessor: "expensePaid", Cell: this.renderEditable, width: 100},
                     ]}
                   defaultPageSize={10}
                   style={{
-                    height: "400px"
+                    height: "500px"
                   }}
       
                   className="-striped -highlight"
@@ -112,6 +116,7 @@ class ExpenseTable extends Component {
             </Card>
           </GridItem>
         </GridContainer>
+        </Zoom>
       </div>
     );
   }
