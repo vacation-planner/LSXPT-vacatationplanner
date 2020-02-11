@@ -39,8 +39,11 @@ const styles = theme => ({
 class CurrentVacationDrawer extends React.Component {
     state = {
         vacationDetails: true,
+        addParticipants: false,
         calendar: false,
+        events: false,
         expenses: false,
+        overview: false,
         mobileOpen: false,
         currentVacation: this.props.currentVacation,
     };
@@ -55,8 +58,11 @@ class CurrentVacationDrawer extends React.Component {
         event.preventDefault();
         this.setState({
             vacationDetails: false,
+            addParticipants: false,
             calendar: false,
-            expenses: false
+            events: false,
+            expenses: false,
+            overview: false,
         });
         this.setState({
             [event.currentTarget.id]: true
@@ -64,7 +70,7 @@ class CurrentVacationDrawer extends React.Component {
         this.props.displayCurrentVacationContent(event);
     };
 
-    makePremium = () => { 
+    makePremium = () => {
     }
 
     render() {
@@ -74,12 +80,14 @@ class CurrentVacationDrawer extends React.Component {
         };
         const ListCurrentVacations = [
             { name: 'vacationDetails', text: 'Vacation Details' },
+            { name: 'addParticipants', text: 'Add Participants' },
             { name: 'calendar', text: 'Calendar' },
             { name: 'events', text: 'Events' },
-            { name: 'expenses', text: 'Expenses' }
+            { name: 'expenses', text: 'Expenses' },
+            { name: 'overview', text: 'Overview' }
         ];
 
-        if(this.state.currentVacation.premium === 0 || this.state.currentVacation.premium === false) {
+        if (this.state.currentVacation.premium === 0 || this.state.currentVacation.premium === false) {
             return (
                 <>
                     <div className={classes.nameDiv}>
