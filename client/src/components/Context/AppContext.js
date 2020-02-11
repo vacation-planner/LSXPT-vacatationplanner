@@ -16,6 +16,7 @@ export default class AppProvider extends Component {
         myPastVacations: JSON.parse(localStorage.getItem('myPastVacations')) || [], 
         //backendURL: 'https://vacationplannerlx.herokuapp.com/api',
         backendURL: 'http://localhost:5500/api',
+        tempVacationHolder: JSON.parse(localStorage.getItem('tempVacationHolder')) || [],
     };
 
     render() {
@@ -124,10 +125,65 @@ export default class AppProvider extends Component {
                                 localStorage.setItem('myPastVacations', JSON.stringify(this.state.myPastVacations));
                             });
                     },
-                    setTempVacationName: (newVacationName) => {
-                        
-                    }
-
+                    addVacation: (vacationName) => {
+                        const userID = this.state.userID;
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
+                        let vacation = {
+                            title: vacationName,
+                            usersUid: userID,
+                            premium: false,
+                            location: "",
+                            startDate: "",
+                            endDate: ""
+                        }
+                        axios
+                            .post(vacationsEndpoint, vacation)
+                            .then(res => {
+                                let vacationData = res.data;
+                                let newVacation = {
+                                    id: vacationData.id,
+                                    title: vacationName,
+                                    location: "",
+                                    startDate: "",
+                                    endDate: "",
+                                    usersUid: userID,
+                                    premium: vacation.premium
+                                }
+                                this.setState({
+                                    tempVacationHolder: newVacation
+                                })
+                                localStorage.setItem('tempVacationHolder', JSON.stringify(newVacation));
+                                const joined = this.state.myVacations.concat(newVacation);
+                                localStorage.setItem('myVacations', JSON.stringify(joined));
+                                const currentJoined = this.state.myCurrentVacations.concat(newVacation);
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(currentJoined));
+                                this.setState({
+                                    myVacations: joined,
+                                    myCurrentVacations: currentJoined,
+                                });
+                            })
+                            .catch(err => {
+                                console.log('error adding vacation', err)
+                            });
+                    },
+                    updateVacation: (id, location, title, startDate, endDate, userID, premium) => {
+                        let vacation = {
+                            id: id,
+                            title: title,
+                            location: location,
+                            startDate: startDate,
+                            endDate: endDate,
+                            usersUid: userID,
+                            premium: premium
+                        }
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations/${id}`;
+                        axios
+                            .put(vacationsEndpoint, vacation)
+                            .then(res => {
+                                let vacationData = res.data;
+                                console.log(vacationData);
+                            })
+                    },
             }}
             >
                 {this.props.children}

@@ -12,7 +12,7 @@ import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js
 //import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
 // import styles from "../../StyledComponents/Dashboards/Vacations/js/cardImagesStyles.js";
 import "../../StyledComponents/Dashboards/Vacations/vacations.css";
-
+import { AppContext } from '../../Context/AppContext.js';
 // import { makeStyles } from "@material-ui/core/styles";
 
 // const useStyles = makeStyles(styles);
@@ -28,6 +28,7 @@ class Vacations extends Component {
     value: "",
     title: this.props.title,
     vacationsId: this.props.vacationsId,
+    premium: this.props.premium,
    };
 };
 
@@ -38,18 +39,16 @@ render() {
       <div className="vacations">
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-               
             {/*  <AddUsers>  </AddUsers>  */}
-                          <Display title={this.state.title} vacationsId={this.state.vacationsId}>
+                          <Display title={this.state.title} vacationsId={this.state.vacationsId} >
                         </Display> 
-                   
-                  
-               
             </GridItem>
         </GridContainer>
       </div>
     );
   }
 }
+
+Vacations.contextType = AppContext;
 
 export default Vacations;

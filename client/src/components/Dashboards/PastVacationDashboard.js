@@ -63,9 +63,7 @@ class PastVacationDashboard extends React.Component {
                     displayPastVacationContent = {this.displayPastVacationContent}
                 />
                 <div className={classes.innerContainer}>
-               {/*  <Vacations title={pastVacationTitle} vacationsId={pastVacationId}>
-                        </Vacations> */}
-                    
+
                     {vacationDetails ? (
                     
                          <Vacations title={pastVacationTitle} vacationsId={pastVacationId}>

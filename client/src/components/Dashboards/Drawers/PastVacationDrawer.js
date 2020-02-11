@@ -5,7 +5,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
-import Pedro from '../../../images/Pedro.jpg'; //Delete Later
 
 const styles = theme => ({
     buttonStyling: {
@@ -35,14 +34,6 @@ const styles = theme => ({
     listItemText: {
         fontSize: '1.75rem',
     },
-    Pedro: {
-        width: '80%',
-        height: '80%',
-        position: 'fixed',
-        zIndex: 99999999,
-        left: 200,
-        top: 80,
-    }, //Delete Pedro later
 });
 
 class PastVacationDrawer extends React.Component {
@@ -52,7 +43,6 @@ class PastVacationDrawer extends React.Component {
         expenses: false,
         mobileOpen: false,
         pastVacation: this.props.pastVacation,
-        batman: false, // Delete later
     };
 
     handleClose = () => {
@@ -74,11 +64,7 @@ class PastVacationDrawer extends React.Component {
         this.props.displayPastVacationContent(event);
     }
 
-    makePremium = () => { //Delete later
-        console.log(this.state.batman)
-        this.setState({
-            batman: !this.state.batman
-        })
+    makePremium = () => { 
     }
 
     render() {
@@ -86,7 +72,7 @@ class PastVacationDrawer extends React.Component {
         const selectedDrawer = {
             backgroundColor: 'white'
         };
-
+        console.log(this.state.pastVacation)
         const ListPastVacations = [
             { name: 'vacationDetails', text: 'Vacation Details' },
             { name: 'calendar', text: 'Calendar' },
@@ -116,9 +102,7 @@ class PastVacationDrawer extends React.Component {
                             </React.Fragment>
                         )
                     })}
-                    <Button className={classes.buttonStyling} onClick={() => this.makePremium()}>Upgrade to Premium</Button>
                 </List>
-                {this.state.batman ? <img src={Pedro} className={classes.Pedro} alt='Hello Pedro' /> : null }  {/*Delete Later*/}
             </> 
         );
     }

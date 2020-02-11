@@ -7,7 +7,7 @@ class Checkout extends React.Component {
   render() {
     return (
       <Elements>
-        <InjectedCheckoutForm title={this.props.location.state.title} />
+        <InjectedCheckoutForm title={this.props.location.state.title} vacationName={this.props.location.state.vacationName} />
       </Elements>
     );
   }

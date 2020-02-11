@@ -95,12 +95,10 @@ class CreateVacationDetails extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.context.state)
         return (
             <div className={classes.container}>
                 <Navbar />
                 <div className={classes.all}>
-                    {/* {this.context.state.tempVacationName}, {this.props.state}, test */}
                     <Vacations>
                         </Vacations>
                 </div>

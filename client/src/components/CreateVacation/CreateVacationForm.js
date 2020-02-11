@@ -8,9 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/core/styles";
 import { AppContext } from "../Context/AppContext.js";
-import { Link } from "react-router-dom";
-import Checkout from "../Checkout/Checkout";
-
+import DelayLink from "react-delay-link";
 const styles = theme => ({
   button: {
     width: "100%",
@@ -85,7 +83,8 @@ const styles = theme => ({
 class CreateVacationForm extends React.Component {
   state = {
     open: false,
-    vacationName: ""
+    vacationName: "",
+    disabledButton: false
   };
 
   handleClickOpen = () => {
@@ -101,15 +100,10 @@ class CreateVacationForm extends React.Component {
     this.setState({ [e.currentTarget.name]: e.currentTarget.value });
   };
 
-  onToken = token => {
-    fetch("localhost:5500/api/stripe", {
-      method: "POST",
-      body: JSON.stringify(token)
-    }).then(response => {
-      response.json().then(data => {
-        alert(`We are in business, ${data.email}`);
-      });
-    });
+  addVacationToContext = () => {
+    this.setState({ disabledButton: true });
+    let newVacationName = this.state.vacationName;
+    this.context.addVacation(newVacationName);
   };
 
   // addVacationToContext = () => {
@@ -176,44 +170,53 @@ class CreateVacationForm extends React.Component {
               <Button
                 className={classes.cancelButton}
                 onClick={this.handleClose}
-                color="secondary"
+                color="primary"
               >
                 Cancel
               </Button>
+
               {this.props.vacationType === "basic" ? (
-                <Link
-                  to={{
-                    pathname: `/createVacationDetails`,
-                    state: { title: this.state.vacationName }
-                  }}
-                  className={classes.linkStyling}
+                <Button
+                  className={classes.createVacationButton}
+                  onClick={this.addVacationToContext}
+                  variant="contained"
+                  disabled={this.state.disabledButton === true}
                 >
-                  <Button
-                    className={classes.createVacationButton}
-                    // onClick={this.addVacationToContext}
-                    variant="contained"
-                    // href='/createVacationDetails'
+                  <DelayLink
+                    className={classes.linkStyling}
+                    delay={1500}
+                    to={{
+                      pathname: "/dashboards/current",
+                      state: {
+                        currentVacationTitle: this.state.vacationName,
+                        title: this.state.vacationName
+                      }
+                    }}
                   >
                     Create Vacation
-                  </Button>
-                </Link>
+                  </DelayLink>
+                </Button>
               ) : (
-                <Link
-                  to={{
-                    pathname: `/premium`,
-                    state: { title: this.state.vacationName }
-                  }}
-                  className={classes.linkStyling}
+                <Button
+                  className={classes.createVacationButton}
+                  onClick={this.addVacationToContext}
+                  variant="contained"
+                  disabled={this.state.disabledButton === true}
                 >
-                  <Button
-                    className={classes.createVacationButton}
-                    // onClick={this.addVacationToContext}
-                    variant="contained"
-                    // href='/createVacationDetails'
+                  <DelayLink
+                    delay={1500}
+                    to={{
+                      pathname: `/premium`,
+                      state: {
+                        currentVacationTitle: this.state.vacationName,
+                        title: this.state.vacationName
+                      }
+                    }}
+                    className={classes.linkStyling}
                   >
                     Go to Payment
-                  </Button>
-                </Link>
+                  </DelayLink>
+                </Button>
               )}
             </div>
           </DialogActions>
