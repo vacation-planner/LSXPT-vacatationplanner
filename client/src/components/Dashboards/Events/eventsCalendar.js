@@ -5,6 +5,8 @@ import { Calendar as  BigCalendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from "moment";
 import swal from '@sweetalert/with-react'
+import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
+import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
 //import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
@@ -202,10 +204,12 @@ class EventsCalendar extends React.Component {
   }
 
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
-    const { events } = this.state
+    const { events } = this.state;
 
-    const idx = events.indexOf(event)
-    let allDay = event.allDay
+    const idx = events.indexOf(event);
+    let allDay = event.allDay;
+
+    console.log("In the move event");
 
     if (!event.allDay && droppedOnAllDaySlot) {
       allDay = true
@@ -271,6 +275,8 @@ class EventsCalendar extends React.Component {
 
   render() {
     return (
+      <Card style={{ marginLeft: "20px", width: "540px", top: "0px", }}>
+      <CardBody>
       <DragAndDropCalendar
         selectable
         localizer={localizer}
@@ -289,6 +295,8 @@ class EventsCalendar extends React.Component {
         defaultDate={new Date(2019, 11, 29)}
         eventPropGetter={event => this.eventStyleGetter(event)}
       />
+       </CardBody>
+    </Card>
     )
   }
 }
