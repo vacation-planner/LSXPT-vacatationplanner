@@ -3,7 +3,7 @@ import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
 import AddEvents from "./addEvents.js"
-import EventsCalendar from "./eventsCalendar.js"
+//import EventsCalendar from "./eventsCalendar.js"
 
 //import { //Row,  
  //   UsersContainer, 
@@ -292,9 +292,9 @@ render() {
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "1100px", marginLeft: "50px", height: "700px", marginRight: "100px", top: "20px"}}>
+                        <Card style={{ width: "700px", marginLeft: "50px", height: "600px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
-                            <h2>Create Event/Expense: {this.state.eventName}</h2>
+                            <h2>Create Event: {this.state.eventName}</h2>
                             <h3>Current Vacation: {this.props.title}</h3>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
@@ -312,7 +312,7 @@ render() {
                                         
                                     </CardBody>
                                     <CardBody  xs={12} sm={12} md={4}>
-                                        {this.state.displayEvents ? ( <AddEvents 
+                                         <AddEvents 
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
@@ -323,7 +323,7 @@ render() {
                                             participant={this.state.participant}
                                             vacationsId={this.state.vacationsId}
                                             startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
-                                        </AddEvents> ) : null} 
+                                        </AddEvents>  
                                     </CardBody>
                                 </CardBody>
                                 <CardBody  className={classes.cardBodyContainer2}>
@@ -338,45 +338,6 @@ render() {
                                             />  
                                         </h5>
                                     </CardBody>
-                                    <CardBody> 
-                                   
-                                         <h3>Available Events:</h3>{" "} 
-                                        <Tooltip
-                                            placement="top"
-                                            disableFocusListener
-                                            title={
-                                                <Typography color="inherit" variant="h6">
-                                                    First select a participant and event then add the expense and save
-                                                </Typography>
-                                            }
-                                        >
-                                                                     
-                                        <div className="eventsList">
-                                            {this.eventList()} 
-                                        </div>
-                                        </Tooltip>           
-                                    </CardBody>
-                                    <CardBody> 
-                                        <h3>Vacation Participants:</h3>{" "} 
-                                            <Tooltip
-                                                placement="top"
-                                                disableFocusListener
-                                                title={
-                                                    <Typography color="inherit" variant="h6">
-                                                        Select a participant then assign an expense
-                                                    </Typography>
-                                                }
-                                            > 
-                                        <div className="participantsList">
-                                           {/*  {rows} */} 
-                                           {this.participantList()}
-                                        </div>
-                                        </Tooltip>    
-                                    </CardBody>
-                                </CardBody>
-                                <CardBody className={classes.cardBodyContainer3}>
-                                    <EventsCalendar  title={this.props.title} vacationsId={this.state.vacationsId}>
-                                    </EventsCalendar>
                                 </CardBody>
                             </CardBody>                        
                             <CardBody  className={classes.cardBody}>

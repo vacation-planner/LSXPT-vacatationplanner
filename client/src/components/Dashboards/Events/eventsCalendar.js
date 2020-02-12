@@ -7,6 +7,8 @@ import moment from "moment";
 import swal from '@sweetalert/with-react'
 import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
+import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridContainer.js";
+import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
 //import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
@@ -275,6 +277,8 @@ class EventsCalendar extends React.Component {
 
   render() {
     return (
+      <GridContainer>
+      <GridItem xs={12} sm={12} md={4}>
       <Card style={{ marginLeft: "20px", width: "540px", top: "0px", }}>
       <CardBody>
       <DragAndDropCalendar
@@ -297,6 +301,8 @@ class EventsCalendar extends React.Component {
       />
        </CardBody>
     </Card>
+    </GridItem>
+        </GridContainer>
     )
   }
 }
