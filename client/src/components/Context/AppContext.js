@@ -13,7 +13,7 @@ export default class AppProvider extends Component {
         allVacations: JSON.parse(localStorage.getItem('allVacations')) || [],
         myVacations: JSON.parse(localStorage.getItem('myVacations')) || [],
         myCurrentVacations: JSON.parse(localStorage.getItem('myCurrentVacations')) || [],
-        myPastVacations: JSON.parse(localStorage.getItem('myPastVacations')) || [], 
+        myPastVacations: JSON.parse(localStorage.getItem('myPastVacations')) || [],
         //backendURL: 'https://vacationplannerlx.herokuapp.com/api',
         backendURL: 'http://localhost:5500/api',
         tempVacationHolder: JSON.parse(localStorage.getItem('tempVacationHolder')) || [],
@@ -55,7 +55,7 @@ export default class AppProvider extends Component {
                                         allCurrentVacations.push(result);
                                     }
 
-                                    else if (Date.parse(result.endDate) < Date.parse(new Date())  + 172800000) {
+                                    else if (Date.parse(result.endDate) < Date.parse(new Date()) + 172800000) {
                                         allPastVacations.push(result);
                                     }
                                     else {
@@ -74,8 +74,8 @@ export default class AppProvider extends Component {
                                         if (result.endDate === null) {
                                             myCurrentVacations.push(result);
                                         }
-    
-                                        else if (Date.parse(result.endDate) < Date.parse(new Date())  + 172800000) {
+
+                                        else if (Date.parse(result.endDate) < Date.parse(new Date()) + 172800000) {
                                             myPastVacations.push(result);
                                         }
                                         else {
@@ -90,7 +90,7 @@ export default class AppProvider extends Component {
                                     myCurrentVacations
                                 })
                             });
-                            axios
+                        axios
                             .get(secondaryUserEndpoint)
                             .then(res => {
                                 const secondaryUserTable = res.data;
@@ -105,8 +105,8 @@ export default class AppProvider extends Component {
                                             if (this.state.allVacations[foundIndex].endDate === null) {
                                                 joinCurrent = joinCurrent.concat(this.state.allVacations[foundIndex]);
                                             }
-        
-                                            else if (Date.parse(this.state.allVacations[foundIndex].endDate) < Date.parse(new Date())  + 172800000) {
+
+                                            else if (Date.parse(this.state.allVacations[foundIndex].endDate) < Date.parse(new Date()) + 172800000) {
                                                 joinPast = joinPast.concat(this.state.allVacations[foundIndex]);
                                             }
                                             else {
@@ -132,6 +132,7 @@ export default class AppProvider extends Component {
                             title: vacationName,
                             usersUid: userID,
                             premium: false,
+                            closed: false,
                             location: "",
                             startDate: "",
                             endDate: ""
@@ -147,7 +148,8 @@ export default class AppProvider extends Component {
                                     startDate: "",
                                     endDate: "",
                                     usersUid: userID,
-                                    premium: vacation.premium
+                                    premium: vacation.premium,
+                                    closed: vacation.closed
                                 }
                                 this.setState({
                                     tempVacationHolder: newVacation
@@ -174,7 +176,8 @@ export default class AppProvider extends Component {
                             startDate: startDate,
                             endDate: endDate,
                             usersUid: userID,
-                            premium: premium
+                            premium: premium,
+                            closed: false,
                         }
                         const vacationsEndpoint = `${this.state.backendURL}/vacations/${id}`;
                         axios
@@ -184,7 +187,7 @@ export default class AppProvider extends Component {
                                 console.log(vacationData);
                             })
                     },
-            }}
+                }}
             >
                 {this.props.children}
             </AppContext.Provider>
