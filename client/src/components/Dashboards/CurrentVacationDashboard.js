@@ -29,9 +29,11 @@ class CurrentVacationDashboard extends React.Component {
         currentVacationMenu: true,
         pastVacationMenu: false,
         vacationDetails: true,
+        addParticipants: false,
         calendar: false,
         events: false,
         expenses: false,
+        overview: false,
         currentVacationIndex: this.props.location.state.index,
         currentVacationId: this.props.location.state.currentVacationId,
         currentVacationTitle: this.props.location.state.currentVacationTitle
@@ -40,9 +42,11 @@ class CurrentVacationDashboard extends React.Component {
     displayCurrentVacationContent = event => {
         this.setState({
             vacationDetails: false,
+            addParticipants: false,
             calendar: false,
             events: false,
             expenses: false,
+            overview: false,
         });
         this.setState({
             [event.currentTarget.id]: true
@@ -51,7 +55,7 @@ class CurrentVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, calendar, events, expenses, currentVacationId, currentVacationTitle } = this.state;
+        const { vacationDetails, addParticipants, calendar, events, expenses, overview, currentVacationId, currentVacationTitle } = this.state;
 
         return (
             <main className={classes.main}>
@@ -62,13 +66,15 @@ class CurrentVacationDashboard extends React.Component {
                 <div className={classes.innerContainer}>
 
                     {vacationDetails ? (
-                        <Vacations title={currentVacationTitle} vacationsId={currentVacationId}>
-                        </Vacations>
+                        <Vacations title={currentVacationTitle} vacationsId={currentVacationId} />
+                    ) : null}
+
+                    {addParticipants ? (
+                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
 
                     {calendar ? (
-                        <Events title={currentVacationTitle} vacationsId={currentVacationId}>
-                        </Events>
+                        <Events title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
 
                     {events ? (
@@ -76,6 +82,10 @@ class CurrentVacationDashboard extends React.Component {
                     ) : null}
 
                     {expenses ? (
+                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
+                    ) : null}
+
+                    {overview ? (
                         <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
                 </div>

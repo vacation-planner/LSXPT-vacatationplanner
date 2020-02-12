@@ -4,7 +4,6 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     buttonStyling: {
@@ -39,8 +38,11 @@ const styles = theme => ({
 class PastVacationDrawer extends React.Component {
     state = {
         vacationDetails: true,
+        addParticipants: false,
         calendar: false,
+        events: false,
         expenses: false,
+        overview: false,
         mobileOpen: false,
         pastVacation: this.props.pastVacation,
     };
@@ -55,8 +57,11 @@ class PastVacationDrawer extends React.Component {
         event.preventDefault();
         this.setState({
             vacationDetails: false,
+            addParticipants: false,
             calendar: false,
-            expenses: false
+            events: false,
+            expenses: false,
+            overview: false,
         })
         this.setState({
             [event.currentTarget.id]: true
@@ -64,7 +69,7 @@ class PastVacationDrawer extends React.Component {
         this.props.displayPastVacationContent(event);
     }
 
-    makePremium = () => { 
+    makePremium = () => {
     }
 
     render() {
@@ -72,12 +77,13 @@ class PastVacationDrawer extends React.Component {
         const selectedDrawer = {
             backgroundColor: 'white'
         };
-        console.log(this.state.pastVacation)
         const ListPastVacations = [
             { name: 'vacationDetails', text: 'Vacation Details' },
+            { name: 'addParticipants', text: 'Add Participants' },
             { name: 'calendar', text: 'Calendar' },
             { name: 'events', text: 'Events' },
-            { name: 'expenses', text: 'Expenses' }
+            { name: 'expenses', text: 'Expenses' },
+            { name: 'overview', text: 'Overview' }
         ];
 
         return (
@@ -103,7 +109,7 @@ class PastVacationDrawer extends React.Component {
                         )
                     })}
                 </List>
-            </> 
+            </>
         );
     }
 }
