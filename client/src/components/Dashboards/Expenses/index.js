@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
-import AddEvents from "./addEvents.js"
-import EventsCalendar from "./eventsCalendar.js"
+import AddExpenses from "./addExpenses.js"
+//import EventsCalendar from "./eventsCalendar.js"
 
 import { Row,  
     UsersContainer, 
@@ -29,7 +29,7 @@ const styles = theme => ({
   cardBody: {
       display: "flex",
       /* justifyContent: "space-between", */
-       backgroundColor: "#E91E63",  
+       /* backgroundColor: "#23b0e7", */  
       /* height: "10%", */
       [theme.breakpoints.up("sm")]: {
           width: "100%",    
@@ -38,6 +38,7 @@ const styles = theme => ({
   cardBody2: {
     display: "flex",
     flexDirection: "row",
+    //backgroundColor: "#E91E63",
     [theme.breakpoints.up("sm")]: {
         width: "100%",   
     }
@@ -45,22 +46,26 @@ const styles = theme => ({
 cardBodyContainer1: {
     display: "flex",
     flexDirection: "Column",
+    /* backgroundColor: "#E91E63", */
     [theme.breakpoints.up("sm")]: {
-        width: "25%",   
+        width: "50%",   
     }
 },
 cardBodyContainer2: {
     display: "flex",
     flexDirection: "Column",
+    /*  backgroundColor: "#23b0e7",  */
     [theme.breakpoints.up("sm")]: {
-        width: "25%",   
+        width: "50%",   
     }
 },
 cardBodyContainer3: {
     display: "flex",
     flexDirection: "row",
-    [theme.breakpoints.up("sm")]: {
-        width: "50%",   
+     backgroundColor: "#E91E63",  
+         [theme.breakpoints.up("sm")]: {
+        width: "100%",
+        height: "40px",   
     }
 },
   gridItem: {
@@ -78,7 +83,7 @@ class Expenses extends Component {
     usersUid: "",
     value: "",
     eventName: "",
-    title: this.props.title,
+    vacationsTitle: this.props.title,
     vacationsId: this.props.vacationsId,
     startDateTime: "",
     endDateTime: "",
@@ -89,7 +94,11 @@ class Expenses extends Component {
     participant: "",
     secondaryUsersId: 1,
     secondaryUsers: [],
+    secondaryUsersExpense: 0,
+    secondaryUsersName: "",
     checked: false,
+    amount: 0,
+    title: "",
    };
 };
 
@@ -106,7 +115,7 @@ componentDidMount() {
       }); 
     };
 
-addEvent = () => {
+addExpense = () => {
     // create a record using the input
     let eventsRec = {
         eventName: this.state.eventName,
@@ -124,6 +133,36 @@ addEvent = () => {
         .catch(err => {
             console.log('We"ve encountered an error');
         });  
+  }
+
+  saveExpense = () => {
+    let eventName = "";
+    if (this.state.eventsId !== "") {
+      eventName = this.state.eventName
+    }
+    let expenseRec = {
+      title: this.state.title,
+      eventsId: this.props.eventsId,
+      vacationsId: this.props.vacationsId,
+      eventName: eventName,
+      vacationsTitle: this.props.title,
+      secondaryUsersId: this.state.secondaryUsersId,
+      amount: this.state.amount,
+      secondaryUsersExpense: this.state.secondaryUsersExpense,
+      secondaryUsersName: this.state.participant,
+    }
+  
+  axios
+  .post(`${URL}/expenses/`, expenseRec)
+  .then(response => {
+      console.log("file written");
+      // get the id of the new record
+      //this.fetchId(this.state.eventName);
+  })
+  .catch(err => {
+      console.log('We"ve encountered an error');
+  });  
+  
   }
 
   fetchId = eventName => {
@@ -280,30 +319,19 @@ render() {
    //     });
 
     return (
-        <div className="events"> 
+        <div className="expenses"> 
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "20px"}}>
+                        <Card style={{ width: "600px", height: "560px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
-                            <h3>Create Event: {this.state.eventName}</h3>
+                            <h3>Create Expense: {this.state.eventName}</h3>
                             <h4>Current Vacation: {this.props.title}</h4>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
-                                    <CardBody>
-                                        <h5>Name of New Event:{" "}
-                                            <input
-                                                type="text"
-                                                name="eventName"
-                                                onChange={this.handleChange}
-                                                value={this.state.eventName}
-                                                className="eventName"
-                                                placeHolder={this.state.eventName}
-                                            />
-                                        </h5>
-                                    </CardBody>
+                                   
                                     <CardBody  xs={12} sm={12} md={4}>
-                                        <AddEvents 
+                                        <AddExpenses 
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
@@ -312,22 +340,14 @@ render() {
                                             disabled={this.state.disabled}
                                             secondaryUsersId={this.state.secondaryUsersId}
                                             vacationsId={this.state.vacationsId}
+                                            amount={this.state.amount}
+                                            secondaryUsersExpense={this.state.secondaryUsersExpense}
+                                            secondaryUsersName={this.state.participant}
                                             startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
-                                        </AddEvents>  
+                                        </AddExpenses>  
                                     </CardBody>
                                 </CardBody>
                                 <CardBody  className={classes.cardBodyContainer2}>
-                                    <CardBody> 
-                                        <h5>Description:{" "}
-                                            <input
-                                                type="text"
-                                                name="description"
-                                                onChange={this.handleChange}
-                                                value={this.state.description}
-                                                className="description"
-                                            />  
-                                        </h5>
-                                    </CardBody>
                                     <CardBody> 
                                         <h3>Available Events:</h3>{" "}                                
                                         <div className="eventsList">
@@ -338,28 +358,15 @@ render() {
                                         <h3>Vacation Participants:</h3>{" "}  
                                         <div className="participantsList">
                                            {/*  {rows} */} 
-                                           {this.participantList()}                                        </div>
+                                           {this.participantList()}                                        
+                                        </div>
                                     </CardBody>
-                                </CardBody>
-                                <CardBody className={classes.cardBodyContainer3}>
-                                    <EventsCalendar  title={this.props.title} vacationsId={this.state.vacationsId}>
-                                    </EventsCalendar>
-                                </CardBody>
-                            </CardBody>                        
-                            <CardBody  className={classes.cardBody}>
-                                <div className="logo">
-                                </div>
-                                <Button  
-                                    style={{ marginLeft:"150px"}}
-                                    onClick={() => this.addEvent()} 
-                                    color="rose">Create
-                                </Button>
-                                <Button  
-                                    onClick={() => this.removeEvent()} 
-                                    color="rose"
-                                    disabled="true">Remove
-                                </Button> 
-                            </CardBody>
+                                 
+                                </CardBody >
+                               
+                            </CardBody >
+                            <CardBody  className={classes.cardBodyContainer3}>
+                                </CardBody>                        
                         </Card>
                     </GridItem>
                 </GridContainer>

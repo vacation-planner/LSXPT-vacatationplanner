@@ -9,6 +9,8 @@ import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
 import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 //import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
@@ -20,6 +22,21 @@ const URL = "http://localhost:5500/api";
 const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar)
+
+const styles = theme => ({
+  lowerCardBody: {
+      display: "flex",
+      width: "100%",
+      height: "100px",
+      backgroundColor: "#E91E63",
+      /* justifyContent: "space-between", */
+       /* backgroundColor: "#23b0e7", */  
+      /* height: "10%", */
+      [theme.breakpoints.up("sm")]: {
+          width: "100%",    
+      }
+  }
+});
 
 //  let eventSave = [];
  /* const events = [
@@ -276,10 +293,13 @@ class EventsCalendar extends React.Component {
 
 
   render() {
+    const { classes } = this.props;
+
     return (
+      <div className="events-calendar-container">
       <GridContainer>
       <GridItem xs={12} sm={12} md={4}>
-      <Card style={{ marginLeft: "20px", width: "540px", top: "0px", }}>
+      <Card style={{ marginLeft: "20px", height: "600px", width: "540px", top: "0px", }}>
       <CardBody>
       <DragAndDropCalendar
         selectable
@@ -300,11 +320,23 @@ class EventsCalendar extends React.Component {
         eventPropGetter={event => this.eventStyleGetter(event)}
       />
        </CardBody>
+       <CardBody  className={classes.lowerCardBody}>
+       <Button  
+                                onClick={() => this.displayVacations()} 
+                                color="rose">Vacations
+                            </Button>
+                            <Button  
+                                onClick={() => this.displayEvents()} 
+                                color="rose"
+                                disabled={this.state.disabled}>Events
+                            </Button>                                  
+         </CardBody>
     </Card>
     </GridItem>
         </GridContainer>
+        </div>
     )
   }
 }
 
-export default EventsCalendar
+export default withStyles(styles)(EventsCalendar)

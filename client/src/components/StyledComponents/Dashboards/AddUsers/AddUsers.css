@@ -61,3 +61,8 @@
 .secondaryUsers:hover {
     background-color: rgb(233, 30, 99);
 }
+
+.addParticipants {
+    background-image: url("../../../../images/login.jpg");
+
+}

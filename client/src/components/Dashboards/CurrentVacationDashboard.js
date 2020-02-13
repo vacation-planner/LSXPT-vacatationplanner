@@ -3,6 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import Vacations from "../Dashboards/Vacations/"
 import Events from "../Dashboards/Events/";
+import Expenses from "../Dashboards/Expenses/";
 import EventsCalendar from "../Dashboards/Events/eventsCalendar.js";
 //import Expenses from "../Dashboards/Events/";
 import AddUsers from "../Dashboards/AddUsers/addUsers.js";
@@ -86,12 +87,12 @@ class CurrentVacationDashboard extends React.Component {
                     ) : null}
 
                     {expenses ? (
-                        <ExpenseTable title={currentVacationTitle} vacationsId={currentVacationId} >
-                         </ExpenseTable>
+                        <Expenses title={currentVacationTitle} vacationsId={currentVacationId} />
+                         
                     ) : null}
 
                     {overview ? (
-                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
+                       <ExpenseTable title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
                 </div>
             </main>

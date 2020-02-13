@@ -8,6 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
+import { Tooltip, Typography } from "@material-ui/core";
 
 import "../../StyledComponents/Dashboards/Expenses/material-dashboard-pro-react.css";
 
@@ -46,9 +47,11 @@ class AddExpenses extends Component {
     disabled: this.props.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
-    eventCost: "",
-    secondaryUsersCost: "",
-
+    vacationsTitle: this.props.vacationsTitle,
+    amount: 0,
+    secondaryUsersExpense: 0,
+    secondaryUsersName: "",
+    title: "",
    };
 }
 
@@ -60,7 +63,7 @@ componentDidMount() {
 };
 
 handleChange = event => {
-
+  console.log("event.target: ", event.target.name);
   this.setState({
       [event.target.name]: event.target.value
 });
@@ -84,7 +87,7 @@ handleStartChange = expense => {
     } 
 
  axios
-    .put(`${URL}/events/${this.props.eventsId}`, eventsRec)
+    .put(`${URL}/expenses/${this.props.eventsId}`, expensesRec)
     .then(response => {
         console.log("start day updated")
     })
@@ -129,16 +132,24 @@ axios
 };
 
 saveExpense = () => {
-let expenseRec = {
-  eventsId: this.props.eventsId,
-  vacationsId: this.props.vacationsId,
-  secondaryUsersId: this.props.secondaryUsersId,
-  eventCost: this.state.eventCost,
-  secondaryUsersCost: this.state.secondaryUsersCost
-}
+  let eventName = "";
+  if (this.props.eventsId !== "") {
+    eventName = this.props.eventName
+  }
+  let expenseRec = {
+    title: this.state.title,
+    eventsId: this.props.eventsId,
+    vacationsId: this.props.vacationsId,
+    eventName: eventName,
+    vacationsTitle: this.props.title,
+    secondaryUsersId: this.props.secondaryUsersId,
+    amount: this.state.amount,
+    secondaryUsersExpense: this.state.secondaryUsersExpense,
+    secondaryUsersName: this.props.participant,
+  }
 
 axios
-.post(`${URL}/eventUsers/`, expenseRec)
+.post(`${URL}/expenses/`, expenseRec)
 .then(response => {
     console.log("file written");
     // get the id of the new record
@@ -155,43 +166,29 @@ axios
   return (
     <div className="eventContainer">
       <div className="left">
-        <InputLabel className={classes.label}>
-          Event Start Date
-        </InputLabel>
-        <br />
-        <FormControl fullWidth>
-          <Datetime /* timeFormat={false} */
-            value={this.props.value}
-            onChange={event => this.handleStartChange(event)} 
-            inputProps={{ 
-              placeholder: "Start Event"
-            }}
-          />
-        </FormControl>
-        <InputLabel className={classes.label}>
-          Event End Date
-        </InputLabel>
-        <br />
-        <FormControl fullWidth>
-          <Datetime
-            /*  timeFormat={false} */
-            value={this.props.value}
-            onChange={event => this.handleEndChange(event)} 
-            inputProps={{ placeholder: "End Event" }}
-          />
-        </FormControl>
       </div>
       <div className="right">
-      <p>Event Cost: 
+      <p>Expense Name: 
         <input
           type="text"
-          name="eventCost"
+          name="title"
           onChange={this.handleChange}
-          value={this.state.evenCost}
-          className="eventCost"
+          value={this.state.title}
+          className="title"
         />
       </p>
-      <p>Participant:
+      <p> 
+      Event Name (select from list):
+        <input
+          type="text"
+          name="eventName"
+          onChange={this.handleChange}
+          value={this.props.eventName}
+          className="eventName"
+        />
+      </p> 
+      <p>Participant (select from list):
+      
         <input
           type="text"
           name="participant"
@@ -200,21 +197,39 @@ axios
           className="participant"
         />
       </p>
+      <p>Expense Amount: 
+        <input
+          type="text"
+          name="amount"
+          onChange={this.handleChange}
+          value={this.state.amount}
+          className="amount"
+        />
+      </p>
+      
       <p>Amount Participant Owes: 
         <input
           type="text"
-          name="secondaryUsersCost"
+          name="secondaryUsersExpense"
           onChange={this.handleChange}
-          value={this.state.secondaryUsersCost}
-          className="secondaryUsersCost"
+          value={this.state.secondaryUsersExpense}
+          className="secondaryUsersExpense"
         />
-      </p>
+      </p><p> </p>
+
             <button
             onClick={this.saveExpense}
             className="expButton"
 
             >
             Save Expense
+            </button>
+            <button
+            onClick={this.deleteExpense}
+            className="deleteExpense"
+
+            >
+            Delete Expense
             </button>
       </div>
     </div>
@@ -223,4 +238,4 @@ axios
 }
 }
 
-export default AddEvents;
+export default AddExpenses;

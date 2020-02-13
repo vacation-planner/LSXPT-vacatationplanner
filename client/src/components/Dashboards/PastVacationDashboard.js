@@ -5,6 +5,8 @@ import Vacations from "../Dashboards/Vacations/index.js"
 //import ExpenseTable from "../Dashboards/Expenses/expenseTable.js"
 //import NewTable from "../Dashboards/Expenses/newTable.js"
 import Events from "../Dashboards/Events/index.js"
+import EventsCalendar from "../Dashboards/Events/eventsCalendar.js";
+import Expenses from "../Dashboards/Expenses/";
 //import Expenses from "../Dashboards/Events/addEvents.js";
 import ExpenseTable from "../Dashboards/Expenses/expenseTable.js";
 import AddUsers from "../Dashboards/AddUsers/addUsers.js"
@@ -90,11 +92,11 @@ class PastVacationDashboard extends React.Component {
                     ) : null}
 
                     {expenses ? (
-                        <AddUsers title={pastVacationTitle} vacationsId={pastVacationId} />
+                        <Expenses title={pastVacationTitle} vacationsId={pastVacationId} />
                     ) : null}
 
                     {overview ? (
-                        <AddUsers title={pastVacationTitle} vacationsId={pastVacationId} />
+                        <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId} />
                     ) : null}
                 </div>
             </main>

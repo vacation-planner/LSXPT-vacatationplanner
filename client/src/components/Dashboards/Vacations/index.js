@@ -17,7 +17,7 @@ import "../../StyledComponents/Dashboards/Vacations/vacations.css";
 //import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
 //import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
 // import styles from "../../StyledComponents/Dashboards/Vacations/js/cardImagesStyles.js";
-import "../../StyledComponents/Dashboards/Vacations/vacations.css";
+//import "../../StyledComponents/Dashboards/Vacations/vacations.css";
 import { AppContext } from '../../Context/AppContext.js';
 // import { makeStyles } from "@material-ui/core/styles";
 

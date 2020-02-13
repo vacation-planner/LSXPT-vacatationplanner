@@ -31,9 +31,7 @@ export const UsersContainer = styled.div`
   color: #000;
   margin: 5px;
   height: 1600px;
-  background-image: url("../../../../images/register.jpg");
-  background-color: #000;
-`;
+ `;
 
 export const Loading = styled.div`
   font-size: 16px;

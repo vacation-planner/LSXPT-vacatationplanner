@@ -186,6 +186,7 @@ class AddUsers extends Component {
             );
         }); */
     return (
+        <div className="addParticipants">
         <UsersContainer>
         <Zoom in={checked}>
         <GridContainer>
@@ -249,6 +250,7 @@ class AddUsers extends Component {
       </GridContainer>
       </Zoom>
       </UsersContainer>
+      </div>
     );
   }
 }
