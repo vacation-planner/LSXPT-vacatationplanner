@@ -16,7 +16,7 @@ import "../../StyledComponents/Dashboards/AddUsers/material-dashboard-pro-react.
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-const style = {
+/* const style = {
   label: {
     color: "rgba(0, 0, 0, 0.26)",
     cursor: "pointer",
@@ -27,7 +27,7 @@ const style = {
     fontWeight: "400",
     paddingLeft: "0"
   }
-};
+}; */
 
 //const useStyles = makeStyles(style);
 

@@ -130,14 +130,35 @@ class AddUsers extends Component {
 
   secondaryUserSelect = id => {
     console.log("id, You are here", id)
+      // modify to send only one user
+      const userList = this.state.usersList;
+      if (userList) {
+          // send the user list via post to the email router
+          axios
+          .post(`${URL}/emails/`, userList) 
+          .then(response => {
+              console.log("emails sent") 
+          })
+          .catch(err => {
+              console.log("There was an error sending emails", err);
+          });
+      } else {
+          alert("Need to add participants")
+      }
+   
+    
+    
     this.setState({
         disabled: false
       }); 
   }
 
   secondaryUsersList = (props) => {
+    // *****************************************************************************
+    // try to insert a button for each list item so emails canm be sent individually
+    // ****************************************************************************
     const secondaryUsers = this.state.usersList.map((secondaryUser) =>
-      <li key={secondaryUser.id} className="secondaryUsers" onClick={() => {this.secondaryUserSelect(secondaryUser.id)}}>{secondaryUser.firstName},{secondaryUser.lastName},{secondaryUser.email}</li>
+      <li key={secondaryUser.id} className="secondaryUsers" onClick={() => {this.secondaryUserSelect(secondaryUser.id)}}>{secondaryUser.firstName},{secondaryUser.lastName},{secondaryUser.email} </li>
     );
     return (
       <ul className="ul">{secondaryUsers}</ul>

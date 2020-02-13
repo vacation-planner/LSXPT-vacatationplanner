@@ -20,7 +20,7 @@ import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
 import withStyles from "@material-ui/core/styles/withStyles";
 // import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
-import { Zoom, Tooltip, Typography } from "@material-ui/core";
+import { Zoom } from "@material-ui/core";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
@@ -320,7 +320,6 @@ render() {
                                             participant={this.state.participant}
                                             disabled={this.state.disabled}
                                             secondaryUsersId={this.state.secondaryUsersId}
-                                            participant={this.state.participant}
                                             vacationsId={this.state.vacationsId}
                                             startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
                                         </AddEvents>  

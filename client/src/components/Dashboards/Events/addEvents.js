@@ -8,14 +8,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
-import { Tooltip, Typography } from "@material-ui/core";
+//import { Tooltip, Typography } from "@material-ui/core";
 
 import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-const style = {
+/* const style = {
   label: {
     color: "rgba(0, 0, 0, 0.26)",
     cursor: "pointer",
@@ -26,7 +26,7 @@ const style = {
     fontWeight: "400",
     paddingLeft: "0"
   }
-};
+}; */
 
 //const useStyles = makeStyles(style);
 

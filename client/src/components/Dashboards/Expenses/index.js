@@ -5,20 +5,20 @@ import { fire } from "../../Auth/firebaseConfig";
 import AddExpenses from "./addExpenses.js"
 //import EventsCalendar from "./eventsCalendar.js"
 
-import { Row,  
-    UsersContainer, 
-} from "../../StyledComponents/Dashboards/Expenses/Expenses.js";
+//import { Row,  
+//    UsersContainer, 
+//} from "../../StyledComponents/Dashboards/Expenses/Expenses.js";
 // Material Ui Dashboard Pro
-import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
-import CustomInput from "../../StyledComponents/Dashboards/Expenses/js/CustomInput.js";
+//import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
+//import CustomInput from "../../StyledComponents/Dashboards/Expenses/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
-import CardHeader from "../../StyledComponents/Dashboards/Expenses/js/CardHeader.js"
+//import CardHeader from "../../StyledComponents/Dashboards/Expenses/js/CardHeader.js"
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import { Zoom } from "@material-ui/core";
 
@@ -335,7 +335,6 @@ render() {
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
-                                            eventsId={this.state.eventsId} 
                                             participant={this.state.participant}
                                             disabled={this.state.disabled}
                                             secondaryUsersId={this.state.secondaryUsersId}
