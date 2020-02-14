@@ -109,21 +109,15 @@
 
 }
 
-.expButton {
-    height: 26px;
-    width: 140px;
-    border: 1px solid black;
-    margin-top: 20px;
-   /*  background-color: #E91E63; */
-    color: black;
-}
+ .expButton {
+    width: 120px;
+} 
 
-.deleteExpense {
-    height: 26px;
-    width: 140px;
-    border: 0px solid black;
+ .deleteExpense {
+  /*   height: 26px; */
+    width: 120px;
+  /*   border: 0px solid black;
     margin-top: 20px;
-   /*  background-color: #E91E63; */
-    color: black;
-}
+    color: black; */
+} 
  

@@ -8,6 +8,7 @@ import { fire } from "../../Auth/firebaseConfig";
 //import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
+import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
 //import { Tooltip, Typography } from "@material-ui/core";
 
 import "../../StyledComponents/Dashboards/Expenses/material-dashboard-pro-react.css";
@@ -44,7 +45,7 @@ class AddExpenses extends Component {
     startDateTime: "",
     endDateTime: "",
     participant: this.props.participant,
-    disabled: this.props.disabled,
+    disabled:  true,         //this.state.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
     vacationsTitle: this.props.vacationsTitle,
@@ -67,7 +68,11 @@ handleChange = event => {
   this.setState({
       [event.target.name]: event.target.value
 });
-  
+  if (this.state.title !== "") {
+    this.setState({
+      disabled: false,    
+    }); 
+  }
 };
 
 handleStartChange = expense => {
@@ -104,7 +109,7 @@ handleStartChange = expense => {
 
 handleEndChange = expense => {
   if (this.props.disabled) {
-    alert("Please create a expense first.")
+    alert("Please create an expense first.")
   } else {
   let endDateTime = moment(expense).format();
   // update the current vacation record
@@ -132,6 +137,9 @@ axios
 };
 
 saveExpense = () => {
+  // check expense title for validity
+
+  
   let eventName = "";
   if (this.props.eventsId !== "") {
     eventName = this.props.eventName
@@ -217,20 +225,23 @@ axios
         />
       </p><p> </p>
 
-            <button
-            onClick={this.saveExpense}
+            <Button
+            color="rose"
+            onClick={() => this.saveExpense()} 
+            disabled={this.state.disabled}
             className="expButton"
 
             >
             Save Expense
-            </button>
-            <button
-            onClick={this.deleteExpense}
+            </Button>
+            <Button
+            color="rose"
+            onClick={() => this.deleteExpense()} 
             className="deleteExpense"
 
             >
             Delete Expense
-            </button>
+            </Button>
       </div>
     </div>
     

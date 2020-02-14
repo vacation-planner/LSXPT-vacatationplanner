@@ -132,15 +132,25 @@ class AddUsers extends Component {
     console.log("id, You are here", id)
       // modify to send only one user
       const userList = this.state.usersList;
-      if (userList) {
+      let secondaryUserRec = [];
+
+      userList.forEach(result => {
+        if (result.id === id) {
+          secondaryUserRec.push(result);
+        } 
+      })
+      
+      
+      
+      if (secondaryUserRec) {
           // send the user list via post to the email router
           axios
-          .post(`${URL}/emails/`, userList) 
+          .post(`${URL}/emails/`, secondaryUserRec) 
           .then(response => {
               console.log("emails sent") 
           })
           .catch(err => {
-              console.log("There was an error sending emails", err);
+              console.log("There was an error sending email", err);
           });
       } else {
           alert("Need to add participants")
@@ -258,12 +268,12 @@ class AddUsers extends Component {
                             <div className="users-list">
                                 {this.secondaryUsersList()}
                             </div> 
-                            <h5>Press the invite button to send emails to the people on your list.</h5>
+                            <h5>Select a person from the list to send an email.</h5>
                             {/* <p> </p> */}
-                            <Button  
+                           {/*  <Button  
                                 onClick={() => this.invite()} 
                                 color="rose">Send Invites
-                            </Button>
+                            </Button> */}
                         </form>
                     </CardBody>
                 </Card>

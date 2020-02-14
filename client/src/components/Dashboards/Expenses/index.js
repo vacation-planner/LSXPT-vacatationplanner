@@ -323,7 +323,7 @@ render() {
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "600px", height: "560px", marginRight: "100px", top: "20px"}}>
+                        <Card style={{ width: "600px", height: "560px", marginLeft: "20px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
                             <h3>Create Expense: {this.state.eventName}</h3>
                             <h4>Current Vacation: {this.props.title}</h4>
@@ -336,7 +336,7 @@ render() {
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
                                             participant={this.state.participant}
-                                            disabled={this.state.disabled}
+                                            /* disabled={this.state.disabled} */
                                             secondaryUsersId={this.state.secondaryUsersId}
                                             vacationsId={this.state.vacationsId}
                                             amount={this.state.amount}

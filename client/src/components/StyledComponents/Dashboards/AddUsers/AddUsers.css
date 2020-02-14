@@ -60,6 +60,7 @@
 
 .secondaryUsers:hover {
     background-color: rgb(233, 30, 99);
+    color: white;
 }
 
 .addParticipants {
