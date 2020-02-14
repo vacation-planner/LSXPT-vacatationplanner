@@ -3,22 +3,12 @@ import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
 import AddExpenses from "./addExpenses.js"
-//import EventsCalendar from "./eventsCalendar.js"
-
-//import { Row,  
-//    UsersContainer, 
-//} from "../../StyledComponents/Dashboards/Expenses/Expenses.js";
-// Material Ui Dashboard Pro
-//import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
-//import CustomInput from "../../StyledComponents/Dashboards/Expenses/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
-//import CardHeader from "../../StyledComponents/Dashboards/Expenses/js/CardHeader.js"
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
-//import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import { Zoom } from "@material-ui/core";
 
@@ -28,9 +18,6 @@ const URL = "http://localhost:5500/api";
 const styles = theme => ({
   cardBody: {
       display: "flex",
-      /* justifyContent: "space-between", */
-       /* backgroundColor: "#23b0e7", */  
-      /* height: "10%", */
       [theme.breakpoints.up("sm")]: {
           width: "100%",    
       }
@@ -105,9 +92,10 @@ class Expenses extends Component {
 componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
-   
+   // grab the list of secondary users
     this.fetchSecondaryUsers(this.state.vacationsId);
 
+    // grab the list of current events
     this.fetchEvents(this.state.vacationsId);
 
        this.setState({
@@ -183,6 +171,7 @@ addExpense = () => {
       });
   };
 
+  // this subroutine grabs the list of secondary users from the table
   fetchSecondaryUsers = (vacationsId) => {
     let secondaryUsers = [];
     axios
@@ -202,6 +191,7 @@ addExpense = () => {
     });
   }
 
+  // this function grabs the secondaryUser record for a single user
   fetchSecondaryUser = id => {
     axios
     .get(`${URL}/secondaryUsers/${id}`)
@@ -216,6 +206,7 @@ addExpense = () => {
     });
   }
 
+  // this subroutine grabs the list of events from the table
   fetchEvents = (vacationsId) => {
     let events = [];
     axios
@@ -235,6 +226,7 @@ addExpense = () => {
     });
   }
 
+  // this function grabs the event record for a single event
   fetchEvent = (eventsId) => {
     //let events = [];
     axios
@@ -254,14 +246,16 @@ addExpense = () => {
 
   }
 
-  handleStartDate = startDate => {
+  /* handleStartDate = startDate => {
     console.log('startdate: ', startDate);
-  }
+  } */
 
+  // the user has clicked on a line item in the box
   listSelect = (id) => {        
     this.fetchSecondaryUser(id);
   }
 
+  // the user has clicked on a line item in the box
   eventSelect = (id) => {        
     this.fetchEvent(id);
   }
@@ -271,7 +265,7 @@ addExpense = () => {
         [event.target.name]: event.target.value
     }); 
   };
-
+  // Create a box with a list of the current events
   eventList = (props) => {
     const eventItems = this.state.events.map((event) =>
       <li className="event" onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
@@ -280,7 +274,7 @@ addExpense = () => {
       <ul className="ul">{eventItems}</ul>
     );
   }
-
+ // Create a box with a list of the current participants
   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
       <li className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
@@ -293,30 +287,6 @@ addExpense = () => {
 render() {
   const { classes } = this.props;
   const { checked } = this.state;
-  //let rows = [];
- // let eventRows = [];
-  // **************************************
-  // NOTE: need to correct the formatting
-  // *************************************
- // this.state.secondaryUsers.forEach((user, index) => {
-    // Loops through array of secondary users and lists them in a div
-  //  rows.push(
-       /*  <UsersContainer key={index} onSelect={this.listSelect} onClick={this.listSelect}>
-            {user.firstName}, {user.lastName}      
-        </UsersContainer> */
-   //          <div key={index} onSelect={this.listSelect}  className="participants" onClick={this.listSelect}>
-   //          {user.firstName}, {user.lastName}     
-   //      </div>
-   //     );
- //   });
- //   this.state.events.forEach((event, index) => {
-        // Loops through array of secondary users and lists them in a div
-  //      eventRows.push(
-   //         <UsersContainer key={index}>
-    //            {event.eventName}      
-    //        </UsersContainer>
-    //        );
-   //     });
 
     return (
         <div className="expenses"> 
@@ -324,19 +294,16 @@ render() {
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
                         <Card style={{ width: "600px", height: "560px", marginLeft: "20px", marginRight: "100px", top: "20px"}}>
-                            {/*  <div className="images"> </div> */}
-                            <h3>Create Expense: {this.state.eventName}</h3>
-                            <h4>Current Vacation: {this.props.title}</h4>
+                            <h2>Create Expense: {this.state.eventName}</h2>
+                            <h3>Current Vacation: {this.props.title}</h3>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
-                                   
                                     <CardBody  xs={12} sm={12} md={4}>
                                         <AddExpenses 
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
                                             participant={this.state.participant}
-                                            /* disabled={this.state.disabled} */
                                             secondaryUsersId={this.state.secondaryUsersId}
                                             vacationsId={this.state.vacationsId}
                                             amount={this.state.amount}
@@ -356,16 +323,14 @@ render() {
                                     <CardBody> 
                                         <h3>Vacation Participants:</h3>{" "}  
                                         <div className="participantsList">
-                                           {/*  {rows} */} 
                                            {this.participantList()}                                        
                                         </div>
                                     </CardBody>
-                                 
                                 </CardBody >
-                               
                             </CardBody >
-                            <CardBody  className={classes.cardBodyContainer3}>
-                                </CardBody>                        
+                            <CardBody  
+                              className={classes.cardBodyContainer3}>
+                            </CardBody>                        
                         </Card>
                     </GridItem>
                 </GridContainer>

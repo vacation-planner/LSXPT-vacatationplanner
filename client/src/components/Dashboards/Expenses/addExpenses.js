@@ -53,6 +53,7 @@ class AddExpenses extends Component {
     secondaryUsersExpense: 0,
     secondaryUsersName: "",
     title: "",
+    deleteDisabled: true,
    };
 }
 
@@ -160,6 +161,9 @@ axios
 .post(`${URL}/expenses/`, expenseRec)
 .then(response => {
     console.log("file written");
+    this.setState({
+      deleteDisabled: false,    
+    });  
     // get the id of the new record
     //this.fetchId(this.state.eventName);
 })
@@ -236,7 +240,8 @@ axios
             </Button>
             <Button
             color="rose"
-            onClick={() => this.deleteExpense()} 
+            onClick={() => this.deleteExpense()}
+            disabled={this.state.deleteDisabled} 
             className="deleteExpense"
 
             >
