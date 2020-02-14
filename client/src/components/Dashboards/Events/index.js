@@ -3,11 +3,11 @@ import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
 import AddEvents from "./addEvents.js"
-import EventsCalendar from "./eventsCalendar.js"
+//import EventsCalendar from "./eventsCalendar.js"
 
-import { //Row,  
-    UsersContainer, 
-} from "../../StyledComponents/Dashboards/Events/events.js";
+//import { //Row,  
+ //   UsersContainer, 
+//} from "../../StyledComponents/Dashboards/Events/events.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 // import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
@@ -22,10 +22,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import { Zoom } from "@material-ui/core";
 
-//import ListBox from 'react-listbox';
-//import 'react-listbox/dist/react-listbox.css'
-
-
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
@@ -36,40 +32,35 @@ const styles = theme => ({
        backgroundColor: "#E91E63",  
       /* height: "10%", */
       [theme.breakpoints.up("sm")]: {
-          width: "100%",
-         
+          width: "100%",    
       }
   },
   cardBody2: {
     display: "flex",
     flexDirection: "row",
     [theme.breakpoints.up("sm")]: {
-        width: "100%",
-       
+        width: "100%",   
     }
 },
 cardBodyContainer1: {
     display: "flex",
     flexDirection: "Column",
     [theme.breakpoints.up("sm")]: {
-        width: "25%",
-       
+        width: "25%",   
     }
 },
 cardBodyContainer2: {
     display: "flex",
     flexDirection: "Column",
     [theme.breakpoints.up("sm")]: {
-        width: "25%",
-       
+        width: "25%",   
     }
 },
 cardBodyContainer3: {
     display: "flex",
     flexDirection: "row",
     [theme.breakpoints.up("sm")]: {
-        width: "50%",
-       
+        width: "50%",   
     }
 },
   gridItem: {
@@ -95,9 +86,11 @@ class Events extends Component {
     eventsId: "",
     events: [],
     disabled: false,
+    participant: "",
     secondaryUsersId: 1,
     secondaryUsers: [],
     checked: false,
+    displayEvents: false,
    };
 };
 
@@ -105,8 +98,6 @@ componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
    
-    //this.fetchVacationTitle(this.state.vacationsId);
-
     this.fetchSecondaryUsers(this.state.vacationsId);
 
     this.fetchEvents(this.state.vacationsId);
@@ -115,25 +106,6 @@ componentDidMount() {
         usersUid: usersUid
       }); 
     };
-
-/* fetchVacationTitle = (vacationsId) => {
-    axios
-    .get(`${URL}/vacations/${vacationsId}`)
-    .then(response => {
-      response.data.forEach((item, index) => {
-        if (item.id === vacationsId) {          
-          this.setState({
-              title: item.title,
-          });
-          console.log('title found: ', this.state.title); 
-        }
-      });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
-
-}     */
 
 addEvent = () => {
     // create a record using the input
@@ -149,6 +121,9 @@ addEvent = () => {
             console.log("file written");
             // get the id of the new record
             this.fetchId(this.state.eventName);
+            this.setState({
+                displayEvents: true
+            });
         })
         .catch(err => {
             console.log('We"ve encountered an error');
@@ -181,21 +156,31 @@ addEvent = () => {
       response.data.forEach((user, index) => {
         if (user.vacationsId === vacationsId) {          
           secondaryUsers.push(user)
-          //console.log('secondaryUsers: ', user);
-        }
-         
-          });
+        } 
+        });
           this.setState({
             secondaryUsers: secondaryUsers
+        });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+  }
+
+  fetchSecondaryUser = id => {
+    axios
+    .get(`${URL}/secondaryUsers/${id}`)
+    .then(response => {
+          this.setState({
+            participant: response.data.firstName,
+            secondaryUsersId: id
       });
     })
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-
   }
 
-  
   fetchEvents = (vacationsId) => {
     let events = [];
     axios
@@ -204,13 +189,29 @@ addEvent = () => {
       response.data.forEach((event, index) => {
         if (event.vacationsId === vacationsId) {          
             events.push(event)
-          //console.log('event: ', event);
         }
           this.setState({
             events: events
           });
-        
       });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+  }
+
+  fetchEvent = (eventsId) => {
+    //let events = [];
+    axios
+    .get(`${URL}/events/${eventsId}`)
+    .then(response => {         
+             this.setState({
+                eventsId: eventsId,
+                eventName: response.data.eventName,
+                startDateTime: response.data.startDateTime,
+                endDateTime: response.data.endDateTime,
+                description: response.data.description,
+            }); 
     })
     .catch(err => {
       console.log('We"ve encountered an error');
@@ -220,73 +221,103 @@ addEvent = () => {
 
   handleStartDate = startDate => {
     console.log('startdate: ', startDate);
-
   }
-  listSelect = event => {
-        console.log("in the list selelct: ", event.target.value);
+
+  listSelect = (id) => {        
+    this.fetchSecondaryUser(id);
+  }
+
+  eventSelect = (id) => {        
+    this.fetchEvent(id);
+    this.setState({
+        displayEvents: true
+    });
 
   }
 
   handleChange = event => {
-
     this.setState({
         [event.target.name]: event.target.value
-  });
-    
+    }); 
   };
+
+  eventList = (props) => {
+    const eventItems = this.state.events.map((event) =>
+      <li key={event.id} className="event" onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
+    );
+    return (
+      <ul className="ul">{eventItems}</ul>
+    );
+  }
+
+  participantList = (props) => {
+    const listItems = this.state.secondaryUsers.map((user) =>
+      <li key={user.id} className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
+    );
+    return (
+      <ul className="ul">{listItems}</ul>
+    );
+  }
 
 render() {
   const { classes } = this.props;
   const { checked } = this.state;
-  let rows = [];
-  let eventRows = [];
+  //let rows = [];
+ // let eventRows = [];
   // **************************************
   // NOTE: need to correct the formatting
   // *************************************
-  this.state.secondaryUsers.forEach((user, index) => {
+ // this.state.secondaryUsers.forEach((user, index) => {
     // Loops through array of secondary users and lists them in a div
-    rows.push(
-        <UsersContainer key={index} onSelect={this.listSelect} onClick={this.listSelect}>
+  //  rows.push(
+       /*  <UsersContainer key={index} onSelect={this.listSelect} onClick={this.listSelect}>
             {user.firstName}, {user.lastName}      
-        </UsersContainer>
-        );
-    });
-    this.state.events.forEach((event, index) => {
+        </UsersContainer> */
+   //          <div key={index} onSelect={this.listSelect}  className="participants" onClick={this.listSelect}>
+   //          {user.firstName}, {user.lastName}     
+   //      </div>
+   //     );
+ //   });
+ //   this.state.events.forEach((event, index) => {
         // Loops through array of secondary users and lists them in a div
-        eventRows.push(
-            <UsersContainer key={index}>
-                {event.eventName}      
-            </UsersContainer>
-            );
-        });
+  //      eventRows.push(
+   //         <UsersContainer key={index}>
+    //            {event.eventName}      
+    //        </UsersContainer>
+    //        );
+   //     });
 
     return (
         <div className="events"> 
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "1100px", height: "700px", marginRight: "100px", top: "20px"}}>
+                        <Card style={{ width: "700px", marginLeft: "50px", height: "600px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
-                            <h3>Create Event: {this.state.eventName}</h3>
-                            <h4>Current Vacation: {this.props.title}</h4>
+                            <h2>Create Event: {this.state.eventName}</h2>
+                            <h3>Current Vacation: {this.props.title}</h3>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
                                     <CardBody>
                                         <h5>Name of New Event:{" "}
-                                            <input
+                                        <input
                                                 type="text"
                                                 name="eventName"
                                                 onChange={this.handleChange}
                                                 value={this.state.eventName}
                                                 className="eventName"
+                                                placeholder={this.state.eventName}
                                             />
-                                        </h5>
+                                          </h5> 
+                                        
                                     </CardBody>
                                     <CardBody  xs={12} sm={12} md={4}>
-                                        <AddEvents 
+                                         <AddEvents 
+                                            eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
-                                            eventsId={this.state.eventsId} 
+                                            title={this.state.title} 
+                                            participant={this.state.participant}
                                             disabled={this.state.disabled}
                                             secondaryUsersId={this.state.secondaryUsersId}
                                             vacationsId={this.state.vacationsId}
@@ -306,22 +337,6 @@ render() {
                                             />  
                                         </h5>
                                     </CardBody>
-                                    <CardBody> 
-                                        <h3>Available Events:</h3>{" "}                                
-                                        <div className="eventsList">
-                                            {eventRows} 
-                                        </div>          
-                                    </CardBody>
-                                    <CardBody> 
-                                        <h3>Vacation Participants:</h3>{" "}  
-                                        <div className="participantsList">
-                                            {rows} 
-                                        </div>
-                                    </CardBody>
-                                </CardBody>
-                                <CardBody className={classes.cardBodyContainer3}>
-                                    <EventsCalendar  title={this.props.title} vacationsId={this.state.vacationsId}>
-                                    </EventsCalendar>
                                 </CardBody>
                             </CardBody>                        
                             <CardBody  className={classes.cardBody}>
@@ -335,7 +350,7 @@ render() {
                                 <Button  
                                     onClick={() => this.removeEvent()} 
                                     color="rose"
-                                    disabled="true">Remove
+                                    disabled={true}>Remove
                                 </Button> 
                             </CardBody>
                         </Card>

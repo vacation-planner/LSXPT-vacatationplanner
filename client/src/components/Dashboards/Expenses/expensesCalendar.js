@@ -5,12 +5,6 @@ import { Calendar as  BigCalendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from "moment";
 import swal from '@sweetalert/with-react'
-import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
-import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
-import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridContainer.js";
-import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
-import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 //import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
@@ -23,22 +17,7 @@ const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar)
 
-const styles = theme => ({
-  lowerCardBody: {
-      display: "flex",
-      width: "100%",
-      height: "100px",
-      backgroundColor: "#E91E63",
-      /* justifyContent: "space-between", */
-       /* backgroundColor: "#23b0e7", */  
-      /* height: "10%", */
-      [theme.breakpoints.up("sm")]: {
-          width: "100%",    
-      }
-  }
-});
-
-//  let eventSave = [];
+ let eventSave = [];
  /* const events = [
     {
       id: 0,
@@ -49,15 +28,15 @@ const styles = theme => ({
     },
   ]   */
   
-// const resourceMap = [
-//   { resourceId: 1, resourceTitle: 'Vacation Date' },
-//   { resourceId: 2, resourceTitle: 'Event' },
-//   { resourceId: 3, resourceTitle: 'Meeting room 1' },
-//   { resourceId: 4, resourceTitle: 'Meeting room 2' },
-// ]
+const resourceMap = [
+  { resourceId: 1, resourceTitle: 'Vacation Date' },
+  { resourceId: 2, resourceTitle: 'Event' },
+  { resourceId: 3, resourceTitle: 'Meeting room 1' },
+  { resourceId: 4, resourceTitle: 'Meeting room 2' },
+]
 
 
-class EventsCalendar extends React.Component {
+class ExpensesCalendar extends React.Component {
   constructor(props) {
      super(props)  
     
@@ -70,8 +49,6 @@ class EventsCalendar extends React.Component {
       eventName: "",
       description: "",
       value: "",
-      vacationsDisabled: false,
-      eventsDisabled: true,
     }
 
     this.moveEvent = this.moveEvent.bind(this)
@@ -89,12 +66,12 @@ class EventsCalendar extends React.Component {
    // console.log("state: ", this.state)
     // get the data needed to populate the calendar component
 
-    this.fetchEventData(vacationsId);
+    this.fetchExpensesData(vacationsId);
   }
   
-  fetchEventData = vacationsId => {
+  fetchExpensesData = vacationsId => {
     axios
-      .get(`${URL}/events/`)
+      .get(`${URL}/eventsUsers/`)
       .then(response => {
         let eventsData = [];
  
@@ -126,7 +103,7 @@ class EventsCalendar extends React.Component {
     this.state.eventData.forEach((item, index) => {
      
       events.push({
-        //id: item.id,
+        // big-react-calendar requires this format to display data
         title: item.eventName,
         start: item.startDateTime,
         end: item.endDateTime,
@@ -142,10 +119,7 @@ class EventsCalendar extends React.Component {
 
   }
 
- /*  handleChange = event => {
-    this.setState({[event.target.name]: this.state.value + event.target.value});
-    console.log("value: ", this.state.value)
-  } */
+
   handleChange = event => {
     this.setState({
         [event.target.name]:  this.props.value +  event.target.value
@@ -225,12 +199,10 @@ class EventsCalendar extends React.Component {
   }
 
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
-    const { events } = this.state;
+    const { events } = this.state
 
-    const idx = events.indexOf(event);
-    let allDay = event.allDay;
-
-    console.log("In the move event");
+    const idx = events.indexOf(event)
+    let allDay = event.allDay
 
     if (!event.allDay && droppedOnAllDaySlot) {
       allDay = true
@@ -295,51 +267,27 @@ class EventsCalendar extends React.Component {
 
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className="events-calendar-container">
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card style={{ marginLeft: "20px", height: "600px", width: "540px", top: "0px", }}>
-              <CardBody>
-                <DragAndDropCalendar
-                  selectable
-                  localizer={localizer}
-                  events={this.state.events}
-                  onEventDrop={event => this.moveEvent(event)}
-                  onSelectEvent={event => this.selectedEvent(event)}
-                  onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
-                  resizable
-                  /*  resources={resourceMap}  */
-                  /*  resourceIdAccessor="resourceId"  */
-                  /*  resourceTitleAccessor="resourceTitle"  */
-                  onEventResize={this.resizeEvent}
-                  defaultView="month"
-                  step={15}
-                  showMultiDayTimes={true}
-                  defaultDate={new Date(2019, 11, 29)}
-                  eventPropGetter={event => this.eventStyleGetter(event)}
-                />
-              </CardBody>
-              <CardBody  className={classes.lowerCardBody}>
-                <Button  
-                  onClick={() => this.displayVacations()} 
-                  color="rose"
-                  vacationsDisabled={this.state.vacationsDisabled}>Vacations
-                </Button>
-                <Button  
-                  onClick={() => this.displayEvents()} 
-                  color="rose"
-                  disabled={this.state.eventsDisabled}>Events
-                </Button>                                  
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </div>
+      <DragAndDropCalendar
+        selectable
+        localizer={localizer}
+        events={this.state.events}
+        onEventDrop={event => this.moveEvent(event)}
+        onSelectEvent={event => this.selectedEvent(event)}
+        onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+        resizable
+       /*  resources={resourceMap}  */
+       /*  resourceIdAccessor="resourceId"  */
+       /*  resourceTitleAccessor="resourceTitle"  */
+        onEventResize={this.resizeEvent}
+        defaultView="month"
+        step={15}
+        showMultiDayTimes={true}
+        defaultDate={new Date(2019, 11, 29)}
+        eventPropGetter={event => this.eventStyleGetter(event)}
+      />
     )
   }
 }
 
-export default withStyles(styles)(EventsCalendar)
+export default ExpensesCalendar

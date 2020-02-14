@@ -5,6 +5,7 @@ module.exports = {
     getById: getById,
     getByUid: getByUid,
     getByVacId: getByVacId,
+    getByEventsId: getByEventsId,
     insert: insert,
     remove: remove,
     update: update,
@@ -22,12 +23,16 @@ function getByUid(uid) {
     return db('expenses').where('uid', uid);
 }
 
-function getByVacId(vacationId) {
-    return db('expenses').where('vacationId', vacationId);
+function getByVacId(vacationsId) {
+    return db('expenses').where('vacationsId', vacationsId);
+}
+
+function getByEventsId(eventsId) {
+    return db('expenses').where('eventsId', eventsId);
 }
 
 function insert(data) {
-    return db('expenses').insert(data)
+    return db('expenses').insert(data);
 }
 
 function remove(id) {

@@ -14,8 +14,8 @@ import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js
 // import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
-// import { makeStyles } from "@material-ui/core/styles";
-import { Zoom } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -42,7 +42,6 @@ const styles = theme => ({
       cursor: "pointer",
       padding: 15,
       paddingLeft: 35,
-      fontSize: "2rem",
   }
 });
 
@@ -68,6 +67,7 @@ componentDidMount() {
        this.setState({
         usersUid: usersUid
       }); 
+      // fetch the vacation details
       this.fetchVacation();
     };
 
@@ -183,6 +183,7 @@ render() {
                             </CardBody>
                         </CardBody>
                         <CardBody  xs={12} sm={12} md={4}>
+                           
                             <DateTimePicker 
                                 title={this.state.title} 
                                 location={this.state.location} 
@@ -191,19 +192,40 @@ render() {
                                 startDate={this.state.startDate}
                                 endDate={this.state.endDate}
                                 //startDate={() => this.handleStartDate(this.state.startDate)}
-                                >
+                            >
                             </DateTimePicker>  
+                       
                         </CardBody>
                         <CardBody  className={classes.cardBody}>
-                            <Button  
-                                onClick={() => this.updateVacation()} 
-                                color="rose">Update
-                            </Button>
-                            <Button  
-                                onClick={() => this.removeUser()} 
-                                color="rose"
-                                disabled={true}>Remove
-                            </Button>                               
+                            <Tooltip
+                                placement="top"
+                                disableFocusListener
+                                title={
+                                    <Typography color="inherit" variant="h6">
+                                        Click here if any changes have been made
+                                    </Typography>
+                                }
+                            >    
+                                <Button  
+                                    onClick={() => this.updateVacation()} 
+                                    color="rose">Update
+                                </Button>
+                            </Tooltip>
+                            <Tooltip
+                                placement="top"
+                                disableFocusListener
+                                title={
+                                    <Typography color="inherit" variant="h6">
+                                        Function has not been coded yet
+                                    </Typography>
+                                }
+                            >    
+                                <Button  
+                                    onClick={() => this.removeUser()} 
+                                    color="rose"
+                                    >Remove
+                                </Button> 
+                            </Tooltip>                               
                         </CardBody>   
                     </Card>
             </GridItem>

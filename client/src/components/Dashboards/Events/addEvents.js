@@ -3,18 +3,19 @@ import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
+//import { Tooltip, Typography } from "@material-ui/core";
 
 import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-const style = {
+/* const style = {
   label: {
     color: "rgba(0, 0, 0, 0.26)",
     cursor: "pointer",
@@ -25,9 +26,9 @@ const style = {
     fontWeight: "400",
     paddingLeft: "0"
   }
-};
+}; */
 
-const useStyles = makeStyles(style);
+//const useStyles = makeStyles(style);
 
 class AddEvents extends Component {
   constructor(props) {
@@ -42,9 +43,15 @@ class AddEvents extends Component {
     description: this.props.description,
     startDateTime: "",
     endDateTime: "",
+    participant: this.props.participant,
     disabled: this.props.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
+    vacationsTitle: this.props.title,
+    amount: 0,
+    secondaryUsersExpense: 0,
+    secondaryUsersName: "",
+    title: "",
    };
 }
 
@@ -55,12 +62,20 @@ componentDidMount() {
   }); 
 };
 
+handleChange = event => {
+
+  this.setState({
+      [event.target.name]: event.target.value
+});
+  
+};
+
 handleStartChange = event => {
   if (this.props.disabled) {
     alert("Please create an event first.")
   } else {
   let startDateTime = moment(event).format();
-  console.log("startDateTime: ", startDateTime)
+  //console.log("startDateTime: ", startDateTime)
    // update the current event record
     let eventsRec = {
       eventName: this.props.eventName,
@@ -68,7 +83,7 @@ handleStartChange = event => {
       startDateTime: startDateTime,
       usersUid: this.state.usersUid,
       vacationsId: this.props.vacationsId,
-      secondaryUsersId: this.props.secondaryUsersId,
+      //secondaryUsersId: this.props.secondaryUsersId,
     } 
 
  axios
@@ -116,6 +131,37 @@ axios
 }
 };
 
+saveExpense = () => {
+  let eventName = "";
+  if (this.props.eventsId !== "") {
+    eventName = this.props.eventName
+  }
+
+
+let expenseRec = {
+  title: this.state.title,
+  eventsId: this.props.eventsId,
+  vacationsId: this.props.vacationsId,
+  eventName: eventName,
+  vacationsTitle: this.props.title,
+  secondaryUsersId: this.props.secondaryUsersId,
+  amount: this.state.amount,
+  secondaryUsersExpense: this.state.secondaryUsersExpense,
+  secondaryUsersName: this.props.participant,
+}
+console.log("expenseRec: ", expenseRec);
+axios
+.post(`${URL}/expenses/`, expenseRec)
+.then(response => {
+    console.log("file written");
+    // get the id of the new record
+    //this.fetchId(this.state.eventName);
+})
+.catch(err => {
+    console.log('We"ve encountered an error');
+});  
+
+}
 
  render() {
   const classes = this.props;
@@ -147,36 +193,6 @@ axios
             inputProps={{ placeholder: "End Event" }}
           />
         </FormControl>
-      </div>
-      <div className="right">
-      <p>Event Cost: 
-        <input
-          type="text"
-          name="eventCost"
-          onChange={this.handleChange}
-          value={this.state.eventName}
-          className="eventCost"
-        />
-      </p>
-      <p>Participant:
-        <input
-          type="text"
-          name="participant"
-          onChange={this.handleChange}
-          value={this.state.eventName}
-          className="participant"
-        />
-      </p>
-      <p>Amount Participant Owes: 
-        <input
-          type="text"
-          name="amountOwed"
-          onChange={this.handleChange}
-          value={this.state.eventName}
-          className="amountOwed"
-        />
-      </p>
-
       </div>
     </div>
     

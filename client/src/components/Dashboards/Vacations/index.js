@@ -1,17 +1,23 @@
 import React, { Component } from "react";
+//import { fire } from "../../Auth/firebaseConfig";
+import Display from "./display.js";
+//import AddVacations from "./addVacations.js";
+//import AddUsers from "../AddUsers/addUsers.js"
+import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
+import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
+//import styles from "../../StyledComponents/Dashboards/Vacations/js/cardImagesStyles.js";
+import "../../StyledComponents/Dashboards/Vacations/vacations.css";
+//import { makeStyles } from "@material-ui/core/styles";
 //import axios from "axios";
 // import { fire } from "../../Auth/firebaseConfig";
-import Display from "./display.js";
 // import AddVacations from "./addVacations.js";
 // import AddUsers from "../AddUsers/addUsers.js"
 //import CustomInput from "../../StyledComponents/Dashboards/Vacations/js/CustomInput.js";
-import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
-import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
 //import Card from "../../StyledComponents/Dashboards/Vacations/js/Card.js";
 //import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
 //import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
 // import styles from "../../StyledComponents/Dashboards/Vacations/js/cardImagesStyles.js";
-import "../../StyledComponents/Dashboards/Vacations/vacations.css";
+//import "../../StyledComponents/Dashboards/Vacations/vacations.css";
 import { AppContext } from '../../Context/AppContext.js';
 // import { makeStyles } from "@material-ui/core/styles";
 

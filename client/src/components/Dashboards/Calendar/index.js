@@ -1,7 +1,7 @@
 import React from "react";
-import AddUsers from "../AddUsers/addUsers.js";
+//import AddUsers from "../AddUsers/addUsers.js";
 import Dnd from "./dragDrop.js";
-import Display from "../Vacations/display.js";
+//import Display from "../Vacations/display.js";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 import Button from "../../StyledComponents/Dashboards/Calendar/js/Button.js";
@@ -32,7 +32,7 @@ const URL = "http://localhost:5500/api";
       super(props);
       this.state = {
         uid: "",
-        vacationsId: 1,    //this.props.id,
+        vacationsId: this.props.vacationsId,    //this.props.id,
         vacation: [],
         events: [],
         eventData: [],
@@ -141,7 +141,7 @@ render () {
 
   return (
   <div className="cal-outer">
-    <Card style={{ marginLeft: "20px", width: "10%", top: "0px", }}>
+    <Card style={{ marginLeft: "20px", width: "540px", top: "0px", }}>
     <CardBody>
       <Dnd  events={this.state.events} >
       </Dnd>
@@ -151,10 +151,10 @@ render () {
     <CardBody>
       </CardBody>
     </Card> */}
-    <AddUsers>
-      </AddUsers>
-      <Display>
-        </Display>
+  {/*   <AddUsers>
+      </AddUsers> */}
+      {/* <Display>
+        </Display> */}
 
     
   </div>

@@ -11,10 +11,10 @@
 
   .cal-outer {
     display: flex; 
-    width: 100%;
+    min-width: 600px;
     height: 100%; 
     /* border: 2px solid red; */
-    background-color: rgb(116, 18, 55);
+    /* background-color: rgb(116, 18, 55); */
   }
   
   button.rbc-btn {

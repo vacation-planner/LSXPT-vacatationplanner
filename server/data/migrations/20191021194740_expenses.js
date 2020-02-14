@@ -1,18 +1,23 @@
 
 exports.up = function (knex) {
-      knex.schema.createTable('expenses', (expenses) => {
+    return  knex.schema.createTable('expenses', (expenses) => {
         expenses.increments();
         expenses.string('title', 128).notNullable();
         expenses.decimal('amount');
-        expenses.integer('vacationId').references('vacations.id');
-        expenses
-        .string('usersUid')
-        .references('users.uid');
+        expenses.integer('vacationsId').references('vacations.id');
+        expenses.string('usersUid');
+        expenses.integer('eventsId');
+        expenses.string('eventName');
+        expenses.string('vacationsTitle');
+        expenses.integer('secondaryUsersId');
+        expenses.string('secondaryUsersName');
+        expenses.decimal('expensePaid');
+        expenses.decimal('secondaryUsersExpense');
       })
   };
   
   
   exports.down = function (knex) {
-      knex.schema.dropTableIfExists('expenses')
+     return knex.schema.dropTableIfExists('expenses')
   };
   
