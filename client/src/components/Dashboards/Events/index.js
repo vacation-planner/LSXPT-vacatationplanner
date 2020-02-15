@@ -65,7 +65,7 @@ cardBodyContainer3: {
 },
   gridItem: {
       cursor: "pointer",
-      padding: 15,
+       padding: 15, 
       paddingLeft: 35,
       fontSize: "2rem",
   }
@@ -292,7 +292,7 @@ render() {
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "700px", marginLeft: "50px", height: "600px", marginRight: "100px", top: "20px"}}>
+                        <Card style={{ width: "700px", marginLeft: "150px", height: "580px", marginRight: "100px", top: "20px"}}>
                             {/*  <div className="images"> </div> */}
                             <h2>Create Event: {this.state.eventName}</h2>
                             <h3>Current Vacation: {this.props.title}</h3>
@@ -327,7 +327,7 @@ render() {
                                 </CardBody>
                                 <CardBody  className={classes.cardBodyContainer2}>
                                     <CardBody> 
-                                        <h5>Description:{" "}
+                                        <h5>Event Description:{" "}
                                             <input
                                                 type="text"
                                                 name="description"
@@ -337,9 +337,16 @@ render() {
                                             />  
                                         </h5>
                                     </CardBody>
+                                    <CardBody> 
+                                        <h3>Available Events:</h3>{" "}                                
+                                        <div className="eventsList">
+                                            {this.eventList()} 
+                                        </div>          
+                                    </CardBody>
                                 </CardBody>
                             </CardBody>                        
                             <CardBody  className={classes.cardBody}>
+                               {/*  <div className="logo"> */}
                                 <div className="logo">
                                 </div>
                                 <Button  

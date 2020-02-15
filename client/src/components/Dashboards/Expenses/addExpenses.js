@@ -3,20 +3,21 @@ import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 //import Datetime from "react-datetime";
 // @material-ui/core components
-//import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 //import InputLabel from "@material-ui/core/InputLabel";
 //import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
 import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
-//import { Tooltip, Typography } from "@material-ui/core";
-
+import { Tooltip, Typography } from "@material-ui/core";
+import withStyles from "@material-ui/core/styles/withStyles";
+//import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/Expenses/material-dashboard-pro-react.css";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-/* const style = {
+ const style = {
   label: {
     color: "rgba(0, 0, 0, 0.26)",
     cursor: "pointer",
@@ -27,9 +28,9 @@ const URL = "http://localhost:5500/api";
     fontWeight: "400",
     paddingLeft: "0"
   }
-}; */
+}; 
 
-//const useStyles = makeStyles(style);
+const useStyles = makeStyles(style);
 
 class AddExpenses extends Component {
   constructor(props) {
@@ -174,21 +175,30 @@ axios
 }
 
  render() {
-  //const classes = this.props;
+  const classes = this.props;
   return (
     <div className="eventContainer">
       <div className="left">
       </div>
+      <Tooltip
+                                placement="top"
+                                disableFocusListener
+                                title={
+                                    <Typography color="inherit" variant="h5">
+                                        Create an expense and optionally assign it to an event. To do this, click on the event before saving.
+                                    </Typography>
+                                }
+                            > 
       <div className="right">
       <p>Expense Name: 
-        <input
+         <input
           type="text"
           name="title"
           onChange={this.handleChange}
           value={this.state.title}
           className="title"
         />
-      </p>
+     </p>
       <p> 
       Event Name (select from list):
         <input
@@ -230,28 +240,30 @@ axios
       </p><p> </p>
 
             <Button
+            
             color="rose"
             onClick={() => this.saveExpense()} 
             disabled={this.state.disabled}
             className="expButton"
 
             >
-            Save Expense
+            Save
             </Button>
             <Button
+            
             color="rose"
             onClick={() => this.deleteExpense()}
             disabled={this.state.deleteDisabled} 
             className="deleteExpense"
 
             >
-            Delete Expense
+            Cancel
             </Button>
-      </div>
+      </div></Tooltip>
     </div>
     
   );
 }
 }
 
-export default AddExpenses;
+export default withStyles(style)(AddExpenses);

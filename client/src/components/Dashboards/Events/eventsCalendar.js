@@ -182,16 +182,7 @@ class EventsCalendar extends React.Component {
     eventsDisabled: false
   });
     }
-
-  //displayVacations = () => {
-
-  //}
-
-  
- // displayEvents = () => {
-
-  //}
-  
+ 
   addNewEventAlert = slotInfo => {
     console.log("in the addnew: ", slotInfo)
     let events = this.state.events;
@@ -308,7 +299,7 @@ class EventsCalendar extends React.Component {
     //const { events } = this.state
     let rndNbr = this.getRndInteger(1,6);
     console.log("rndnumber: ", rndNbr);
-    let hexColor = this.colorPicker(rndNbr)
+    let hexColor = this.colorPicker(rndNbr);
     
     //let hexColor = "";
     //    if (event.resourceId === 1) { 
