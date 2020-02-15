@@ -17,7 +17,7 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'column',
-        minHeight: 'calc(100vh - 65px)',
+        minHeight: 'calc(100vh - 65px)', 
     },
     main: {
         width: '100%',

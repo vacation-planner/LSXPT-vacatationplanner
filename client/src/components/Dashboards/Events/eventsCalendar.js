@@ -211,7 +211,6 @@ class EventsCalendar extends React.Component {
       startDateTime: slotInfo.start,
       endDateTime: slotInfo.end,
       description: "item.location",
-  
     }
     axios
     .post(`${URL}/events/`, eventRec)
@@ -292,24 +291,13 @@ class EventsCalendar extends React.Component {
     return hexColor;
   }
 
-
-
   eventStyleGetter = (event) => {
     //console.log("this.event.resouceId: ", event.resourceId);
     //const { events } = this.state
     let rndNbr = this.getRndInteger(1,6);
-    console.log("rndnumber: ", rndNbr);
-    let hexColor = this.colorPicker(rndNbr);
-    
-    //let hexColor = "";
-    //    if (event.resourceId === 1) { 
-     //       hexColor = "04068a"
-            
-     //   } else {
-      //      hexColor = "3f022b"
-       // }
-       
-      console.log("hexColor: ", hexColor);
+    //console.log("rndnumber: ", rndNbr);
+    let hexColor = this.colorPicker(rndNbr); 
+      //console.log("hexColor: ", hexColor);
       let backgroundColor = hexColor;
      // let backgroundColor = '#' + hexColor;
     let style = {

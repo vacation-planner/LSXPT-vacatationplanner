@@ -9,13 +9,8 @@ import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js"
 import { Row,  
         UsersContainer,  
     } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
-// import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
-// import { makeStyles } from "@material-ui/core/styles";
 import { Zoom } from "@material-ui/core";
-// import { withStyles } from "@material-ui/core";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
-
-// const useStyles = makeStyles(styles);
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
@@ -33,7 +28,6 @@ class AddUsers extends Component {
             vacationsTitle: this.props.title,
             checked: false,
             disabled: true,
-            //emailError: true,
         };
   }
 
@@ -76,7 +70,6 @@ class AddUsers extends Component {
   addUser = () => {
      // validate the email address
     let emailError = this.validateEmail(this.state.email);
-    //console.log("emailError: ", emailError)
     // check the firstName, lastName and email fields for valid data.
     if (this.state.firstName && this.state.lastName && this.state.email && !emailError) {   
         // add users info to the users list
@@ -89,7 +82,7 @@ class AddUsers extends Component {
         vacationsId: this.state.vacationsId,
     }
     usersList.push(userRec);
-    console.log("userRec: ", userRec)
+    //console.log("userRec: ", userRec)
     axios
         .post(`${URL}/secondaryUsers/`, userRec)
         .then(response => {
@@ -140,8 +133,6 @@ class AddUsers extends Component {
         } 
       })
       
-      
-      
       if (secondaryUserRec) {
           // send the user list via post to the email router
           axios
@@ -165,7 +156,7 @@ class AddUsers extends Component {
 
   secondaryUsersList = (props) => {
     // *****************************************************************************
-    // try to insert a button for each list item so emails canm be sent individually
+    // try to insert a button for each list item so emails can be sent individually
     // ****************************************************************************
     const secondaryUsers = this.state.usersList.map((secondaryUser) =>
       <li key={secondaryUser.id} className="secondaryUsers" onClick={() => {this.secondaryUserSelect(secondaryUser.id)}}>{secondaryUser.firstName},{secondaryUser.lastName},{secondaryUser.email} </li>
