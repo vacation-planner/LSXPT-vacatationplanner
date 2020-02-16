@@ -16,6 +16,7 @@ import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
 const URL = "http://localhost:5500/api";
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -36,6 +37,14 @@ const styles = theme => ({
       [theme.breakpoints.up("sm")]: {
           width: "100%",    
       }
+  },
+  vacationsButton: {
+    display: "flex",
+    left: "120px",
+  },
+  eventsButton: {
+    display: "flex",
+    left: "140px",
   }
 });
 
@@ -56,11 +65,13 @@ class EventsCalendar extends React.Component {
       premium: false,
       vacationsDisabled: true,
       eventsDisabled: false,
+      checked: false,
     }
     this.moveEvent = this.moveEvent.bind(this) 
   }
 
   componentDidMount() {
+    this.setState(state => ({ checked: !state.checked }));
     let uid = fire.currentUser.uid;
     this.setState({
       uid: uid,
@@ -204,13 +215,18 @@ class EventsCalendar extends React.Component {
     this.writeToDb(slotInfo); 
   }
 
+  // ******************************************************
+  // this cant be left in the app, if we do decide to let
+  // the user create new events from the calander then
+  // we must correct this code
+  // ******************************************************
   writeToDb = slotInfo => {
     const eventRec = {
-      eventName: "test",
+      eventName: "test",  // FIX THIS!!
       vacationsId: this.props.vacationsId,
       startDateTime: slotInfo.start,
       endDateTime: slotInfo.end,
-      description: "item.location",
+      description: "item.location", // FIX THIS!
     }
     axios
     .post(`${URL}/events/`, eventRec)
@@ -292,14 +308,16 @@ class EventsCalendar extends React.Component {
   }
 
   eventStyleGetter = (event) => {
-    //console.log("this.event.resouceId: ", event.resourceId);
-    //const { events } = this.state
+    // *************************************************************
+    // Use this function to generate a random integer
+    // the number is then used to choose from 6 prechosen colors
+    // the events really need to be different colors in the calendar
+    // *************************************************************
     let rndNbr = this.getRndInteger(1,6);
-    //console.log("rndnumber: ", rndNbr);
     let hexColor = this.colorPicker(rndNbr); 
-      //console.log("hexColor: ", hexColor);
-      let backgroundColor = hexColor;
-     // let backgroundColor = '#' + hexColor;
+    // used a function with a switch statement to determine which color will be used
+    let backgroundColor = hexColor;
+     // new color is applied to the style
     let style = {
         backgroundColor: backgroundColor,
         borderRadius: '0px',
@@ -318,12 +336,13 @@ class EventsCalendar extends React.Component {
     window.alert("alert")
   }
 
-
   render() {
     const { classes } = this.props;
+    const { checked } = this.state;
 
     return (
       <div className="events-calendar-container">
+       <Zoom in={checked} > 
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <Card style={{ marginLeft: "20px", height: "600px", width: "540px", top: "0px", }}>
@@ -336,25 +355,21 @@ class EventsCalendar extends React.Component {
                   onSelectEvent={event => this.selectedEvent(event)}
                   onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
                   resizable
-                  /*  resources={resourceMap}  */
-                  /*  resourceIdAccessor="resourceId"  */
-                  /*  resourceTitleAccessor="resourceTitle"  */
                   onEventResize={this.resizeEvent}
                   defaultView="month"
                   step={15}
                   showMultiDayTimes={true}
-                  //defaultDate={new Date(2019, 11, 29)}
                   defaultDate={new Date()}
                   eventPropGetter={event => this.eventStyleGetter(event)}
                 />
               </CardBody>
               <CardBody  className={classes.lowerCardBody}>
-                <Button  
+                <Button className={classes.vacationsButton} 
                   onClick={() => this.fetchVacationData(this.props.vacationsId)} 
                   color="rose"
                   disabled={this.state.vacationsDisabled}>Vacations
                 </Button>
-                <Button  
+                <Button   className={classes.eventsButton}
                   onClick={() => this.fetchEventData(this.props.vacationsId)} 
                   color="rose"
                   disabled={this.state.eventsDisabled}>Events
@@ -363,6 +378,7 @@ class EventsCalendar extends React.Component {
             </Card>
           </GridItem>
         </GridContainer>
+        </Zoom>
       </div>
     )
   }

@@ -268,7 +268,7 @@ addExpense = () => {
   // Create a box with a list of the current events
   eventList = (props) => {
     const eventItems = this.state.events.map((event) =>
-      <li className="event" onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
+      <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
     );
     return (
       <ul className="ul">{eventItems}</ul>
@@ -277,7 +277,7 @@ addExpense = () => {
  // Create a box with a list of the current participants
   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
-      <li className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
+      <li className="participants" key={user.id} onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
     );
     return (
       <ul className="ul">{listItems}</ul>
