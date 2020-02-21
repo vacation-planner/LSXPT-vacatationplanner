@@ -3,28 +3,26 @@ import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
 import AddEvents from "./addEvents.js"
-//import EventsCalendar from "./eventsCalendar.js"
-
-//import { //Row,  
- //   UsersContainer, 
-//} from "../../StyledComponents/Dashboards/Events/events.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
-// import CustomInput from "../../StyledComponents/Dashboards/Events/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
+//import TooltipsStyle from "../../StyledComponents/Dashboards/Events/js/";
+
 import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
-// import CardHeader from "../../StyledComponents/Dashboards/Events/js/CardHeader.js"
-// From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
-// import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
-import { Zoom } from "@material-ui/core";
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
+/* import {
+    tooltip
+  } from "assets/jss/material-dashboard-pro-react.js"; */
+  
+ 
 const styles = theme => ({
   cardBody: {
       display: "flex",
@@ -68,7 +66,8 @@ cardBodyContainer3: {
        padding: 15, 
       paddingLeft: 35,
       fontSize: "2rem",
-  }
+  },
+
 });
 
 class Events extends Component {
@@ -98,7 +97,7 @@ componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
    
-    this.fetchSecondaryUsers(this.state.vacationsId);
+    //this.fetchSecondaryUsers(this.state.vacationsId);
 
     this.fetchEvents(this.state.vacationsId);
 
@@ -148,7 +147,7 @@ addEvent = () => {
       });
   };
 
-  fetchSecondaryUsers = (vacationsId) => {
+  /* fetchSecondaryUsers = (vacationsId) => {
     let secondaryUsers = [];
     axios
     .get(`${URL}/secondaryUsers/`)
@@ -165,9 +164,9 @@ addEvent = () => {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-  }
+  } */
 
-  fetchSecondaryUser = id => {
+   fetchSecondaryUser = id => {
     axios
     .get(`${URL}/secondaryUsers/${id}`)
     .then(response => {
@@ -179,7 +178,7 @@ addEvent = () => {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-  }
+  } 
 
   fetchEvents = (vacationsId) => {
     let events = [];
@@ -223,9 +222,9 @@ addEvent = () => {
     console.log('startdate: ', startDate);
   }
 
-  listSelect = (id) => {        
+  /* listSelect = (id) => {        
     this.fetchSecondaryUser(id);
-  }
+  } */
 
   eventSelect = (id) => {        
     this.fetchEvent(id);
@@ -250,57 +249,33 @@ addEvent = () => {
     );
   }
 
-  participantList = (props) => {
+  /* participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
       <li key={user.id} className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
     );
     return (
       <ul className="ul">{listItems}</ul>
     );
-  }
+  } */
 
 render() {
   const { classes } = this.props;
   const { checked } = this.state;
-  //let rows = [];
- // let eventRows = [];
-  // **************************************
-  // NOTE: need to correct the formatting
-  // *************************************
- // this.state.secondaryUsers.forEach((user, index) => {
-    // Loops through array of secondary users and lists them in a div
-  //  rows.push(
-       /*  <UsersContainer key={index} onSelect={this.listSelect} onClick={this.listSelect}>
-            {user.firstName}, {user.lastName}      
-        </UsersContainer> */
-   //          <div key={index} onSelect={this.listSelect}  className="participants" onClick={this.listSelect}>
-   //          {user.firstName}, {user.lastName}     
-   //      </div>
-   //     );
- //   });
- //   this.state.events.forEach((event, index) => {
-        // Loops through array of secondary users and lists them in a div
-  //      eventRows.push(
-   //         <UsersContainer key={index}>
-    //            {event.eventName}      
-    //        </UsersContainer>
-    //        );
-   //     });
-
+ 
     return (
         <div className="events"> 
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "700px", marginLeft: "150px", height: "580px", marginRight: "100px", top: "20px"}}>
-                            {/*  <div className="images"> </div> */}
-                            <h2>Create Event: {this.state.eventName}</h2>
-                            <h3>Current Vacation: {this.props.title}</h3>
+                        <Card style={{ width: "700px", marginLeft: "20px", height: "580px", marginRight: "100px", top: "20px"}}>
+                            <h2>Create Event: {this.state.eventName}</h2><Tooltip title="Delete">
+                            <h3>Current Vacation: {this.props.title}</h3></Tooltip>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
+                               
                                     <CardBody>
                                         <h5>Name of New Event:{" "}
-                                        <input
+                                         <input
                                                 type="text"
                                                 name="eventName"
                                                 onChange={this.handleChange}
@@ -312,19 +287,23 @@ render() {
                                         
                                     </CardBody>
                                     <CardBody  xs={12} sm={12} md={4}>
+                                         {this.state.displayEvents ? ( 
                                          <AddEvents 
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
                                             description={this.state.description} 
-                                            title={this.state.title} 
-                                            participant={this.state.participant}
+                                            //title={this.state.title} 
+                                            //participant={this.state.participant}
                                             disabled={this.state.disabled}
-                                            secondaryUsersId={this.state.secondaryUsersId}
+                                            //secondaryUsersId={this.state.secondaryUsersId}
                                             vacationsId={this.state.vacationsId}
-                                            startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
+                                            /* startTimeDate={() => this.handleStartDate(this.state.startTimeDate)} */>
                                         </AddEvents>  
+                                         ) : null}
                                     </CardBody>
+                                   
                                 </CardBody>
+                               
                                 <CardBody  className={classes.cardBodyContainer2}>
                                     <CardBody> 
                                         <h5>Event Description:{" "}
@@ -348,12 +327,21 @@ render() {
                             <CardBody  className={classes.cardBody}>
                                {/*  <div className="logo"> */}
                                 <div className="logo">
-                                </div>
+                                </div>{/*  <Tooltip
+                                placement="top"
+                                disableFocusListener
+                                title={
+                                    <Typography color="inherit" variant="h5">
+                                        Create an expense and optionally assign it to an event. To do this, click on the event before saving.
+                                    </Typography>
+                                }
+                            > */}
+                               
                                 <Button  
                                     style={{ marginLeft:"150px"}}
                                     onClick={() => this.addEvent()} 
                                     color="rose">Create
-                                </Button>
+                                </Button> {/* </Tooltip> */}
                                 <Button  
                                     onClick={() => this.removeEvent()} 
                                     color="rose"

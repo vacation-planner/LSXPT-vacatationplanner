@@ -351,9 +351,9 @@ class EventsCalendar extends React.Component {
                   selectable
                   localizer={localizer}
                   events={this.state.display}
-                  onEventDrop={event => this.moveEvent(event)}
-                  onSelectEvent={event => this.selectedEvent(event)}
-                  onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+                  onEventDrop={event => this.moveEvent(event)} 
+                   onSelectEvent={event => this.selectedEvent(event)} 
+                   onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)} 
                   resizable
                   onEventResize={this.resizeEvent}
                   defaultView="month"
