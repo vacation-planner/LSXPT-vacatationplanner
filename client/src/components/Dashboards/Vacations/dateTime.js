@@ -3,9 +3,10 @@ import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import { Tooltip, Typography } from "@material-ui/core";
 // import { withStyles, Zoom } from "@material-ui/core";
 import axios from "axios";
 import moment from "moment";
@@ -15,7 +16,7 @@ import "../../StyledComponents/Dashboards/AddUsers/material-dashboard-pro-react.
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-const style = {
+/* const style = {
   label: {
     color: "rgba(0, 0, 0, 0.26)",
     cursor: "pointer",
@@ -26,9 +27,9 @@ const style = {
     fontWeight: "400",
     paddingLeft: "0"
   }
-};
+}; */
 
-const useStyles = makeStyles(style);
+//const useStyles = makeStyles(style);
 
 class DateTimePicker extends Component {
   constructor(props) {
@@ -124,37 +125,48 @@ axios
         Vacation Start Date
       </InputLabel>
       <br />
-      <FormControl fullWidth>
-        <Datetime timeFormat={false}
-        value={this.props.value}
-         onChange={event => this.handleStartChange(event)} 
-          inputProps={{ 
-            placeholder: this.props.startDate
-             }}
-        />
-      </FormControl>
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit" variant="h6" gutterBottom>
+              Select date the vacation begins
+            </Typography>
+          }
+        >
+        <FormControl fullWidth>
+          <Datetime timeFormat={false}
+            value={this.props.value}
+            onChange={event => this.handleStartChange(event)} 
+            inputProps={{ 
+              placeholder: this.props.startDate
+            }}
+          />
+        </FormControl>
+      </Tooltip>
       <InputLabel className={classes.label}>
-      Vacation End Date
+        Vacation End Date
       </InputLabel>
       <br />
+      <Tooltip
+        placement="top"
+        disableFocusListener
+        title={
+          <Typography color="inherit" variant="h6" gutterBottom>
+            Select date the vacation ends
+          </Typography>
+        }
+      >
       <FormControl fullWidth>
         <Datetime
           timeFormat={false}
           value={this.props.value}
-         onChange={event => this.handleEndChange(event)} 
+          onChange={event => this.handleEndChange(event)} 
           inputProps={{ placeholder: this.props.endDate }}
         />
       </FormControl>
-     {/*  <InputLabel className={classes.label}>
-        Time Picker
-      </InputLabel> */}
+      </Tooltip>
       <br />
-     {/*  <FormControl fullWidth>
-        <Datetime
-          dateFormat={false}
-          inputProps={{ placeholder: "Time Picker Here" }}
-        />
-      </FormControl> */}
     </div>
   );
 }

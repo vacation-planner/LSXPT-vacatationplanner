@@ -6,12 +6,10 @@ import { fire } from "../../Auth/firebaseConfig";
 import DateTimePicker from "./dateTime.js";
 // Material Ui Dashboard Pro
 import Button from "../../StyledComponents/Dashboards/Vacations/js/Button.js";
-// import CustomInput from "../../StyledComponents/Dashboards/Vacations/js/CustomInput.js";
 import GridContainer from "../../StyledComponents/Dashboards/Vacations/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Vacations/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
-// import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
 // import { makeStyles } from "@material-ui/core/styles";

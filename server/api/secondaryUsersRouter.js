@@ -39,9 +39,9 @@ router.get("/", (req, res) => {
 })  
 
 //Get All vacations for email
-router.get('/:email', async (req, res) => {
-    const {email} = req.params;
-    secondaryUsers.getByEmail(email).then(vacationData => {
+router.get('/:id', async (req, res) => {
+    const {id} = req.params;
+    secondaryUsers.getById(id).then(vacationData => {
         if (vacationData) {
             res.status(200).json(vacationData);
         }

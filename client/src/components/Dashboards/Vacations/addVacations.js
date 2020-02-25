@@ -8,7 +8,6 @@ import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js
 import Card from "../../StyledComponents/Dashboards/Vacations/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
 import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
-//import styles from "../../StyledComponents/Dashboards/Vacations/js/cardImagesStyles.js";
 import dashboardStyle from "../../StyledComponents/Dashboards/Vacations/js/dashboardStyle";
 import loginPageStyle from "../../StyledComponents/Dashboards/Vacations/js/loginPageStyle";
 

@@ -28,7 +28,7 @@
     height: auto;
     min-height: calc(100vh - 65px);
     /* border: 2px solid orange; */
-    background-image: url("../../../../images/register.jpg")
+    background-image: url("../../../../images/register.jpg");
 
 }
 

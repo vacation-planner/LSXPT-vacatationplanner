@@ -15,7 +15,7 @@ const cardStyle = {
   card: {
     border: "",
     marginBottom: "30px",
-    marginTop: "30px",
+    marginTop: "10px",
     borderRadius: "6px",
     color: "rgba(" + hexToRgb(blackColor) + ", 0.87)",
     background: whiteColor,

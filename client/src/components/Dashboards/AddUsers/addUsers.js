@@ -9,13 +9,8 @@ import GridItem from "../../StyledComponents/Dashboards/AddUsers/js/GridItem.js"
 import { Row,  
         UsersContainer,  
     } from "../../StyledComponents/Dashboards/AddUsers/addUsers.js";
-// import styles from "../../StyledComponents/Dashboards/AddUsers/js/cardImagesStyles.js";
-// import { makeStyles } from "@material-ui/core/styles";
 import { Zoom } from "@material-ui/core";
-// import { withStyles } from "@material-ui/core";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
-
-// const useStyles = makeStyles(styles);
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
@@ -32,6 +27,7 @@ class AddUsers extends Component {
             vacationsId: this.props.vacationsId,        
             vacationsTitle: this.props.title,
             checked: false,
+            disabled: true,
         };
   }
 
@@ -72,7 +68,11 @@ class AddUsers extends Component {
   };
 
   addUser = () => {
-    // add users info to the users list
+     // validate the email address
+    let emailError = this.validateEmail(this.state.email);
+    // check the firstName, lastName and email fields for valid data.
+    if (this.state.firstName && this.state.lastName && this.state.email && !emailError) {   
+        // add users info to the users list
     let usersList = this.state.usersList;
     // create a record using the input
     let userRec = {
@@ -82,7 +82,7 @@ class AddUsers extends Component {
         vacationsId: this.state.vacationsId,
     }
     usersList.push(userRec);
-    
+    //console.log("userRec: ", userRec)
     axios
         .post(`${URL}/secondaryUsers/`, userRec)
         .then(response => {
@@ -99,27 +99,95 @@ class AddUsers extends Component {
         email: "",   
       }); 
     
+  } else {
+    alert("Empty or missing fields, please check...")
   }
+}
 
   removeUser = () => {
     // add the code here to remove user from list
     alert("Not coded yet, sorry.")
+  };
+
+  validateEmail = (email) => {
+    const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+    const result = pattern.test(email);
+    let emailError = true;
+    if(result===true){
+        emailError = false;
+    } else{
+        alert("Invalid email address");
+    }
+    return emailError
   }
+
+  secondaryUserSelect = id => {
+    console.log("id, You are here", id)
+      // modify to send only one user
+      const userList = this.state.usersList;
+      let secondaryUserRec = [];
+
+      userList.forEach(result => {
+        if (result.id === id) {
+          secondaryUserRec.push(result);
+        } 
+      })
+      
+      if (secondaryUserRec) {
+          // send the user list via post to the email router
+          axios
+          .post(`${URL}/emails/`, secondaryUserRec) 
+          .then(response => {
+              console.log("emails sent") 
+          })
+          .catch(err => {
+              console.log("There was an error sending email", err);
+          });
+      } else {
+          alert("Need to add participants")
+      }
+   
+    
+    
+    this.setState({
+        disabled: false
+      }); 
+  }
+
+  secondaryUsersList = (props) => {
+    // *****************************************************************************
+    // try to insert a button for each list item so emails can be sent individually
+    // ****************************************************************************
+    const secondaryUsers = this.state.usersList.map((secondaryUser) =>
+      <li key={secondaryUser.id} className="secondaryUsers" onClick={() => {this.secondaryUserSelect(secondaryUser.id)}}>{secondaryUser.firstName},{secondaryUser.lastName},{secondaryUser.email} </li>
+    );
+    return (
+      <ul className="ul">{secondaryUsers}</ul>
+    );
+  }
+  /* rowHandler = event => {
+    
+    let participant = event.target.name;
+    console.log("participant, You are here", participant)
+  } */
 
   invite = () => {
     // send emails to all the users on list
     const userList = this.state.usersList;
-    // send the user list via post to the email router
-    axios
-      .post(`${URL}/emails/`, userList) 
-      .then(response => {
-        console.log("emails sent") 
-      })
-      .catch(err => {
-        console.log("There was an error sending emails", err);
-      });
-
-  }
+    if (userList) {
+        // send the user list via post to the email router
+        axios
+        .post(`${URL}/emails/`, userList) 
+        .then(response => {
+            console.log("emails sent") 
+        })
+        .catch(err => {
+            console.log("There was an error sending emails", err);
+        });
+    } else {
+        alert("Need to add participants")
+    }
+}
 
   render() {
    /*  if (this.state.usersList.length) {
@@ -127,19 +195,21 @@ class AddUsers extends Component {
         return <Loading>Loading Users...</Loading>;
       } */
       const { checked } = this.state;
-      let rows = [];
+      /* let rows = [];
       // **************************************
       // NOTE: need to correct the formatting
       // *************************************
       this.state.usersList.forEach((user, index) => {
         // Loops through array of secondary users and lists them in a div
         rows.push(
-            <UsersContainer key={index}>
+            <UsersContainer className="usersContainer" key={index} onClick={event => this.rowHandler(event)}>
                 {user.firstName}, {user.lastName}, {user.email}      
             </UsersContainer>
             );
-        });
+        }); */
     return (
+        <div className="addParticipants">
+        <UsersContainer>
         <Zoom in={checked}>
         <GridContainer>
             <GridItem>
@@ -184,23 +254,25 @@ class AddUsers extends Component {
                             <Button  
                                 onClick={() => this.removeUser()} 
                                 color="rose"
-                                disabled="true">Remove
+                                disabled={this.state.disabled}>Remove
                             </Button>                                                    
                             <div className="users-list">
-                                {rows}
+                                {this.secondaryUsersList()}
                             </div> 
-                            <h5>Press the invite button to send emails to the people on your list.</h5>
+                            <h5>Select a person from the list to send an email.</h5>
                             {/* <p> </p> */}
-                            <Button  
+                           {/*  <Button  
                                 onClick={() => this.invite()} 
                                 color="rose">Send Invites
-                            </Button>
+                            </Button> */}
                         </form>
                     </CardBody>
                 </Card>
             </GridItem>
       </GridContainer>
       </Zoom>
+      </UsersContainer>
+      </div>
     );
   }
 }
