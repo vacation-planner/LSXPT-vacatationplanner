@@ -181,14 +181,14 @@ axios
       <div className="left">
       </div>
       <Tooltip
-                                placement="top"
-                                disableFocusListener
-                                title={
-                                    <Typography color="inherit" variant="h5">
-                                        Create an expense and optionally assign it to an event. To do this, click on the event before saving.
-                                    </Typography>
-                                }
-                            > 
+        placement="top"
+        disableFocusListener
+        title={
+          <Typography color="inherit" variant="h5">
+            Create an expense and optionally assign it to an event. To do this, click on the event before saving.
+          </Typography>
+        }
+      > 
       <div className="right">
       <p>Expense Name: 
          <input
@@ -240,22 +240,18 @@ axios
       </p><p> </p>
 
             <Button
-            
             color="rose"
             onClick={() => this.saveExpense()} 
             disabled={this.state.disabled}
             className="expButton"
-
             >
             Save
             </Button>
-            <Button
-            
+            <Button           
             color="rose"
             onClick={() => this.deleteExpense()}
             disabled={this.state.deleteDisabled} 
             className="deleteExpense"
-
             >
             Cancel
             </Button>

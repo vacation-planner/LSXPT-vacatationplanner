@@ -248,7 +248,7 @@ class EventsCalendar extends React.Component {
     const idx = events.indexOf(event);
     let allDay = event.allDay;
 
-    console.log("In the move event");
+    //console.log("In the move event");
 
     if (!event.allDay && droppedOnAllDaySlot) {
       allDay = true
@@ -283,7 +283,7 @@ class EventsCalendar extends React.Component {
   colorPicker = (rndInteger) => {
     let hexColor = "";
 
-    // use a switch
+    // use switch
     switch (rndInteger) {
     
       case 1:
@@ -313,10 +313,10 @@ class EventsCalendar extends React.Component {
     // the number is then used to choose from 6 prechosen colors
     // the events really need to be different colors in the calendar
     // *************************************************************
-    let rndNbr = this.getRndInteger(1,6);
-    let hexColor = this.colorPicker(rndNbr); 
+    //let rndNbr = this.getRndInteger(1,6);
+    let backgroundColor = this.colorPicker(this.getRndInteger(1,6)); 
     // used a function with a switch statement to determine which color will be used
-    let backgroundColor = hexColor;
+    //let backgroundColor = hexColor;
      // new color is applied to the style
     let style = {
         backgroundColor: backgroundColor,
