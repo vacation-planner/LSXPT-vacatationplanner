@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
+import { AppContext } from '../../Context/AppContext.js';
 import { Calendar as  BigCalendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from "moment";
@@ -15,6 +16,7 @@ import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
 const URL = "http://localhost:5500/api";
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -35,27 +37,16 @@ const styles = theme => ({
       [theme.breakpoints.up("sm")]: {
           width: "100%",    
       }
+  },
+  vacationsButton: {
+    display: "flex",
+    left: "120px",
+  },
+  eventsButton: {
+    display: "flex",
+    left: "140px",
   }
 });
-
-//  let eventSave = [];
- /* const events = [
-    {
-      id: 0,
-      title: 'vacation meeting',
-      start: new Date(2018, 0, 29, 9, 0, 0),
-      end: new Date(2018, 0, 29, 13, 0, 0),
-      resourceId: 1,   
-    },
-  ]   */
-  
-// const resourceMap = [
-//   { resourceId: 1, resourceTitle: 'Vacation Date' },
-//   { resourceId: 2, resourceTitle: 'Event' },
-//   { resourceId: 3, resourceTitle: 'Meeting room 1' },
-//   { resourceId: 4, resourceTitle: 'Meeting room 2' },
-// ]
-
 
 class EventsCalendar extends React.Component {
   constructor(props) {
@@ -64,32 +55,29 @@ class EventsCalendar extends React.Component {
     this.state = {
       uid: "",
       vacationsId: this.props.vacationsId,
+      display: [],
       vacation: [],
       events: [],
       eventData: [],
       eventName: "",
       description: "",
       value: "",
-      vacationsDisabled: false,
-      eventsDisabled: true,
+      premium: false,
+      vacationsDisabled: true,
+      eventsDisabled: false,
+      checked: false,
     }
-
-    this.moveEvent = this.moveEvent.bind(this)
-    
+    this.moveEvent = this.moveEvent.bind(this) 
   }
 
   componentDidMount() {
-    let vacationsId = this.state.vacationsId;
+    this.setState(state => ({ checked: !state.checked }));
     let uid = fire.currentUser.uid;
-
     this.setState({
       uid: uid,
-     /*  events: events, */
     });
-   // console.log("state: ", this.state)
-    // get the data needed to populate the calendar component
-
-    this.fetchEventData(vacationsId);
+  
+    this.fetchVacationData(this.props.vacationsId);
   }
   
   fetchEventData = vacationsId => {
@@ -97,7 +85,6 @@ class EventsCalendar extends React.Component {
       .get(`${URL}/events/`)
       .then(response => {
         let eventsData = [];
- 
         if (response.data) {
             response.data.forEach((event, index) => {
                 if (event.vacationsId === vacationsId) {
@@ -105,47 +92,34 @@ class EventsCalendar extends React.Component {
                 }
             })   
         };
-        
-       // console.log("eventsData: ", eventsData)
         this.setState({
-          eventData: eventsData
-        });
-               
-        this.formatData();
+          eventData: eventsData,
+          display: eventsData
+        });      
+        this.formatData1();
       })
       .catch(err => {
         console.log('We"ve encountered an error');
       });
   };
 
-  formatData = () => {
- 
-    //let vacationDate = [];
+  formatData1 = () => {
     let events = [];
-    
     this.state.eventData.forEach((item, index) => {
-     
       events.push({
-        //id: item.id,
         title: item.eventName,
         start: item.startDateTime,
         end: item.endDateTime,
         desc: item.description
-      })  
-        
+      })    
     })
-
-  //console.log("events: ", events)
   this.setState({
-    events: events
+    display: events,
+    vacationsDisabled: false,
+    eventsDisabled: true
   });
-
   }
 
- /*  handleChange = event => {
-    this.setState({[event.target.name]: this.state.value + event.target.value});
-    console.log("value: ", this.state.value)
-  } */
   handleChange = event => {
     this.setState({
         [event.target.name]:  this.props.value +  event.target.value
@@ -154,7 +128,7 @@ class EventsCalendar extends React.Component {
   };
 
   selectedEvent = event => {
-    //console.log("in the selectedevent: ", event)
+    console.log("in the selectedevent: ", event)
     swal(
       <div>
         <form onSubmit={this.submitForm} >
@@ -175,14 +149,50 @@ class EventsCalendar extends React.Component {
             value={this.props.value}
             className="description"
           />
-         {/*  <input 
-            type="submit" 
-            value="Submit" 
-          /> */}
         </form>
       </div>
     )
   }
+ 
+  fetchVacationData = (vacationsId) => {
+    axios
+      .get(`${URL}/vacations/${vacationsId}`)
+      .then(response => {
+        let vacationData = [];
+        if (response.data) {
+          response.data.forEach((vacation, index) => {
+            vacationData.push(vacation);
+          })
+        };
+        console.log("vacationData: ", vacationData)
+        this.setState({
+          vacation: vacationData,
+        });
+       this.formatData();
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
+  };
+
+  formatData = () => {
+    let display = [];
+    this.state.vacation.forEach((item, index) => {
+       
+      display.push({
+          //id: item.id,
+          title: item.title,
+          start: item.startDate,
+          end: item.endDate,
+          desc: item.location,
+        })  
+      })
+  this.setState({
+    display: display,
+    vacationsDisabled: true,
+    eventsDisabled: false
+  });
+    }
  
   addNewEventAlert = slotInfo => {
     console.log("in the addnew: ", slotInfo)
@@ -205,14 +215,18 @@ class EventsCalendar extends React.Component {
     this.writeToDb(slotInfo); 
   }
 
+  // ******************************************************
+  // this cant be left in the app, if we do decide to let
+  // the user create new events from the calander then
+  // we must correct this code
+  // ******************************************************
   writeToDb = slotInfo => {
     const eventRec = {
-      eventName: "test",
+      eventName: "test",  // FIX THIS!!
       vacationsId: this.props.vacationsId,
       startDateTime: slotInfo.start,
       endDateTime: slotInfo.end,
-      description: "item.location",
-  
+      description: "item.location", // FIX THIS!
     }
     axios
     .post(`${URL}/events/`, eventRec)
@@ -222,6 +236,10 @@ class EventsCalendar extends React.Component {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
+  }
+
+  getRndInteger = (min, max) => {
+    return Math.floor(Math.random() * (max - min) ) + min;
   }
 
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
@@ -262,19 +280,44 @@ class EventsCalendar extends React.Component {
     })
   }
 
-  eventStyleGetter = (event) => {
-    //console.log("this.event.resouceId: ", event.resourceId);
-    //const { events } = this.state
+  colorPicker = (rndInteger) => {
     let hexColor = "";
-        if (event.resourceId === 1) { 
-            hexColor = "04068a"
-            
-        } else {
-            hexColor = "3f022b"
-        }
-       
-     // console.log("hexColor: ", hexColor);
-      let backgroundColor = '#' + hexColor;
+
+    // use a switch
+    switch (rndInteger) {
+    
+      case 1:
+      hexColor = "#04068a";
+        break;
+      case 2:
+         hexColor = "#3f022b";
+        break;
+      case 3:
+        hexColor = "#0e0eca";
+        break;
+      case 4:
+        hexColor = "#18e4c2";
+        break;
+      case 5:
+        hexColor = "#e1e418";
+        break;
+      case 6:
+        hexColor = "#e41818";
+    }
+    return hexColor;
+  }
+
+  eventStyleGetter = (event) => {
+    // *************************************************************
+    // Use this function to generate a random integer
+    // the number is then used to choose from 6 prechosen colors
+    // the events really need to be different colors in the calendar
+    // *************************************************************
+    let rndNbr = this.getRndInteger(1,6);
+    let hexColor = this.colorPicker(rndNbr); 
+    // used a function with a switch statement to determine which color will be used
+    let backgroundColor = hexColor;
+     // new color is applied to the style
     let style = {
         backgroundColor: backgroundColor,
         borderRadius: '0px',
@@ -293,12 +336,13 @@ class EventsCalendar extends React.Component {
     window.alert("alert")
   }
 
-
   render() {
     const { classes } = this.props;
+    const { checked } = this.state;
 
     return (
       <div className="events-calendar-container">
+       <Zoom in={checked} > 
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <Card style={{ marginLeft: "20px", height: "600px", width: "540px", top: "0px", }}>
@@ -306,30 +350,27 @@ class EventsCalendar extends React.Component {
                 <DragAndDropCalendar
                   selectable
                   localizer={localizer}
-                  events={this.state.events}
-                  onEventDrop={event => this.moveEvent(event)}
-                  onSelectEvent={event => this.selectedEvent(event)}
-                  onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+                  events={this.state.display}
+                  onEventDrop={event => this.moveEvent(event)} 
+                   onSelectEvent={event => this.selectedEvent(event)} 
+                   onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)} 
                   resizable
-                  /*  resources={resourceMap}  */
-                  /*  resourceIdAccessor="resourceId"  */
-                  /*  resourceTitleAccessor="resourceTitle"  */
                   onEventResize={this.resizeEvent}
                   defaultView="month"
                   step={15}
                   showMultiDayTimes={true}
-                  defaultDate={new Date(2019, 11, 29)}
+                  defaultDate={new Date()}
                   eventPropGetter={event => this.eventStyleGetter(event)}
                 />
               </CardBody>
               <CardBody  className={classes.lowerCardBody}>
-                <Button  
-                  onClick={() => this.displayVacations()} 
+                <Button className={classes.vacationsButton} 
+                  onClick={() => this.fetchVacationData(this.props.vacationsId)} 
                   color="rose"
-                  vacationsDisabled={this.state.vacationsDisabled}>Vacations
+                  disabled={this.state.vacationsDisabled}>Vacations
                 </Button>
-                <Button  
-                  onClick={() => this.displayEvents()} 
+                <Button   className={classes.eventsButton}
+                  onClick={() => this.fetchEventData(this.props.vacationsId)} 
                   color="rose"
                   disabled={this.state.eventsDisabled}>Events
                 </Button>                                  
@@ -337,6 +378,7 @@ class EventsCalendar extends React.Component {
             </Card>
           </GridItem>
         </GridContainer>
+        </Zoom>
       </div>
     )
   }

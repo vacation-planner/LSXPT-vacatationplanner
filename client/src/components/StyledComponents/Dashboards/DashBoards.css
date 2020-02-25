@@ -54,6 +54,7 @@
 
 .event {
     cursor: pointer;
+    color: #e41818;
 }
 
 .events {
@@ -85,7 +86,7 @@
 
 .expenses {
     height: 1600px;
-    background-image: url("../../../images/login.jpg");
+    background-image: url("../../../images/42545.jpg");
 }
 
 .left {

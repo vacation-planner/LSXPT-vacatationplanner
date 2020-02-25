@@ -18,6 +18,7 @@ const styles = theme => ({
         borderRight: '1px solid #BBC1C5',
         padding: '0px',
         margin: '0px',
+        overflow: 'hidden',
     },
     link: {
         textDecoration: 'none',
