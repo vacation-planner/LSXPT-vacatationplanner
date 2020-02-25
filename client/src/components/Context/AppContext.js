@@ -37,6 +37,7 @@ export default class AppProvider extends Component {
                         localStorage.removeItem('myVacations');
                         localStorage.removeItem('myCurrentVacations');
                         localStorage.removeItem('myPastVacations');
+                        localStorage.removeItem('tempVacationHolder');
                     },
                     getVacations: () => {
                         const userID = this.state.userID;
@@ -155,6 +156,9 @@ export default class AppProvider extends Component {
                                     tempVacationHolder: newVacation
                                 })
                                 localStorage.setItem('tempVacationHolder', JSON.stringify(newVacation));
+
+                                const allVactionsJoined = this.state.allVacations.concat(newVacation);
+                                localStorage.setItem('allVacations', JSON.stringify(allVactionsJoined));
                                 const joined = this.state.myVacations.concat(newVacation);
                                 localStorage.setItem('myVacations', JSON.stringify(joined));
                                 const currentJoined = this.state.myCurrentVacations.concat(newVacation);
@@ -162,6 +166,7 @@ export default class AppProvider extends Component {
                                 this.setState({
                                     myVacations: joined,
                                     myCurrentVacations: currentJoined,
+                                    allVacations: allVactionsJoined,
                                 });
                             })
                             .catch(err => {
@@ -183,10 +188,119 @@ export default class AppProvider extends Component {
                         axios
                             .put(vacationsEndpoint, vacation)
                             .then(res => {
-                                let vacationData = res.data;
-                                console.log(vacationData);
+                                let allVacations = this.state.allVacations;
+                                let myCurrentVacations = this.state.myCurrentVacations;
+                                const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+                                const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(x => x.id === id);
+                                allVacations[foundIndexAllVacations] = vacation;
+                                myCurrentVacations[foundIndexMyCurrentVacations] = vacation;
+                                localStorage.setItem('allVacations', JSON.stringify(allVacations))
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations))
+                                this.setState({
+                                    allVacations,
+                                    myCurrentVacations
+                                })
+                            })
+                            .catch(err => {
+                                console.log('error editing vaction', err);
                             })
                     },
+                    deleteVacation: (id) => {
+                        const deleteVacationEndpoint = `${this.state.backendURL}/vacations/${id}`;
+                        axios
+                            .delete(deleteVacationEndpoint)
+                            .then(res => {
+                                console.log(res.data)
+                            })
+                            .catch(err => {
+                                console.log('error deleting vacation', err)
+                            })
+                        const userID = this.state.userID;
+                        const userEmail = this.state.userEmail;
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
+                        const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
+                        axios
+                            .get(vacationsEndpoint)
+                            .then(res => {
+                                const allVacations = res.data;
+                                localStorage.setItem('allVacations', JSON.stringify(allVacations));
+                                let allCurrentVacations = [];
+                                let allPastVacations = [];
+                                allVacations.forEach(result => {
+                                    if (result.endDate === null) {
+                                        allCurrentVacations.push(result);
+                                    }
+
+                                    else if (Date.parse(result.endDate) < Date.parse(new Date()) + 172800000) {
+                                        allPastVacations.push(result);
+                                    }
+                                    else {
+                                        allCurrentVacations.push(result);
+                                    }
+                                })
+                                localStorage.setItem('allCurrentVacations', JSON.stringify(allCurrentVacations));
+                                localStorage.setItem('allPastVacations', JSON.stringify(allPastVacations));
+
+                                let myCurrentVacations = [];
+                                let myPastVacations = [];
+                                let myVacations = [];
+                                allVacations.forEach(result => {
+                                    if (result.usersUid === userID) {
+                                        myVacations.push(result);
+                                        if (result.endDate === null) {
+                                            myCurrentVacations.push(result);
+                                        }
+
+                                        else if (Date.parse(result.endDate) < Date.parse(new Date()) + 172800000) {
+                                            myPastVacations.push(result);
+                                        }
+                                        else {
+                                            myCurrentVacations.push(result);
+                                        }
+                                    };
+                                })
+                                this.setState({
+                                    allVacations,
+                                    myVacations,
+                                    myPastVacations,
+                                    myCurrentVacations
+                                })
+                            });
+                        axios
+                            .get(secondaryUserEndpoint)
+                            .then(res => {
+                                const secondaryUserTable = res.data;
+                                let joined = [];
+                                let joinCurrent = [];
+                                let joinPast = [];
+                                secondaryUserTable.forEach(result => {
+                                    if (result.email === userEmail) {
+                                        if (this.state.myVacations.find(x => x.id !== result.vacationsId)) {
+                                            const foundIndex = this.state.allVacations.findIndex(x => x.id === result.vacationsId);
+                                            joined = joined.concat(this.state.allVacations[foundIndex]);
+                                            if (this.state.allVacations[foundIndex].endDate === null) {
+                                                joinCurrent = joinCurrent.concat(this.state.allVacations[foundIndex]);
+                                            }
+
+                                            else if (Date.parse(this.state.allVacations[foundIndex].endDate) < Date.parse(new Date()) + 172800000) {
+                                                joinPast = joinPast.concat(this.state.allVacations[foundIndex]);
+                                            }
+                                            else {
+                                                joinCurrent = joinCurrent.concat(this.state.allVacations[foundIndex]);
+                                            }
+                                        }
+                                    }
+                                })
+                                this.setState({
+                                    myVacations: this.state.myVacations.concat(joined),
+                                    myCurrentVacations: this.state.myCurrentVacations.concat(joinCurrent),
+                                    myPastVacations: this.state.myPastVacations.concat(joinPast),
+                                })
+                                localStorage.setItem('myVacations', JSON.stringify(this.state.myVacations));
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(this.state.myCurrentVacations));
+                                localStorage.setItem('myPastVacations', JSON.stringify(this.state.myPastVacations));
+                            });
+                    }
                 }}
             >
                 {this.props.children}
