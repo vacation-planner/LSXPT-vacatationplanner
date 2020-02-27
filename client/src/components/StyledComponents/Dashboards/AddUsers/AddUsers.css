@@ -64,6 +64,8 @@
 }
 
 .addParticipants {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
     background-image: url("../../../../images/444297.jpg");
-
 }
