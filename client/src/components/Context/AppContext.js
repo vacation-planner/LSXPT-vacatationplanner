@@ -42,10 +42,10 @@ export default class AppProvider extends Component {
                     getVacations: () => {
                         const userID = this.state.userID;
                         const userEmail = this.state.userEmail;
-                        // const vacationsEndpoint = `${this.state.backendURL}/vacations`;
-                        // const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
-                        const vacationsEndpoint = `/vacations`;
+                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
                         const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
+                        // const vacationsEndpoint = `/vacations`;
+                        // const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
                         axios
                             .get(vacationsEndpoint)
                             .then(res => {

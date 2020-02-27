@@ -11,10 +11,10 @@ require("dotenv").config("/.env");
 
 dotenv.config()
 
-axios.defaults.baseURL = 
-process.env.NODE_ENV === 'production'
-? 'https://vacationplannerlx.herokuapp.com/api'
-: 'http://localhost:5500/api';
+// axios.defaults.baseURL = 
+// process.env.NODE_ENV === 'production'
+// ? 'https://vacationplannerlx.herokuapp.com/api'
+// : 'http://localhost:5500/api';
 
 ReactDOM.render(
     <AppProvider>
