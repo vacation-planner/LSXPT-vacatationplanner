@@ -1,18 +1,17 @@
 
 exports.seed = function(knex, Promise) {
   // No expenses table yet so do nothing.
-  return
+  
   // Deletes ALL existing entries
   
   return knex('expenses').del()
     .then(function () {
       // Inserts seed entries
       return knex('expenses').insert([
-        {id: 1, title: 'food', amount: 10.25, usersUid: '5XVDcbsvwka_bnC'},
-        {id: 2, title: 'dinner', amount: 200.24, usersUid: '5XVDhhsvwka_bnC'},
-        {id: 3, title: 'rental', amount: 50.00, usersUid: '5XVkkbsvwka_bnC'}     
+        {id: 1, eventsId: 1, vacationsId: 1, vacationsTitle: "Winter", secondaryUsersId: 2, secondaryUsersName: "Mike Smith", expensePaid: 23.50, amount: 75.00, secondaryUsersExpense: 100.00, title: "jetski"},
+        {id: 2, eventsId: 2, vacationsId: 1, vacationsTitle: "Summer", secondaryUsersId: 3, secondaryUsersName: "Jane Doe", expensePaid: 15.25, amount: 175.00, secondaryUsersExpense: 200.00, title: "camp site"},
+        {id: 3, eventsId: 3, vacationsId: 3, vacationsTitle: "Spring", secondaryUsersId: 1, secondaryUsersName: "Anon Anonymous", expensePaid: 22.50, amount: 65.00, secondaryUsersExpense: 50.00, title: "gas"},  
       ]);
-     return
     });
     
 };

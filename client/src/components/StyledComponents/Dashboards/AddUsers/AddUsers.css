@@ -9,9 +9,9 @@
     overflow-x: hidden;
 }
 
-h1 {
+/* h1 {
     font-size: 14px;
-}
+} */
 
 .addUsers {
     height: 360px;
@@ -19,18 +19,51 @@ h1 {
 }
 
 .firstName {
-   /*  margin-top: 10px; */
-   width: 70%;
+    width: 70%;
     margin-bottom: 10px;
+    border: 1px solid white; 
+    border-bottom-color: lightgray;
 }
+
+.firstName:hover {
+     border-bottom-color: rgb(233, 30, 99);
+ }
+
 
 .lastName {
     width: 70%;
     margin-bottom: 10px;
+    border: 1px solid white; 
+    border-bottom-color: lightgray;
+}
+
+.lastName:hover {
+    border-bottom-color: rgb(233, 30, 99);
 }
 
 .email {
     width: 70%;
     margin-bottom: 10px;
+    border: 1px solid white; 
+    border-bottom-color: lightgray;
     margin-left: 32px;
+}
+
+.email:hover {
+    border-bottom-color: rgb(233, 30, 99);
+}
+
+.secondaryUsers {
+    cursor: pointer;
+    /* background-color: white; */
+}
+
+.secondaryUsers:hover {
+    background-color: rgb(233, 30, 99);
+    color: white;
+}
+
+.addParticipants {
+    background-image: url("../../../../images/444297.jpg");
+
 }

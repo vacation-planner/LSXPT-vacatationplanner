@@ -2,8 +2,12 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import Vacations from "../Dashboards/Vacations/"
-import Events from "../Dashboards/Events/"
-import AddUsers from "../Dashboards/AddUsers/addUsers.js"
+import Events from "../Dashboards/Events/";
+import Expenses from "../Dashboards/Expenses/";
+import EventsCalendar from "../Dashboards/Events/eventsCalendar.js";
+//import Expenses from "../Dashboards/Events/";
+import AddUsers from "../Dashboards/AddUsers/addUsers.js";
+import ExpenseTable from "../Dashboards/Expenses/expenseTable.js";
 import { AppContext } from '../Context/AppContext.js';
 
 const styles = theme => ({
@@ -13,7 +17,7 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: 'column',
-        minHeight: 'calc(100vh - 65px)',
+        minHeight: 'calc(100vh - 65px)', 
     },
     main: {
         width: '100%',
@@ -29,9 +33,11 @@ class CurrentVacationDashboard extends React.Component {
         currentVacationMenu: true,
         pastVacationMenu: false,
         vacationDetails: true,
+        addParticipants: false,
         calendar: false,
         events: false,
         expenses: false,
+        overview: false,
         currentVacationIndex: this.props.location.state.index,
         currentVacationId: this.props.location.state.currentVacationId,
         currentVacationTitle: this.props.location.state.currentVacationTitle
@@ -40,9 +46,11 @@ class CurrentVacationDashboard extends React.Component {
     displayCurrentVacationContent = event => {
         this.setState({
             vacationDetails: false,
+            addParticipants: false,
             calendar: false,
             events: false,
             expenses: false,
+            overview: false,
         });
         this.setState({
             [event.currentTarget.id]: true
@@ -51,7 +59,7 @@ class CurrentVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, calendar, events, expenses, currentVacationId, currentVacationTitle } = this.state;
+        const { vacationDetails, addParticipants, calendar, events, expenses, overview, currentVacationId, currentVacationTitle } = this.state;
 
         return (
             <main className={classes.main}>
@@ -62,21 +70,29 @@ class CurrentVacationDashboard extends React.Component {
                 <div className={classes.innerContainer}>
 
                     {vacationDetails ? (
-                        <Vacations title={currentVacationTitle} vacationsId={currentVacationId}>
-                        </Vacations>
+                        <Vacations title={currentVacationTitle} vacationsId={currentVacationId} />
+                    ) : null}
+
+                    {addParticipants ? (
+                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
 
                     {calendar ? (
-                        <Events title={currentVacationTitle} vacationsId={currentVacationId}>
-                        </Events>
+                        <EventsCalendar title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
 
                     {events ? (
-                        <h1>In events Page</h1>
+                         <Events title={currentVacationTitle} vacationsId={currentVacationId}>
+                        </Events> 
                     ) : null}
 
                     {expenses ? (
-                        <AddUsers title={currentVacationTitle} vacationsId={currentVacationId} />
+                        <Expenses title={currentVacationTitle} vacationsId={currentVacationId} />
+                         
+                    ) : null}
+
+                    {overview ? (
+                       <ExpenseTable title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
                 </div>
             </main>

@@ -2,9 +2,15 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import Vacations from "../Dashboards/Vacations/index.js"
+//import ExpenseTable from "../Dashboards/Expenses/expenseTable.js"
+//import NewTable from "../Dashboards/Expenses/newTable.js"
 import Events from "../Dashboards/Events/index.js"
+import EventsCalendar from "../Dashboards/Events/eventsCalendar.js";
+import Expenses from "../Dashboards/Expenses/";
+//import Expenses from "../Dashboards/Events/addEvents.js";
+import ExpenseTable from "../Dashboards/Expenses/expenseTable.js";
 import AddUsers from "../Dashboards/AddUsers/addUsers.js"
-// import Vacation from "./Calendar/index.js";
+//import Vacation from "./Calendar/index.js";
 import { AppContext } from '../Context/AppContext.js';
 // import CreateVacationForm from '../CreateVacation/CreateVacationForm.js';
 
@@ -32,8 +38,11 @@ class PastVacationDashboard extends React.Component {
         currentVacationMenu: false,
         pastVacationMenu: true,
         vacationDetails: true,
+        addParticipants: false,
         calendar: false,
+        events: false,
         expenses: false,
+        overview: false,
         pastVacationIndex: this.props.location.state.index,
         pastVacationId: this.props.location.state.pastVacationId,
         pastVacationTitle: this.props.location.state.pastVacationTitle,
@@ -42,9 +51,11 @@ class PastVacationDashboard extends React.Component {
     displayPastVacationContent = event => {
         this.setState({
             vacationDetails: false,
+            addParticipants: false,
             calendar: false,
             events: false,
             expenses: false,
+            overview: false,
         });
         this.setState({
             [event.currentTarget.id]: true
@@ -53,38 +64,40 @@ class PastVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, calendar, events, expenses, pastVacationId, pastVacationTitle } = this.state;
-        // const pastVacation = this.context.state.myPastVacations[pastVacationIndex];
+        const { vacationDetails, addParticipants, calendar, events, expenses, overview, pastVacationId, pastVacationTitle } = this.state;
 
         return (
             <main className={classes.main}>
                 <HomeNavbar
                     data={this.state}
-                    displayPastVacationContent = {this.displayPastVacationContent}
+                    displayPastVacationContent={this.displayPastVacationContent}
                 />
                 <div className={classes.innerContainer}>
-               {/*  <Vacations title={pastVacationTitle} vacationsId={pastVacationId}>
-                        </Vacations> */}
-                    
+
                     {vacationDetails ? (
-                    
-                         <Vacations title={pastVacationTitle} vacationsId={pastVacationId}>
-                        </Vacations>
-                    ): null }
+                        <Vacations title={pastVacationTitle} vacationsId={pastVacationId} />
+                    ) : null}
+
+                    {addParticipants ? (
+                        <AddUsers title={pastVacationTitle} vacationsId={pastVacationId} />
+                    ) : null}
 
                     {calendar ? (
-                        <Events title={pastVacationTitle} vacationsId={pastVacationId}>
-                            </Events>
-                    ): null }
+                        <EventsCalendar title={pastVacationTitle} vacationsId={pastVacationId} />
+                    ) : null}
 
                     {events ? (
-                        <h1>In events Page</h1>
-                    ): null}
+                         <Events title={pastVacationTitle} vacationsId={pastVacationId}>
+                        </Events> 
+                    ) : null}
 
                     {expenses ? (
-                      <AddUsers title={pastVacationTitle} vacationsId={pastVacationId}>
-                          </AddUsers>
-                    ): null}
+                        <Expenses title={pastVacationTitle} vacationsId={pastVacationId} />
+                    ) : null}
+
+                    {overview ? (
+                        <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId} />
+                    ) : null}
                 </div>
             </main>
         );

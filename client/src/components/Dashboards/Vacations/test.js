@@ -33,7 +33,6 @@ export default function CardHeaderTypes(props) {
   return (
     <div>
       <GridContainer>
-      
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="rose"><div className="test">

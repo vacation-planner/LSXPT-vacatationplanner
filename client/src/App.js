@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import axios from "axios";
 import { fire } from './components/Auth/firebaseConfig';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
@@ -12,7 +13,7 @@ import PastVacationDashboard from './components/Dashboards/PastVacationDashboard
 import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
 import Signin from './components/Auth/Signin';
 import Vacations from './components/Dashboards/Vacations';
-import axios from 'axios';
+//import axios from 'axios';
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/';
 const URL = 'http://localhost:5500/';
@@ -105,6 +106,51 @@ class App extends Component {
          }); 
     };
 
+    checkLocalStorage = () => {
+        let vacationsId = localStorage.getItem('vacationsId');
+        if (vacationsId) {
+            axios
+            .get(`${URL}api/vacations/${vacationsId}`)
+            .then(response => {
+              response.data.forEach((item, index) => {                      
+                  this.setState({
+                      title: item.title,
+                      vacationsId: vacationsId,
+                      location: item.location,
+                      startDate: item.startDate,
+                      endDate: item.endDate,
+                  });
+              })
+              console.log('state: ', this.state);
+              this.writeToDb();
+            })
+            .catch(err => {
+              console.log('We"ve encountered an error');
+            });
+        }
+    };
+
+    writeToDb = () => {
+        let vacationRec = {
+            title: this.state.title,
+            location: this.state.location,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate,
+            usersUid: this.state.userUID
+        }
+        axios
+      .post(`${URL}api/vacations/`, vacationRec) 
+      .then(response => {
+        localStorage.removeItem('vacationsId');
+        console.log("vacation record created") 
+      })
+      .catch(err => {
+        console.log("There was an error creating vacation record", err);
+      });
+
+  }
+    
+
     // this function grabs any parameter in the url
     getUrlVars = () => {
         let vars = {};
@@ -145,6 +191,8 @@ class App extends Component {
             .post(endpoint, creds)
             .then(res => {
                 console.log('User logged in successfully');
+// I kind of think the context login code should go here because you are writing all this
+// data to the local storage before the user has successfully logged in
             })
             .catch(err => console.log('Error in getting user'));
     };

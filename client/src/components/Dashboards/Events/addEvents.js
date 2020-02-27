@@ -3,37 +3,19 @@ import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
-
 import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-const style = {
-  label: {
-    color: "rgba(0, 0, 0, 0.26)",
-    cursor: "pointer",
-    display: "inline-flex",
-    fontSize: "14px",
-    transition: "0.3s ease all",
-    lineHeight: "1.428571429",
-    fontWeight: "400",
-    paddingLeft: "0"
-  }
-};
-
-const useStyles = makeStyles(style);
-
 class AddEvents extends Component {
   constructor(props) {
     super(props);
   this.state = {
-    events: this.props.events,
     date: new Date(2019, 11, 12), 
     usersUid: "",
     value: "",
@@ -43,8 +25,9 @@ class AddEvents extends Component {
     startDateTime: "",
     endDateTime: "",
     disabled: this.props.disabled,
-    secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
+    vacationsTitle: this.props.title,
+    title: "",
    };
 }
 
@@ -55,12 +38,17 @@ componentDidMount() {
   }); 
 };
 
+handleChange = event => {
+  this.setState({
+      [event.target.name]: event.target.value
+  });
+};
+
 handleStartChange = event => {
   if (this.props.disabled) {
     alert("Please create an event first.")
   } else {
   let startDateTime = moment(event).format();
-  console.log("startDateTime: ", startDateTime)
    // update the current event record
     let eventsRec = {
       eventName: this.props.eventName,
@@ -68,7 +56,6 @@ handleStartChange = event => {
       startDateTime: startDateTime,
       usersUid: this.state.usersUid,
       vacationsId: this.props.vacationsId,
-      secondaryUsersId: this.props.secondaryUsersId,
     } 
 
  axios
@@ -116,7 +103,6 @@ axios
 }
 };
 
-
  render() {
   const classes = this.props;
   return (
@@ -148,38 +134,7 @@ axios
           />
         </FormControl>
       </div>
-      <div className="right">
-      <p>Event Cost: 
-        <input
-          type="text"
-          name="eventCost"
-          onChange={this.handleChange}
-          value={this.state.eventName}
-          className="eventCost"
-        />
-      </p>
-      <p>Participant:
-        <input
-          type="text"
-          name="participant"
-          onChange={this.handleChange}
-          value={this.state.eventName}
-          className="participant"
-        />
-      </p>
-      <p>Amount Participant Owes: 
-        <input
-          type="text"
-          name="amountOwed"
-          onChange={this.handleChange}
-          value={this.state.eventName}
-          className="amountOwed"
-        />
-      </p>
-
-      </div>
     </div>
-    
   );
 }
 }
