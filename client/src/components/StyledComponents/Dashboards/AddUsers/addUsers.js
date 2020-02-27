@@ -30,7 +30,7 @@ export const ButtonContainer = styled.div`
 export const UsersContainer = styled.div`
   color: #000;
   margin: 5px;
-  height: 1600px;
+  height: auto;
  `;
 
 export const Loading = styled.div`

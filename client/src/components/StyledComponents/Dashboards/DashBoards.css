@@ -58,7 +58,9 @@
 }
 
 .events {
-    height: 1600px;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
     background-image: url("../../../images/lock.jpg");
 }
 
@@ -85,7 +87,9 @@
 }
 
 .expenses {
-    height: 1600px;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
     background-image: url("../../../images/42545.jpg");
 }
 
@@ -105,9 +109,10 @@
 }
 
 .expense-table-display {
-    height: 1600px;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
     background-image: url("../../../images/bg-pricing.jpg");
-
 }
 
  .expButton {

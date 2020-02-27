@@ -11,9 +11,11 @@
 
   .events-calendar-container {
     background-image: url("../../../../images/register.jpg");
-    height: 1600px;
     /* overscroll-behavior:  */
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
   }
 
   .lowerBody {
