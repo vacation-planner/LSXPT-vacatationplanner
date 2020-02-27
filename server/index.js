@@ -16,9 +16,8 @@ const eventsRouter = require("./api/eventsRouter");
 const eventUsersRouter = require("./api/eventUsersRouter");
 const emailsRouter = require("./api/emailsRouter");
 const secondaryUsersRouter = require("./api/secondaryUsersRouter")
-//const stripeRouter = require("./api/stripeRouter");
+const stripeRouter = require("./api/stripeRouter");
 const admin = require("./data/auth/firebaseMiddleware");
-//const server = require('./api/server');
 
 server.use(cors());
 server.use(express.json());
@@ -34,7 +33,7 @@ server.use("/api/eventUsers", eventUsersRouter);
 server.use("/api/secondaryUsers", secondaryUsersRouter);
 //server.use("/api/users", verifyToken, usersRouter);
 server.use("/api/expenses", expensesRouter);
-//server.use("/api/stripe", stripeRouter);
+server.use("/api/stripe", stripeRouter);
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use("/", verifyToken);

@@ -11,6 +11,7 @@ import HomeDashboard from './components/Dashboards/HomeDashboard.js';
 import CurrentVacationDashboard from './components/Dashboards/CurrentVacationDashboard.js';
 import PastVacationDashboard from './components/Dashboards/PastVacationDashboard.js';
 import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
+import Checkout from './components/Checkout/Checkout.js';
 import Signin from './components/Auth/Signin';
 import Vacations from './components/Dashboards/Vacations';
 //import axios from 'axios';
@@ -242,6 +243,18 @@ class App extends Component {
                                 />
                             );
                         }}
+                    />
+                    <Route
+                        authenticated={this.state.authenticated}
+                        path={ROUTES.PREMIUM}
+                        render={props => {
+                            return (
+                                <Checkout
+                            {...props}
+                            />
+                            )
+                        }}
+                        component={PastVacationDashboard}
                     />
                     <Route
                         path={ROUTES.VACATIONDETAILS}

@@ -108,6 +108,7 @@ class CurrentVacationDrawer extends React.Component {
                                     </ListItem>
                                     <Divider />
                                 </React.Fragment>
+                                
                             )
                         })}
                         <Button className={classes.buttonStyling} onClick={() => this.makePremium()}>Upgrade to Premium</Button>
