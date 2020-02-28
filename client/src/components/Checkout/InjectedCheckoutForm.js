@@ -42,6 +42,7 @@ class CheckoutForm extends React.Component {
               response.paymentIntent &&
               response.paymentIntent.status === "succeeded"
             ) {
+              this.context.setPremium(this.props.id, 1)
               this.setState({ error: false, redirect: true, message: "" });
             }
           });

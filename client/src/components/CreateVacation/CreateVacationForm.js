@@ -195,7 +195,8 @@ class CreateVacationForm extends React.Component {
                                       pathname: `/premium`,
                                       state: {
                                         currentVacationTitle: this.state.vacationName,
-                                        title: this.state.vacationName
+                                        title: this.state.vacationName,
+                                        id: this.context.currentVacationId
                                       }
                                     }}
                                     className={classes.linkStyling}

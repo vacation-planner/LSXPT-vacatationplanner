@@ -18,7 +18,8 @@ export default class AppProvider extends Component {
     //backendURL: 'https://vacationplannerlx.herokuapp.com/api',
     backendURL: "http://localhost:5500/api",
     tempVacationHolder:
-      JSON.parse(localStorage.getItem("tempVacationHolder")) || []
+      JSON.parse(localStorage.getItem("tempVacationHolder")) || [],
+    currentVacationId: null
   };
 
   render() {
@@ -27,10 +28,10 @@ export default class AppProvider extends Component {
         value={{
           state: this.state,
           getUserID: value => {
-            this.setState({ userID: value });
+            this.setState({ ...this.state, userID: value });
           },
           getUserEmail: value => {
-            this.setState({ userEmail: value });
+            this.setState({ ...this.state, userEmail: value });
           },
           signOut: () => {
             localStorage.removeItem("allVacations");
@@ -96,6 +97,7 @@ export default class AppProvider extends Component {
                 }
               });
               this.setState({
+                ...this.state,
                 allVacations,
                 myVacations,
                 myPastVacations,
@@ -138,6 +140,7 @@ export default class AppProvider extends Component {
                 }
               });
               this.setState({
+                ...this.state,
                 myVacations: this.state.myVacations.concat(joined),
                 myCurrentVacations: this.state.myCurrentVacations.concat(
                   joinCurrent
@@ -158,6 +161,9 @@ export default class AppProvider extends Component {
               );
             });
           },
+          setId: id => {
+            this.setState({ ...this.state, currentVacationId: id });
+          },
           addVacation: vacationName => {
             const userID = this.state.userID;
             const vacationsEndpoint = `${this.state.backendURL}/vacations`;
@@ -173,7 +179,6 @@ export default class AppProvider extends Component {
             axios
               .post(vacationsEndpoint, vacation)
               .then(res => {
-                console.log({RESPONSE: res.data});
                 let vacationData = res.data;
                 let newVacation = {
                   id: vacationData.id,
@@ -186,7 +191,9 @@ export default class AppProvider extends Component {
                   closed: vacation.closed
                 };
                 this.setState({
-                  tempVacationHolder: newVacation
+                  ...this.state,
+                  tempVacationHolder: newVacation,
+                  currentVacationId: vacationData.id
                 });
                 localStorage.setItem(
                   "tempVacationHolder",
@@ -210,6 +217,7 @@ export default class AppProvider extends Component {
                   JSON.stringify(currentJoined)
                 );
                 this.setState({
+                  ...this.state,
                   myVacations: joined,
                   myCurrentVacations: currentJoined,
                   allVacations: allVactionsJoined
@@ -226,6 +234,10 @@ export default class AppProvider extends Component {
             };
             const vacationsEndpoint = `${this.state.backendURL}/vacations/${id}`;
             axios.put(vacationsEndpoint, vacation).then(res => {
+              let id = res.data.id;
+              this.setState({
+                currentVacationId: id
+              });
               axios.get(vacationsEndpoint).then(res => {
                 let allVacations = this.state.allVacations;
                 let myCurrentVacations = this.state.myCurrentVacations;
@@ -275,6 +287,7 @@ export default class AppProvider extends Component {
             axios
               .put(vacationsEndpoint, vacation)
               .then(res => {
+                let id = res.data.id;
                 let allVacations = this.state.allVacations;
                 let myCurrentVacations = this.state.myCurrentVacations;
                 const foundIndexAllVacations = this.state.allVacations.findIndex(
@@ -295,7 +308,8 @@ export default class AppProvider extends Component {
                 );
                 this.setState({
                   allVacations,
-                  myCurrentVacations
+                  myCurrentVacations,
+                  currentVacationId: id
                 });
               })
               .catch(err => {
