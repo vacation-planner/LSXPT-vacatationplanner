@@ -14,8 +14,6 @@ export default class AppProvider extends Component {
         myVacations: JSON.parse(localStorage.getItem('myVacations')) || [],
         myCurrentVacations: JSON.parse(localStorage.getItem('myCurrentVacations')) || [],
         myPastVacations: JSON.parse(localStorage.getItem('myPastVacations')) || [],
-        //backendURL: 'https://vacationplannerlx.herokuapp.com/api',
-        backendURL: 'http://localhost:5500/api',
         tempVacationHolder: JSON.parse(localStorage.getItem('tempVacationHolder')) || [],
     };
 
@@ -42,10 +40,8 @@ export default class AppProvider extends Component {
                     getVacations: () => {
                         const userID = this.state.userID;
                         const userEmail = this.state.userEmail;
-                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
-                        const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
-                        // const vacationsEndpoint = `/vacations`;
-                        // const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
+                        const vacationsEndpoint = '/vacations';
+                        const secondaryUserEndpoint = '/secondaryUsers';
                         axios
                             .get(vacationsEndpoint)
                             .then(res => {
@@ -130,7 +126,7 @@ export default class AppProvider extends Component {
                     },
                     addVacation: (vacationName) => {
                         const userID = this.state.userID;
-                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
+                        const vacationsEndpoint = '/vacations';
                         let vacation = {
                             title: vacationName,
                             usersUid: userID,
@@ -158,7 +154,6 @@ export default class AppProvider extends Component {
                                     tempVacationHolder: newVacation
                                 })
                                 localStorage.setItem('tempVacationHolder', JSON.stringify(newVacation));
-
                                 const allVactionsJoined = this.state.allVacations.concat(newVacation);
                                 localStorage.setItem('allVacations', JSON.stringify(allVactionsJoined));
                                 const joined = this.state.myVacations.concat(newVacation);
@@ -175,6 +170,54 @@ export default class AppProvider extends Component {
                                 console.log('error adding vacation', err)
                             });
                     },
+                    updateVacationStartDate: (id, vacationData, startDate) => {
+                        axios
+                            .put(`/vacations/${id}`, vacationData)
+                            .then(response => {
+                                console.log("start day updated")
+                                let allVacations = this.state.allVacations;
+                                let myCurrentVacations = this.state.myCurrentVacations;
+                                const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+                                const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(x => x.id === id);
+                                allVacations[foundIndexAllVacations].startDate = startDate;
+                                myCurrentVacations[foundIndexMyCurrentVacations].startDate = startDate;
+                                localStorage.setItem('allVacations', JSON.stringify(allVacations))
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations))
+                                this.setState({
+                                    allVacations,
+                                    myCurrentVacations
+                                })
+                            })
+                            .catch(err => {
+                                console.log('We"ve encountered an error');
+                            });
+                    },
+                    updateVacationEndDate: (id, vacationData, endDate) => {
+                        const foundCurrentVacationIndex = this.state.myCurrentVacations.findIndex(x => x.id === id);
+                        if(this.state.myCurrentVacations[foundCurrentVacationIndex].startDate !== "" ) {
+
+                        }
+                        axios
+                            .put(`/vacations/${id}`, vacationData)
+                            .then(response => {
+                                console.log("end date updated")
+                                let allVacations = this.state.allVacations;
+                                let myCurrentVacations = this.state.myCurrentVacations;
+                                const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+                                const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(x => x.id === id);
+                                allVacations[foundIndexAllVacations].endDate = endDate;
+                                myCurrentVacations[foundIndexMyCurrentVacations].endDate = endDate;
+                                localStorage.setItem('allVacations', JSON.stringify(allVacations))
+                                localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations))
+                                this.setState({
+                                    allVacations,
+                                    myCurrentVacations
+                                })
+                            })
+                            .catch(err => {
+                                console.log('We"ve encountered an error');
+                            });
+                    },
                     updateVacation: (id, location, title, startDate, endDate, userID, premium) => {
                         let vacation = {
                             id: id,
@@ -186,29 +229,98 @@ export default class AppProvider extends Component {
                             premium: premium,
                             closed: false,
                         }
-                        const vacationsEndpoint = `${this.state.backendURL}/vacations/${id}`;
-                        axios
-                            .put(vacationsEndpoint, vacation)
-                            .then(res => {
-                                let allVacations = this.state.allVacations;
-                                let myCurrentVacations = this.state.myCurrentVacations;
-                                const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
-                                const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(x => x.id === id);
-                                allVacations[foundIndexAllVacations] = vacation;
-                                myCurrentVacations[foundIndexMyCurrentVacations] = vacation;
-                                localStorage.setItem('allVacations', JSON.stringify(allVacations))
-                                localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations))
-                                this.setState({
-                                    allVacations,
-                                    myCurrentVacations
+                        const foundCurrentVacationIndex = this.state.myCurrentVacations.findIndex(x => x.id === id);
+
+                        if (this.state.myCurrentVacations[foundCurrentVacationIndex].startDate !== "") {
+                            if (this.state.myCurrentVacations[foundCurrentVacationIndex].enddate !== "") {
+                                let vacation = {
+                                    id: id,
+                                    title: title,
+                                    location: location,
+                                    usersUid: userID,
+                                    premium: premium,
+                                    closed: false,
+                                }
+
+                                const vacationsEndpoint = `/vacations/${id}`;
+                                axios
+                                    .put(vacationsEndpoint, vacation)
+                                    .then(res => {
+                                        let allVacations = this.state.allVacations;
+                                        let myCurrentVacations = this.state.myCurrentVacations;
+                                        const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+                                        const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(x => x.id === id);
+                                        allVacations[foundIndexAllVacations] = vacation;
+                                        myCurrentVacations[foundIndexMyCurrentVacations] = vacation;
+                                        localStorage.setItem('allVacations', JSON.stringify(allVacations))
+                                        localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations))
+                                        this.setState({
+                                            allVacations,
+                                            myCurrentVacations
+                                        })
+                                    })
+                                    .catch(err => {
+                                        console.log('error editing vaction', err);
+                                    })
+                            }
+                            else {
+                                let vacation = {
+                                    id: id,
+                                    title: title,
+                                    location: location,
+                                    endDate: endDate,
+                                    usersUid: userID,
+                                    premium: premium,
+                                    closed: false,
+                                }
+
+                                const vacationsEndpoint = `/vacations/${id}`;
+                                axios
+                                    .put(vacationsEndpoint, vacation)
+                                    .then(res => {
+                                        let allVacations = this.state.allVacations;
+                                        let myCurrentVacations = this.state.myCurrentVacations;
+                                        const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+                                        const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(x => x.id === id);
+                                        allVacations[foundIndexAllVacations] = vacation;
+                                        myCurrentVacations[foundIndexMyCurrentVacations] = vacation;
+                                        localStorage.setItem('allVacations', JSON.stringify(allVacations))
+                                        localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations))
+                                        this.setState({
+                                            allVacations,
+                                            myCurrentVacations
+                                        })
+                                    })
+                                    .catch(err => {
+                                        console.log('error editing vaction', err);
+                                    })
+                            }
+                        }
+                        else {
+                            const vacationsEndpoint = `/vacations/${id}`;
+                            axios
+                                .put(vacationsEndpoint, vacation)
+                                .then(res => {
+                                    let allVacations = this.state.allVacations;
+                                    let myCurrentVacations = this.state.myCurrentVacations;
+                                    const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+                                    const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(x => x.id === id);
+                                    allVacations[foundIndexAllVacations] = vacation;
+                                    myCurrentVacations[foundIndexMyCurrentVacations] = vacation;
+                                    localStorage.setItem('allVacations', JSON.stringify(allVacations))
+                                    localStorage.setItem('myCurrentVacations', JSON.stringify(myCurrentVacations))
+                                    this.setState({
+                                        allVacations,
+                                        myCurrentVacations
+                                    })
                                 })
-                            })
-                            .catch(err => {
-                                console.log('error editing vaction', err);
-                            })
+                                .catch(err => {
+                                    console.log('error editing vaction', err);
+                                })
+                        }
                     },
                     deleteVacation: (id) => {
-                        const deleteVacationEndpoint = `${this.state.backendURL}/vacations/${id}`;
+                        const deleteVacationEndpoint = `/vacations/${id}`;
                         axios
                             .delete(deleteVacationEndpoint)
                             .then(res => {
@@ -219,8 +331,8 @@ export default class AppProvider extends Component {
                             })
                         const userID = this.state.userID;
                         const userEmail = this.state.userEmail;
-                        const vacationsEndpoint = `${this.state.backendURL}/vacations`;
-                        const secondaryUserEndpoint = `${this.state.backendURL}/secondaryUsers`;
+                        const vacationsEndpoint = '/vacations';
+                        const secondaryUserEndpoint = '/secondaryUsers';
                         axios
                             .get(vacationsEndpoint)
                             .then(res => {
