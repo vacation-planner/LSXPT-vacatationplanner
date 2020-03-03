@@ -64,5 +64,3 @@ typings/
 
 # VSCode settings
 .vscode/
-
-.sqlite3
