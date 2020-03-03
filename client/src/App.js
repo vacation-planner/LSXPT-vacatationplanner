@@ -204,7 +204,7 @@ class App extends Component {
     //  };
 
     return (
-      <StripeProvider apiKey="pk_test_YaXrgpvhX1N77ScjSA8RHgj700EkOslsjn">
+      <StripeProvider apiKey="pk_test_PiAE5fm3I6YRQRHGe4fNuu5P00Q7sx92gK">
         <div className="App">
           <Switch>
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
