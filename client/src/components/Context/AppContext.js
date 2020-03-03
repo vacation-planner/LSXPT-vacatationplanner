@@ -229,26 +229,22 @@ export default class AppProvider extends Component {
           },
           setPremium: (id, premium) => {
             let vacation = {
-              id: id,
+              id: Number(id),
               premium: premium
             };
             const vacationsEndpoint = `${this.state.backendURL}/vacations/${id}`;
             axios.put(vacationsEndpoint, vacation).then(res => {
-              let id = res.data.id;
-              this.setState({
-                currentVacationId: id
-              });
               axios.get(vacationsEndpoint).then(res => {
                 let allVacations = this.state.allVacations;
                 let myCurrentVacations = this.state.myCurrentVacations;
                 const foundIndexAllVacations = this.state.allVacations.findIndex(
-                  x => x.id === id
+                  x => x.id == id
                 );
                 const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(
-                  x => x.id === id
+                  x => x.id == id
                 );
-                allVacations[foundIndexAllVacations] = vacation;
-                myCurrentVacations[foundIndexMyCurrentVacations] = vacation;
+                allVacations[foundIndexAllVacations].premium = premium;
+                myCurrentVacations[foundIndexMyCurrentVacations].premium = premium;
                 localStorage.setItem(
                   "allVacations",
                   JSON.stringify(allVacations)
@@ -258,6 +254,7 @@ export default class AppProvider extends Component {
                   JSON.stringify(myCurrentVacations)
                 );
                 this.setState({
+                  ...this.state,
                   allVacations,
                   myCurrentVacations
                 });
@@ -307,6 +304,7 @@ export default class AppProvider extends Component {
                   JSON.stringify(myCurrentVacations)
                 );
                 this.setState({
+                  ...this.state,
                   allVacations,
                   myCurrentVacations,
                   currentVacationId: id
@@ -378,6 +376,7 @@ export default class AppProvider extends Component {
                 }
               });
               this.setState({
+                ...this.state,
                 allVacations,
                 myVacations,
                 myPastVacations,

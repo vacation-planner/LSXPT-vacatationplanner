@@ -1,10 +1,101 @@
 import React from "react";
 import { injectStripe } from "react-stripe-elements";
+import Button from '@material-ui/core/Button';
 import { Redirect } from "react-router-dom";
-import { AppContext } from "../Context/AppContext"
+import { AppContext } from "../Context/AppContext";
+import withStyles from "@material-ui/core/styles/withStyles";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
 
 import CardSection from "./CardSection";
 import axios from "axios";
+
+const styles = theme => ({
+  button: {
+    width: '100%',
+    backgroundColor: '#E91E63',
+    marginTop: "10px",
+    color: 'white',
+    height: '40px',
+    fontSize: '1.5rem',
+    cursor: 'pointer',
+    '&:hover': {
+        color: 'white',
+        backgroundColor: '#AA1649'
+    }
+},
+  card: {
+    width: "85%",
+    minWidth: 300,
+    margin: "20px",
+    minHeight: 325,
+    padding: "15px",
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardActions: {
+    padding: 0,
+    margin: 0
+  },
+  cardContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    height: "100vh",
+    backgroundColor: "#E91E63",
+    width: "100%",
+    textAlign: "left"
+  },
+  cardContent: {
+    padding: 0,
+    margin: 0
+  },
+  cardFeatures: {
+    fontSize: "2.0rem",
+    display: "inline-block",
+    paddingBottom: "4px",
+    borderBottom: "1px solid black",
+    width: "91px",
+    marginBottom: "15px"
+  },
+  cardText: {
+    fontSize: "1.5rem",
+    marginBottom: "10px",
+    width: "100%"
+  },
+  cardTitle: {
+    fontSize: "2.5rem",
+    marginBottom: "25px",
+    width: "100%",
+    textAlign: "center"
+  },
+  innerContainer: {
+    marginTop: 65,
+    width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "column",
+    minHeight: "calc(100vh - 65px)"
+  },
+  main: {
+    width: "100%",
+    display: "flex", // Fix IE 11 issue.
+    justifyContent: "center",
+    alignItems: "flex-start",
+    backgroundColor: "#E2E2E2"
+  },
+  paper: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    width: "100%",
+    backgroundColor: "#E2E2E2"
+  }
+});
 
 class CheckoutForm extends React.Component {
   constructor(props) {
@@ -28,10 +119,10 @@ class CheckoutForm extends React.Component {
         this.props.stripe
           .confirmCardPayment(res.data.clientSecret, {
             payment_method: {
-              card: this.props.elements.getElement("card"),
-              billing_details: {
-                name: this.state.name
-              }
+              card: this.props.elements.getElement("card")
+              // billing_details: {
+              //   name: this.state.name
+              // }
             }
           })
           .then(async response => {
@@ -42,7 +133,7 @@ class CheckoutForm extends React.Component {
               response.paymentIntent &&
               response.paymentIntent.status === "succeeded"
             ) {
-              this.context.setPremium(this.props.id, 1)
+              this.context.setPremium(this.context.state.currentVacationId, 1);
               this.setState({ error: false, redirect: true, message: "" });
             }
           });
@@ -54,6 +145,7 @@ class CheckoutForm extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
     if (this.state.redirect) {
       {
         return (
@@ -62,7 +154,7 @@ class CheckoutForm extends React.Component {
               pathname: "/dashboards/current",
               state: {
                 title: this.props.title,
-                vacationName: this.props.vacationName
+                currentVacationTitle: this.props.currentVacationTitle
               }
             }}
           />
@@ -70,24 +162,15 @@ class CheckoutForm extends React.Component {
       }
     } else {
       return (
-        <div>
+        <CardContent>
           <form onSubmit={this.handleSubmit}>
-            <div>
-              <label>
-                Full Name:{" "}
-                <input
-                  type="text"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.inputHandler}
-                />
-              </label>
-            </div>
-            <CardSection />
-            <button>Confirm order</button>
+            <CardSection className={classes.cardText}/>
+            <CardActions className={classes.cardActions}>
+              <Button className={classes.button} onClick={this.handleSubmit}>Confirm order</Button>
+            </CardActions>
           </form>
           {this.state.error ? <div>There was an error!</div> : null}
-        </div>
+        </CardContent>
       );
     }
   }
@@ -95,4 +178,4 @@ class CheckoutForm extends React.Component {
 
 CheckoutForm.contextType = AppContext;
 
-export default injectStripe(CheckoutForm);
+export default injectStripe(withStyles(styles)(CheckoutForm));
