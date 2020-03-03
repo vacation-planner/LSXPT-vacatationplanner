@@ -163,7 +163,7 @@ class CreateVacationForm extends React.Component {
                             {this.props.vacationType === 'basic' ? (
                                 <Button
                                     className={classes.createVacationButton}
-                                    onClick={this.addVacationToContext}
+                                    onClick={() => this.addVacationToContext(this.state.vacationName)}
                                     variant='contained'
                                     disabled={this.state.disabledButton === true}
                                 >
@@ -183,9 +183,28 @@ class CreateVacationForm extends React.Component {
                                          </DelayLink>
                                 </Button>
                             ) : (
-
-                                    "Pedro's Stripe Button"
-                                )}
+                                <Button
+                                  className={classes.createVacationButton}
+                                  onClick={() => this.addVacationToContext(this.state.vacationName)}
+                                  variant="contained"
+                                  disabled={this.state.disabledButton === true}
+                                >
+                                  <DelayLink
+                                    delay={1500}
+                                    to={{
+                                      pathname: `/premium`,
+                                      state: {
+                                        currentVacationTitle: this.state.vacationName,
+                                        title: this.state.vacationName,
+                                        id: this.context.currentVacationId
+                                      }
+                                    }}
+                                    className={classes.linkStyling}
+                                  >
+                                    Go to Payment
+                                  </DelayLink>
+                                </Button>
+                              )}
                         </div>
                     </DialogActions>
                 </Dialog>
