@@ -190,10 +190,10 @@ export default class AppProvider extends Component {
                 let allVacations = this.state.allVacations;
                 let myCurrentVacations = this.state.myCurrentVacations;
                 const foundIndexAllVacations = this.state.allVacations.findIndex(
-                  x => x.id == id
+                  x => x.id === id
                 );
                 const foundIndexMyCurrentVacations = this.state.myCurrentVacations.findIndex(
-                  x => x.id == id
+                  x => x.id === id
                 );
                 allVacations[foundIndexAllVacations].premium = premium;
                 myCurrentVacations[foundIndexMyCurrentVacations].premium = premium;
