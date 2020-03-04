@@ -283,7 +283,7 @@ class HomeNavbar extends React.Component {
                     <PastVacationDrawer
                         currentVacations={this.context.state.myCurrentVacations}
                         pastVacations={this.context.state.myPastVacations}
-                        pastVacation={this.context.state.myPastVacations[this.state.pastVacationIndex]}
+                        pastVacation={this.context.state.myPastVacations[this.state.pastVacationIndex] || this.context.state.myPastVacations[this.context.state.myPastVacations.length - 1]}
                         displayPastVacationContent={this.props.displayPastVacationContent}
                     />
                 )}

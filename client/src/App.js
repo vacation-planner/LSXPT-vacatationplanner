@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import React, { Component } from "react";
+import { withRouter } from "react-router";
 import axios from "axios";
 import { fire } from './components/Auth/firebaseConfig';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -13,42 +13,44 @@ import PastVacationDashboard from './components/Dashboards/PastVacationDashboard
 import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
 import Signin from './components/Auth/Signin';
 import Vacations from './components/Dashboards/Vacations';
+import Checkout from "./components/Checkout/Checkout.js";
+import { StripeProvider } from "react-stripe-elements";
 
 const AuthenticatedRoute = ({
-    component: Component,
-    authenticated,
-    ...rest
+  component: Component,
+  authenticated,
+  ...rest
 }) => {
-    return (
-        <Route
-            {...rest}
-            render={props =>
-                authenticated === true ? (
-                    <Component {...props} {...rest} />
-                ) : (
-                        <Redirect
-                            to={{
-                                pathname: '/signin',
-                                state: { from: props.location }
-                            }}
-                        />
-                    )
-            }
-        />
-    );
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        authenticated === true ? (
+          <Component {...props} {...rest} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/signin",
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
 };
 
 class App extends Component {
-    state = {
-        authenticated: false,
-        currentUser: null,
-        firstName: null,
-        lastName: null,
-        currentEmail: null,
-        userUID: null,
-        redirect: false,
-        vacationsId: "",
-    };
+  state = {
+    authenticated: false,
+    currentUser: null,
+    firstName: null,
+    lastName: null,
+    currentEmail: null,
+    userUID: null,
+    redirect: false,
+    vacationsId: ""
+  };
 
     componentDidMount = () => {
         // this checks the url for any parameters and returns empty if it is
@@ -145,15 +147,23 @@ class App extends Component {
             });
     }
 
+  // this function grabs any parameter in the url
+  getUrlVars = () => {
+    let vars = {};
+    // let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    //     vars[key] = value;
+    // });
+    return vars;
+  };
 
-    // this function grabs any parameter in the url
-    getUrlVars = () => {
-        let vars = {};
-        // let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        //     vars[key] = value;
-        // });
-        return vars;
-    };
+  // this function keeps it from crashing if there is no parameter
+  getUrlParam = (parameter, defaultvalue) => {
+    let urlparameter = defaultvalue;
+    if (window.location.href.indexOf(parameter) > -1) {
+      urlparameter = this.getUrlVars()[parameter];
+    }
+    return urlparameter;
+  };
 
     // this function keeps it from crashing if there is no parameter
     getUrlParam = (parameter, defaultvalue) => {
@@ -195,62 +205,60 @@ class App extends Component {
         const { currentUser } = this.state;
         const { redirect } = this.state;
 
-        // Defined homepage for route checks
-        // const homepage = () => {
-        //      return <Redirect to='/' />;
-        //  };
+    // Defined homepage for route checks
+    // const homepage = () => {
+    //      return <Redirect to='/' />;
+    //  };
 
-        return (
-            <div className="App">
-                <Switch>
-                    <Route exact path={ROUTES.LANDING} component={LandingPage} />
-                    <AuthenticatedRoute
-                        authenticated={this.state.authenticated}
-                        exact
-                        path={ROUTES.DASHBOARDS}
-                        component={HomeDashboard}
-                    />
-                    <Route
-                        authenticated={this.state.authenticated}
-                        path={ROUTES.CREATEVACATIONDETAILS}
-                        component={CreateVacationDetails}
-                    />
-                    <Route
-                        authenticated={this.state.authenticated}
-                        path={ROUTES.CURRENTVACATIONSDASHBOARDS}
-                        component={CurrentVacationDashboard}
-                    />
-                    <Route
-                        authenticated={this.state.authenticated}
-                        path={ROUTES.PASTVACATIONSDASHBOARDS}
-                        component={PastVacationDashboard}
-                    />
-                    <Route
-                        exact
-                        path={ROUTES.SIGNIN}
-                        render={props => {
-                            return (
-                                <Signin
-                                    user={currentUser}
-                                    redirect={redirect}
-                                    {...props}
-                                />
-                            );
-                        }}
-                    />
-                    <Route
-                        path={ROUTES.VACATIONDETAILS}
-                        render={props =>
-                            <Vacations {...props} />
-                        }
-                    />
-                    <Route
-                        path={ROUTES.LANDING}
-                    />
-                </Switch>
-            </div>
-        );
-    }
+    return (
+      <StripeProvider apiKey="pk_test_PiAE5fm3I6YRQRHGe4fNuu5P00Q7sx92gK">
+        <div className="App">
+          <Switch>
+            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <AuthenticatedRoute
+              authenticated={this.state.authenticated}
+              exact
+              path={ROUTES.DASHBOARDS}
+              component={HomeDashboard}
+            />
+            <Route
+              authenticated={this.state.authenticated}
+              path={ROUTES.CREATEVACATIONDETAILS}
+              component={CreateVacationDetails}
+            />
+            <Route
+              authenticated={this.state.authenticated}
+              path={ROUTES.CURRENTVACATIONSDASHBOARDS}
+              component={CurrentVacationDashboard}
+            />
+            <Route
+              authenticated={this.state.authenticated}
+              path={ROUTES.PASTVACATIONSDASHBOARDS}
+              component={PastVacationDashboard}
+            />
+            <Route
+              exact
+              path={ROUTES.SIGNIN}
+              render={props => {
+                return (
+                  <Signin user={currentUser} redirect={redirect} {...props} />
+                );
+              }}
+            />
+            <Route
+              path={ROUTES.PREMIUM}
+              render={props => <Checkout {...props} />}
+            />
+            <Route
+              path={ROUTES.VACATIONDETAILS}
+              render={props => <Vacations {...props} />}
+            />
+            <Route path={ROUTES.LANDING} />
+          </Switch>
+        </div>
+      </StripeProvider>
+    );
+  }
 }
 
 App.contextType = AppContext;
