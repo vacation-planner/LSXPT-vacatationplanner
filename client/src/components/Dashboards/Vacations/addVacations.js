@@ -50,7 +50,7 @@ render() {
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
            <Card style={{ width: "400px", height: "80%" }}>
-           <CardHeader>and say what
+           <CardHeader>
              </CardHeader>
                <CardBody>
             Enter new Vacation Name:

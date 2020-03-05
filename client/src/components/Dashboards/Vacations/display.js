@@ -263,7 +263,6 @@ class Display extends Component {
   render() {
     const { classes } = this.props;
     const { checked } = this.state;
-    console.log(this.state);
 
     if (this.state.locked === true) {
       return (

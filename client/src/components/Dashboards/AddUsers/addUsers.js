@@ -122,7 +122,7 @@ class AddUsers extends Component {
   }
 
   secondaryUserSelect = id => {
-    console.log("id, You are here", id)
+    //console.log("id, You are here", id)
       // modify to send only one user
       const userList = this.state.usersList;
       let secondaryUserRec = [];
@@ -157,6 +157,7 @@ class AddUsers extends Component {
   secondaryUsersList = (props) => {
     // *****************************************************************************
     // try to insert a button for each list item so emails can be sent individually
+    // current code will send an email when you click on the secondary user
     // ****************************************************************************
     const secondaryUsers = this.state.usersList.map((secondaryUser) =>
       <li key={secondaryUser.id} className="secondaryUsers" onClick={() => {this.secondaryUserSelect(secondaryUser.id)}}>{secondaryUser.firstName},{secondaryUser.lastName},{secondaryUser.email} </li>
