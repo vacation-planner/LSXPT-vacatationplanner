@@ -11,6 +11,7 @@ import moment from "moment";
 import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
 import { Tooltip, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
+import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
 //import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/Expenses/material-dashboard-pro-react.css";
 
@@ -30,7 +31,7 @@ const URL = "http://localhost:5500/api";
   }
 }; 
 
-const useStyles = makeStyles(style);
+const useStyles = makeStyles(styles);
 
 class AddExpenses extends Component {
   constructor(props) {
@@ -262,4 +263,4 @@ axios
 }
 }
 
-export default withStyles(style)(AddExpenses);
+export default withStyles(styles)(AddExpenses);

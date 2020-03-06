@@ -10,58 +10,12 @@ import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js"
 // From Material Ui
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
+import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
 import { Zoom } from "@material-ui/core";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
 const URL = "http://localhost:5500/api";
 
-const styles = theme => ({
-  cardBody: {
-      display: "flex",
-      [theme.breakpoints.up("sm")]: {
-          width: "100%",    
-      }
-  },
-  cardBody2: {
-    display: "flex",
-    flexDirection: "row",
-    //backgroundColor: "#E91E63",
-    [theme.breakpoints.up("sm")]: {
-        width: "100%",   
-    }
-},
-cardBodyContainer1: {
-    display: "flex",
-    flexDirection: "Column",
-    /* backgroundColor: "#E91E63", */
-    [theme.breakpoints.up("sm")]: {
-        width: "50%",   
-    }
-},
-cardBodyContainer2: {
-    display: "flex",
-    flexDirection: "Column",
-    /*  backgroundColor: "#23b0e7",  */
-    [theme.breakpoints.up("sm")]: {
-        width: "50%",   
-    }
-},
-cardBodyContainer3: {
-    display: "flex",
-    flexDirection: "row",
-     backgroundColor: "#E91E63",  
-         [theme.breakpoints.up("sm")]: {
-        width: "100%",
-        height: "40px",   
-    }
-},
-  gridItem: {
-      cursor: "pointer",
-      padding: 15,
-      paddingLeft: 35,
-      fontSize: "2rem",
-  }
-});
 
 class Expenses extends Component {
   constructor(props) {
@@ -289,16 +243,17 @@ render() {
   const { checked } = this.state;
 
     return (
-        <div className="expenses"> 
+       /*  <div className="expenses"> */ 
+         <div className={classes.parent}>
             <Zoom in={checked} > 
                 <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "600px", height: "560px", marginLeft: "20px", marginRight: "100px", top: "20px"}}>
-                            <h2>Create Expense: {this.state.eventName}</h2>
-                            <h3>Current Vacation: {this.props.title}</h3>
+                    <GridItem xs={12} sm={12} md={12}>
+                       {/*  <Card style={{ width: "600px", height: "560px", marginLeft: "20px", marginRight: "100px", top: "20px"}}> */}
+                            <h3>Create Expense: {this.state.eventName}</h3>
+                            <h4>Current Vacation: {this.props.title}</h4>
                             <CardBody   className={classes.cardBody2}>
                                 <CardBody  className={classes.cardBodyContainer1}>
-                                    <CardBody  xs={12} sm={12} md={4}>
+                                    <CardBody  xs={12} sm={12} md={12}>
                                         <AddExpenses 
                                             eventsId={this.state.eventsId}
                                             eventName={this.state.eventName} 
@@ -315,13 +270,13 @@ render() {
                                 </CardBody>
                                 <CardBody  className={classes.cardBodyContainer2}>
                                     <CardBody> 
-                                        <h3>Available Events:</h3>{" "}                                
+                                        <h4>Available Events:</h4>{" "}                                
                                         <div className="eventsList">
                                             {this.eventList()} 
                                         </div>          
                                     </CardBody>
                                     <CardBody> 
-                                        <h3>Vacation Participants:</h3>{" "}  
+                                        <h4>Vacation Participants:</h4>{" "}  
                                         <div className="participantsList">
                                            {this.participantList()}                                        
                                         </div>
@@ -331,7 +286,7 @@ render() {
                             <CardBody  
                               className={classes.cardBodyContainer3}>
                             </CardBody>                        
-                        </Card>
+                        {/* </Card> */}
                     </GridItem>
                 </GridContainer>
             </Zoom>
