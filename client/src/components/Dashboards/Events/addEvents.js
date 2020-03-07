@@ -9,9 +9,6 @@ import axios from "axios";
 import moment from "moment";
 import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
-
 class AddEvents extends Component {
   constructor(props) {
     super(props);
@@ -59,7 +56,7 @@ handleStartChange = event => {
     } 
 
  axios
-    .put(`${URL}/events/${this.props.eventsId}`, eventsRec)
+    .put(`/events/${this.props.eventsId}`, eventsRec)
     .then(response => {
         console.log("start day updated")
     })
@@ -89,7 +86,7 @@ handleEndChange = event => {
 
 
 axios
-    .put(`${URL}/events/${this.props.eventsId}`, eventRec)
+    .put(`/events/${this.props.eventsId}`, eventRec)
     .then(response => {
         console.log("end date updated")
     })

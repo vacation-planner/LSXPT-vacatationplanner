@@ -18,9 +18,6 @@ import "../../StyledComponents/Dashboards/Events/Calendar.css";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
-const URL = "http://localhost:5500/api";
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-
 const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar)
@@ -82,7 +79,7 @@ class EventsCalendar extends React.Component {
   
   fetchEventData = vacationsId => {
     axios
-      .get(`${URL}/events/`)
+      .get('/events/')
       .then(response => {
         let eventsData = [];
         if (response.data) {
@@ -156,7 +153,7 @@ class EventsCalendar extends React.Component {
  
   fetchVacationData = (vacationsId) => {
     axios
-      .get(`${URL}/vacations/${vacationsId}`)
+      .get(`/vacations/${vacationsId}`)
       .then(response => {
         let vacationData = [];
         if (response.data) {
@@ -229,7 +226,7 @@ class EventsCalendar extends React.Component {
       description: "item.location", // FIX THIS!
     }
     axios
-    .post(`${URL}/events/`, eventRec)
+    .post('/events/', eventRec)
     .then(response => {
       console.log("file written")
      })
