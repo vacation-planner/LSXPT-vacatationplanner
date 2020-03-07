@@ -8,14 +8,13 @@ import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js
 import Card from "../../StyledComponents/Dashboards/Vacations/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
 import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js"
-//import styles from "../../StyledComponents/Dashboards/Vacations/js/cardImagesStyles.js";
 import dashboardStyle from "../../StyledComponents/Dashboards/Vacations/js/dashboardStyle";
 import loginPageStyle from "../../StyledComponents/Dashboards/Vacations/js/loginPageStyle";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-//const URL = "http://localhost:5500/api";
-const URL = 'https://vacationplannerlx.herokuapp.com/api';
+const URL = "http://localhost:5500/api";
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
 //const classes = useStyles();
 
 var styles = {
@@ -51,7 +50,7 @@ render() {
         <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
            <Card style={{ width: "400px", height: "80%" }}>
-           <CardHeader>and say what
+           <CardHeader>
              </CardHeader>
                <CardBody>
             Enter new Vacation Name:

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import LandingBackground from '../../images/LandingPage1.jpg';
 
-
 // Landing Page
 const ContentDiv = styled.div`
     background-image: url(${LandingBackground});
@@ -41,6 +40,7 @@ const LandingPageFooter = styled.footer`
     padding-top: 25px;
     font-size: 2.0rem;
     text-decoration: none;
+    background-color: #e2e2e2;
 `;
 
 export {

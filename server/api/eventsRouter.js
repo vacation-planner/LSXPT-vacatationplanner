@@ -46,12 +46,12 @@ router.get("/", (req, res) => {
 /****** Add a event ******/
 // UN-COMMENT TO PROTECT THE ROUTE!
 // router.post('/', protect, (req, res) => {
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const event = req.body;
   if (event) {
-    events
+    await events
         .insert(event)
-        .then(event => {
+        .then(response => {
             res.status(201).json({ id: event.id });
     })
         .catch(err => {
@@ -112,18 +112,36 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const changes = req.body;
+  if (changes) {
   events
     .update(id, changes)
-    .then(count => {
-      if (count) {
+    .then(response => {
+      res.status(200).json({'message': 'expense updated'});
+    })
+    .catch(err => {
+        res.status(500).json({'error': `Error returned: ${err}`})
+    }) 
+}
+else {
+    res.status(400).json({'error': 'Please check and send the proper expense data to be updated.'})
+}
+});
+
+     /*  if (event) {
         events
           .getByid(id)
-          .then(event => {
-            // If event has been updated, return the updated event.
-            res.status(201).json(event);
+          .then(event2 => {
+            if (event2) {
+              // If event has been updated, return the updated event.
+              res.status(201).json(event);
+            } else {
+              res.status(500).json({
+                message: "There was an error retrieving the current event."
+              })
+            }
           })
           .catch(err => {
-            // Return an error if there's an error retrieving that current event.
+          // Return an error if there's an error retrieving that current event.
             res.status(500).json({
               message: "There was an error retrieving the current event."
             });
@@ -138,10 +156,10 @@ router.put("/:id", (req, res) => {
     .catch(err => {
       // If there's an error in the helper method or database, return a 500 error.
       res.status(500).json({
-        message: `The events could not be updated at this time.`
+        message: `The events were updated at this time.`
       });
     });
-});
+}); */
 
 /************* Delete event *************/
 // UNCOMMENT TO PROTECT THE ROUTE!

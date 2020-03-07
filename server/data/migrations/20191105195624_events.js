@@ -6,10 +6,8 @@ exports.up = function(knex) {
             event.integer('vacationsId').references('vacations.id');
             event.string('usersUid').references('users.uid');
             event.integer('secondaryUsersId').references('secondaryUsers.id');
-            event.date('startDate');
-            event.date('endDate');
-            event.time('startTime');
-            event.time('endTime');
+            event.datetime('startDateTime');
+            event.datetime('endDateTime');
             event.string('description', 140);
         })
 };

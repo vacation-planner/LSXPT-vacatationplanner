@@ -1,5 +1,5 @@
 import React from "react";
-import { fire } from "../../Auth/firebaseConfig";
+// import { fire } from "../../Auth/firebaseConfig";
 
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -220,11 +220,6 @@ class LandingPageNavbar extends React.Component {
 
     handleClose = () => {
         this.setState({ anchorEl: null, mobileOpen: false });
-    };
-
-    signOut = () => {
-        fire.signOut();
-        console.log("User logged out successfully");
     };
 
     render() {

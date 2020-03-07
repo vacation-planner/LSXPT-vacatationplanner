@@ -9,9 +9,6 @@ import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js
 import Card from "../../StyledComponents/Dashboards/Vacations/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Vacations/js/CardBody.js";
 import CardHeader from "../../StyledComponents/Dashboards/Vacations/js/CardHeader.js";
-//import CardIcon from "../../StyledComponents/Dashboards/Vacations/js/CardIcon.js";
-//import CardText from "../../StyledComponents/Dashboards/Vacations/js/CardText.js";
-
 import dashboardStyle from "../../StyledComponents/Dashboards/Vacations/js/dashboardStyle";
 import loginPageStyle from "../../StyledComponents/Dashboards/Vacations/js/loginPageStyle";
 import "../../StyledComponents/Dashboards/Vacations/vacations.css";
@@ -36,7 +33,6 @@ export default function CardHeaderTypes(props) {
   return (
     <div>
       <GridContainer>
-      
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="rose"><div className="test">

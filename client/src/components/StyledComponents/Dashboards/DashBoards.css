@@ -1,5 +1,129 @@
  .calendar {
-    background-color: white;
+    background-color: #23b0e7;
 
 }
+
+.logo {
+    width: 75px;
+    height: 75px;
+    background-image: url("../../../images/vplanner5_1.png");
+    /* background-image: url("../../../images/vplanner1_75px.png"); */
+}
+
+.vacation {
+   
+    background-image: url("../../../images/vplanner5_1.png");
+    border: 2px solid green;
+}
+
+.participantsList {
+    border: 1px solid gray;
+    overflow-y: auto;
+    height: 120px;
+    width: 200px;
+    font-size: 12px;
+}
+
+.participants {
+    /* background-color: white; */
+    cursor: pointer;
+}
+
+.participants:hover {
+    background-color: rgb(250, 23, 129);
+    color: white;  
+}
+
+.participants:active {
+    background-color: rgb(192, 20, 100);
+    color: white;  
+}
+
+.participants:focus {
+    background-color: rgb(136, 18, 73);
+    color: white;  
+}
+
+.ul {
+    /* background-color: aquamarine; */
+}
+
+.ul:hover {
+   /*  background-color: rgb(16, 20, 9); */
+}
+
+.event {
+    cursor: pointer;
+    color: #e41818;
+}
+
+.events {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
+    background-image: url("../../../images/lock.jpg");
+}
+
+.event:hover {
+    background-color: rgb(250, 23, 129);
+    color: white;
+}
+
+.eventsList {
+    border: 1px solid gray;
+    overflow-y: auto;
+    height: 120px;
+    width: 200px;
+    font-size: 12px;
+}
+
+.eventContainer {
+    /* border: 2px solid green; */ 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    font-size: 12px;
+}
+
+.expenses {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
+    background-image: url("../../../images/42545.jpg");
+}
+
+.left {
+   /*  border: 2px soild red; */
+    width: 100%;
+}
+
+.right {
+    /* border: 2px solid orange; */
+    width: 100%;
+    margin-top: 30px;
+}
+
+.new-table {
+    font-size: 12px;
+}
+
+.expense-table-display {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 65px);
+    background-image: url("../../../images/bg-pricing.jpg");
+}
+
+ .expButton {
+    width: 120px;
+} 
+
+ .deleteExpense {
+  /*   height: 26px; */
+    width: 120px;
+  /*   border: 0px solid black;
+    margin-top: 20px;
+    color: black; */
+} 
  

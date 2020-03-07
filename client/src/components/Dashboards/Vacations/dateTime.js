@@ -3,18 +3,20 @@ import { fire } from "../../Auth/firebaseConfig";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
+import { Tooltip, Typography } from "@material-ui/core";
+// import { withStyles, Zoom } from "@material-ui/core";
 import axios from "axios";
 import moment from "moment";
 
 import "../../StyledComponents/Dashboards/AddUsers/material-dashboard-pro-react.css";
 
-const URL = 'https://vacationplannerlx.herokuapp.com/api';
-//const URL = "http://localhost:5500/api";
+//const URL = 'https://vacationplannerlx.herokuapp.com/api';
+const URL = "http://localhost:5500/api";
 
-const style = {
+/* const style = {
   label: {
     color: "rgba(0, 0, 0, 0.26)",
     cursor: "pointer",
@@ -25,9 +27,9 @@ const style = {
     fontWeight: "400",
     paddingLeft: "0"
   }
-};
+}; */
 
-const useStyles = makeStyles(style);
+//const useStyles = makeStyles(style);
 
 class DateTimePicker extends Component {
   constructor(props) {
@@ -40,12 +42,14 @@ class DateTimePicker extends Component {
     vacationsId: this.props.vacationsId,
     title: "",
     location: "",
-    startDate: "",
-    endDate: "",
+    startDate: this.props.startDate,
+    endDate: this.props.endDate,
+    disabled: this.props.disabled,
    };
 }
 
 componentDidMount() {
+  
    let usersUid = fire.currentUser.uid;
    this.setState({
     usersUid: usersUid
@@ -53,32 +57,39 @@ componentDidMount() {
 };
 
 handleStartChange = event => {
+  if (this.props.disabled) {
+    alert("Please create a vacation first.")
+  } else {
   let startDate = moment(event).format();
    // update the current vacation record
-   let vacationRec = {
+    let vacationRec = {
     title: this.props.title,
     location: this.props.location,
-    startDate: startDate,   // if field empty, dont save it
-    /* endDate: this.state.endDate, */
+    startDate: startDate,  
     usersUid: this.state.usersUid,
-  }
+  } 
 
-axios
+ axios
     .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
     .then(response => {
         console.log("start day updated")
     })
     .catch(err => {
         console.log('We"ve encountered an error');
-    });
+    }); 
 // clear the inputs
  this.setState({
     startDate: startDate,    
-  });  
-
+  }); 
+  
+  //this.props.startDate(this.state.startDate)
+  }
 };
 
 handleEndChange = event => {
+  if (this.props.disabled) {
+    alert("Please create a vacation first.")
+  } else {
   let endDate = moment(event).format();
   // update the current vacation record
   let vacationRec = {
@@ -87,6 +98,7 @@ handleEndChange = event => {
     endDate: endDate,   // if field empty, dont save it
     usersUid: this.state.usersUid,
   }
+
 
 axios
     .put(`${URL}/vacations/${this.props.vacationsId}`, vacationRec)
@@ -100,48 +112,61 @@ axios
  this.setState({
     endDate: endDate,    
   });  
-  
+}
 };
 
 
  render() {
   const classes = this.props;
+ 
   return (
     <div>
       <InputLabel className={classes.label}>
         Vacation Start Date
       </InputLabel>
       <br />
-      <FormControl fullWidth>
-        <Datetime timeFormat={false}
-        value={this.props.value}
-         onChange={event => this.handleStartChange(event)} 
-          inputProps={{ 
-            placeholder: "Start Vacation" }}
-        />
-      </FormControl>
+      <Tooltip
+          placement="top"
+          disableFocusListener
+          title={
+            <Typography color="inherit" variant="h6" gutterBottom>
+              Select date the vacation begins
+            </Typography>
+          }
+        >
+        <FormControl fullWidth>
+          <Datetime timeFormat={false}
+            value={this.props.value}
+            onChange={event => this.handleStartChange(event)} 
+            inputProps={{ 
+              placeholder: this.props.startDate
+            }}
+          />
+        </FormControl>
+      </Tooltip>
       <InputLabel className={classes.label}>
-      Vacation End Date
+        Vacation End Date
       </InputLabel>
       <br />
+      <Tooltip
+        placement="top"
+        disableFocusListener
+        title={
+          <Typography color="inherit" variant="h6" gutterBottom>
+            Select date the vacation ends
+          </Typography>
+        }
+      >
       <FormControl fullWidth>
         <Datetime
           timeFormat={false}
           value={this.props.value}
-         onChange={event => this.handleEndChange(event)} 
-          inputProps={{ placeholder: "End Vacation" }}
+          onChange={event => this.handleEndChange(event)} 
+          inputProps={{ placeholder: this.props.endDate }}
         />
       </FormControl>
-     {/*  <InputLabel className={classes.label}>
-        Time Picker
-      </InputLabel> */}
+      </Tooltip>
       <br />
-     {/*  <FormControl fullWidth>
-        <Datetime
-          dateFormat={false}
-          inputProps={{ placeholder: "Time Picker Here" }}
-        />
-      </FormControl> */}
     </div>
   );
 }

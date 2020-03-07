@@ -3,70 +3,16 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from "moment";
 
-//import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
+// *************************************************
+// the calendar gets its styles from the index page
+// *************************************************
+
 const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
-const events = [
-    {
-      id: 0,
-      title: 'vacation meeting',
-      start: new Date(2018, 0, 29, 9, 0, 0),
-      end: new Date(2018, 0, 29, 13, 0, 0),
-      resourceId: 1,
-    },
-    {
-      id: 1,
-      title: 'MS training',
-      start: new Date(2018, 0, 29, 14, 0, 0),
-      end: new Date(2018, 0, 29, 16, 30, 0),
-      resourceId: 2,
-    },
-    {
-      id: 2,
-      title: 'Team lead meeting',
-      start: new Date(2018, 0, 29, 8, 30, 0),
-      end: new Date(2018, 0, 29, 12, 30, 0),
-      resourceId: 3,
-    },
-    {
-      id: 10,
-      title: 'vac2 meeting',
-      start: new Date(2018, 0, 30, 23, 0, 0),
-      end: new Date(2018, 0, 30, 23, 59, 0),
-      resourceId: 1,
-    },
-    {
-      id: 11,
-      title: 'Birthday Party',
-      start: new Date(2018, 0, 30, 7, 0, 0),
-      end: new Date(2018, 0, 30, 10, 30, 0),
-      resourceId: 4,
-    },
-    {
-      id: 12,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 59, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 1,
-    },
-    {
-      id: 13,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 50, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 2,
-    },
-    {
-      id: 14,
-      title: 'Board meeting',
-      start: new Date(2018, 0, 29, 23, 40, 0),
-      end: new Date(2018, 0, 30, 13, 0, 0),
-      resourceId: 4,
-    },
-  ]
-  
+ let eventSave = [];
+
 const resourceMap = [
   { resourceId: 1, resourceTitle: 'Vacation Date' },
   { resourceId: 2, resourceTitle: 'Event' },
@@ -76,14 +22,25 @@ const resourceMap = [
 
 class Dnd extends React.Component {
   constructor(props) {
-    super(props)
+     super(props)  
+    
     this.state = {
-      events: events,
+      events: this.props.events,
     }
 
     this.moveEvent = this.moveEvent.bind(this)
+    
   }
 
+  componentDidMount() {
+    //let usersUid = fire.currentUser.uid;
+     this.setState({
+     events: this.props.events
+   });  
+   eventSave = this.state;
+   //console.log("eventSave: ", eventSave)
+ };
+ 
   moveEvent({ event, start, end, resourceId, isAllDay: droppedOnAllDaySlot }) {
     const { events } = this.state
 
@@ -121,20 +78,15 @@ class Dnd extends React.Component {
   }
 
   eventStyleGetter = (event) => {
-    console.log("this.event.resouceId: ", event.resourceId);
-    //const { events } = this.state
     let hexColor = "";
-        if (event.resourceId === 1) {
-            console.log("Here in hexC  ");
+        if (event.resourceId === 1) { 
             hexColor = "04068a"
             
         } else {
-            console.log("Here hexB: ");
             hexColor = "3f022b"
         }
        
-      
-      console.log("hexColor: ", hexColor);
+     // console.log("hexColor: ", hexColor);
       let backgroundColor = '#' + hexColor;
     let style = {
         backgroundColor: backgroundColor,
@@ -153,17 +105,17 @@ class Dnd extends React.Component {
       <DragAndDropCalendar
         selectable
         localizer={localizer}
-        events={this.state.events}
+        events={this.props.events}
         onEventDrop={event => this.moveEvent(event)}
         resizable
         resources={resourceMap} 
         resourceIdAccessor="resourceId" 
         resourceTitleAccessor="resourceTitle" 
         onEventResize={this.resizeEvent}
-        defaultView="day"
+        defaultView="month"
         step={15}
         showMultiDayTimes={true}
-        defaultDate={new Date(2018, 0, 29)}
+        defaultDate={new Date(2019, 11, 29)}
         eventPropGetter={event => this.eventStyleGetter(event)}
       />
     )

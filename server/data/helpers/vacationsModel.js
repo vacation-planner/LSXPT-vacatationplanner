@@ -3,10 +3,10 @@ const db = require('../dbConfig')
 module.exports = {
     get: get,
     getById: getById,
-    getPlansById: getPlansById,
-    getSecondaryUsersById: getSecondaryUsersById,
+    //getPlansById: getPlansById,
+    //getSecondaryUsersById: getSecondaryUsersById,
     getByUserUid: getByUserUid,
-    getExpensesById: getExpensesById,
+    //getExpensesById: getExpensesById,
     insert: insert,
     remove: remove,
     update: update,
@@ -39,23 +39,9 @@ function getById(id) {
     return db('vacations').where('id', id);
 }
 
-function getPlansById(id) {
-    // return db('plans').where('vacationId', id);
-}
-
-function getSecondaryUsersById(id) {
-    return db('secondaryUsers').where('vacationId', id);
-}
-
 function getByUserUid(uid) {
-    return db('secondaryUsers').where('userUid', uid)
+    return db('vacations').where('uid', uid);
 }
-
-function getExpensesById(id) {
-    // return db('expenses').where('vacationId', id);
-}
-
-
    /*  get: () => {
         return db("vacations");
     },
