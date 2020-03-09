@@ -48,7 +48,6 @@ componentDidMount() {
     let usersUid = fire.currentUser.uid;
    // grab the list of secondary users
     this.fetchSecondaryUsers(this.state.vacationsId);
-
     // grab the list of current events
     this.fetchEvents(this.state.vacationsId);
 
@@ -98,8 +97,6 @@ addExpense = () => {
   .post(`${URL}/expenses/`, expenseRec)
   .then(response => {
       console.log("file written");
-      // get the id of the new record
-      //this.fetchId(this.state.eventName);
   })
   .catch(err => {
       console.log('We"ve encountered an error');
@@ -200,10 +197,6 @@ addExpense = () => {
 
   }
 
-  /* handleStartDate = startDate => {
-    console.log('startdate: ', startDate);
-  } */
-
   // the user has clicked on a line item in the box
   listSelect = (id) => {        
     this.fetchSecondaryUser(id);
@@ -243,50 +236,47 @@ render() {
   const { checked } = this.state;
 
     return (
-       /*  <div className="expenses"> */ 
          <div className={classes.parent}>
             <Zoom in={checked} > 
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
-                       {/*  <Card style={{ width: "600px", height: "560px", marginLeft: "20px", marginRight: "100px", top: "20px"}}> */}
-                            <h3>Create Expense: {this.state.eventName}</h3>
-                            <h4>Current Vacation: {this.props.title}</h4>
-                            <CardBody   className={classes.cardBody2}>
-                                <CardBody  className={classes.cardBodyContainer1}>
-                                    <CardBody  xs={12} sm={12} md={12}>
-                                        <AddExpenses 
-                                            eventsId={this.state.eventsId}
-                                            eventName={this.state.eventName} 
-                                            description={this.state.description} 
-                                            participant={this.state.participant}
-                                            secondaryUsersId={this.state.secondaryUsersId}
-                                            vacationsId={this.state.vacationsId}
-                                            amount={this.state.amount}
-                                            secondaryUsersExpense={this.state.secondaryUsersExpense}
-                                            secondaryUsersName={this.state.participant}
-                                            startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
-                                        </AddExpenses>  
-                                    </CardBody>
-                                </CardBody>
-                                <CardBody  className={classes.cardBodyContainer2}>
-                                    <CardBody> 
-                                        <h4>Available Events:</h4>{" "}                                
-                                        <div className="eventsList">
-                                            {this.eventList()} 
-                                        </div>          
-                                    </CardBody>
-                                    <CardBody> 
-                                        <h4>Vacation Participants:</h4>{" "}  
-                                        <div className="participantsList">
-                                           {this.participantList()}                                        
-                                        </div>
-                                    </CardBody>
-                                </CardBody >
-                            </CardBody >
-                            <CardBody  
-                              className={classes.cardBodyContainer3}>
-                            </CardBody>                        
-                        {/* </Card> */}
+                      <h3>Create Expense: {this.state.eventName}</h3>
+                      <h4>Current Vacation: {this.props.title}</h4>
+                      <CardBody   className={classes.cardBody2}>
+                        <CardBody  className={classes.cardBodyContainer1}>
+                          <CardBody  xs={12} sm={12} md={12}>
+                              <AddExpenses 
+                                eventsId={this.state.eventsId}
+                                eventName={this.state.eventName} 
+                                description={this.state.description} 
+                                participant={this.state.participant}
+                                secondaryUsersId={this.state.secondaryUsersId}
+                                vacationsId={this.state.vacationsId}
+                                amount={this.state.amount}
+                                secondaryUsersExpense={this.state.secondaryUsersExpense}
+                                secondaryUsersName={this.state.participant}
+                                startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
+                              </AddExpenses>  
+                            </CardBody>
+                          </CardBody>
+                          <CardBody  className={classes.cardBodyContainer2}>
+                            <CardBody> 
+                              <h4>Available Events:</h4>{" "}                                
+                              <div className="eventsList">
+                                {this.eventList()} 
+                              </div>          
+                            </CardBody>
+                            <CardBody> 
+                              <h4>Vacation Participants:</h4>{" "}  
+                              <div className="participantsList">
+                                {this.participantList()}                                        
+                              </div>
+                            </CardBody>
+                          </CardBody >
+                        </CardBody >
+                        <CardBody  
+                          className={classes.cardBodyContainer3}>
+                        </CardBody>                        
                     </GridItem>
                 </GridContainer>
             </Zoom>

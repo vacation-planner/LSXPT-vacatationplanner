@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import { fire } from "../../Auth/firebaseConfig";
-// react plugin for creating date-time-picker
-//import Datetime from "react-datetime";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-//import InputLabel from "@material-ui/core/InputLabel";
-//import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import moment from "moment";
 import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
 import { Tooltip, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
-//import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/Expenses/material-dashboard-pro-react.css";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -83,7 +77,6 @@ handleStartChange = expense => {
     alert("Please create an expense first.")
   } else {
   let startDateTime = moment(expense).format();
-  //console.log("startDateTime: ", startDateTime)
    // update the current expense record
     let expensesRec = {
       expenseName: this.props.expenseName,
@@ -91,7 +84,6 @@ handleStartChange = expense => {
       startDateTime: startDateTime,
       usersUid: this.state.usersUid,
       vacationsId: this.props.vacationsId,
-      //secondaryUsersId: this.props.secondaryUsersId,
     } 
 
  axios
@@ -106,7 +98,6 @@ handleStartChange = expense => {
  this.setState({
     startDateTime: startDateTime,    
   }); 
-  
   }
 };
 
@@ -123,7 +114,6 @@ handleEndChange = expense => {
     usersUid: this.state.usersUid,
   }
 
-
 axios
     .put(`${URL}/expenses/${this.props.expensesId}`, expenseRec)
     .then(response => {
@@ -132,7 +122,6 @@ axios
     .catch(err => {
         console.log('We"ve encountered an error');
     });
-
  this.setState({
     endDateTime: endDateTime,    
   });  
@@ -141,8 +130,6 @@ axios
 
 saveExpense = () => {
   // check expense title for validity
-
-  
   let eventName = "";
   if (this.props.eventsId !== "") {
     eventName = this.props.eventName
@@ -158,21 +145,17 @@ saveExpense = () => {
     secondaryUsersExpense: this.state.secondaryUsersExpense,
     secondaryUsersName: this.props.participant,
   }
-
-axios
-.post(`${URL}/expenses/`, expenseRec)
-.then(response => {
-    console.log("file written");
-    this.setState({
-      deleteDisabled: false,    
+  axios
+    .post(`${URL}/expenses/`, expenseRec)
+    .then(response => {
+      console.log("file written");
+      this.setState({
+        deleteDisabled: false,    
+      });  
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
     });  
-    // get the id of the new record
-    //this.fetchId(this.state.eventName);
-})
-.catch(err => {
-    console.log('We"ve encountered an error');
-});  
-
 }
 
  render() {

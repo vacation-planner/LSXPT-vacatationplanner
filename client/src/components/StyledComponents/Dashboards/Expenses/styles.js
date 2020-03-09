@@ -6,6 +6,7 @@ const styles = theme => ({
         alignItems: 'center',
         borderTop: "12px solid pink",
         width: '90%',
+        maxWidth: '600px',
         padding: '30px',
         margin: '20px auto',
         borderRadius: '15px',
@@ -13,8 +14,13 @@ const styles = theme => ({
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
         [theme.breakpoints.down('xs')]: {
             border: '0',
+            width: '100%',
+            boxShadow: '0 0 0, 0 0 0'
+        },
+        [theme.breakpoints.down('sm')]: {
+            border: '0',
             width: '90%',
-            backgroundColor: '#FFFFFF',
+            alignItems: 'center',
             boxShadow: '0 0 0, 0 0 0'
         },
     },
@@ -27,23 +33,29 @@ const styles = theme => ({
     cardBody2: {
       display: "flex",
       flexDirection: "row",
-      //backgroundColor: "#E91E63",
       [theme.breakpoints.up("sm")]: {
           width: "100%",   
-      }
+      },
+      [theme.breakpoints.down("sm")]: { 
+        flexDirection: "column",
+        alignItems: 'center',  
+    }
   },
   cardBodyContainer1: {
       display: "flex",
       flexDirection: "Column",
-      /* backgroundColor: "#E91E63", */
       [theme.breakpoints.up("sm")]: {
           width: "50%",   
-      }
+      },
+      [theme.breakpoints.down("sm")]: { 
+        width: '100%',
+        maxWidth: "250px",  
+    }
   },
   cardBodyContainer2: {
       display: "flex",
       flexDirection: "Column",
-      /*  backgroundColor: "#23b0e7",  */
+      alignItems: 'center',  
       [theme.breakpoints.up("sm")]: {
           width: "50%",   
       }
@@ -62,79 +74,6 @@ const styles = theme => ({
         padding: 15,
         paddingLeft: 35,
         fontSize: "2rem",
-    },
-
-    // Settings header
-    header: {
-        alignSelf: 'flex-start'
-    },
-    // Divider between Settings forms
-    divider: {
-        width: '100%'
-    },
-    // Parent email form container
-    emailContainer:{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%'
-    },
-    // Parent phone form container
-    phoneFormContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        marginBottom: theme.spacing.unit,   
-    },
-    // Current phone number container
-    currentPhoneContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    // Phone number input field container
-    phoneField: {
-        alignSelf: 'flex-end',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    // Parent email/text preference form container
-    emailTextContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%'
-    },
-    // Current value header
-    currentHeader: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit
-    },
-    // Current value
-    currentValue: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit
-    },
-    // Input field
-    textField: {
-        marginTop: 0,
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 170,
-    },
-    // Button
-    button: {
-        margin: theme.spacing.unit,
-        width: 170,
-        backgroundColor:theme.palette.secondary.main,
-        color:theme.palette.primary.main
-    },
-    // Switches
-    optSwitch: {
-        margin: theme.spacing.unit,
     },
 });
 

@@ -2,20 +2,10 @@ import React, { Component } from 'react';
 import ReactTable from "react-table-6"; 
 import 'react-table-6/react-table.css'
 import axios from "axios";
-/* import {
-    useTable,
-    useGroupBy,
-    useFilters,
-    useSortBy,
-    useExpanded,
-    usePagination,
-  } from 'react-table'; */
-  import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
+import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
 import { Zoom } from "@material-ui/core";
-//import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
-//import CardHeader from "../../StyledComponents/Dashboards/Expenses/js/CardHeader.js"
 import "../../StyledComponents/Dashboards/DashBoards.css";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -29,9 +19,6 @@ class ExpenseTable extends Component {
       expenses: [],
       vacationsId: this.props.vacationsId,
       checked: false,
-      //CatchHeaders: [],
-      //species: "",
-      
     }
      this.renderEditable = this.renderEditable.bind(this);
   }
@@ -42,12 +29,10 @@ class ExpenseTable extends Component {
     .get('http://localhost:5500/api/expenses')
     .then(response => {
       this.filterEvents(response.data);
-      //this.setState(() => ({ eventUsers: response.data }));
     })
     .catch(error => {
       console.error('Server Error', error);
     });
-   // this.setState(() => ({ eventUsers: eventUsers }));
   }
 
   filterEvents = data => {
