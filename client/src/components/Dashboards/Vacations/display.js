@@ -18,9 +18,6 @@ import DeleteModal from './deleteVacationModal.js';
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
-
 const styles = theme => ({
   actionButtons: {
     [theme.breakpoints.down(1000)]: {
@@ -181,7 +178,7 @@ class Display extends Component {
   fetchVacation = () => {
     if (this.props.vacationsId !== undefined) {
       axios
-        .get(`${URL}/vacations/${this.props.vacationsId}`)
+        .get(`/vacations/${this.props.vacationsId}`)
         .then(response => {
           response.data.forEach((item, index) => {
             this.setState({
@@ -203,9 +200,9 @@ class Display extends Component {
           console.log('We"ve encountered an error');
         });
     }
-    else if (this.context.state.tempVacationHolder.title = this.props.title) {
+    else if (this.context.state.tempVacationHolder.title === this.props.title) {
       axios
-        .get(`${URL}/vacations/${this.context.state.tempVacationHolder.id}`)
+        .get(`/vacations/${this.context.state.tempVacationHolder.id}`)
         .then(response => {
           response.data.forEach((item, index) => {
             this.setState({

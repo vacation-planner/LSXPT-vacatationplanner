@@ -13,9 +13,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(styles);
 
-const URL = "http://localhost:5500/api";
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-  
 class Expenses extends Component {
   constructor(props) {
     super(props);

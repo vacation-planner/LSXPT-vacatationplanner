@@ -14,9 +14,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 //import { makeStyles } from "@material-ui/core/styles";
 import "../../StyledComponents/Dashboards/Expenses/material-dashboard-pro-react.css";
 
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
-
  const style = {
   label: {
     color: "rgba(0, 0, 0, 0.26)",
@@ -94,7 +91,7 @@ handleStartChange = expense => {
     } 
 
  axios
-    .put(`${URL}/expenses/${this.props.eventsId}`, expensesRec)
+    .put(`/expenses/${this.props.eventsId}`, expensesRec)
     .then(response => {
         console.log("start day updated")
     })
@@ -124,7 +121,7 @@ handleEndChange = expense => {
 
 
 axios
-    .put(`${URL}/expenses/${this.props.expensesId}`, expenseRec)
+    .put(`/expenses/${this.props.expensesId}`, expenseRec)
     .then(response => {
         console.log("end date updated")
     })
@@ -159,7 +156,8 @@ saveExpense = () => {
   }
 
 axios
-.post(`${URL}/expenses/`, expenseRec)
+.post('/expenses/', expenseRec)
+
 .then(response => {
     console.log("file written");
     this.setState({

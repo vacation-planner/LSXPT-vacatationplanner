@@ -10,9 +10,6 @@ import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 
-const URL = "http://localhost:5500/api";
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-
 const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(BigCalendar)
@@ -71,7 +68,7 @@ class ExpensesCalendar extends React.Component {
   
   fetchExpensesData = vacationsId => {
     axios
-      .get(`${URL}/eventsUsers/`)
+      .get('/eventsUsers/')
       .then(response => {
         let eventsData = [];
  
@@ -82,8 +79,6 @@ class ExpensesCalendar extends React.Component {
                 }
             })   
         };
-        
-       // console.log("eventsData: ", eventsData)
         this.setState({
           eventData: eventsData
         });
@@ -189,7 +184,7 @@ class ExpensesCalendar extends React.Component {
   
     }
     axios
-    .post(`${URL}/events/`, eventRec)
+    .post('/events/', eventRec)
     .then(response => {
       console.log("file written")
      })

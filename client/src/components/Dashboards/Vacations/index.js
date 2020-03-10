@@ -5,11 +5,6 @@ import GridItem from "../../StyledComponents/Dashboards/Vacations/js/GridItem.js
 import "../../StyledComponents/Dashboards/Vacations/vacations.css";
 import { AppContext } from '../../Context/AppContext.js';
 
-// const useStyles = makeStyles(styles);
-
-// const URL = "http://localhost:5500/api";
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-
 class Vacations extends Component {
   constructor(props) {
     super(props);
