@@ -153,6 +153,7 @@ class Display extends Component {
       isPrimaryUser: false,
       delete: false,
       locked: false,
+      closed: 0,
     };
   };
 
@@ -187,7 +188,8 @@ class Display extends Component {
               startDate: item.startDate,
               endDate: item.endDate,
               premium: item.premium,
-              vacationPrimaryUsersUid: item.usersUid
+              vacationPrimaryUsersUid: item.usersUid,
+              closed: item.closed,
             });
           })
           if (this.state.location !== "" && this.state.startDate !== "" && this.state.endDate !== "") {
@@ -211,7 +213,8 @@ class Display extends Component {
               startDate: item.startDate,
               endDate: item.endDate,
               premium: item.premium,
-              vacationPrimaryUsersUid: item.usersUid
+              vacationPrimaryUsersUid: item.usersUid,
+              closed: item.closed
             });
           })
           if (this.state.location !== "" && this.state.startDate !== "" && this.state.endDate !== "") {
@@ -261,18 +264,13 @@ class Display extends Component {
     const { classes } = this.props;
     const { checked } = this.state;
 
-    if (this.state.locked === true) {
+    if ((this.state.closed === 1) ||(Date.parse(this.state.endDate) < Date.parse(new Date()) + 172800000)) {
       return (
         <div>
           <Zoom in={checked} >
             <GridContainer>
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes.cardStyling}>
-                  <div className={classes.lockIconsDiv}>
-                    <Button onClick={this.unlockData} className={classes.lockButton} >
-                      <LockOpenIcon style={{ width: 40, height: 30 }} />
-                    </Button>
-                  </div>
                   <h3>Vacation Details:</h3>
                   <CardBody className={classes.cardBody2}>
                     <CardBody className={classes.flexDirectionFlips}>
@@ -311,75 +309,127 @@ class Display extends Component {
         </div>
       );
     }
-
     else {
-      return (
-        <div className="vacationDisplay">
-          <Zoom in={checked} >
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={4}>
-                <Card className={classes.cardStyling}>
-                  <div className={classes.lockIconsDiv}>
-                    <Button onClick={this.lockData} className={classes.lockButton} >
-                      <LockIcon style={{ width: 40, height: 30 }} />
-                    </Button>
-                  </div>
-                  <h3>Vacation Details:</h3>
-                  <CardBody className={classes.cardBody2}>
-                    <CardBody className={classes.flexDirectionFlips}>
-                      <h5>Name of Vacation:{" "}</h5>
-                      <input
-                        type="text"
-                        name="title"
-                        onChange={this.handleChange}
-                        value={this.state.title}
-                        className={classes.inputStyling}
-                        placeholder={this.props.title}
-                      />
-                    </CardBody >
-                    <CardBody className={classes.flexDirectionFlips}>
-                      <h5>Destination:{" "}</h5>
-                      <input
-                        type="text"
-                        name="location"
-                        onChange={this.handleChange}
-                        value={this.state.location}
-                        className={classes.inputStyling}
-                        placeholder={this.state.location}
-                      />
+      if (this.state.locked === true) {
+        return (
+          <div>
+            <Zoom in={checked} >
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={4}>
+                  <Card className={classes.cardStyling}>
+                    <div className={classes.lockIconsDiv}>
+                      <Button onClick={this.unlockData} className={classes.lockButton} >
+                        <LockOpenIcon style={{ width: 40, height: 30 }} />
+                      </Button>
+                    </div>
+                    <h3>Vacation Details:</h3>
+                    <CardBody className={classes.cardBody2}>
+                      <CardBody className={classes.flexDirectionFlips}>
+                        <h5>Name of Vacation:</h5>
+                        <h5 className={classes.lockedText}>{this.state.title}</h5>
+                      </CardBody >
+                      <CardBody className={classes.flexDirectionFlips}>
+                        <h5>Destination:</h5>
+                        <h5 className={classes.lockedText}>{this.state.location}</h5>
+                      </CardBody>
                     </CardBody>
-                  </CardBody>
-                  <CardBody xs={12} sm={12} md={4}>
-                    <DateTimePicker
-                      title={this.state.title}
-                      location={this.state.location}
-                      vacationsId={this.state.vacationsId}
-                      disabled={this.state.disabled}
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                    >
-                    </DateTimePicker>
-                  </CardBody>
-                  <CardBody className={classes.cardBody}>
-                    <Button
-                      onClick={() => this.updateVacation()}
-                      className={classes.actionButtons}
-                      color="rose">Update
-                              </Button>
-                    <Button
-                      onClick={this.flipDelete}
-                      color="rose"
-                      className={classes.actionButtons}
-                      disabled={!this.state.isPrimaryUser}>Remove
-                              </Button>
-                  </CardBody>
-                </Card>
-              </GridItem>
-              {this.state.delete ? <DeleteModal close={this.flipDelete} vacationsId={this.state.vacationsId} /> : null}
-            </GridContainer>
-          </Zoom>
-        </div>
-      );
+                    <CardBody className={classes.cardBodyBottom}>
+                      <CardBody className={classes.flexDirectionFlips}>
+                        <h5>Start Date:</h5>
+                        <h5 className={classes.lockedText}>{this.state.startDate.substring(5,7)}/{this.state.startDate.substring(8,10)}/{this.state.startDate.substring(0, 4)}</h5>
+                      </CardBody>
+                      <CardBody className={classes.flexDirectionFlips}>
+                        <h5>End Date:</h5>
+                        <h5 className={classes.lockedText}>{this.state.endDate.substring(5,7)}/{this.state.endDate.substring(8,10)}/{this.state.endDate.substring(0, 4)}</h5>
+                      </CardBody>
+                    </CardBody>
+                    <CardBody className={classes.cardBody}>
+                      <Button
+                        onClick={this.flipDelete}
+                        color="rose"
+                        className={classes.actionButtons}
+                        disabled={!this.state.isPrimaryUser}>
+                        Remove
+                      </Button>
+                    </CardBody>
+                  </Card>
+                </GridItem>
+                {this.state.delete ? <DeleteModal close={this.flipDelete} vacationsId={this.state.vacationsId} /> : null}
+              </GridContainer>
+            </Zoom>
+          </div>
+        );
+      }
+  
+      else {
+        return (
+          <div className="vacationDisplay">
+            <Zoom in={checked} >
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={4}>
+                  <Card className={classes.cardStyling}>
+                    <div className={classes.lockIconsDiv}>
+                      <Button onClick={this.lockData} className={classes.lockButton} >
+                        <LockIcon style={{ width: 40, height: 30 }} />
+                      </Button>
+                    </div>
+                    <h3>Vacation Details:</h3>
+                    <CardBody className={classes.cardBody2}>
+                      <CardBody className={classes.flexDirectionFlips}>
+                        <h5>Name of Vacation:{" "}</h5>
+                        <input
+                          type="text"
+                          name="title"
+                          onChange={this.handleChange}
+                          value={this.state.title}
+                          className={classes.inputStyling}
+                          placeholder={this.props.title}
+                        />
+                      </CardBody >
+                      <CardBody className={classes.flexDirectionFlips}>
+                        <h5>Destination:{" "}</h5>
+                        <input
+                          type="text"
+                          name="location"
+                          onChange={this.handleChange}
+                          value={this.state.location}
+                          className={classes.inputStyling}
+                          placeholder={this.state.location}
+                        />
+                      </CardBody>
+                    </CardBody>
+                    <CardBody xs={12} sm={12} md={4}>
+                      <DateTimePicker
+                        title={this.state.title}
+                        location={this.state.location}
+                        vacationsId={this.state.vacationsId}
+                        disabled={this.state.disabled}
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
+                      >
+                      </DateTimePicker>
+                    </CardBody>
+                    <CardBody className={classes.cardBody}>
+                      <Button
+                        onClick={() => this.updateVacation()}
+                        className={classes.actionButtons}
+                        color="rose">Update
+                                </Button>
+                      <Button
+                        onClick={this.flipDelete}
+                        color="rose"
+                        className={classes.actionButtons}
+                        disabled={!this.state.isPrimaryUser}>Remove
+                                </Button>
+                    </CardBody>
+                  </Card>
+                </GridItem>
+                {this.state.delete ? <DeleteModal close={this.flipDelete} vacationsId={this.state.vacationsId} /> : null}
+              </GridContainer>
+            </Zoom>
+          </div>
+        );
+      }
     }
   }
 }

@@ -5,6 +5,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { AppContext } from "../../Context/AppContext.js";
+import Button from "@material-ui/core/Button";
+import CloseVacationModal from '../../CloseVacation/closeVacationModal.js';
 
 const styles = theme => ({
   buttonStyling: {
@@ -63,7 +65,8 @@ class PastVacationDrawer extends React.Component {
       calendar: false,
       events: false,
       expenses: false,
-      overview: false
+      overview: false,
+      shouldIClose: false,
     });
     this.setState({
       [event.currentTarget.id]: true
@@ -75,20 +78,32 @@ class PastVacationDrawer extends React.Component {
     this.context.setId(this.state.pastVacation.id);
   };
 
+  flipShouldIClose = event => {
+    event.preventDefault();
+    this.setState({
+      shouldIClose: true,
+    })
+  }
+
+  closeModal = event => {
+    event.preventDefault();
+    this.setState({
+      shouldIClose: false
+    })
+  }
+
   render() {
-      const { classes } = this.props;
-      const selectedDrawer = {
-        backgroundColor: "white"
-      };
+    const { classes } = this.props;
+    const selectedDrawer = {
+      backgroundColor: "white"
+    };
+    
+    if (this.state.pastVacation.closed === 1) {
       const ListPastVacations = [
         { name: "vacationDetails", text: "Vacation Details" },
-        { name: "addParticipants", text: "Add Participants" },
         { name: "calendar", text: "Calendar" },
-        { name: "events", text: "Events" },
-        { name: "expenses", text: "Expenses" },
         { name: "overview", text: "Overview" }
       ];
-
       return (
         <>
           <div className={classes.nameDiv}>
@@ -117,6 +132,52 @@ class PastVacationDrawer extends React.Component {
           </List>
         </>
       );
+    }
+    else {
+      const ListPastVacations = [
+        { name: "vacationDetails", text: "Vacation Details" },
+        { name: "addParticipants", text: "Add Participants" },
+        { name: "calendar", text: "Calendar" },
+        { name: "events", text: "Events" },
+        { name: "expenses", text: "Expenses" },
+        { name: "overview", text: "Overview" }
+      ];
+      return (
+        <>
+          <div className={classes.nameDiv}>
+            {this.state.pastVacation.title || "test"}
+          </div>
+          <List onClick={this.handleClose} className={classes.list}>
+            {ListPastVacations.map((pastVacation, index) => {
+              const { name } = pastVacation;
+              return (
+                <React.Fragment key={pastVacation.name}>
+                  <ListItem
+                    button
+                    id={pastVacation.name}
+                    onClick={this.displayPastVacation}
+                    style={this.state[name] ? selectedDrawer : null}
+                  >
+                    <ListItemText
+                      classes={{ primary: classes.listItemText }}
+                      primary={pastVacation.text}
+                    />
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              );
+            })}
+            <Button
+              className={classes.buttonStyling}
+              onClick={this.flipShouldIClose}
+            >
+              Close Vacation
+            </Button>
+          </List>
+          {this.state.shouldIClose ? <CloseVacationModal close={this.closeModal} vacationsId={this.state.pastVacation.id} /> : null}
+        </>
+      );
+    }
   }
 }
 

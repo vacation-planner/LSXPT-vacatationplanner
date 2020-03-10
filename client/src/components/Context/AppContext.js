@@ -270,7 +270,7 @@ export default class AppProvider extends Component {
               endDate: endDate,
               usersUid: userID,
               premium: premium,
-              closed: false,
+              closed: 0,
             }
             const foundCurrentVacationIndex = this.state.myCurrentVacations.findIndex(x => x.id === id);
 
@@ -282,7 +282,7 @@ export default class AppProvider extends Component {
                   location: location,
                   usersUid: userID,
                   premium: premium,
-                  closed: false,
+                  closed: 0,
                 }
 
                 const vacationsEndpoint = `/vacations/${id}`;
@@ -487,6 +487,31 @@ export default class AppProvider extends Component {
                 "myPastVacations",
                 JSON.stringify(this.state.myPastVacations)
               );
+            });
+          },
+          closeVacation: (id) => {
+            let vacation = {
+              closed: 1,
+            }
+            axios
+            .put(`/vacations/${id}`, vacation)
+            .then(response => {
+              console.log("Vacation closed")
+              let allVacations = this.state.allVacations;
+              let myPastVacations = this.state.myPastVacations;
+              const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+              const foundIndexMyPastVacations = this.state.myPastVacations.findIndex(x => x.id === id);
+              allVacations[foundIndexAllVacations].closed = 1;
+              myPastVacations[foundIndexMyPastVacations].closed = 1;
+              localStorage.setItem('allVacations', JSON.stringify(allVacations))
+              localStorage.setItem('myPastVacations', JSON.stringify(myPastVacations))
+              this.setState({
+                allVacations,
+                myPastVacations
+              })
+            })
+            .catch(err => {
+              console.log('We"ve encountered an error');
             });
           }
         }
