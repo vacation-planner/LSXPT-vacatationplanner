@@ -6,10 +6,10 @@ exports.up = function (knex) {
         expenses.decimal('amount');
         expenses.integer('vacationsId').references('vacations.id');
         expenses.string('usersUid');
-        expenses.integer('eventsId');
+        expenses.integer('eventsId').references('events.id');
         expenses.string('eventName');
         expenses.string('vacationsTitle');
-        expenses.integer('secondaryUsersId');
+        expenses.integer('secondaryUsersId').references('secondaryUsers.id');
         expenses.string('secondaryUsersName');
         expenses.decimal('expensePaid');
         expenses.decimal('secondaryUsersExpense');

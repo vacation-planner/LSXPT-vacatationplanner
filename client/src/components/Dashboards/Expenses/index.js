@@ -43,7 +43,7 @@ class Expenses extends Component {
    };
 };
 
-componentDidMount() {
+  componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
    // grab the list of secondary users
@@ -56,7 +56,7 @@ componentDidMount() {
       }); 
     };
 
-addExpense = () => {
+  addExpense = () => {
     // create a record using the input
     let eventsRec = {
         eventName: this.state.eventName,
@@ -74,7 +74,7 @@ addExpense = () => {
         .catch(err => {
             console.log('We"ve encountered an error');
         });  
-  }
+  };
 
   saveExpense = () => {
     let eventName = "";
@@ -93,16 +93,15 @@ addExpense = () => {
       secondaryUsersName: this.state.participant,
     }
   
-  axios
-  .post(`${URL}/expenses/`, expenseRec)
-  .then(response => {
+    axios
+    .post(`${URL}/expenses/`, expenseRec)
+    .then(response => {
       console.log("file written");
-  })
-  .catch(err => {
+    })
+    .catch(err => {
       console.log('We"ve encountered an error');
-  });  
-  
-  }
+    });  
+  };
 
   fetchId = eventName => {
     axios
@@ -122,7 +121,7 @@ addExpense = () => {
       });
   };
 
-  // this subroutine grabs the list of secondary users from the table
+  // this function grabs the list of secondary users from the table
   fetchSecondaryUsers = (vacationsId) => {
     let secondaryUsers = [];
     axios
@@ -140,7 +139,7 @@ addExpense = () => {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-  }
+  };
 
   // this function grabs the secondaryUser record for a single user
   fetchSecondaryUser = id => {
@@ -155,9 +154,9 @@ addExpense = () => {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-  }
+  };
 
-  // this subroutine grabs the list of events from the table
+  // this function grabs the list of events from the table
   fetchEvents = (vacationsId) => {
     let events = [];
     axios
@@ -175,7 +174,7 @@ addExpense = () => {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-  }
+  };
 
   // this function grabs the event record for a single event
   fetchEvent = (eventsId) => {
@@ -194,18 +193,17 @@ addExpense = () => {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
+  };
 
-  }
-
-  // the user has clicked on a line item in the box
+  // the user has clicked on a line item in the secondaryUser box
   listSelect = (id) => {        
     this.fetchSecondaryUser(id);
-  }
+  };
 
-  // the user has clicked on a line item in the box
+  // the user has clicked on a line item in the events box
   eventSelect = (id) => {        
     this.fetchEvent(id);
-  }
+  };
 
   handleChange = event => {
     this.setState({
@@ -219,8 +217,8 @@ addExpense = () => {
     );
     return (
       <ul className="ul">{eventItems}</ul>
-    );
-  }
+    )
+  };
  // Create a box with a list of the current participants
   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
@@ -229,7 +227,7 @@ addExpense = () => {
     return (
       <ul className="ul">{listItems}</ul>
     );
-  }
+  };
 
 render() {
   const { classes } = this.props;
