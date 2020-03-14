@@ -32,7 +32,7 @@ const styles = theme => ({
     }, */
     cardBody2: {
       display: "flex",
-      backgroundColor: '#E91E63',
+      //backgroundColor: '#E91E63',
       flexDirection: "Column",
       alignItems: 'center',
       margin: 'auto',

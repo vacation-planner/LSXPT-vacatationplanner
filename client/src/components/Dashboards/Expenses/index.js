@@ -28,8 +28,8 @@ class Expenses extends Component {
     eventName: "",
     vacationsTitle: this.props.title,
     vacationsId: this.props.vacationsId,
-    startDateTime: "",
-    endDateTime: "",
+    //startDateTime: "",
+    //endDateTime: "",
     description: "",
     eventsId: "",
     events: [],
@@ -39,8 +39,10 @@ class Expenses extends Component {
     secondaryUsersId: 1,
     secondaryUsers: [],
     secondaryUsersExpense: 0,
+    expenses: [],
     expensePaid: 0,
-    secondaryUsersName: "",
+    secondaryUsersFirstName: "",
+    secondaryUsersLastName: "",
     checked: false,
     amount: 0,
     title: "",
@@ -60,26 +62,6 @@ class Expenses extends Component {
         usersUid: usersUid
       }); 
     };
-
-  /* addExpense = () => {
-    // create a record using the input
-    let eventsRec = {
-        eventName: this.state.eventName,
-        description: this.state.description,
-        usersUid: this.state.usersUid,
-    }
-
-    axios
-        .post(`${URL}/events/`, eventsRec)
-        .then(response => {
-            console.log("file written");
-            // get the id of the new record
-            this.fetchId(this.state.eventName);
-        })
-        .catch(err => {
-            console.log('We"ve encountered an error');
-        });  
-  }; */
 
   saveExpense = () => {
     let eventName = "";
@@ -111,7 +93,7 @@ class Expenses extends Component {
     });  
 }
 
-  fetchId = eventName => {
+ /*  fetchId = eventName => {
     axios
       .get(`${URL}/events`)
       .then(response => {
@@ -127,7 +109,7 @@ class Expenses extends Component {
       .catch(err => {
         console.log('We"ve encountered an error');
       });
-  };
+  }; */
 
   // this function grabs the list of secondary users from the table
   fetchSecondaryUsers = (vacationsId) => {
@@ -164,26 +146,7 @@ class Expenses extends Component {
     });
   };
 
-  // this function grabs the list of events from the table
-  fetchEvents = (vacationsId) => {
-    let events = [];
-    axios
-    .get(`${URL}/events/`)
-    .then(response => {
-      response.data.forEach((event, index) => {
-        if (event.vacationsId === vacationsId) {          
-            events.push(event)
-        }
-          this.setState({
-            events: events
-          });
-      });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
-  };
-
+  // this function grabs the expense record for a single expense
   fetchExpense = (eventsId, secondaryUsersId) => {
     let expenses = [];
     axios
@@ -195,27 +158,16 @@ class Expenses extends Component {
           expenses.push(expense)
         }
         // check the expenses array for a match to the secondary users id
-
       });     
       this.setState({
         expenses: expenses
-      }); 
-     
-     
-     
-     
-     /*  this.setState({
-                eventsId: eventsId,
-                eventName: response.data.eventName,
-                startDateTime: response.data.startDateTime,
-                endDateTime: response.data.endDateTime,
-                description: response.data.description,
-            });  */
+      });    
+      console.log('expenses: ', this.state.expenses);  
     })
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-    console.log('prexpenses');
+    console.log('prexpenses: ', expenses);
     expenses.forEach((expense, index) => {
       if (expense.secondaryUsersId === secondaryUsersId) {          
            this.setState({
@@ -231,18 +183,11 @@ class Expenses extends Component {
             /* secondaryUsersName: this.state.participant, */
             });  
             console.log('in expenses');
-       
-       
-       
-       
-       
         /* expenses.push(expense) */
       }
       // check the expenses array for a match to the secondary users id
-
     });     
   };
-
 
   // this function grabs the event record for a single event
   fetchEvent = (eventsId) => {
@@ -253,9 +198,9 @@ class Expenses extends Component {
              this.setState({
                 eventsId: eventsId,
                 eventName: response.data.eventName,
-                startDateTime: response.data.startDateTime,
-                endDateTime: response.data.endDateTime,
-                description: response.data.description,
+                //startDateTime: response.data.startDateTime,
+                //endDateTime: response.data.endDateTime,
+                //description: response.data.description,
             }); 
     })
     .catch(err => {
@@ -288,7 +233,7 @@ class Expenses extends Component {
     // Also need to grab all the expense data !!!
     console.log('eventsId: ', this.state.eventsId);
     console.log('secondaryUsersId: ', this.state.secondaryUsersId);
-    this.fetchExpense(this.state.eventsId, this.state.secondaryUsersId);
+    this.fetchExpense(this.state.eventsId, id);
   };
 
   // the user has clicked on a line item in the events box
@@ -308,7 +253,7 @@ class Expenses extends Component {
   eventList = (props) => {
     
     const eventItems = this.state.events.map((event) =>
-      <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
+      <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName}{event.id}</li>
     );
     return (
       <ul className="ul">{eventItems}</ul>
