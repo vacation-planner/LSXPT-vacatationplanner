@@ -108,6 +108,7 @@ class HomeDrawer extends React.Component {
                                                 index: index,
                                                 currentVacationId: currentVacation.id,
                                                 currentVacationTitle: currentVacation.title,
+                                                currentVacation: currentVacation,
                                             }
                                         }}
                                         >
@@ -152,6 +153,7 @@ class HomeDrawer extends React.Component {
                                                 index: index,
                                                 pastVacationId: pastVacation.id,
                                                 pastVacationTitle: pastVacation.title,
+                                                pastVacation: pastVacation
                                             }
                                         }}
                                     >

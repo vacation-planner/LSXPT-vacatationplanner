@@ -40,7 +40,8 @@ class CurrentVacationDashboard extends React.Component {
         overview: false,
         currentVacationIndex: this.props.location.state.index,
         currentVacationId: this.props.location.state.currentVacationId,
-        currentVacationTitle: this.props.location.state.currentVacationTitle
+        currentVacationTitle: this.props.location.state.currentVacationTitle,
+        currentVacation: this.props.location.state.currentVacation,
     }
 
     displayCurrentVacationContent = event => {
@@ -59,7 +60,7 @@ class CurrentVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, addParticipants, calendar, events, expenses, overview, currentVacationId, currentVacationTitle } = this.state;
+        const { vacationDetails, addParticipants, calendar, events, expenses, overview, currentVacationId, currentVacationTitle, currentVacation } = this.state;
 
         return (
             <main className={classes.main}>
@@ -70,7 +71,7 @@ class CurrentVacationDashboard extends React.Component {
                 <div className={classes.innerContainer}>
 
                     {vacationDetails ? (
-                        <Vacations title={currentVacationTitle} vacationsId={currentVacationId} />
+                        <Vacations title={currentVacationTitle} vacationsId={currentVacationId} vacation={currentVacation} />
                     ) : null}
 
                     {addParticipants ? (

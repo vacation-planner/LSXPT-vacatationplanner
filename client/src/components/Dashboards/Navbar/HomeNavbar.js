@@ -25,7 +25,7 @@ import * as ROUTES from "../../../constants/routes";
 //import { fire } from "../../Auth/firebaseConfig";
 
 // core components
-import Button from "../../Material-UI/components/CustomButtons/Button.jsx";
+import Button from "@material-ui/core/Button";
 
 import CurrentVacationDrawer from '../Drawers/CurrentVacationDrawer.js';
 import HomeDrawer from '../Drawers/HomeDrawer.js';
@@ -118,15 +118,15 @@ const styles = theme => ({
     },
     logo: {
         backgroundColor: "#AA1649",
-        width: "190px",
+        width: "180px",
         position: "relative",
         fontWeight: "300",
-        lineHeight: "1.5em",
-        height: "44px",
+        lineHeight: "1.4em",
+        height: "40px",
         textDecoration: "none",
-        minHeight: "32px",
+        minHeight: "25px",
         display: "inline-flex",
-        fontSize: "2.2rem",
+        fontSize: "2.0rem",
         borderRadius: "5%",
         textTransform: "none",
         whiteSpace: "nowrap",
@@ -135,7 +135,9 @@ const styles = theme => ({
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         left: "calc(50% - 95px)",
         "&:hover,&:focus": {
-            backgroundColor: "#D61C5B"
+            backgroundColor: "#D61C5B",
+            textDecoration: "none",
+            color: "white",
         },
         [theme.breakpoints.down(600)]: {
             position: 'relative',
@@ -159,25 +161,21 @@ const styles = theme => ({
         }
     },
     navLink: {
-        color: "inherit",
+        color: "white",
         position: "relative",
         padding: "0.9375rem",
         fontWeight: "400",
-        fontSize: "1.5rem",
+        fontSize: "1.4rem",
         textTransform: "uppercase",
         lineHeight: "20px",
         textDecoration: "none",
         display: "inline-flex",
+        width: '100px',
+        height: '35px',
         "&:hover,&:focus": {
-            backgroundColor: "#AA1649"
-        },
-        "& .fab,& .far,& .fal,& .fas,& .material-icons": {
-            position: "relative",
-            top: "2px",
-            marginTop: "-4px",
-            marginRight: "4px",
-            marginBottom: "0px",
-            fontSize: "1.25rem"
+            textDecoration: "none",
+            backgroundColor: "#AA1649",
+            color: "white",
         },
         [theme.breakpoints.down(600)]: {
             width: "calc(100% - 30px)",
@@ -186,6 +184,7 @@ const styles = theme => ({
             textAlign: "left",
             textTransform: "none",
             fontSize: '1.75rem',
+            color: 'black',
             "& > span:first-child": {
                 justifyContent: "flex-start"
             }
@@ -258,7 +257,7 @@ class HomeNavbar extends React.Component {
                     {mobileOpen ? (
                         <div className={classes.closeButton}
                             onClick={this.handleDrawerToggle}>
-                            <CloseIcon style={{ width: '25px', height: '25px', padding: '0px' }} />
+                            <CloseIcon style={{ width: '22px', height: '22px', padding: '0px' }} />
                         </div>
                     ) : null}
                 </div>
@@ -324,7 +323,7 @@ class HomeNavbar extends React.Component {
                                 aria-label="open drawer"
                                 onClick={this.handleDrawerToggle}
                             >
-                                <MenuIcon />
+                                <MenuIcon style={{ width: '22px', height: '22px' }}/>
                             </IconButton>
                         </Hidden>
                         <Button className={classes.logo} href="/dashboards">

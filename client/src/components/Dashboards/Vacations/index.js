@@ -24,7 +24,7 @@ class Vacations extends Component {
       <div className="vacations">
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
-            <Display title={this.state.title} vacationsId={this.state.vacationsId} />
+            <Display title={this.state.title} vacationsId={this.state.vacationsId} vacation={this.props.vacation} />
           </GridItem>
         </GridContainer>
       </div>
