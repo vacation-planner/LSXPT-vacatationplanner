@@ -2,8 +2,6 @@
 exports.up = function (knex) {
     return  knex.schema.createTable('expenses', (expenses) => {
         expenses.increments();
-        expenses.string('title', 128).notNullable();
-        expenses.decimal('amount');
         expenses.integer('vacationsId').references('vacations.id');
         expenses.string('usersUid');
         expenses.integer('eventsId').references('events.id');
@@ -12,7 +10,7 @@ exports.up = function (knex) {
         expenses.integer('secondaryUsersId').references('secondaryUsers.id');
         expenses.string('secondaryUsersFirstName');
         expenses.string('secondaryUsersLastName');
-        expenses.decimal('expensePaid');
+        expenses.decimal('expenseOwed');
         expenses.decimal('secondaryUsersExpense');
       })
   };
