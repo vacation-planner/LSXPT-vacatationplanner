@@ -17,6 +17,7 @@
 }
 
 .participantsList {
+    display: flex;
     border: 1px solid gray;
     overflow-y: auto;
     height: 120px;
@@ -70,6 +71,7 @@
 }
 
 .eventsList {
+    /* display: flex; */
     border: 1px solid gray;
     overflow-y: auto;
     height: 120px;

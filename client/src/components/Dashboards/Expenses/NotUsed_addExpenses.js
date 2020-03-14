@@ -38,14 +38,15 @@ class AddExpenses extends Component {
     eventsId: this.props.eventsId,
     eventName: this.props.eventName,
     description: this.props.description,
-    startDateTime: "",
-    endDateTime: "",
+    //startDateTime: "",
+    //endDateTime: "",
     participant: this.props.participant,
     disabled:  true,         //this.state.disabled,
     secondaryUsersId: this.props.secondaryUsersId,
     vacationsId: this.props.vacationsId,
     vacationsTitle: this.props.vacationsTitle,
     amount: 0,
+    expensePaid: this.props.expensePaid,
     secondaryUsersExpense: 0,
     secondaryUsersName: "",
     title: "",
@@ -174,7 +175,7 @@ saveExpense = () => {
         }
       > 
       <div className="right">
-      <p>Expense Name: 
+      {/* <p>Expense Name: 
          <input
           type="text"
           name="title"
@@ -182,7 +183,7 @@ saveExpense = () => {
           value={this.state.title}
           className="title"
         />
-     </p>
+     </p> */}
       <p> 
       Event Name (select from list):
         <input
@@ -212,7 +213,15 @@ saveExpense = () => {
           className="amount"
         />
       </p>
-      
+      <p>Pay Expense: 
+        <input
+          type="text"
+          name="expensePaid"
+          onChange={this.handleChange}
+          value={this.state.expensePaid}
+          className="expensePaid"
+        />
+      </p>
       <p>Amount Participant Owes: 
         <input
           type="text"

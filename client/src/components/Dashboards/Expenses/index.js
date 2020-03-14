@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
 // Components
-import AddExpenses from "./addExpenses.js"
+//import AddExpenses from "./addExpenses.js"
 import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
 // From Material Ui
+import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
+import { Tooltip, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
@@ -32,14 +34,17 @@ class Expenses extends Component {
     eventsId: "",
     events: [],
     disabled: false,
+    deleteDisabled: true,
     participant: "",
     secondaryUsersId: 1,
     secondaryUsers: [],
     secondaryUsersExpense: 0,
+    expensePaid: 0,
     secondaryUsersName: "",
     checked: false,
     amount: 0,
     title: "",
+    listVisible: false,
    };
 };
 
@@ -56,7 +61,7 @@ class Expenses extends Component {
       }); 
     };
 
-  addExpense = () => {
+  /* addExpense = () => {
     // create a record using the input
     let eventsRec = {
         eventName: this.state.eventName,
@@ -74,7 +79,7 @@ class Expenses extends Component {
         .catch(err => {
             console.log('We"ve encountered an error');
         });  
-  };
+  }; */
 
   saveExpense = () => {
     let eventName = "";
@@ -97,11 +102,14 @@ class Expenses extends Component {
     .post(`${URL}/expenses/`, expenseRec)
     .then(response => {
       console.log("file written");
+      this.setState({
+        deleteDisabled: false,    
+      });  
     })
     .catch(err => {
       console.log('We"ve encountered an error');
     });  
-  };
+}
 
   fetchId = eventName => {
     axios
@@ -176,6 +184,66 @@ class Expenses extends Component {
     });
   };
 
+  fetchExpense = (eventsId, secondaryUsersId) => {
+    let expenses = [];
+    axios
+    .get(`${URL}/expenses/`)
+    .then(response => {         
+      response.data.forEach((expense, index) => {
+        console.log('in expenses: ', expense.eventsId);
+        if (expense.eventsId === eventsId) {          
+          expenses.push(expense)
+        }
+        // check the expenses array for a match to the secondary users id
+
+      });     
+      this.setState({
+        expenses: expenses
+      }); 
+     
+     
+     
+     
+     /*  this.setState({
+                eventsId: eventsId,
+                eventName: response.data.eventName,
+                startDateTime: response.data.startDateTime,
+                endDateTime: response.data.endDateTime,
+                description: response.data.description,
+            });  */
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+    console.log('prexpenses');
+    expenses.forEach((expense, index) => {
+      if (expense.secondaryUsersId === secondaryUsersId) {          
+           this.setState({
+            /* title: expense.title, */
+            /* eventsId: expense.eventsId, */
+            /* vacationsId: expense.vacationsId, */
+            /* eventName: expense.eventName, */
+            /* vacationsTitle: expense.vacationsTitle, */
+            /* secondaryUsersId: this.state.secondaryUsersId, */
+            amount: expense.amount,
+            secondaryUsersExpense: expense.secondaryUsersExpense,
+            expensePaid: expense.expensePaid,
+            /* secondaryUsersName: this.state.participant, */
+            });  
+            console.log('in expenses');
+       
+       
+       
+       
+       
+        /* expenses.push(expense) */
+      }
+      // check the expenses array for a match to the secondary users id
+
+    });     
+  };
+
+
   // this function grabs the event record for a single event
   fetchEvent = (eventsId) => {
     //let events = [];
@@ -195,13 +263,39 @@ class Expenses extends Component {
     });
   };
 
+   // this function grabs the list of events from the table
+  fetchEvents = (vacationsId) => {
+    let events = [];
+    axios
+    .get(`${URL}/events/`)
+    .then(response => {
+      response.data.forEach((event, index) => {
+        if (event.vacationsId === vacationsId) {          
+            events.push(event)
+        }
+          this.setState({
+            events: events
+          });
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+  };
   // the user has clicked on a line item in the secondaryUser box
   listSelect = (id) => {        
     this.fetchSecondaryUser(id);
+    // Also need to grab all the expense data !!!
+    console.log('eventsId: ', this.state.eventsId);
+    console.log('secondaryUsersId: ', this.state.secondaryUsersId);
+    this.fetchExpense(this.state.eventsId, this.state.secondaryUsersId);
   };
 
   // the user has clicked on a line item in the events box
-  eventSelect = (id) => {        
+  eventSelect = (id) => { 
+    this.setState({
+      listVisible: true
+    });       
     this.fetchEvent(id);
   };
 
@@ -212,6 +306,7 @@ class Expenses extends Component {
   };
   // Create a box with a list of the current events
   eventList = (props) => {
+    
     const eventItems = this.state.events.map((event) =>
       <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
     );
@@ -233,52 +328,123 @@ render() {
   const { classes } = this.props;
   const { checked } = this.state;
 
-    return (
-         <div className={classes.parent}>
-            <Zoom in={checked} > 
-                <GridContainer>
-                    <GridItem xs={12} sm={12} md={12}>
-                      <h3>Create Expense: {this.state.eventName}</h3>
-                      <h4>Current Vacation: {this.props.title}</h4>
-                      <CardBody   className={classes.cardBody2}>
-                        <CardBody  className={classes.cardBodyContainer1}>
-                          <CardBody  xs={12} sm={12} md={12}>
-                              <AddExpenses 
-                                eventsId={this.state.eventsId}
-                                eventName={this.state.eventName} 
-                                description={this.state.description} 
-                                participant={this.state.participant}
-                                secondaryUsersId={this.state.secondaryUsersId}
-                                vacationsId={this.state.vacationsId}
-                                amount={this.state.amount}
-                                secondaryUsersExpense={this.state.secondaryUsersExpense}
-                                secondaryUsersName={this.state.participant}
-                                startTimeDate={() => this.handleStartDate(this.state.startTimeDate)}>
-                              </AddExpenses>  
-                            </CardBody>
-                          </CardBody>
-                          <CardBody  className={classes.cardBodyContainer2}>
-                            <CardBody> 
-                              <h4>Available Events:</h4>{" "}                                
-                              <div className="eventsList">
-                                {this.eventList()} 
-                              </div>          
-                            </CardBody>
-                            <CardBody> 
-                              <h4>Vacation Participants:</h4>{" "}  
-                              <div className="participantsList">
-                                {this.participantList()}                                        
-                              </div>
-                            </CardBody>
-                          </CardBody >
-                        </CardBody >
-                        <CardBody  
-                          className={classes.cardBodyContainer3}>
-                        </CardBody>                        
-                    </GridItem>
-                </GridContainer>
-            </Zoom>
-        </div> 
+  return (
+    <div className={classes.parent}>
+      <Zoom in={checked} > 
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={12}>
+            <h3>Create Expense: {this.state.eventName}</h3>
+            <h4>Current Vacation: {this.props.title}</h4>
+            <CardBody   className={classes.cardBody2}>
+              <CardBody  className={classes.cardBodyContainer1}>
+               {/*  <CardBody  xs={12} sm={12} md={12}> */}
+                 {/*  <div className="eventContainer"> */}
+                   {/*  <div className="left">   */}                 
+                     {/*  <CardBody  className={classes.cardBodyContainer2}> */}
+                        <CardBody> 
+                          <h4>Available Events:</h4>{" "}                                
+                          <div className="eventsList">
+                              {this.eventList()} 
+                          </div>          
+                        </CardBody>
+                        <CardBody> 
+                          <h4>Vacation Participants:</h4>{" "}  
+                          {this.state.listVisible ? (
+                            <div className="participantsList">
+                              {this.participantList()}                                        
+                            </div>) : null}
+                        </CardBody>
+                    {/*   </CardBody > */}
+                    
+                    
+                   {/*  </div> */}
+                  
+                    <Tooltip
+                      placement="top"
+                      disableFocusListener
+                      title={
+                        <Typography color="inherit" variant="h5">
+                          Create an expense and optionally assign it to an event. To do this, click on the event before saving.
+                        </Typography>
+                      }
+                    > 
+                    <div className="right">
+                      <p> 
+                        Event Name (select from list):
+                        <input
+                          type="text"
+                          name="eventName"
+                          onChange={this.handleChange}
+                          value={this.state.eventName}
+                          className="eventName"
+                        />
+                      </p> 
+                      <p>Participant (select from list):                 
+                        <input
+                          type="text"
+                          name="participant"
+                          onChange={this.handleChange}
+                          value={this.state.participant}
+                          className="participant"
+                        />
+                      </p>
+                      <p>Expense Amount: 
+                        <input
+                          type="text"
+                          name="amount"
+                          onChange={this.handleChange}
+                          value={this.state.amount}
+                          className="amount"
+                        />
+                      </p>
+                      <p>Pay Expense: 
+                        <input
+                          type="text"
+                          name="expensePaid"
+                          onChange={this.handleChange}
+                          value={this.state.expensePaid}
+                          className="expensePaid"
+                        />
+                      </p>
+                      <p>Amount Participant Owes: 
+                        <input
+                          type="text"
+                          name="secondaryUsersExpense"
+                          onChange={this.handleChange}
+                          value={this.state.secondaryUsersExpense}
+                          className="secondaryUsersExpense"
+                        />
+                      </p><p> </p>
+                      <Button
+                        color="rose"
+                        onClick={() => this.saveExpense()} 
+                        disabled={this.state.disabled}
+                        className="expButton"
+                      >
+                      Save
+                      </Button>
+                      <Button           
+                        color="rose"
+                        onClick={() => this.deleteExpense()}
+                        disabled={this.state.deleteDisabled} 
+                        className="deleteExpense"
+                      >
+                      Cancel
+                      </Button>
+                    </div>
+                  </Tooltip>
+                {/* </div> */}
+              </CardBody>
+           {/*  </CardBody> */}
+          {/* </CardBody > */}
+          <CardBody  
+            className={classes.cardBodyContainer3}>
+          </CardBody>  
+          </CardBody>                      
+        </GridItem>
+      </GridContainer>
+    </Zoom>
+  </div> 
     );
   }
 }
