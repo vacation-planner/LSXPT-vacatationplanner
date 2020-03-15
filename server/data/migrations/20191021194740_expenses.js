@@ -8,8 +8,8 @@ exports.up = function (knex) {
         expenses.string('eventName');
         expenses.string('vacationsTitle');
         expenses.integer('secondaryUsersId').references('secondaryUsers.id');
-        expenses.string('secondaryUsersFirstName');
-        expenses.string('secondaryUsersLastName');
+        expenses.string('secondaryUsersFirstName').references('secondaryUsers.firstName');
+        expenses.string('secondaryUsersLastName').references('secondaryUsers.lastName');
         expenses.decimal('expenseOwed');
         expenses.decimal('secondaryUsersExpense');
       })

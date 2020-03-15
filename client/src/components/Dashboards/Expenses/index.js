@@ -40,11 +40,11 @@ class Expenses extends Component {
     secondaryUsers: [],
     secondaryUsersExpense: 0,
     expenses: [],
-    expensePaid: 0,
+    expenseOwed: 0,
     secondaryUsersFirstName: "",
     secondaryUsersLastName: "",
     checked: false,
-    amount: 0,
+    cost: 0,
     title: "",
     listVisible: false,
    };
@@ -69,15 +69,15 @@ class Expenses extends Component {
       eventName = this.state.eventName
     }
     let expenseRec = {
-      title: this.state.title,
+      //title: this.state.title,
       eventsId: this.props.eventsId,
       vacationsId: this.props.vacationsId,
       eventName: eventName,
       vacationsTitle: this.props.title,
       secondaryUsersId: this.state.secondaryUsersId,
-      amount: this.state.amount,
+      expenseOwed: this.state.expenseOwed,
       secondaryUsersExpense: this.state.secondaryUsersExpense,
-      secondaryUsersName: this.state.participant,
+      secondaryUsersFirstName: this.state.participant,
     }
   
     axios
@@ -177,9 +177,9 @@ class Expenses extends Component {
             /* eventName: expense.eventName, */
             /* vacationsTitle: expense.vacationsTitle, */
             /* secondaryUsersId: this.state.secondaryUsersId, */
-            amount: expense.amount,
+            /* amount: expense.amount, */
             secondaryUsersExpense: expense.secondaryUsersExpense,
-            expensePaid: expense.expensePaid,
+            expenseOwed: expense.expenseOwed,
             /* secondaryUsersName: this.state.participant, */
             });  
             console.log('in expenses');
@@ -198,6 +198,7 @@ class Expenses extends Component {
              this.setState({
                 eventsId: eventsId,
                 eventName: response.data.eventName,
+                cost: response.data.cost,
                 //startDateTime: response.data.startDateTime,
                 //endDateTime: response.data.endDateTime,
                 //description: response.data.description,
@@ -253,7 +254,7 @@ class Expenses extends Component {
   eventList = (props) => {
     
     const eventItems = this.state.events.map((event) =>
-      <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName}{event.id}</li>
+      <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName},{event.id},{event.cost}</li>
     );
     return (
       <ul className="ul">{eventItems}</ul>
@@ -333,31 +334,31 @@ render() {
                           className="participant"
                         />
                       </p>
-                      <p>Expense Amount: 
+                      <p>Total Event Cost: 
                         <input
                           type="text"
-                          name="amount"
+                          name="cost"
                           onChange={this.handleChange}
-                          value={this.state.amount}
-                          className="amount"
+                          value={this.state.cost}
+                          className="cost"
                         />
                       </p>
-                      <p>Pay Expense: 
-                        <input
-                          type="text"
-                          name="expensePaid"
-                          onChange={this.handleChange}
-                          value={this.state.expensePaid}
-                          className="expensePaid"
-                        />
-                      </p>
-                      <p>Amount Participant Owes: 
+                      <p>Participant Cost: 
                         <input
                           type="text"
                           name="secondaryUsersExpense"
                           onChange={this.handleChange}
                           value={this.state.secondaryUsersExpense}
                           className="secondaryUsersExpense"
+                        />
+                      </p>
+                      <p>Amount Participant Owes: 
+                        <input
+                          type="text"
+                          name="expenseOwed"
+                          onChange={this.handleChange}
+                          value={this.state.expenseOwed}
+                          className="expenseOwed"
                         />
                       </p><p> </p>
                       <Button

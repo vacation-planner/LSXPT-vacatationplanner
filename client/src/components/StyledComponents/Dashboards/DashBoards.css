@@ -17,7 +17,7 @@
 }
 
 .participantsList {
-    display: flex;
+    /* display: flex; */
     border: 1px solid gray;
     overflow-y: auto;
     height: 120px;
@@ -128,4 +128,26 @@
     margin-top: 20px;
     color: black; */
 } 
+
+.cost  {
+  /*   border: 0px solid white; */
+
+}
+
+.eventName {
+ /*    border: 0px solid white; */
+}
  
+.participant {
+   /*  border: 0px solid white; */
+}
+
+.secondaryUsersExpense {
+    background-color: black;
+    color: white;
+}
+
+.expenseOwed {
+    background-color: lightgray;
+    /* color: white; */
+}
