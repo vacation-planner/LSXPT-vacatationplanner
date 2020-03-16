@@ -80,9 +80,12 @@ class Expenses extends Component {
       secondaryUsersFirstName: this.state.participant,
     }
   
-    axios
+ /*    axios
     .post(`${URL}/expenses/`, expenseRec)
-    .then(response => {
+    .then(response => { */
+  axios
+  .post('/expenses/', expenseRec)
+  .then(response => {
       console.log("file written");
       this.setState({
         deleteDisabled: false,    
@@ -95,7 +98,7 @@ class Expenses extends Component {
 
  /*  fetchId = eventName => {
     axios
-      .get(`${URL}/events`)
+      .get('/events')
       .then(response => {
         response.data.forEach((item, index) => {
           if (item.eventName === this.state.eventName) {          
@@ -115,7 +118,7 @@ class Expenses extends Component {
   fetchSecondaryUsers = (vacationsId) => {
     let secondaryUsers = [];
     axios
-    .get(`${URL}/secondaryUsers/`)
+    .get('/secondaryUsers/')
     .then(response => {
       response.data.forEach((user, index) => {
         if (user.vacationsId === vacationsId) {          
@@ -134,7 +137,7 @@ class Expenses extends Component {
   // this function grabs the secondaryUser record for a single user
   fetchSecondaryUser = id => {
     axios
-    .get(`${URL}/secondaryUsers/${id}`)
+    .get(`/secondaryUsers/${id}`)
     .then(response => {
           this.setState({
             participant: response.data.firstName,
@@ -156,6 +159,11 @@ class Expenses extends Component {
         console.log('in expenses: ', expense.eventsId);
         if (expense.eventsId === eventsId) {          
           expenses.push(expense)
+   /*  .get('/events/')
+    .then(response => {
+      response.data.forEach((event, index) => {
+        if (event.vacationsId === vacationsId) {          
+            events.push(event) */
         }
         // check the expenses array for a match to the secondary users id
       });     
@@ -193,7 +201,7 @@ class Expenses extends Component {
   fetchEvent = (eventsId) => {
     //let events = [];
     axios
-    .get(`${URL}/events/${eventsId}`)
+    .get(`/events/${eventsId}`)
     .then(response => {         
              this.setState({
                 eventsId: eventsId,

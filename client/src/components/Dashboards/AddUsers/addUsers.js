@@ -12,9 +12,6 @@ import { Row,
 import { Zoom } from "@material-ui/core";
 import "../../StyledComponents/Dashboards/AddUsers/AddUsers.css";
 
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
-
 class AddUsers extends Component {
     constructor(props) {
       super(props);
@@ -51,7 +48,7 @@ class AddUsers extends Component {
     displayUsers = () => {
     const usersList = [];
     axios
-      .get(`${URL}/secondaryUsers/`) // Get User Data
+      .get('/secondaryUsers/') // Get User Data
       .then(response => {
         response.data.forEach(result => {
           if (result.vacationsId === this.state.vacationsId) {
@@ -84,7 +81,7 @@ class AddUsers extends Component {
     usersList.push(userRec);
     //console.log("userRec: ", userRec)
     axios
-        .post(`${URL}/secondaryUsers/`, userRec)
+        .post('/secondaryUsers/', userRec)
         .then(response => {
             console.log("file written")
         })
@@ -136,7 +133,7 @@ class AddUsers extends Component {
       if (secondaryUserRec) {
           // send the user list via post to the email router
           axios
-          .post(`${URL}/emails/`, secondaryUserRec) 
+          .post('/emails/', secondaryUserRec) 
           .then(response => {
               console.log("emails sent") 
           })
@@ -178,7 +175,7 @@ class AddUsers extends Component {
     if (userList) {
         // send the user list via post to the email router
         axios
-        .post(`${URL}/emails/`, userList) 
+        .post('/emails/', userList) 
         .then(response => {
             console.log("emails sent") 
         })

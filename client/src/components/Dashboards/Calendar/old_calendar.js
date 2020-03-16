@@ -10,8 +10,6 @@ import swal from '@sweetalert/with-react'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
 const localizer = momentLocalizer(moment)
   
 class Cal extends Component {
@@ -84,7 +82,7 @@ writeToDb = slotInfo => {
     usersUid: this.state.uid,
   }
   axios
-  .post(`${URL}/vacations/`, vacationRec)
+  .post('/vacations/', vacationRec)
   .then(response => {
     console.log("file written")
    })

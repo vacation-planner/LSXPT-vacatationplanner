@@ -15,9 +15,6 @@ import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Events/styles.js";
 import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
-
 /* import {
     tooltip
   } from "assets/jss/material-dashboard-pro-react.js"; */
@@ -70,7 +67,7 @@ addEvent = () => {
     }
 
     axios
-        .post(`${URL}/events/`, eventsRec)
+        .post('/events/', eventsRec)
         .then(response => {
             console.log("file written");
             // get the id of the new record
@@ -86,7 +83,7 @@ addEvent = () => {
 
   fetchId = eventName => {
     axios
-      .get(`${URL}/events`)
+      .get('/events')
       .then(response => {
         response.data.forEach((item, index) => {
           if (item.eventName === this.state.eventName) {          
@@ -102,28 +99,9 @@ addEvent = () => {
       });
   };
 
-  /* fetchSecondaryUsers = (vacationsId) => {
-    let secondaryUsers = [];
-    axios
-    .get(`${URL}/secondaryUsers/`)
-    .then(response => {
-      response.data.forEach((user, index) => {
-        if (user.vacationsId === vacationsId) {          
-          secondaryUsers.push(user)
-        } 
-        });
-          this.setState({
-            secondaryUsers: secondaryUsers
-        });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
-  } */
-
    fetchSecondaryUser = id => {
     axios
-    .get(`${URL}/secondaryUsers/${id}`)
+    .get(`/secondaryUsers/${id}`)
     .then(response => {
           this.setState({
             participant: response.data.firstName,
@@ -138,7 +116,7 @@ addEvent = () => {
   fetchEvents = (vacationsId) => {
     let events = [];
     axios
-    .get(`${URL}/events/`)
+    .get('/events/')
     .then(response => {
       response.data.forEach((event, index) => {
         if (event.vacationsId === vacationsId) {          
@@ -157,7 +135,7 @@ addEvent = () => {
   fetchEvent = (eventsId) => {
     //let events = [];
     axios
-    .get(`${URL}/events/${eventsId}`)
+    .get(`/events/${eventsId}`)
     .then(response => {         
              this.setState({
                 eventsId: eventsId,

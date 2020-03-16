@@ -8,9 +8,6 @@ import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
 import { Zoom } from "@material-ui/core";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-//const URL = "http://localhost:5500/api";
-
 class ExpenseTable extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +23,7 @@ class ExpenseTable extends Component {
   componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));
     axios
-    .get('http://localhost:5500/api/expenses')
+    .get('/expenses')
     .then(response => {
       this.filterEvents(response.data);
     })

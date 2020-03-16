@@ -1,24 +1,20 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import axios from "axios";
-import { fire } from "./components/Auth/firebaseConfig";
-import { Switch, Route, Redirect } from "react-router-dom";
-import "./App.css";
-import { AppContext } from "./components/Context/AppContext.js";
-import * as ROUTES from "./constants/routes";
-import LandingPage from "./components/LandingPage";
-import HomeDashboard from "./components/Dashboards/HomeDashboard.js";
-import CurrentVacationDashboard from "./components/Dashboards/CurrentVacationDashboard.js";
-import PastVacationDashboard from "./components/Dashboards/PastVacationDashboard.js";
-import CreateVacationDetails from "./components/CreateVacation/CreateVacationDetails.js";
+import { fire } from './components/Auth/firebaseConfig';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import './App.css';
+import { AppContext } from './components/Context/AppContext.js';
+import * as ROUTES from './constants/routes';
+import LandingPage from './components/LandingPage';
+import HomeDashboard from './components/Dashboards/HomeDashboard.js';
+import CurrentVacationDashboard from './components/Dashboards/CurrentVacationDashboard.js';
+import PastVacationDashboard from './components/Dashboards/PastVacationDashboard.js';
+import CreateVacationDetails from './components/CreateVacation/CreateVacationDetails.js';
+import Signin from './components/Auth/Signin';
+import Vacations from './components/Dashboards/Vacations';
 import Checkout from "./components/Checkout/Checkout.js";
-import Signin from "./components/Auth/Signin";
-import Vacations from "./components/Dashboards/Vacations";
 import { StripeProvider } from "react-stripe-elements";
-//import axios from 'axios';
-
-//const URL = 'https://vacationplannerlx.herokuapp.com/';
-const URL = "http://localhost:5500/";
 
 const AuthenticatedRoute = ({
   component: Component,
@@ -32,13 +28,13 @@ const AuthenticatedRoute = ({
         authenticated === true ? (
           <Component {...props} {...rest} />
         ) : (
-          <Redirect
-            to={{
-              pathname: "/signin",
-              state: { from: props.location }
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: "/signin",
+                state: { from: props.location }
+              }}
+            />
+          )
       }
     />
   );
@@ -58,12 +54,12 @@ class App extends Component {
 
   componentDidMount = () => {
     // this checks the url for any parameters and returns empty if it is
-    let vacationsId = this.getUrlParam("id", "Empty");
+    let vacationsId = this.getUrlParam('id', 'Empty');
     // if we do have a param, it means the user has arrived from a link
     // in the invitation email we sent them
-    if (vacationsId !== "Empty") {
+    if (vacationsId !== 'Empty') {
       // save the id to local storage
-      localStorage.setItem("vacationsId", vacationsId);
+      localStorage.setItem('vacationsId', vacationsId);
     }
     // the app redirects and loses the parameter, so i saved it to local storage
     // console.log('vacationsId: ', vacationsId)
@@ -74,8 +70,10 @@ class App extends Component {
         return fire.currentUser
           .getIdToken()
           .then(idToken => {
-            let space = user.displayName.lastIndexOf(" ");
-            axios.defaults.headers.common["Authorization"] = idToken;
+            let space = user.displayName.lastIndexOf(' ');
+            axios.defaults.headers.common[
+              'Authorization'
+            ] = idToken;
             this.setState({
               currentUser: user,
               authenticated: true,
@@ -85,13 +83,13 @@ class App extends Component {
               lastName: user.displayName.substring(space + 1),
               userUID: user.uid
             });
-            console.log("User uid: ", this.state.userUID);
+            console.log('User uid: ', this.state.userUID);
             this.addCurrentUser(user);
             this.context.getUserID(this.state.userUID);
             this.context.getUserEmail(this.state.currentEmail);
             this.context.getVacations();
           })
-          .catch(err => console.log("error ", err));
+          .catch(err => console.log('error ', err));
 
         // If the user is the Authenticated use pass their information to the database
       } else {
@@ -107,10 +105,10 @@ class App extends Component {
   };
 
   checkLocalStorage = () => {
-    let vacationsId = localStorage.getItem("vacationsId");
+    let vacationsId = localStorage.getItem('vacationsId');
     if (vacationsId) {
       axios
-        .get(`${URL}api/vacations/${vacationsId}`)
+        .get(`/vacations/${vacationsId}`)
         .then(response => {
           response.data.forEach((item, index) => {
             this.setState({
@@ -118,10 +116,10 @@ class App extends Component {
               vacationsId: vacationsId,
               location: item.location,
               startDate: item.startDate,
-              endDate: item.endDate
+              endDate: item.endDate,
             });
-          });
-          console.log("state: ", this.state);
+          })
+          console.log('state: ', this.state);
           this.writeToDb();
         })
         .catch(err => {
@@ -137,17 +135,17 @@ class App extends Component {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
       usersUid: this.state.userUID
-    };
+    }
     axios
-      .post(`${URL}api/vacations/`, vacationRec)
+      .post(`/vacations/`, vacationRec)
       .then(response => {
-        localStorage.removeItem("vacationsId");
-        console.log("vacation record created");
+        localStorage.removeItem('vacationsId');
+        console.log("vacation record created")
       })
       .catch(err => {
         console.log("There was an error creating vacation record", err);
       });
-  };
+  }
 
   // this function grabs any parameter in the url
   getUrlVars = () => {
@@ -156,6 +154,15 @@ class App extends Component {
     //     vars[key] = value;
     // });
     return vars;
+  };
+
+  // this function keeps it from crashing if there is no parameter
+  getUrlParam = (parameter, defaultvalue) => {
+    let urlparameter = defaultvalue;
+    if (window.location.href.indexOf(parameter) > -1) {
+      urlparameter = this.getUrlVars()[parameter];
+    }
+    return urlparameter;
   };
 
   // this function keeps it from crashing if there is no parameter
@@ -184,15 +191,15 @@ class App extends Component {
       this.state.currentEmail,
       this.state.userUID
     );
-    const endpoint = `${URL}api/users`;
+    const endpoint = '/users';
     axios
       .post(endpoint, creds)
       .then(res => {
-        console.log("User logged in successfully");
+        console.log('User logged in successfully');
         // I kind of think the context login code should go here because you are writing all this
         // data to the local storage before the user has successfully logged in
       })
-      .catch(err => console.log("Error in getting user"));
+      .catch(err => console.log('Error in getting user'));
   };
   render() {
     const { currentUser } = this.state;

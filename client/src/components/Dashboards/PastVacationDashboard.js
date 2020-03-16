@@ -46,6 +46,7 @@ class PastVacationDashboard extends React.Component {
         pastVacationIndex: this.props.location.state.index,
         pastVacationId: this.props.location.state.pastVacationId,
         pastVacationTitle: this.props.location.state.pastVacationTitle,
+        pastVacation: this.props.location.state.pastVacation,
     }
 
     displayPastVacationContent = event => {
@@ -64,43 +65,70 @@ class PastVacationDashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { vacationDetails, addParticipants, calendar, events, expenses, overview, pastVacationId, pastVacationTitle } = this.state;
+        const { vacationDetails, addParticipants, calendar, events, expenses, overview, pastVacationId, pastVacationTitle, pastVacation } = this.state;
+        if (this.state.pastVacation.closed === 1) {
+            return (
+                <main className={classes.main}>
+                    <HomeNavbar
+                        data={this.state}
+                        displayPastVacationContent={this.displayPastVacationContent}
+                    />
+                    <div className={classes.innerContainer}>
 
-        return (
-            <main className={classes.main}>
-                <HomeNavbar
-                    data={this.state}
-                    displayPastVacationContent={this.displayPastVacationContent}
-                />
-                <div className={classes.innerContainer}>
+                        {vacationDetails ? (
+                            <Vacations title={pastVacationTitle} vacationsId={pastVacationId} vacation={pastVacation} />
+                        ) : null}
 
-                    {vacationDetails ? (
-                        <Vacations title={pastVacationTitle} vacationsId={pastVacationId} />
-                    ) : null}
+                        {calendar ? (
+                            <EventsCalendar title={pastVacationTitle} vacationsId={pastVacationId} />
+                        ) : null}
 
-                    {addParticipants ? (
-                        <AddUsers title={pastVacationTitle} vacationsId={pastVacationId} />
-                    ) : null}
 
-                    {calendar ? (
-                        <EventsCalendar title={pastVacationTitle} vacationsId={pastVacationId} />
-                    ) : null}
 
-                    {events ? (
-                         <Events title={pastVacationTitle} vacationsId={pastVacationId}>
-                        </Events> 
-                    ) : null}
+                        {overview ? (
+                            <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId} />
+                        ) : null}
+                    </div>
+                </main>
+            );
+        }
+        else {
+            return (
+                <main className={classes.main}>
+                    <HomeNavbar
+                        data={this.state}
+                        displayPastVacationContent={this.displayPastVacationContent}
+                    />
+                    <div className={classes.innerContainer}>
 
-                    {expenses ? (
-                        <Expenses title={pastVacationTitle} vacationsId={pastVacationId} />
-                    ) : null}
+                        {vacationDetails ? (
+                            <Vacations title={pastVacationTitle} vacationsId={pastVacationId} vacation={pastVacation} />
+                        ) : null}
 
-                    {overview ? (
-                        <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId} />
-                    ) : null}
-                </div>
-            </main>
-        );
+                        {addParticipants ? (
+                            <AddUsers title={pastVacationTitle} vacationsId={pastVacationId} />
+                        ) : null}
+
+                        {calendar ? (
+                            <EventsCalendar title={pastVacationTitle} vacationsId={pastVacationId} />
+                        ) : null}
+
+                        {events ? (
+                            <Events title={pastVacationTitle} vacationsId={pastVacationId}>
+                            </Events>
+                        ) : null}
+
+                        {expenses ? (
+                            <Expenses title={pastVacationTitle} vacationsId={pastVacationId} />
+                        ) : null}
+
+                        {overview ? (
+                            <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId} />
+                        ) : null}
+                    </div>
+                </main>
+            );
+        }
     }
 }
 
