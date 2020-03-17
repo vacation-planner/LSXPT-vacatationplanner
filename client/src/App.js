@@ -87,6 +87,8 @@ class App extends Component {
             this.addCurrentUser(user);
             this.context.getUserID(this.state.userUID);
             this.context.getUserEmail(this.state.currentEmail);
+            this.context.getUserFirstName(user.displayName.substring(0, space));
+            this.context.getUserLastName(user.displayName.substring(space + 1));
             this.context.getVacations();
           })
           .catch(err => console.log('error ', err));

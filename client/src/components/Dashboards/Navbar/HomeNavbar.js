@@ -276,6 +276,7 @@ class HomeNavbar extends React.Component {
                         pastVacations={this.context.state.myPastVacations}
                         currentVacation={this.context.state.myCurrentVacations[this.state.currentVacationIndex] || this.context.state.myCurrentVacations[this.context.state.myCurrentVacations.length - 1]}
                         displayCurrentVacationContent={this.props.displayCurrentVacationContent}
+                        closeMenu={this.handleClose}
                     />
                 )}
                 {!currentVacationMenu && pastVacationMenu && (
@@ -284,6 +285,7 @@ class HomeNavbar extends React.Component {
                         pastVacations={this.context.state.myPastVacations}
                         pastVacation={this.context.state.myPastVacations[this.state.pastVacationIndex] || this.context.state.myPastVacations[this.context.state.myPastVacations.length - 1]}
                         displayPastVacationContent={this.props.displayPastVacationContent}
+                        closeMenu={this.handleClose}
                     />
                 )}
                 <div className={classes.hideDrawerButtons}>
@@ -293,7 +295,6 @@ class HomeNavbar extends React.Component {
                             <Button
                                 href={ROUTES.DASHBOARDS}
                                 className={classes.navLink}
-                                color="transparent"
                             >
                                 Home
                     </Button>
@@ -302,7 +303,6 @@ class HomeNavbar extends React.Component {
                             <Button
                                 href={ROUTES.LANDING}
                                 className={classes.navLink}
-                                color="transparent"
                                 onClick={this.signOut}
                             >
                                 Sign Out
@@ -337,7 +337,6 @@ class HomeNavbar extends React.Component {
                                         <Button
                                             href={ROUTES.DASHBOARDS}
                                             className={classes.navLink}
-                                            color="transparent"
                                         >
                                             Home
                                         </Button>
@@ -347,7 +346,6 @@ class HomeNavbar extends React.Component {
                                             onClick={this.signOut}
                                             href={ROUTES.LANDING}
                                             className={classes.navLink}
-                                            color="transparent"
                                         >
                                             Sign Out
                                         </Button>
