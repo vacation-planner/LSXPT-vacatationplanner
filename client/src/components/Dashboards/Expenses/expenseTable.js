@@ -77,15 +77,14 @@ class ExpenseTable extends Component {
                   data={this.state.expenses}
                   columns=
                     {[
-                      { Header: "Title", accessor: "title", Cell: this.renderEditable, width: 150},
-                      { Header: "Participant", accessor: "secondaryUsersName", Cell: this.renderEditable, width: 140},
+                      /* { Header: "Title", accessor: "title", Cell: this.renderEditable, width: 150}, */
+                      { Header: "Event Name", accessor: "eventName", Cell: this.renderEditable, width: 90},
+                      { Header: "Participant", accessor: "secondaryUsersFirstName", Cell: this.renderEditable, width: 140},
                       { Header: "Vacation Id", accessor: "vacationsId", Cell: this.renderEditable, width: 80},
                       { Header: "Participants Id", accessor: "secondaryUsersId", Cell: this.renderEditable, width: 80},
                       { Header: "Event Id", accessor: "eventsId", Cell: this.renderEditable, width: 90},   
-                      { Header: "Event Name", accessor: "eventName", Cell: this.renderEditable, width: 90},   
-                      { Header: "Expense Total", accessor: "amount", Cell: this.renderEditable, width: 100},
                       { Header: "Participant Expense", accessor: "secondaryUsersExpense", Cell: this.renderEditable, width: 125},
-                      { Header: "Expense Paid", accessor: "expensePaid", Cell: this.renderEditable, width: 100},
+                      { Header: "Expense Owed", accessor: "expenseOwed", Cell: this.renderEditable, width: 100},
                     ]}
                   defaultPageSize={10}
                   style={{

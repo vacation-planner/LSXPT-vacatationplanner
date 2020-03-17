@@ -46,6 +46,22 @@ const styles = theme => ({
         width: '225px',  
     }
   },
+  btnContainer: {
+    display: "flex",
+    //backgroundColor: '#E91E63',
+    flexDirection: "row",
+    alignItems: 'center',
+    margin: 'auto',
+    [theme.breakpoints.up("sm")]: {
+       width: '250px',    
+     /*  width: "100%",   */ 
+    },
+    [theme.breakpoints.down("sm")]: { 
+      flexDirection: "column",
+      alignItems: 'center',
+      width: '225px',  
+  }
+},
  /*  cardBodyContainer1: {
       display: "flex",
       backgroundColor: 'green',

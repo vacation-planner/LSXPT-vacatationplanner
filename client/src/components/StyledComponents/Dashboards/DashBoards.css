@@ -130,24 +130,34 @@
 } 
 
 .cost  {
-  /*   border: 0px solid white; */
+     border: 1px solid lightgray;
+     cursor: not-allowed; 
+     /* margin-left: 10px; */
 
 }
 
-.eventName {
- /*    border: 0px solid white; */
+.eventNameExp {
+    /*  border: 1px solid lightgray;  */
+     cursor: not-allowed; 
+     height: 20px;
+     margin-bottom: 8px;
 }
  
 .participant {
-   /*  border: 0px solid white; */
+     /* border: 1px solid lightgray; */ 
+     cursor: not-allowed; 
+     height: 20px;
+     margin-bottom: 8px;
 }
 
 .secondaryUsersExpense {
-    background-color: black;
-    color: white;
+    background-color: lightgray;
+    width: 200px;
+    /* color: white; */
 }
 
 .expenseOwed {
     background-color: lightgray;
+    width: 200px;
     /* color: white; */
 }

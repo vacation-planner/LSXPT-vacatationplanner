@@ -13,6 +13,8 @@ import { Tooltip, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
+import NumberFormat from "react-number-format";
+//import
 import { Zoom } from "@material-ui/core";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -70,7 +72,7 @@ class Expenses extends Component {
     }
     let expenseRec = {
       //title: this.state.title,
-      eventsId: this.props.eventsId,
+      eventsId: this.state.eventsId,
       vacationsId: this.props.vacationsId,
       eventName: eventName,
       vacationsTitle: this.props.title,
@@ -153,49 +155,73 @@ class Expenses extends Component {
   fetchExpense = (eventsId, secondaryUsersId) => {
     let expenses = [];
     axios
-    .get(`${URL}/expenses/`)
+    .get(`/expenses/events/${eventsId}`)
     .then(response => {         
-      response.data.forEach((expense, index) => {
-        console.log('in expenses: ', expense.eventsId);
-        if (expense.eventsId === eventsId) {          
-          expenses.push(expense)
+      this.fetchExpenseUpdate(response.data, secondaryUsersId);
+      //response.data.forEach((expense, index) => {
+      //  console.log('in expenses: ', expense.eventsId);
+     //   if (expense.eventsId === eventsId) {          
+     //     expenses.push(expense)
    /*  .get('/events/')
     .then(response => {
       response.data.forEach((event, index) => {
         if (event.vacationsId === vacationsId) {          
             events.push(event) */
-        }
+       // })
         // check the expenses array for a match to the secondary users id
-      });     
-      this.setState({
-        expenses: expenses
-      });    
-      console.log('expenses: ', this.state.expenses);  
-    })
+      })     
+    
+      //console.log('expenses: ', this.state.expenses);  
+    //})
     .catch(err => {
       console.log('We"ve encountered an error');
     });
     console.log('prexpenses: ', expenses);
-    expenses.forEach((expense, index) => {
-      if (expense.secondaryUsersId === secondaryUsersId) {          
-           this.setState({
+    this.setState({
+      expenses: expenses
+    });    
+   // this.fetchExpenseUpdate(this.state.expenses, secondaryUsersId);
+   //expenses.forEach((expense, index) => {
+    //  if (expense.secondaryUsersId === secondaryUsersId) {          
+    //       this.setState({
             /* title: expense.title, */
-            /* eventsId: expense.eventsId, */
+    //        eventsId: expense.eventsId, 
             /* vacationsId: expense.vacationsId, */
             /* eventName: expense.eventName, */
             /* vacationsTitle: expense.vacationsTitle, */
             /* secondaryUsersId: this.state.secondaryUsersId, */
             /* amount: expense.amount, */
-            secondaryUsersExpense: expense.secondaryUsersExpense,
-            expenseOwed: expense.expenseOwed,
+     //       secondaryUsersExpense: expense.secondaryUsersExpense,
+     //       expenseOwed: expense.expenseOwed,
             /* secondaryUsersName: this.state.participant, */
-            });  
-            console.log('in expenses');
+    //        });  
+    //        console.log('in expenses');
         /* expenses.push(expense) */
-      }
+    //  }
       // check the expenses array for a match to the secondary users id
-    });     
+   // });     
   };
+
+  fetchExpenseUpdate = (expenses, secondaryUsersId) => {
+    console.log('in newFetchexpenses');
+    expenses.forEach((expense, index) => {
+    if (expense.secondaryUsersId === secondaryUsersId) {          
+             
+      this.setState({
+              secondaryUsersExpense: expense.secondaryUsersExpense,
+              expenseOwed: expense.expenseOwed,
+              }) 
+            }
+    else {
+      this.setState({
+        secondaryUsersExpense: "",
+        expenseOwed: "",
+        }) 
+
+    }
+         });
+    
+  }
 
   // this function grabs the event record for a single event
   fetchEvent = (eventsId) => {
@@ -325,50 +351,60 @@ render() {
                     <div className="right">
                       <p> 
                         Event Name (select from list):
-                        <input
-                          type="text"
-                          name="eventName"
-                          onChange={this.handleChange}
-                          value={this.state.eventName}
-                          className="eventName"
-                        />
                       </p> 
-                      <p>Participant (select from list):                 
-                        <input
-                          type="text"
-                          name="participant"
-                          onChange={this.handleChange}
-                          value={this.state.participant}
-                          className="participant"
-                        />
+                        <div className="eventNameExp">
+                          <p>{this.state.eventName}</p>
+                        </div>
+                      <p>
+                        Participant (select from list): 
+                      </p>            
+                        <div className="participant">
+                          <p> {this.state.participant}</p>
+                        </div>
+                      <p>
+                        Total Event Cost: 
                       </p>
-                      <p>Total Event Cost: 
-                        <input
-                          type="text"
-                          name="cost"
-                          onChange={this.handleChange}
+                      <p>
+                        <NumberFormat
                           value={this.state.cost}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"$"}
                           className="cost"
                         />
                       </p>
                       <p>Participant Cost: 
-                        <input
+                      {/* <NumberFormat
+                        value={this.state.secondaryUsersExpense}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"$"}
+                        className="secondaryUsersExpense"
+                      /> */}  <input
                           type="text"
                           name="secondaryUsersExpense"
                           onChange={this.handleChange}
                           value={this.state.secondaryUsersExpense}
                           className="secondaryUsersExpense"
-                        />
+                        /> 
                       </p>
                       <p>Amount Participant Owes: 
-                        <input
+                      {/* <NumberFormat
+                        value={this.state.expenseOwed}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"$"}
+                        className="expenseOwed"
+                      /> */}
+                      <input
                           type="text"
                           name="expenseOwed"
                           onChange={this.handleChange}
                           value={this.state.expenseOwed}
                           className="expenseOwed"
-                        />
-                      </p><p> </p>
+                        /> 
+                         </p><p> </p>
+                      <CardBody className={classes.btnContainer}>
                       <Button
                         color="rose"
                         onClick={() => this.saveExpense()} 
@@ -385,16 +421,18 @@ render() {
                       >
                       Cancel
                       </Button>
+                      </CardBody>
                     </div>
                   </Tooltip>
                 {/* </div> */}
               </CardBody>
            {/*  </CardBody> */}
           {/* </CardBody > */}
+          
+          </CardBody>   
           <CardBody  
             className={classes.cardBodyContainer3}>
-          </CardBody>  
-          </CardBody>                      
+          </CardBody>                     
         </GridItem>
       </GridContainer>
     </Zoom>
