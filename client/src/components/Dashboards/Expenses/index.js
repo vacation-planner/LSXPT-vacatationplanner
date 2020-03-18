@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
-// Components
 import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
-// From Material Ui
 import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
 import { Tooltip, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
 import NumberFormat from "react-number-format";
-//import
 import { Zoom } from "@material-ui/core";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
@@ -24,12 +21,12 @@ class Expenses extends Component {
   constructor(props) {
     super(props);
   this.state = {
-    usersUid: "",
+    //usersUid: "",
     value: "",
     eventName: "",
     vacationsTitle: this.props.title,
     vacationsId: this.props.vacationsId,
-    description: "",
+    //description: "",
     eventsId: "",
     events: [],
     disabled: true,
@@ -44,7 +41,7 @@ class Expenses extends Component {
     secondaryUsersLastName: "",
     checked: false,
     cost: 0,
-    title: "",
+    //title: "",
     listVisible: false,
    };
 };
@@ -56,14 +53,14 @@ class Expenses extends Component {
     this.fetchSecondaryUsers(this.state.vacationsId);
     // grab the list of current events
     this.fetchEvents(this.state.vacationsId);
-
-       this.setState({
+     /*  this.setState({
         usersUid: usersUid
-      }); 
+      }); */ 
     };
 
     // function saves the new expense to the database
   saveExpense = () => {
+    // remove this if statement. 
     let eventName = "";
     if (this.state.eventsId !== "") {
       eventName = this.state.eventName
@@ -81,21 +78,21 @@ class Expenses extends Component {
           secondaryUsersFirstName: this.state.participant,
         }
   
-  axios
-  .post('/expenses/', expenseRec)
-  .then(response => {
-      console.log("file written");
-      this.setState({
-        deleteDisabled: false,    
-      });  
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    }); 
-  } 
-} else {
-  alert("Expense fields cannot be empty")
-}
+      axios
+      .post('/expenses/', expenseRec)
+      .then(response => {
+          console.log("file written");
+          this.setState({
+            deleteDisabled: false,    
+          });  
+        })
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        }); 
+      } 
+    } else {
+      alert("Expense fields cannot be empty")
+    }
   }
 
    // this function grabs the list of secondary users from the table
@@ -108,9 +105,9 @@ class Expenses extends Component {
         if (user.vacationsId === vacationsId) {          
           secondaryUsers.push(user)
         } 
-        });
-          this.setState({
-            secondaryUsers: secondaryUsers
+      });
+        this.setState({
+          secondaryUsers: secondaryUsers
         });
     })
     .catch(err => {
@@ -123,9 +120,9 @@ class Expenses extends Component {
     axios
     .get(`/secondaryUsers/${id}`)
     .then(response => {
-          this.setState({
-            participant: response.data.firstName,
-            secondaryUsersId: id
+      this.setState({
+        participant: response.data.firstName,
+        secondaryUsersId: id
       });
     })
     .catch(err => {
@@ -139,59 +136,54 @@ class Expenses extends Component {
     axios
     .get(`/expenses/events/${eventsId}`)
     .then(response => {         
-      //console.log('response data: ', response.data);
       this.fetchExpenseUpdate(response.data, secondaryUsersId);
-   
-      })     
- 
+    })     
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-    //console.log('prexpenses: ', expenses);
     this.setState({
       expenses: expenses
     });    
    
   };
 
+  // this function grabs the secondary user data and clears the 
+  // field values when necessary
   fetchExpenseUpdate = (expenses, secondaryUsersId) => {
     let match = false;
     expenses.forEach((expense, index) => {
-    
       if (expense.secondaryUsersId === secondaryUsersId) {          
-      match = true;       
-      this.setState({
-              secondaryUsersExpense: expense.secondaryUsersExpense,
-              expenseOwed: expense.expenseOwed,
-              }) 
-            }
-    else {
-      if (match === false) {
-      this.setState({
-        secondaryUsersExpense: "",
-        expenseOwed: "",
+        match = true;       
+        this.setState({
+          secondaryUsersExpense: expense.secondaryUsersExpense,
+          expenseOwed: expense.expenseOwed,
         }) 
+      } else {
+        if (match === false) {
+          this.setState({
+            secondaryUsersExpense: "",
+            expenseOwed: "",
+          }) 
+        }
       }
-    }
-         });
+    });
     
   }
 
   // this function grabs the event record for a single event
   fetchEvent = (eventsId) => {
-   
     axios
-    .get(`/events/${eventsId}`)
-    .then(response => {         
-             this.setState({
-                eventsId: eventsId,
-                eventName: response.data.eventName,
-                cost: response.data.cost,
-            }); 
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
+      .get(`/events/${eventsId}`)
+      .then(response => {         
+        this.setState({
+          eventsId: eventsId,
+          eventName: response.data.eventName,
+          cost: response.data.cost,
+        }); 
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
   };
 
    // this function grabs the list of events from the table
@@ -217,7 +209,6 @@ class Expenses extends Component {
   // the user has clicked on a line item in the secondaryUser box
   listSelect = (id) => {        
     this.fetchSecondaryUser(id);
-    // Also need to grab all the expense data !!!
     //console.log('eventsId: ', this.state.eventsId);
     //console.log('secondaryUsersId: ', this.state.secondaryUsersId);
     this.fetchExpense(this.state.eventsId, id);
@@ -237,9 +228,9 @@ class Expenses extends Component {
         [event.target.name]: event.target.value
     }); 
   };
+
   // Create a box with a list of the current events
   eventList = (props) => {
-    
     const eventItems = this.state.events.map((event) =>
       <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName},{event.id},{event.cost}</li>
     );
@@ -247,6 +238,7 @@ class Expenses extends Component {
       <ul className="ul">{eventItems}</ul>
     )
   };
+
  // Create a box with a list of the current participants
   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
@@ -323,25 +315,32 @@ render() {
                     />
                   </p>
                   <p>Participant Cost: 
-                    <input
-                      type="text"
-                      name="secondaryUsersExpense"
-                      onChange={this.handleChange}
-                      value={this.state.secondaryUsersExpense}
+                    <NumberFormat 
+                      value={this.state.secondaryUsersExpense} 
+                      thousandSeparator={true} 
                       className="secondaryUsersExpense"
-                    /> 
+                      prefix={'$'} 
+                      onValueChange={(values) => {
+                        const {formattedValue, value} = values;
+                          // formattedValue = $2,223
+                          // value ie, 2223
+                        this.setState({secondaryUsersExpense: formattedValue})
+                      }}/>
                   </p>
                   <p>Amount Participant Owes: 
-                    <input
-                      type="text"
-                      name="expenseOwed"
-                      onChange={this.handleChange}
-                      value={this.state.expenseOwed}
+                    <NumberFormat 
+                      value={this.state.expenseOwed} 
+                      thousandSeparator={true} 
                       className="expenseOwed"
-                    /> 
+                      prefix={'$'} 
+                      onValueChange={(values) => {
+                        const {formattedValue, value} = values;
+                          // formattedValue = $2,223
+                          // value ie, 2223
+                        this.setState({expenseOwed: formattedValue})
+                      }}/>
                   </p>
                   <p> </p>
-                 
                 </div>
               </Tooltip>
             </CardBody> 
