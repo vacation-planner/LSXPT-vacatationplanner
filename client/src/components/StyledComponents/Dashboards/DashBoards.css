@@ -118,11 +118,17 @@
 }
 
  .expButton {
+     display: flex;
+    /*  margin-left: 140px; */
+    /*  padding-left: 100px; */
+    /*  margin-right: auto; */
     width: 120px;
 } 
 
  .deleteExpense {
   /*   height: 26px; */
+  display: flex;
+  /* margin: auto auto; */
     width: 120px;
   /*   border: 0px solid black;
     margin-top: 20px;
