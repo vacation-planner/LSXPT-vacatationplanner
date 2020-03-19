@@ -43,6 +43,8 @@ class Expenses extends Component {
     cost: 0,
     //title: "",
     listVisible: false,
+    editFlag: false,
+    expenseId: "",
    };
 };
 
@@ -60,24 +62,23 @@ class Expenses extends Component {
 
     // function saves the new expense to the database
   saveExpense = () => {
-    // remove this if statement. 
-    let eventName = "";
-    if (this.state.eventsId !== "") {
-      eventName = this.state.eventName
-    }
+    // checking for empty fields 
     if (this.state.secondaryUsersExpense !== "") {
       if (this.state.expenseOwed !== "") {
+        // check if this is a PUT or a POST
+        
         let expenseRec = {
           eventsId: this.state.eventsId,
           vacationsId: this.props.vacationsId,
-          eventName: eventName,
+          eventName: this.state.eventName,
           vacationsTitle: this.props.title,
           secondaryUsersId: this.state.secondaryUsersId,
           expenseOwed: this.state.expenseOwed,
           secondaryUsersExpense: this.state.secondaryUsersExpense,
-          secondaryUsersFirstName: this.state.participant,
+          secondaryUsersFirstName: this.state.secondaryUsersFirstName,
+          secondaryUsersLastName: this.state.secondaryUsersLastName,
         }
-  
+        if (this.state.editFlag === false) {
       axios
       .post('/expenses/', expenseRec)
       .then(response => {
@@ -90,10 +91,28 @@ class Expenses extends Component {
           console.log('We"ve encountered an error');
         }); 
       } 
+     
+   else {
+    // PUT goes here
+      //.put(`${URL}/users/${this.state.uid}`, newRec)
+      axios
+      .put(`/expenses/${this.state.expenseId}`, expenseRec)
+      .then(response => {
+          console.log("file updated");
+          this.setState({
+            editFlag: false,    
+          });  
+        })
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        }); 
+      }; 
     } else {
       alert("Expense fields cannot be empty")
     }
   }
+}
+  
 
    // this function grabs the list of secondary users from the table
   fetchSecondaryUsers = (vacationsId) => {
@@ -121,7 +140,8 @@ class Expenses extends Component {
     .get(`/secondaryUsers/${id}`)
     .then(response => {
       this.setState({
-        participant: response.data.firstName,
+        secondaryUsersFirstName: response.data.firstName,
+        secondaryUsersLastName: response.data.lastName,
         secondaryUsersId: id
       });
     })
@@ -157,17 +177,19 @@ class Expenses extends Component {
         this.setState({
           secondaryUsersExpense: expense.secondaryUsersExpense,
           expenseOwed: expense.expenseOwed,
+          expenseId: expense.id,
+          editFlag: true,
         }) 
       } else {
         if (match === false) {
           this.setState({
             secondaryUsersExpense: "",
             expenseOwed: "",
+            editFlag: false,
           }) 
         }
       }
     });
-    
   }
 
   // this function grabs the event record for a single event
@@ -179,6 +201,10 @@ class Expenses extends Component {
           eventsId: eventsId,
           eventName: response.data.eventName,
           cost: response.data.cost,
+          secondaryUsersExpense: "",
+          expenseOwed: "",
+          secondaryUsersFirstName: "",
+          secondaryUsersLastName: "",
         }); 
       })
       .catch(err => {
@@ -228,6 +254,17 @@ class Expenses extends Component {
         [event.target.name]: event.target.value
     }); 
   };
+
+  editRec = () => {
+    if (this.state.secondaryUsersExpense !== "") {
+      // set the flag for edit
+      console.log('in the editRec');
+      this.setState({
+        editFlag: true
+      });
+    }
+
+  }
 
   // Create a box with a list of the current events
   eventList = (props) => {
@@ -300,7 +337,7 @@ render() {
                     Participant (select from list): 
                   </p>            
                   <div className="participant">
-                    <p> {this.state.participant}</p>
+                    <p> {this.state.secondaryUsersFirstName} {this.state.secondaryUsersLastName}</p>
                   </div>
                   <p>
                     Total Event Cost: 
@@ -334,6 +371,7 @@ render() {
                       className="expenseOwed"
                       prefix={'$'} 
                       onValueChange={(values) => {
+                        //this.editRec();
                         const {formattedValue, value} = values;
                           // formattedValue = $2,223
                           // value ie, 2223

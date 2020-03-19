@@ -119,9 +119,6 @@
 
  .expButton {
      display: flex;
-    /*  margin-left: 140px; */
-    /*  padding-left: 100px; */
-    /*  margin-right: auto; */
     width: 120px;
 } 
 
@@ -139,6 +136,7 @@
      border: 1px solid lightgray;
      cursor: not-allowed; 
      /* margin-left: 10px; */
+     font-weight: bold;
 
 }
 
@@ -147,6 +145,7 @@
      cursor: not-allowed; 
      height: 20px;
      margin-bottom: 8px;
+     font-weight: bold;
 }
  
 .participant {
@@ -154,11 +153,14 @@
      cursor: not-allowed; 
      height: 20px;
      margin-bottom: 8px;
+     font-weight: bold;
 }
 
 .secondaryUsersExpense {
     background-color: lightgray;
     width: 200px;
+    border-radius: 5px;
+    font-weight: bold;
     /* color: white; */
 }
 
@@ -166,4 +168,6 @@
     background-color: lightgray;
     width: 200px;
     /* color: white; */
+    border-radius: 5px;
+    font-weight: bold;
 }
