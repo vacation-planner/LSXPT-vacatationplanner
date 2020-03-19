@@ -46,15 +46,8 @@ class PastVacationDrawer extends React.Component {
     events: false,
     expenses: false,
     overview: false,
-    mobileOpen: false,
     pastVacation: this.props.pastVacation,
     redirect: false
-  };
-
-  handleClose = () => {
-    this.setState({
-      mobileOpen: false
-    });
   };
 
   displayPastVacation = event => {
@@ -109,7 +102,7 @@ class PastVacationDrawer extends React.Component {
           <div className={classes.nameDiv}>
             {this.state.pastVacation.title || "test"}
           </div>
-          <List onClick={this.handleClose} className={classes.list}>
+          <List className={classes.list}>
             {ListPastVacations.map((pastVacation, index) => {
               const { name } = pastVacation;
               return (
@@ -147,7 +140,7 @@ class PastVacationDrawer extends React.Component {
           <div className={classes.nameDiv}>
             {this.state.pastVacation.title || "test"}
           </div>
-          <List onClick={this.handleClose} className={classes.list}>
+          <List className={classes.list}>
             {ListPastVacations.map((pastVacation, index) => {
               const { name } = pastVacation;
               return (

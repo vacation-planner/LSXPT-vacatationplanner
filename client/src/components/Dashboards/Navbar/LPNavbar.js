@@ -240,10 +240,9 @@ class LandingPageNavbar extends React.Component {
                             <Button
                                 href={ROUTES.SIGNIN}
                                 className={classes.navLink}
-                                color="transparent"
                             >
                                 Sign In
-                                    </Button>
+                            </Button>
                         </ListItem>
                     </List>
                 </div>
@@ -273,7 +272,6 @@ class LandingPageNavbar extends React.Component {
                                         <Button
                                             href={ROUTES.SIGNIN}
                                             className={classes.navLink}
-                                            color="transparent"
                                         >
                                             Sign In
                                     </Button>
