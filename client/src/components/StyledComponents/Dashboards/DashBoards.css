@@ -83,8 +83,7 @@
     /* border: 2px solid green; */ 
     display: flex;
     flex-direction: column;
-    width: 100%;
-    
+    width: 100%;   
     font-size: 12px;
 }
 
@@ -96,12 +95,10 @@
 }
 
 .left {
-   /*  border: 2px soild red; */
     width: 100%;
 }
 
 .right {
-    /* border: 2px solid orange; */
     width: 100%;
     margin-top: 30px;
 }
@@ -118,26 +115,19 @@
 }
 
  .expButton {
-     display: flex;
+    display: flex;
     width: 120px;
 } 
 
  .deleteExpense {
-  /*   height: 26px; */
-  display: flex;
-  /* margin: auto auto; */
+    display: flex;
     width: 120px;
-  /*   border: 0px solid black;
-    margin-top: 20px;
-    color: black; */
 } 
 
 .cost  {
      border: 1px solid lightgray;
      cursor: not-allowed; 
-     /* margin-left: 10px; */
      font-weight: bold;
-
 }
 
 .eventNameExp {

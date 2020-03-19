@@ -10,6 +10,8 @@ export default class AppProvider extends Component {
     loggedIn: true,
     userID: null,
     userEmail: null,
+    userFirstName: null,
+    userLastName: null,
     allVacations: JSON.parse(localStorage.getItem('allVacations')) || [],
     myVacations: JSON.parse(localStorage.getItem('myVacations')) || [],
     myCurrentVacations: JSON.parse(localStorage.getItem('myCurrentVacations')) || [],
@@ -28,6 +30,16 @@ export default class AppProvider extends Component {
           },
           getUserEmail: (value) => {
             this.setState({ ...this.state, userEmail: value });
+          },
+          getUserFirstName: (value) => {
+            this.setState({
+              ...this.state, userFirstName: value
+            });
+          },
+          getUserLastName: (value) => {
+            this.setState({
+              ...this.state, userLastName: value
+            });
           },
           signOut: () => {
             localStorage.removeItem('allVacations');
@@ -100,7 +112,7 @@ export default class AppProvider extends Component {
                 let joinPast = [];
                 secondaryUserTable.forEach(result => {
                   if (result.email === userEmail) {
-                    if (this.state.myVacations.find(x => x.id !== result.vacationsId)) {
+                    if (!this.state.myVacations.find(x => x.id === result.vacationsId)) {
                       const foundIndex = this.state.allVacations.findIndex(x => x.id === result.vacationsId);
                       joined = joined.concat(this.state.allVacations[foundIndex]);
                       if (this.state.allVacations[foundIndex].endDate === null) {
@@ -494,28 +506,45 @@ export default class AppProvider extends Component {
               closed: 1,
             }
             axios
-            .put(`/vacations/${id}`, vacation)
-            .then(response => {
-              console.log("Vacation closed")
-              let allVacations = this.state.allVacations;
-              let myPastVacations = this.state.myPastVacations;
-              const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
-              const foundIndexMyPastVacations = this.state.myPastVacations.findIndex(x => x.id === id);
-              allVacations[foundIndexAllVacations].closed = 1;
-              myPastVacations[foundIndexMyPastVacations].closed = 1;
-              localStorage.setItem('allVacations', JSON.stringify(allVacations))
-              localStorage.setItem('myPastVacations', JSON.stringify(myPastVacations))
-              this.setState({
-                allVacations,
-                myPastVacations
+              .put(`/vacations/${id}`, vacation)
+              .then(response => {
+                console.log("Vacation closed")
+                let allVacations = this.state.allVacations;
+                let myPastVacations = this.state.myPastVacations;
+                const foundIndexAllVacations = this.state.allVacations.findIndex(x => x.id === id);
+                const foundIndexMyPastVacations = this.state.myPastVacations.findIndex(x => x.id === id);
+                allVacations[foundIndexAllVacations].closed = 1;
+                myPastVacations[foundIndexMyPastVacations].closed = 1;
+                localStorage.setItem('allVacations', JSON.stringify(allVacations))
+                localStorage.setItem('myPastVacations', JSON.stringify(myPastVacations))
+                this.setState({
+                  allVacations,
+                  myPastVacations
+                })
               })
-            })
-            .catch(err => {
-              console.log('We"ve encountered an error');
-            });
+              .catch(err => {
+                console.log('We\'ve encountered an error');
+              });
+          },
+          addPrimaryUserAsSecondaryUser:(newVacationName) => {
+            const foundVacation = this.state.allVacations.find(x => x.title === newVacationName && x.usersUid === this.state.userID);
+            const secondaryUserEndpoint = '/secondaryUsers';
+            let secondaryUserData = {
+              vacationsId: foundVacation.id,
+              firstName: this.state.userFirstName,
+              lastName: this.state.userLastName,
+              email: this.state.userEmail
+            }
+            axios
+              .post(secondaryUserEndpoint, secondaryUserData)
+              .then(res => {
+                console.log('Secondary user added');
+              })
+              .catch(err => {
+                console.log('error adding secondary User', err)
+              });
           }
-        }
-        }
+        }}
       >
         {this.props.children}
       </AppContext.Provider >

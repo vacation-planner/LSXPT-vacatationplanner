@@ -65,3 +65,4 @@ typings/
 # VSCode settings
 .vscode/
 *.sqlite3
+server/data/vacation.sqlite3

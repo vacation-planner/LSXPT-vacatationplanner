@@ -101,10 +101,12 @@ class CreateVacationForm extends React.Component {
         this.setState({ [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    addVacationToContext = () => {
-        this.setState({ disabledButton: true})
-        let newVacationName = this.state.vacationName;
+    addVacationToContext = (newVacationName) => {
+        this.setState({ disabledButton: true })
         this.context.addVacation(newVacationName)
+        setTimeout(() => {
+            this.context.addPrimaryUserAsSecondaryUser(newVacationName)
+        }, 2500);
     }
 
     render() {
@@ -177,34 +179,33 @@ class CreateVacationForm extends React.Component {
                                                 title: this.state.vacationName,
                                             }
                                         }}
-                                        
                                     >
                                         Create Vacation
                                          </DelayLink>
                                 </Button>
                             ) : (
-                                <Button
-                                  className={classes.createVacationButton}
-                                  onClick={() => this.addVacationToContext(this.state.vacationName)}
-                                  variant="contained"
-                                  disabled={this.state.disabledButton === true}
-                                >
-                                  <DelayLink
-                                    delay={1500}
-                                    to={{
-                                      pathname: `/premium`,
-                                      state: {
-                                        currentVacationTitle: this.state.vacationName,
-                                        title: this.state.vacationName,
-                                        id: this.context.currentVacationId
-                                      }
-                                    }}
-                                    className={classes.linkStyling}
-                                  >
-                                    Go to Payment
+                                    <Button
+                                        className={classes.createVacationButton}
+                                        onClick={() => this.addVacationToContext(this.state.vacationName)}
+                                        variant="contained"
+                                        disabled={this.state.disabledButton === true}
+                                    >
+                                        <DelayLink
+                                            className={classes.linkStyling}
+                                            delay={1500}
+                                            to={{
+                                                pathname: `/premium`,
+                                                state: {
+                                                    currentVacationTitle: this.state.vacationName,
+                                                    title: this.state.vacationName,
+                                                    id: this.context.currentVacationId
+                                                }
+                                            }}
+                                        >
+                                            Go to Payment
                                   </DelayLink>
-                                </Button>
-                              )}
+                                    </Button>
+                                )}
                         </div>
                     </DialogActions>
                 </Dialog>
