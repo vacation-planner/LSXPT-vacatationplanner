@@ -52,7 +52,7 @@ handleStartChange = event => {
       description: this.props.description,
       startDateTime: startDateTime,
       usersUid: this.state.usersUid,
-      vacationsId: this.props.vacationsId,
+      vacationsId: this.state.vacationsId,
     } 
 
  axios
@@ -82,6 +82,8 @@ handleEndChange = event => {
     description: this.props.description,
     endDateTime: endDateTime,   // if field empty, dont save it
     usersUid: this.state.usersUid,
+    vacationsId: this.state.vacationsId,
+
   }
 
 

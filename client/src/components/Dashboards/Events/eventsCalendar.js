@@ -125,7 +125,7 @@ class EventsCalendar extends React.Component {
   };
 
   selectedEvent = event => {
-    console.log("in the selectedevent: ", event)
+    console.log("in the selected event: ", event)
     swal(
       <div>
         <form onSubmit={this.submitForm} >
@@ -162,7 +162,6 @@ class EventsCalendar extends React.Component {
               vacationData.push(vacation);
             })
           };
-          console.log("vacationData: ", vacationData)
           this.setState({
             vacation: vacationData,
           });
