@@ -5,7 +5,11 @@ import axios from "axios";
 import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
+import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
+import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
 import { Zoom } from "@material-ui/core";
+import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
+import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 
 class ExpenseTable extends Component {
@@ -16,6 +20,8 @@ class ExpenseTable extends Component {
       expenses: [],
       vacationsId: this.props.vacationsId,
       checked: false,
+      allDisabled: true,
+      participantDisabled: true,
     }
      this.renderEditable = this.renderEditable.bind(this);
   }
@@ -30,6 +36,11 @@ class ExpenseTable extends Component {
     .catch(error => {
       console.error('Server Error', error);
     });
+  }
+
+  fetchCurrentParticipant = data => {
+
+
   }
 
   filterEvents = data => {
@@ -63,12 +74,14 @@ class ExpenseTable extends Component {
 
   render() {
     const { checked } = this.state;
+    const { classes } = this.props;
     return (
       <div className="expense-table-display">
       <Zoom in={checked} >
         <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card style={{ width: "900px", height: "575px", marginLeft: "50px", marginRight: "100px", top: "20px"}}>
+          <GridItem xs={12} sm={12} md={12}>
+            {/* <Card style={{ width: "900px", height: "575px", marginLeft: "50px", marginRight: "100px", top: "20px"}}> */}
+            <Card className={classes.cardBodyTable}>
               <div className="expense-header">
                 Expenses:
               </div>
@@ -115,6 +128,18 @@ class ExpenseTable extends Component {
                   className="-striped -highlight"
                 />
               </div> 
+              <CardBody className={classes.btnContainer}>
+              <Button className={classes.vacationsButton}
+                    onClick={() => this.filterEvents(this.props.vacationsId)}
+                    color="rose"
+                    disabled={this.state.allDisabled}>All
+                </Button>
+                  <Button className={classes.eventsButton}
+                    onClick={() => this.fetchCurrentParticipant(this.props.vacationsId)}
+                    color="rose"
+                    disabled={this.state.participantDisabled}>Participant
+                </Button>
+                </CardBody>
             </Card>
           </GridItem>
         </GridContainer>
@@ -124,4 +149,4 @@ class ExpenseTable extends Component {
   }
 }
 
-export default ExpenseTable;
+export default withStyles(styles)(ExpenseTable);

@@ -84,14 +84,35 @@ const styles = theme => ({
         width: "250px",  
     }
   }, 
-  cardBodyContainer3: {
-      display: "flex",
-      flexDirection: "row",
-       backgroundColor: "blue",  
-           [theme.breakpoints.up("sm")]: {
-          width: "100%",
-          height: "40px",   
-      }
+  cardBodyTable: {
+    display: "flex",
+    Width: "700px", 
+    height: "575px", 
+    marginLeft: "20px", 
+    //marginRight: "100px", 
+    top: "20px",
+    [theme.breakpoints.up("md")]: {
+        width: "700px",
+        //backgroundColor: "blue",
+        //height: "40px",   
+    },     //flexDirection: "row",
+    [theme.breakpoints.down("md")]: {
+        width: "600px",
+        //backgroundColor: "blue",
+        //height: "40px",   
+    },     //flexDirection: "row",
+         /*   [theme.breakpoints.up("sm")]: { */
+          //width: "900px",
+          //height: "40px",   
+      /* }, */    
+      [theme.breakpoints.down("sm")]: { 
+       width: "90%",  
+        marginLeft: "0px", 
+    },
+    [theme.breakpoints.down("xs")]: { 
+      width: "100%x", 
+      //backgroundColor: "blue", 
+  }
   },
     gridItem: {
         cursor: "pointer",
