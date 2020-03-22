@@ -106,7 +106,7 @@ class App extends Component {
     });
   };
 
-  checkLocalStorage = () => {
+ /*  checkLocalStorage = () => {
     let vacationsId = localStorage.getItem('vacationsId');
     if (vacationsId) {
       axios
@@ -128,9 +128,9 @@ class App extends Component {
           console.log('We"ve encountered an error');
         });
     }
-  };
+  }; */
 
-  writeToDb = () => {
+ /*  writeToDb = () => {
     let vacationRec = {
       title: this.state.title,
       location: this.state.location,
@@ -147,7 +147,7 @@ class App extends Component {
       .catch(err => {
         console.log("There was an error creating vacation record", err);
       });
-  }
+  } */
 
   // this function grabs any parameter in the url
   getUrlVars = () => {
@@ -168,13 +168,13 @@ class App extends Component {
   };
 
   // this function keeps it from crashing if there is no parameter
-  getUrlParam = (parameter, defaultvalue) => {
-    let urlparameter = defaultvalue;
-    if (window.location.href.indexOf(parameter) > -1) {
-      urlparameter = this.getUrlVars()[parameter];
-    }
-    return urlparameter;
-  };
+  //getUrlParam = (parameter, defaultvalue) => {
+  //  let urlparameter = defaultvalue;
+  //  if (window.location.href.indexOf(parameter) > -1) {
+  //    urlparameter = this.getUrlVars()[parameter];
+  //  }
+  //  return urlparameter;
+  //};
 
   //To sign out an get no error with firebase dropping the widget
   removeAuthListener: any;

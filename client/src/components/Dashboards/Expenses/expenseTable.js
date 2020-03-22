@@ -68,7 +68,7 @@ class ExpenseTable extends Component {
       <Zoom in={checked} >
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
-            <Card style={{ width: "1100px", height: "600px", marginLeft: "50px", marginRight: "100px", top: "20px"}}>
+            <Card style={{ width: "900px", height: "575px", marginLeft: "50px", marginRight: "100px", top: "20px"}}>
               <div className="expense-header">
                 Expenses:
               </div>
@@ -78,13 +78,34 @@ class ExpenseTable extends Component {
                   columns=
                     {[
                       /* { Header: "Title", accessor: "title", Cell: this.renderEditable, width: 150}, */
-                      { Header: "Event Name", accessor: "eventName", Cell: this.renderEditable, width: 90},
-                      { Header: "Participant", accessor: "secondaryUsersFirstName", Cell: this.renderEditable, width: 140},
-                      { Header: "Vacation Id", accessor: "vacationsId", Cell: this.renderEditable, width: 80},
-                      { Header: "Participants Id", accessor: "secondaryUsersId", Cell: this.renderEditable, width: 80},
-                      { Header: "Event Id", accessor: "eventsId", Cell: this.renderEditable, width: 90},   
-                      { Header: "Participant Expense", accessor: "secondaryUsersExpense", Cell: this.renderEditable, width: 125},
-                      { Header: "Expense Owed", accessor: "expenseOwed", Cell: this.renderEditable, width: 100},
+                      { 
+                        Header: "Event Name", 
+                        accessor: "eventName", 
+                        Cell: this.renderEditable, width: 90
+                      },
+                      { 
+                        Header: "Participant First Name", 
+                        accessor: "secondaryUsersFirstName", 
+                        Cell: this.renderEditable, width: 140
+                      },
+                      { 
+                        Header: "Participant Last Name", 
+                        accessor: "secondaryUsersLastName", 
+                        Cell: this.renderEditable, width: 140
+                      },
+                     /*  { Header: "Vacation Id", accessor: "vacationsId", Cell: this.renderEditable, width: 80}, */
+                      /* { Header: "Participants Id", accessor: "secondaryUsersId", Cell: this.renderEditable, width: 80}, */
+                     /*  { Header: "Event Id", accessor: "eventsId", Cell: this.renderEditable, width: 90},  */  
+                      { 
+                        Header: "Participant Expense", 
+                        accessor: "secondaryUsersExpense", 
+                        Cell: this.renderEditable, width: 125
+                      }, 
+                      { 
+                        Header: "Expense Owed", 
+                        accessor: "expenseOwed", 
+                        Cell: this.renderEditable, width: 100
+                      },
                     ]}
                   defaultPageSize={10}
                   style={{

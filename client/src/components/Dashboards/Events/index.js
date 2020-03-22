@@ -13,7 +13,7 @@ import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Events/styles.js";
-import { Zoom, Tooltip, Typography } from "@material-ui/core";
+import { Zoom, Tooltip } from "@material-ui/core";
 
 /* import {
     tooltip
@@ -49,7 +49,7 @@ componentDidMount() {
     let usersUid = fire.currentUser.uid;
    
     //this.fetchSecondaryUsers(this.state.vacationsId);
-
+    console.log('vacationsId: ', this.state.vacationsId);
     this.fetchEvents(this.state.vacationsId);
 
        this.setState({
@@ -60,6 +60,7 @@ componentDidMount() {
 addEvent = () => {
     // create a record using the input
     let eventsRec = {
+        vacationsId: this.state.vacationsId,
         eventName: this.state.eventName,
         description: this.state.description,
         usersUid: this.state.usersUid,

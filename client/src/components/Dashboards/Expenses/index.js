@@ -21,12 +21,10 @@ class Expenses extends Component {
   constructor(props) {
     super(props);
   this.state = {
-    //usersUid: "",
     value: "",
     eventName: "",
     vacationsTitle: this.props.title,
     vacationsId: this.props.vacationsId,
-    //description: "",
     eventsId: "",
     events: [],
     disabled: true,
@@ -41,7 +39,6 @@ class Expenses extends Component {
     secondaryUsersLastName: "",
     checked: false,
     cost: 0,
-    //title: "",
     listVisible: false,
     editFlag: false,
     expenseId: "",
@@ -50,8 +47,8 @@ class Expenses extends Component {
 
   componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
-    let usersUid = fire.currentUser.uid;
-   // grab the list of secondary users
+    //let usersUid = fire.currentUser.uid;
+    // grab the list of secondary users
     this.fetchSecondaryUsers(this.state.vacationsId);
     // grab the list of current events
     this.fetchEvents(this.state.vacationsId);
@@ -61,12 +58,11 @@ class Expenses extends Component {
     };
 
     // function saves the new expense to the database
+    // it checks a flag to determine if it needs to do a PUT or POST.
   saveExpense = () => {
     // checking for empty fields 
     if (this.state.secondaryUsersExpense !== "") {
       if (this.state.expenseOwed !== "") {
-        // check if this is a PUT or a POST
-        
         let expenseRec = {
           eventsId: this.state.eventsId,
           vacationsId: this.props.vacationsId,
@@ -78,42 +74,40 @@ class Expenses extends Component {
           secondaryUsersFirstName: this.state.secondaryUsersFirstName,
           secondaryUsersLastName: this.state.secondaryUsersLastName,
         }
-        if (this.state.editFlag === false) {
-      axios
-      .post('/expenses/', expenseRec)
-      .then(response => {
-          console.log("file written");
-          this.setState({
-            deleteDisabled: false,    
-          });  
-        })
-        .catch(err => {
-          console.log('We"ve encountered an error');
-        }); 
-      } 
-     
-   else {
-    // PUT goes here
-      //.put(`${URL}/users/${this.state.uid}`, newRec)
-      axios
-      .put(`/expenses/${this.state.expenseId}`, expenseRec)
-      .then(response => {
-          console.log("file updated");
-          this.setState({
-            editFlag: false,    
-          });  
-        })
-        .catch(err => {
-          console.log('We"ve encountered an error');
-        }); 
-      }; 
-    } else {
-      alert("Expense fields cannot be empty")
+          // check if this is a PUT or a POST
+      if (this.state.editFlag === false) {
+        axios
+        .post('/expenses/', expenseRec)
+        .then(response => {
+            console.log("file written");
+            this.setState({
+              deleteDisabled: false,    
+            });  
+          })
+          .catch(err => {
+            console.log('We"ve encountered an error');
+          }); 
+        }   
+      else {
+        // its a PUT operation
+        axios
+        .put(`/expenses/${this.state.expenseId}`, expenseRec)
+        .then(response => {
+            console.log("file updated");
+            this.setState({
+              editFlag: false,    
+            });  
+          })
+          .catch(err => {
+            console.log('We"ve encountered an error');
+          }); 
+        }; 
+      } else {
+        alert("Expense fields cannot be empty")
+      }
     }
   }
-}
   
-
    // this function grabs the list of secondary users from the table
   fetchSecondaryUsers = (vacationsId) => {
     let secondaryUsers = [];
@@ -135,6 +129,7 @@ class Expenses extends Component {
   };
 
   // this function grabs the secondaryUser record for a single user
+  // and saves several fields to state
   fetchSecondaryUser = id => {
     axios
     .get(`/secondaryUsers/${id}`)
@@ -151,11 +146,14 @@ class Expenses extends Component {
   };
 
   // this function grabs the expense record for a single expense
+  // this is a two step process since we dont have the expense id.
   fetchExpense = (eventsId, secondaryUsersId) => {
     let expenses = [];
+    // need the expense data for all the expenses for a given event
     axios
     .get(`/expenses/events/${eventsId}`)
     .then(response => {         
+      // call the expense update function using the filtered data
       this.fetchExpenseUpdate(response.data, secondaryUsersId);
     })     
     .catch(err => {
@@ -163,17 +161,19 @@ class Expenses extends Component {
     });
     this.setState({
       expenses: expenses
-    });    
-   
+    });   
   };
 
   // this function grabs the secondary user data and clears the 
-  // field values when necessary
+  // field values when necessary, it also sets the edit flag
+  // to determine if we need a PUT or POST when the SAVE button is selected
   fetchExpenseUpdate = (expenses, secondaryUsersId) => {
-    let match = false;
+    // if the expense fields have a value, then set matchFlag to true
+    // othwise the values in the expense fields will be cleared
+    let matchFlag = false;
     expenses.forEach((expense, index) => {
       if (expense.secondaryUsersId === secondaryUsersId) {          
-        match = true;       
+        matchFlag = true;       
         this.setState({
           secondaryUsersExpense: expense.secondaryUsersExpense,
           expenseOwed: expense.expenseOwed,
@@ -181,7 +181,7 @@ class Expenses extends Component {
           editFlag: true,
         }) 
       } else {
-        if (match === false) {
+        if (matchFlag === false) {
           this.setState({
             secondaryUsersExpense: "",
             expenseOwed: "",
@@ -193,6 +193,7 @@ class Expenses extends Component {
   }
 
   // this function grabs the event record for a single event
+  // and clears the expense fields
   fetchEvent = (eventsId) => {
     axios
       .get(`/events/${eventsId}`)
@@ -222,7 +223,8 @@ class Expenses extends Component {
         if (event.vacationsId === vacationsId) {          
             events.push(event)
         }
-          this.setState({
+        // i think i need to move this...  
+        this.setState({
             events: events
           });
       });
@@ -235,12 +237,12 @@ class Expenses extends Component {
   // the user has clicked on a line item in the secondaryUser box
   listSelect = (id) => {        
     this.fetchSecondaryUser(id);
-    //console.log('eventsId: ', this.state.eventsId);
-    //console.log('secondaryUsersId: ', this.state.secondaryUsersId);
+    // grabs the expense record
     this.fetchExpense(this.state.eventsId, id);
   };
 
   // the user has clicked on a line item in the events box
+  // it also makes the listbox visible
   eventSelect = (id) => { 
     this.setState({
       listVisible: true,
@@ -255,21 +257,10 @@ class Expenses extends Component {
     }); 
   };
 
-  editRec = () => {
-    if (this.state.secondaryUsersExpense !== "") {
-      // set the flag for edit
-      console.log('in the editRec');
-      this.setState({
-        editFlag: true
-      });
-    }
-
-  }
-
   // Create a box with a list of the current events
   eventList = (props) => {
     const eventItems = this.state.events.map((event) =>
-      <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName},{event.id},{event.cost}</li>
+      <li className="event" key={event.id} onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
     );
     return (
       <ul className="ul">{eventItems}</ul>
@@ -279,7 +270,7 @@ class Expenses extends Component {
  // Create a box with a list of the current participants
   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
-      <li className="participants" key={user.id} onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
+      <li className="participants" key={user.id} onClick={() => {this.listSelect(user.id)}}>{user.firstName} {user.lastName}</li>
     );
     return (
       <ul className="ul">{listItems}</ul>
@@ -291,30 +282,30 @@ render() {
   const { checked } = this.state;
 
   return (
+    <div className="backGround">
+    <Zoom in={checked} >
     <div className={classes.parent}>
-      <Zoom in={checked} > 
-        
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
-          <CardBody className={classes.titleBox}>
-            <h3>Create Expense: {this.state.eventName}</h3>
-            <h4>Current Vacation: {this.props.title}</h4>
-            </CardBody>
-            <CardBody   className={classes.cardBody2}>
-              <CardBody  className={classes.cardBodyContainer1}>
-                <CardBody> 
-                  <h4>Available Events:</h4>{" "}                                
-                  <div className="eventsList">
-                    {this.eventList()} 
-                  </div>          
-                </CardBody>
-                <CardBody> 
-                  <h4>Vacation Participants:</h4>{" "}  
-                  {this.state.listVisible ? (
-                  <div className="participantsList">
-                    {this.participantList()}                                        
-                  </div>) : null}
-                </CardBody> 
+            <CardBody className={classes.titleBox}>
+              <h3>Create Expense: {this.state.eventName}</h3>
+              <h4>Current Vacation: {this.props.title}</h4>
+              </CardBody>
+              <CardBody   className={classes.cardBody2}>
+                <CardBody  className={classes.cardBodyContainer1}>
+                  <CardBody> 
+                    <h4>Available Events:</h4>{" "}                                
+                    <div className="eventsList">
+                      {this.eventList()} 
+                    </div>          
+                  </CardBody>
+                  <CardBody> 
+                    <h4>Vacation Participants:</h4>{" "}  
+                    {this.state.listVisible ? (
+                    <div className="participantsList">
+                      {this.participantList()}                                        
+                    </div>) : null}
+                  </CardBody> 
                 </CardBody> 
                 <CardBody   className={classes.cardBodyContainer2}>           
               <Tooltip
@@ -359,8 +350,6 @@ render() {
                       prefix={'$'} 
                       onValueChange={(values) => {
                         const {formattedValue, value} = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
                         this.setState({secondaryUsersExpense: formattedValue})
                       }}/>
                   </p>
@@ -371,10 +360,7 @@ render() {
                       className="expenseOwed"
                       prefix={'$'} 
                       onValueChange={(values) => {
-                        //this.editRec();
-                        const {formattedValue, value} = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
+                        const {formattedValue, value} = values;  
                         this.setState({expenseOwed: formattedValue})
                       }}/>
                   </p>
@@ -383,30 +369,29 @@ render() {
               </Tooltip>
             </CardBody> 
           </CardBody>   
-          {/* <CardBody className={classes.cardBodyContainer3}> */}
-             <CardBody className={classes.btnContainer}>
-                    <Button
-                      color="rose"
-                      onClick={() => this.saveExpense()} 
-                      disabled={this.state.disabled}
-                      className="expButton"
-                    >
-                      Save
-                    </Button>
-                    <Button           
-                      color="rose"
-                      onClick={() => this.deleteExpense()}
-                      disabled={this.state.deleteDisabled} 
-                      className="deleteExpense"
-                    >
-                      Cancel
-                    </Button>
-                  </CardBody>
-          {/* </CardBody>    */}                  
-        </GridItem>
-      </GridContainer>
+            <CardBody className={classes.btnContainer}>
+              <Button
+                color="rose"           
+                onClick={() => this.saveExpense()} 
+                disabled={this.state.disabled}
+                className="expButton"
+                >
+                Save
+              </Button>
+              <Button           
+                color="rose"
+                onClick={() => this.deleteExpense()}
+                disabled={this.state.deleteDisabled} 
+                className="deleteExpense"
+                >
+                Cancel
+              </Button>
+            </CardBody>                 
+          </GridItem>
+        </GridContainer>
+    </div> 
     </Zoom>
-  </div> 
+    </div>
     );
   }
 }

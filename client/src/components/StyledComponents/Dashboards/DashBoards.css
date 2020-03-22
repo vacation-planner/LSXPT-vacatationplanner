@@ -7,9 +7,14 @@
     width: 75px;
     height: 75px;
     background-image: url("../../../images/vplanner5_1.png");
-    /* background-image: url("../../../images/vplanner1_75px.png"); */
 }
 
+.backGround {
+    background-image: url("../../../images/42545.jpg");
+    height: auto;
+    min-height: calc(100vh - 65px);
+    /* height: 100%; */
+}
 .vacation {
    
     background-image: url("../../../images/vplanner5_1.png");
@@ -17,7 +22,6 @@
 }
 
 .participantsList {
-    /* display: flex; */
     border: 1px solid gray;
     overflow-y: auto;
     height: 120px;
@@ -26,7 +30,6 @@
 }
 
 .participants {
-    /* background-color: white; */
     cursor: pointer;
 }
 
@@ -43,14 +46,6 @@
 .participants:focus {
     background-color: rgb(136, 18, 73);
     color: white;  
-}
-
-.ul {
-    /* background-color: aquamarine; */
-}
-
-.ul:hover {
-   /*  background-color: rgb(16, 20, 9); */
 }
 
 .event {
@@ -71,7 +66,6 @@
 }
 
 .eventsList {
-    /* display: flex; */
     border: 1px solid gray;
     overflow-y: auto;
     height: 120px;
@@ -80,7 +74,6 @@
 }
 
 .eventContainer {
-    /* border: 2px solid green; */ 
     display: flex;
     flex-direction: column;
     width: 100%;   
@@ -131,7 +124,6 @@
 }
 
 .eventNameExp {
-    /*  border: 1px solid lightgray;  */
      cursor: not-allowed; 
      height: 20px;
      margin-bottom: 8px;
@@ -139,7 +131,6 @@
 }
  
 .participant {
-     /* border: 1px solid lightgray; */ 
      cursor: not-allowed; 
      height: 20px;
      margin-bottom: 8px;
@@ -151,13 +142,11 @@
     width: 200px;
     border-radius: 5px;
     font-weight: bold;
-    /* color: white; */
 }
 
 .expenseOwed {
     background-color: lightgray;
     width: 200px;
-    /* color: white; */
     border-radius: 5px;
     font-weight: bold;
 }

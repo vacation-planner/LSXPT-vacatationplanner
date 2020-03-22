@@ -16,7 +16,7 @@ import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 import "../../StyledComponents/Dashboards/Events/Calendar.css";
 //import "../../StyledComponents/Dashboards/Events/material-dashboard-pro-react.css";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
-import { Zoom, Tooltip, Typography } from "@material-ui/core";
+import { Zoom } from "@material-ui/core";
 
 const localizer = momentLocalizer(moment)
 
