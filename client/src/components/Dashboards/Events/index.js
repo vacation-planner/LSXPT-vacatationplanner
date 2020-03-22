@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { AppContext } from '../../Context/AppContext.js';
 import { fire } from "../../Auth/firebaseConfig";
 // Components
 import AddEvents from "./addEvents.js"
@@ -18,7 +19,54 @@ import { Zoom, Tooltip } from "@material-ui/core";
 /* import {
     tooltip
   } from "assets/jss/material-dashboard-pro-react.js"; */
-  
+
+
+const styles = theme => ({
+  cardBody: {
+    display: "flex",
+    /* justifyContent: "space-between", */
+    backgroundColor: "#E91E63",
+    /* height: "10%", */
+    [theme.breakpoints.up("sm")]: {
+      width: "100%",
+    }
+  },
+  cardBody2: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.up("sm")]: {
+      width: "100%",
+    }
+  },
+  cardBodyContainer1: {
+    display: "flex",
+    flexDirection: "Column",
+    [theme.breakpoints.up("sm")]: {
+      width: "25%",
+    }
+  },
+  cardBodyContainer2: {
+    display: "flex",
+    flexDirection: "Column",
+    [theme.breakpoints.up("sm")]: {
+      width: "25%",
+    }
+  },
+  cardBodyContainer3: {
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.up("sm")]: {
+      width: "50%",
+    }
+  },
+  gridItem: {
+    cursor: "pointer",
+    padding: 15,
+    paddingLeft: 35,
+    fontSize: "2rem",
+  },
+
+});
 
 class Events extends Component {
   constructor(props) {
@@ -47,17 +95,17 @@ class Events extends Component {
 componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
-   
+
     //this.fetchSecondaryUsers(this.state.vacationsId);
     console.log('vacationsId: ', this.state.vacationsId);
     this.fetchEvents(this.state.vacationsId);
 
-       this.setState({
-        usersUid: usersUid
-      }); 
-    };
+    this.setState({
+      usersUid: usersUid
+    });
+  };
 
-addEvent = () => {
+  addEvent = () => {
     // create a record using the input
     let eventsRec = {
         vacationsId: this.state.vacationsId,
@@ -68,18 +116,18 @@ addEvent = () => {
     }
 
     axios
-        .post('/events/', eventsRec)
-        .then(response => {
-            console.log("file written");
-            // get the id of the new record
-            this.fetchId(this.state.eventName);
-            this.setState({
-                displayEvents: true
-            });
-        })
-        .catch(err => {
-            console.log('We"ve encountered an error');
-        });  
+      .post('/events/', eventsRec)
+      .then(response => {
+        console.log("file written");
+        // get the id of the new record
+        this.fetchId(this.state.eventName);
+        this.setState({
+          displayEvents: true
+        });
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
   }
 
   fetchId = eventName => {
@@ -87,10 +135,10 @@ addEvent = () => {
       .get('/events')
       .then(response => {
         response.data.forEach((item, index) => {
-          if (item.eventName === this.state.eventName) {          
+          if (item.eventName === this.state.eventName) {
             this.setState({
-                eventsId: item.id,
-                disabled: false
+              eventsId: item.id,
+              disabled: false
             });
           }
         });
@@ -100,37 +148,57 @@ addEvent = () => {
       });
   };
 
-   fetchSecondaryUser = id => {
+  fetchSecondaryUser = id => {
     axios
-    .get(`/secondaryUsers/${id}`)
-    .then(response => {
-          this.setState({
-            participant: response.data.firstName,
-            secondaryUsersId: id
+      .get(`/secondaryUsers/${id}`)
+      .then(response => {
+        this.setState({
+          participant: response.data.firstName,
+          secondaryUsersId: id
+        });
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
       });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
-  } 
+  }
 
   fetchEvents = (vacationsId) => {
     let events = [];
-    axios
-    .get('/events/')
-    .then(response => {
-      response.data.forEach((event, index) => {
-        if (event.vacationsId === vacationsId) {          
-            events.push(event)
-        }
-          this.setState({
-            events: events
+    if (this.props.vacationsId !== undefined) {
+      axios
+        .get('/events/')
+        .then(response => {
+          response.data.forEach((event, index) => {
+            if (event.vacationsId === vacationsId) {
+              events.push(event)
+            }
+            this.setState({
+              events: events
+            });
           });
-      });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
+        })
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        });
+    }
+    else if (this.context.state.tempVacationHolder.title === this.props.title) {
+      axios
+        .get('/events/')
+        .then(response => {
+          response.data.forEach((event, index) => {
+            if (event.vacationsId === this.context.state.tempVacationHolder.id) {
+              events.push(event)
+            }
+            this.setState({
+              events: events,
+              vacationsId: this.context.state.tempVacationHolder.id,
+            });
+          });
+        })
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        });
+    }
   }
 
   fetchEvent = (eventsId) => {
@@ -161,23 +229,23 @@ addEvent = () => {
     this.fetchSecondaryUser(id);
   } */
 
-  eventSelect = (id) => {        
+  eventSelect = (id) => {
     this.fetchEvent(id);
     this.setState({
-        displayEvents: true
+      displayEvents: true
     });
 
   }
 
   handleChange = event => {
     this.setState({
-        [event.target.name]: event.target.value
-    }); 
+      [event.target.name]: event.target.value
+    });
   };
 
   eventList = (props) => {
     const eventItems = this.state.events.map((event) =>
-      <li key={event.id} className="event" onClick={() => {this.eventSelect(event.id)}}>{event.eventName}</li>
+      <li key={event.id} className="event" onClick={() => { this.eventSelect(event.id) }}>{event.eventName}</li>
     );
     return (
       <ul className="ul">{eventItems}</ul>
@@ -193,45 +261,44 @@ addEvent = () => {
     );
   } */
 
-render() {
-  const { classes } = this.props;
-  const { checked } = this.state;
- 
+  render() {
+    const { classes } = this.props;
+    const { checked } = this.state;
     return (
-        <div className="events"> 
-            <Zoom in={checked} > 
-                <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                        <Card style={{ width: "700px", marginLeft: "20px", height: "580px", marginRight: "100px", top: "20px"}}>
-                            <h2>Create Event: {this.state.eventName}</h2><Tooltip title="Delete">
-                            <h3>Current Vacation: {this.props.title}</h3></Tooltip>
-                            <CardBody   className={classes.cardBody2}>
-                                <CardBody  className={classes.cardBodyContainer1}>
-                               
-                                    <CardBody>
-                                        <h5>Name of New Event:{" "}
-                                         <input
-                                                type="text"
-                                                name="eventName"
-                                                onChange={this.handleChange}
-                                                value={this.state.eventName}
-                                                className="eventName"
-                                                placeholder={this.state.eventName}
-                                            />
-                                          </h5> 
-                                        
-                                    </CardBody>
-                                    <CardBody  xs={12} sm={12} md={4}>
-                                         {this.state.displayEvents ? ( 
-                                         <AddEvents 
-                                            eventsId={this.state.eventsId}
-                                            eventName={this.state.eventName} 
-                                            description={this.state.description} 
-                                            //title={this.state.title} 
-                                            //participant={this.state.participant}
-                                            disabled={this.state.disabled}
-                                            //secondaryUsersId={this.state.secondaryUsersId}
-                                            vacationsId={this.state.vacationsId}
+      <div className="events">
+        <Zoom in={checked} >
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={4}>
+              <Card style={{ width: "700px", marginLeft: "20px", height: "580px", marginRight: "100px", top: "20px" }}>
+                <h2>Create Event: {this.state.eventName}</h2><Tooltip title="Delete">
+                  <h3>Current Vacation: {this.props.title}</h3></Tooltip>
+                <CardBody className={classes.cardBody2}>
+                  <CardBody className={classes.cardBodyContainer1}>
+
+                    <CardBody>
+                      <h5>Name of New Event:{" "}
+                        <input
+                          type="text"
+                          name="eventName"
+                          onChange={this.handleChange}
+                          value={this.state.eventName}
+                          className="eventName"
+                          placeholder={this.state.eventName}
+                        />
+                      </h5>
+
+                    </CardBody>
+                    <CardBody xs={12} sm={12} md={4}>
+                      {this.state.displayEvents ? (
+                        <AddEvents
+                          eventsId={this.state.eventsId}
+                          eventName={this.state.eventName}
+                          description={this.state.description}
+                          //title={this.state.title} 
+                          //participant={this.state.participant}
+                          disabled={this.state.disabled}
+                          //secondaryUsersId={this.state.secondaryUsersId}
+                          vacationsId={this.state.vacationsId}
                                             /* startTimeDate={() => this.handleStartDate(this.state.startTimeDate)} */>
                                         </AddEvents>  
                                          ) : null}
@@ -273,7 +340,8 @@ render() {
                             <CardBody  className={classes.cardBody}>
                                {/*  <div className="logo"> */}
                                 <div className="logo">
-                                </div>{/*  <Tooltip
+
+                  </div>{/*  <Tooltip
                                 placement="top"
                                 disableFocusListener
                                 title={
@@ -282,25 +350,27 @@ render() {
                                     </Typography>
                                 }
                             > */}
-                               
-                                <Button  
-                                    style={{ marginLeft:"150px"}}
-                                    onClick={() => this.addEvent()} 
-                                    color="rose">Create
+
+                  <Button
+                    style={{ marginLeft: "150px" }}
+                    onClick={() => this.addEvent()}
+                    color="rose">Create
                                 </Button> {/* </Tooltip> */}
-                                <Button  
-                                    onClick={() => this.removeEvent()} 
-                                    color="rose"
-                                    disabled={true}>Remove
-                                </Button> 
-                            </CardBody>
-                        </Card>
-                    </GridItem>
-                </GridContainer>
-            </Zoom>
-        </div> 
+                  <Button
+                    onClick={() => this.removeEvent()}
+                    color="rose"
+                    disabled={true}>Remove
+                                </Button>
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
+        </Zoom>
+      </div>
     );
   }
 }
+
+Events.contextType = AppContext;
 
 export default withStyles(styles)(Events);
