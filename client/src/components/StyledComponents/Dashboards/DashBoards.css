@@ -119,7 +119,7 @@
 
 .cost  {
      border: 1px solid lightgray;
-     cursor: not-allowed; 
+     /* cursor: not-allowed; */ 
      font-weight: bold;
 }
 

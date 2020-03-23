@@ -349,6 +349,10 @@ class EventsCalendar extends React.Component {
     };
   }
 
+  /* isJustDate = (date) => {
+    return hours(date) === 0 && minutes(date) === 0 && seconds(date) === 0 && milliseconds(date) === 0;
+  } */
+
   submitForm = () => {
     // save the data to db
     window.alert("alert")
