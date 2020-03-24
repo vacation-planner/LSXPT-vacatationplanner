@@ -37,12 +37,12 @@ const styles = theme => ({
       margin: 'auto',
       [theme.breakpoints.up("sm")]: {
         width: '540px',   
-      },
+        },
       [theme.breakpoints.down("sm")]: { 
         flexDirection: "column",
         alignItems: 'center',
         width: '250px',  
-    }
+        }
   },
   btnContainer: {
     display: "flex",
@@ -55,7 +55,6 @@ const styles = theme => ({
     },
     [theme.breakpoints.down("sm")]: { 
       flexDirection: "column",
-      /* alignItems: 'center', */
   }
 },
    cardBodyContainer1: {
@@ -89,30 +88,20 @@ const styles = theme => ({
     Width: "700px", 
     height: "575px", 
     marginLeft: "20px", 
-    //marginRight: "100px", 
     top: "20px",
     [theme.breakpoints.up("md")]: {
         width: "700px",
-        //backgroundColor: "blue",
-        //height: "40px",   
-    },     //flexDirection: "row",
+    },  
     [theme.breakpoints.down("md")]: {
         width: "600px",
-        //backgroundColor: "blue",
-        //height: "40px",   
-    },     //flexDirection: "row",
-         /*   [theme.breakpoints.up("sm")]: { */
-          //width: "900px",
-          //height: "40px",   
-      /* }, */    
+    },   
       [theme.breakpoints.down("sm")]: { 
        width: "90%",  
         marginLeft: "0px", 
     },
     [theme.breakpoints.down("xs")]: { 
       width: "100%x", 
-      //backgroundColor: "blue", 
-  }
+    }
   },
     gridItem: {
         cursor: "pointer",

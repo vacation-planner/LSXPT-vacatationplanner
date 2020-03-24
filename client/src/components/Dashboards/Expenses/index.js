@@ -47,11 +47,10 @@ class Expenses extends Component {
     this.fetchEvents(this.state.vacationsId);
     // grab the list of secondary users
     this.fetchSecondaryUsers(this.state.vacationsId);
-    
-    };
+  };
 
-    // function saves the new expense to the database
-    // it checks a flag to determine if it needs to do a PUT or POST.
+  // function saves the new expense to the database
+  // it checks a flag to determine if it needs to do a PUT or POST.
   saveExpense = () => {
     // checking for empty fields 
     if (this.state.secondaryUsersExpense !== "") {
@@ -67,7 +66,7 @@ class Expenses extends Component {
           secondaryUsersFirstName: this.state.secondaryUsersFirstName,
           secondaryUsersLastName: this.state.secondaryUsersLastName,
         }
-          // check if this is a PUT or a POST
+      // check if this is a PUT or a POST
       if (this.state.editFlag === false) {
         axios
         .post('/expenses/', expenseRec)
@@ -105,38 +104,38 @@ class Expenses extends Component {
   fetchSecondaryUsers = (vacationsId) => {
     let secondaryUsers = [];
     if (this.state.vacationsId !== undefined) {
-    axios
-    .get('/secondaryUsers/')
-    .then(response => {
-      response.data.forEach((user, index) => {
-        if (user.vacationsId === vacationsId) {          
-          secondaryUsers.push(user)
-        } 
-      });
-        this.setState({
-          secondaryUsers: secondaryUsers
+      axios
+      .get('/secondaryUsers/')
+      .then(response => {
+        response.data.forEach((user, index) => {
+          if (user.vacationsId === vacationsId) {          
+            secondaryUsers.push(user)
+          } 
         });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
-  }else if (this.context.state.tempVacationHolder.title === this.props.title) {
-    axios
-    .get('/secondaryUsers/')
-    .then(response => {
-      response.data.forEach((user, index) => {
-        if (user.vacationsId === this.context.state.tempVacationHolder.id) {
-          secondaryUsers.push(user)
-        }
+          this.setState({
+            secondaryUsers: secondaryUsers
+          });
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
+    } else if (this.context.state.tempVacationHolder.title === this.props.title) {
+      axios
+      .get('/secondaryUsers/')
+      .then(response => {
+        response.data.forEach((user, index) => {
+          if (user.vacationsId === this.context.state.tempVacationHolder.id) {
+            secondaryUsers.push(user)
+          }   
+        });
         this.setState({
           secondaryUsers: secondaryUsers,
           vacationsId: this.context.state.tempVacationHolder.id,
         });
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
       });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
     }
   };
 
@@ -236,9 +235,9 @@ class Expenses extends Component {
             if (event.vacationsId === vacationsId) {
               events.push(event)
             }
-            this.setState({
-              events: events
-            });
+          });
+          this.setState({
+            events: events
           });
         })
         .catch(err => {
@@ -253,10 +252,10 @@ class Expenses extends Component {
             if (event.vacationsId === this.context.state.tempVacationHolder.id) {
               events.push(event)
             }
-            this.setState({
-              events: events,
-              vacationsId: this.context.state.tempVacationHolder.id,
-            });
+          });
+          this.setState({
+            events: events,
+            vacationsId: this.context.state.tempVacationHolder.id,
           });
         })
         .catch(err => {
