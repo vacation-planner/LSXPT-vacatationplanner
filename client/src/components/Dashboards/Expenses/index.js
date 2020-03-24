@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { AppContext } from '../../Context/AppContext.js';
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
-
 import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
-//import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
 import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
 import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
 import { Tooltip, Typography } from "@material-ui/core";
@@ -14,10 +12,6 @@ import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
 import NumberFormat from "react-number-format";
 import { Zoom } from "@material-ui/core";
-
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-//const URL = "http://localhost:5500/api";
-
 
 class Expenses extends Component {
   constructor(props) {
@@ -49,16 +43,11 @@ class Expenses extends Component {
 
   componentDidMount() {
     this.setState(state => ({ checked: !state.checked }));  
-    //let usersUid = fire.currentUser.uid;
-    // grab the list of secondary users
-    //this.fetchSecondaryUsers(this.state.vacationsId);
     // grab the list of current events
     this.fetchEvents(this.state.vacationsId);
-
+    // grab the list of secondary users
     this.fetchSecondaryUsers(this.state.vacationsId);
-     /*  this.setState({
-        usersUid: usersUid
-      }); */ 
+    
     };
 
     // function saves the new expense to the database
@@ -236,6 +225,7 @@ class Expenses extends Component {
       });
   };
 
+   // this function grabs the list of events from the table
   fetchEvents = (vacationsId) => {
     let events = [];
     if (this.props.vacationsId !== undefined) {
@@ -274,27 +264,6 @@ class Expenses extends Component {
         });
     }
   }
-
-   // this function grabs the list of events from the table
- /*  fetchEvents = (vacationsId) => {
-    let events = [];
-    axios
-    .get(`/events/`)
-    .then(response => {
-      response.data.forEach((event, index) => {
-        if (event.vacationsId === vacationsId) {          
-            events.push(event)
-        }
-        // i think i need to move this...  
-        this.setState({
-            events: events
-          });
-      });
-    })
-    .catch(err => {
-      console.log('We"ve encountered an error');
-    });
-  }; */
 
   // the user has clicked on a line item in the secondaryUser box
   listSelect = (id) => {        
