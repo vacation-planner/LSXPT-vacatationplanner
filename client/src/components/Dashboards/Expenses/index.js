@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { AppContext } from '../../Context/AppContext.js';
 import axios from "axios";
 import { fire } from "../../Auth/firebaseConfig";
+
 import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 //import Card from "../../StyledComponents/Dashboards/Expenses/js/Card.js";
@@ -14,7 +16,7 @@ import NumberFormat from "react-number-format";
 import { Zoom } from "@material-ui/core";
 
 //const URL = 'https://vacationplannerlx.herokuapp.com/api';
-const URL = "http://localhost:5500/api";
+//const URL = "http://localhost:5500/api";
 
 
 class Expenses extends Component {
@@ -49,9 +51,11 @@ class Expenses extends Component {
     this.setState(state => ({ checked: !state.checked }));  
     //let usersUid = fire.currentUser.uid;
     // grab the list of secondary users
-    this.fetchSecondaryUsers(this.state.vacationsId);
+    //this.fetchSecondaryUsers(this.state.vacationsId);
     // grab the list of current events
     this.fetchEvents(this.state.vacationsId);
+
+    this.fetchSecondaryUsers(this.state.vacationsId);
      /*  this.setState({
         usersUid: usersUid
       }); */ 
@@ -65,7 +69,7 @@ class Expenses extends Component {
       if (this.state.expenseOwed !== "") {
         let expenseRec = {
           eventsId: this.state.eventsId,
-          vacationsId: this.props.vacationsId,
+          vacationsId: this.state.vacationsId,
           eventName: this.state.eventName,
           vacationsTitle: this.props.title,
           secondaryUsersId: this.state.secondaryUsersId,
@@ -111,6 +115,7 @@ class Expenses extends Component {
    // this function grabs the list of secondary users from the table
   fetchSecondaryUsers = (vacationsId) => {
     let secondaryUsers = [];
+    if (this.state.vacationsId !== undefined) {
     axios
     .get('/secondaryUsers/')
     .then(response => {
@@ -126,6 +131,24 @@ class Expenses extends Component {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
+  }else if (this.context.state.tempVacationHolder.title === this.props.title) {
+    axios
+    .get('/secondaryUsers/')
+    .then(response => {
+      response.data.forEach((user, index) => {
+        if (user.vacationsId === this.context.state.tempVacationHolder.id) {
+          secondaryUsers.push(user)
+        }
+        this.setState({
+          secondaryUsers: secondaryUsers,
+          vacationsId: this.context.state.tempVacationHolder.id,
+        });
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+    }
   };
 
   // this function grabs the secondaryUser record for a single user
@@ -213,11 +236,50 @@ class Expenses extends Component {
       });
   };
 
-   // this function grabs the list of events from the table
   fetchEvents = (vacationsId) => {
     let events = [];
+    if (this.props.vacationsId !== undefined) {
+      axios
+        .get('/events/')
+        .then(response => {
+          response.data.forEach((event, index) => {
+            if (event.vacationsId === vacationsId) {
+              events.push(event)
+            }
+            this.setState({
+              events: events
+            });
+          });
+        })
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        });
+    }
+    else if (this.context.state.tempVacationHolder.title === this.props.title) {
+      axios
+        .get('/events/')
+        .then(response => {
+          response.data.forEach((event, index) => {
+            if (event.vacationsId === this.context.state.tempVacationHolder.id) {
+              events.push(event)
+            }
+            this.setState({
+              events: events,
+              vacationsId: this.context.state.tempVacationHolder.id,
+            });
+          });
+        })
+        .catch(err => {
+          console.log('We"ve encountered an error');
+        });
+    }
+  }
+
+   // this function grabs the list of events from the table
+ /*  fetchEvents = (vacationsId) => {
+    let events = [];
     axios
-    .get(`${URL}/events/`)
+    .get(`/events/`)
     .then(response => {
       response.data.forEach((event, index) => {
         if (event.vacationsId === vacationsId) {          
@@ -232,7 +294,7 @@ class Expenses extends Component {
     .catch(err => {
       console.log('We"ve encountered an error');
     });
-  };
+  }; */
 
   // the user has clicked on a line item in the secondaryUser box
   listSelect = (id) => {        
@@ -395,5 +457,7 @@ render() {
     );
   }
 }
+
+Expenses.contextType = AppContext;
 
 export default withStyles(styles)(Expenses);

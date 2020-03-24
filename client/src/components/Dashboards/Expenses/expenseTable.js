@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AppContext } from '../../Context/AppContext.js';
 import ReactTable from "react-table-6"; 
 import 'react-table-6/react-table.css'
 import axios from "axios";
@@ -40,18 +41,30 @@ class ExpenseTable extends Component {
 
   fetchCurrentParticipant = data => {
 
-
   }
 
   filterEvents = data => {
     console.log("data: ", data)
     let expenses = [];
+   
+    if (this.props.vacationsId !== undefined) {
     data.forEach((item, index) => {
-      if (this.props.vacationsId === item.vacationsId) {
+      if (this.state.vacationsId === item.vacationsId) {
         expenses.push(item);
       }
     })
     this.setState(() => ({ expenses: expenses }));
+  } else  if (this.context.state.tempVacationHolder.title === this.props.title) {
+    data.forEach((item, index) => {
+      if (this.context.state.tempVacationHolder.id === item.vacationsId) {
+        expenses.push(item);
+      }
+    })
+    this.setState(() => ({ expenses: expenses,
+      vacationsId: this.context.state.tempVacationHolder.id,
+     }));
+  }
+
   }
   
   renderEditable(cellInfo) {
@@ -148,5 +161,7 @@ class ExpenseTable extends Component {
     );
   }
 }
+
+ExpenseTable.contextType = AppContext;
 
 export default withStyles(styles)(ExpenseTable);
