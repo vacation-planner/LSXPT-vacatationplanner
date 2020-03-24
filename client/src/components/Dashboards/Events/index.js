@@ -116,7 +116,7 @@ class Events extends Component {
     axios
       .post('/events/', eventsRec)
       .then(response => {
-        console.log("file written");
+        console.log("file written", response);
         // get the id of the new record
         this.fetchId(this.state.eventName);
         this.setState({
@@ -204,6 +204,7 @@ class Events extends Component {
     axios
       .get(`/events/${eventsId}`)
       .then(response => {
+        console.log({start: response.data.startDateTime, end: response.data.endDateTime})
         this.setState({
           eventsId: eventsId,
           eventName: response.data.eventName,
@@ -296,6 +297,8 @@ class Events extends Component {
                           disabled={this.state.disabled}
                           //secondaryUsersId={this.state.secondaryUsersId}
                           vacationsId={this.state.vacationsId}
+                          start={this.state.startDateTime}
+                          end={this.state.endDateTime}
                                             /* startTimeDate={() => this.handleStartDate(this.state.startTimeDate)} */>
                         </AddEvents>
                       ) : null}

@@ -19,8 +19,8 @@ class AddEvents extends Component {
     eventsId: this.props.eventsId,
     eventName: this.props.eventName,
     description: this.props.description,
-    startDateTime: "",
-    endDateTime: "",
+    startDateTime: '',
+    endDateTime: '',
     disabled: this.props.disabled,
     vacationsId: this.props.vacationsId,
     vacationsTitle: this.props.title,
@@ -35,6 +35,11 @@ componentDidMount() {
   }); 
 };
 
+componentWillReceiveProps() {
+  console.log({message: "cWRP triggered", name: this.props.eventName, start: this.props.start, end: this.props.end})
+  return this.props.start && this.props.end ? this.setState({startDateTime: this.props.start, endDateTime: this.props.end}) : null;
+}
+
 handleChange = event => {
   this.setState({
       [event.target.name]: event.target.value
@@ -45,7 +50,7 @@ handleStartChange = event => {
   if (this.props.disabled) {
     alert("Please create an event first.")
   } else {
-  let startDateTime = moment(event).format();
+  let startDateTime = moment(event).format('MMM Do YY LT');
    // update the current event record
     let eventsRec = {
       eventName: this.props.eventName,
@@ -75,7 +80,7 @@ handleEndChange = event => {
   if (this.props.disabled) {
     alert("Please create a event first.")
   } else {
-  let endDateTime = moment(event).format();
+  let endDateTime = moment(event).format('MMM Do YY LT');
   // update the current vacation record
   let eventRec = {
     eventName: this.props.eventName,
@@ -103,6 +108,7 @@ axios
 };
 
  render() {
+   console.log({start: this.state.startDateTime, end: this.state.endDateTime})
   const classes = this.props;
   return (
     <div className="eventContainer">
@@ -113,8 +119,8 @@ axios
         <br />
         <FormControl fullWidth>
           <Datetime /* timeFormat={false} */
-            value={this.props.value}
-            onChange={event => this.handleStartChange(event)} 
+            value={this.state.startDateTime}
+            onChange={event => this.handleStartChange(event)}
             inputProps={{ 
               placeholder: "Start Event"
             }}
@@ -127,8 +133,8 @@ axios
         <FormControl fullWidth>
           <Datetime
             /*  timeFormat={false} */
-            value={this.props.value}
-            onChange={event => this.handleEndChange(event)} 
+            value={this.state.endDateTime}
+            onChange={event => this.handleEndChange(event)}
             inputProps={{ placeholder: "End Event" }}
           />
         </FormControl>
