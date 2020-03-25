@@ -21,7 +21,8 @@
 .participantsList {
     border: 1px solid gray;
     overflow-y: auto;
-    height: 120px;
+    height: auto;
+    max-height: 120px;
     width: 200px;
     font-size: 12px;
 }
@@ -65,7 +66,8 @@
 .eventsList {
     border: 1px solid gray;
     overflow-y: auto;
-    height: 120px;
+    height: auto;
+    max-height: 120px;
     width: 200px;
     font-size: 12px;
 }

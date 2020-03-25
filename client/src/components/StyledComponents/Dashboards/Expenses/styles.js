@@ -62,7 +62,8 @@ const styles = theme => ({
       flexDirection: "Column",
       [theme.breakpoints.up("sm")]: {
           maxWidth: "260px", 
-          height: '385px',  
+          height: 'auto',
+          /* height: '385px',  */ 
       },
       [theme.breakpoints.down("sm")]: { 
         width: "250px",  
@@ -77,7 +78,8 @@ const styles = theme => ({
       alignItems: 'center',  
       [theme.breakpoints.up("sm")]: {
           maxWidth: "250px", 
-          height: '385px',   
+          height: 'auto', 
+         /*  height: '385px', */   
       },
       [theme.breakpoints.down("sm")]: { 
         width: "250px",  

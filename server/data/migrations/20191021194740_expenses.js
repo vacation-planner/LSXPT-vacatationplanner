@@ -12,6 +12,8 @@ exports.up = function (knex) {
         expenses.string('secondaryUsersLastName');
         expenses.decimal('expenseOwed');
         expenses.decimal('secondaryUsersExpense');
+        expenses.string('secondaryUsersIsOwedToLastName');
+        expenses.string('secondaryUsersIsOwedToFirstName');
       })
   };
   
