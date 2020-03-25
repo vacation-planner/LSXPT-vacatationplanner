@@ -124,8 +124,31 @@ class EventsCalendar extends React.Component {
     console.log("value: ", event.target.value)
   };
 
+  // when you click an existing event
   selectedEvent = event => {
-    console.log("in the selected event: ", event)
+   /*  console.log("in the addnew: ", slotInfo)
+    let events = this.state.events;
+    //slotInfo.slots.forEach((vacation, index) => {
+
+    events.push({
+      //id: item.id,
+      title: "test",
+      start: slotInfo.start,
+      end: slotInfo.end,
+      desc: "item.location",
+    })
+    //})
+    console.log("events: ", events)
+    this.setState({
+      events: events
+    });
+
+    this.writeToDb(slotInfo); */
+
+
+//###########################################
+
+  /*   console.log("in the selected event: ", event)
     swal(
       <div>
         <form onSubmit={this.submitForm} >
@@ -148,7 +171,7 @@ class EventsCalendar extends React.Component {
           />
         </form>
       </div>
-    )
+    ) */
   }
 
   fetchVacationData = (vacationsId) => {
@@ -213,7 +236,33 @@ class EventsCalendar extends React.Component {
   }
 
   addNewEventAlert = slotInfo => {
-    console.log("in the addnew: ", slotInfo)
+    /* console.log("in the selected event: ", event)
+    swal(
+      <div>
+        <form onSubmit={this.submitForm} >
+          <h1>Hello!</h1>
+          <p>Please enter a name for the event:</p>
+          <input
+            type="text"
+            name="eventName"
+            onChange={this.handleChange}
+            value={this.props.value}
+            className="eventName"
+          />
+          <p>Please enter a description for the event:</p>
+          <input
+            type="text"
+            name="description"
+            onChange={this.handleChange}
+            value={this.props.value}
+            className="description"
+          />
+        </form>
+      </div>
+    ) */
+    
+    
+   /*  console.log("in the addnew: ", slotInfo)
     let events = this.state.events;
     //slotInfo.slots.forEach((vacation, index) => {
 
@@ -230,7 +279,7 @@ class EventsCalendar extends React.Component {
       events: events
     });
 
-    this.writeToDb(slotInfo);
+    this.writeToDb(slotInfo); */
   }
 
   // ******************************************************
@@ -332,7 +381,7 @@ class EventsCalendar extends React.Component {
     // the events really need to be different colors in the calendar
     // *************************************************************
     //let rndNbr = this.getRndInteger(1,6);
-    let backgroundColor = this.colorPicker(this.getRndInteger(1,6)); 
+    let backgroundColor = this.colorPicker(this.getRndInteger(1,1)); 
     // used a function with a switch statement to determine which color will be used
     //let backgroundColor = hexColor;
      // new color is applied to the style
@@ -348,10 +397,6 @@ class EventsCalendar extends React.Component {
       style: style
     };
   }
-
-  /* isJustDate = (date) => {
-    return hours(date) === 0 && minutes(date) === 0 && seconds(date) === 0 && milliseconds(date) === 0;
-  } */
 
   submitForm = () => {
     // save the data to db

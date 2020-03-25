@@ -1,16 +1,13 @@
 const styles = theme => ({
     cardBody: {
         display: "flex",
-        /* justifyContent: "space-between", */
          backgroundColor: "#E91E63",  
-        /* height: "10%", */
         [theme.breakpoints.up("sm")]: {
             width: "100%",    
         }
     },
     cardBody2: {
       display: "flex",
-      //backgroundColor: 'green',
       flexDirection: "row",
       [theme.breakpoints.up("sm")]: {
           width: "100%",   
@@ -25,7 +22,6 @@ const styles = theme => ({
   },
   cardBodyContainer2: {
       display: "flex",
-      //backgroundColor: 'red',
       flexDirection: "Column",
       [theme.breakpoints.up("sm")]: {
           width: "100px",   
