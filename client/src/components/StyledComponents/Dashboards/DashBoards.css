@@ -20,11 +20,14 @@
 
 .participantsList {
     border: 1px solid gray;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     height: auto;
     max-height: 120px;
     width: 200px;
     font-size: 12px;
+    scroll-behavior: smooth;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .participants {
@@ -65,11 +68,14 @@
 
 .eventsList {
     border: 1px solid gray;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     height: auto;
     max-height: 120px;
     width: 200px;
     font-size: 12px;
+    scroll-behavior: smooth;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .eventContainer {

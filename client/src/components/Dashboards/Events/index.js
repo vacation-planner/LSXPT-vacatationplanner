@@ -272,7 +272,7 @@ componentDidMount() {
                                         </h5>
                                     </CardBody>
                                     <CardBody> 
-                                        <h5>Event Cost:{" "}
+                                        <h5>Event Total Cost:{" "}
                                             <input
                                                 type="text"
                                                 name="cost"
@@ -308,12 +308,12 @@ componentDidMount() {
                     style={{ marginLeft: "150px" }}
                     onClick={() => this.addEvent()}
                     color="rose">Create
-                                </Button> {/* </Tooltip> */}
+                  </Button> {/* </Tooltip> */}
                   <Button
                     onClick={() => this.removeEvent()}
                     color="rose"
                     disabled={true}>Remove
-                                </Button>
+                  </Button>
                 </CardBody>
               </Card>
             </GridItem>

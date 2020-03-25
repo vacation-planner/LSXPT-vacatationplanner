@@ -23,8 +23,6 @@ class Expenses extends Component {
     vacationsId: this.props.vacationsId,
     eventsId: "",
     events: [],
-    disabled: true,
-    deleteDisabled: true,
     participant: "",
     secondaryUsersId: 1,
     secondaryUsers: [],
@@ -34,6 +32,8 @@ class Expenses extends Component {
     secondaryUsersFirstName: "",
     secondaryUsersLastName: "",
     checked: false,
+    disabled: true,
+    deleteDisabled: true,
     cost: 0,
     listVisible: false,
     editFlag: false,
@@ -71,7 +71,7 @@ class Expenses extends Component {
         axios
         .post('/expenses/', expenseRec)
         .then(response => {
-            console.log("file written");
+            console.log("new record created");
             this.setState({
               deleteDisabled: false,    
             });  
@@ -85,7 +85,7 @@ class Expenses extends Component {
         axios
         .put(`/expenses/${this.state.expenseId}`, expenseRec)
         .then(response => {
-            console.log("file updated");
+            console.log("record updated");
             this.setState({
               editFlag: false,    
             });  
