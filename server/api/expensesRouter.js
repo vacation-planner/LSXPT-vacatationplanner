@@ -7,8 +7,8 @@ const secret = "shhhisthisasecret";
 const errString = 'The server responded with an error of: '
 
 // Get all expenses
-router.get('/', (req, res) => {
-    expenses.get()
+router.get('/', async (req, res) => {
+    await expenses.get()
     .then(data => {
         res.status(200).json(data);
     })
@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 // Get an expense by id
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
-    expenses
+ await   expenses
         .getById(id)
         .then(response => {
             res
@@ -37,7 +37,7 @@ router.get('/:id', async (req, res) => {
 // Get expenses by user id
 router.get('/user/:uid', async (req, res) => {
     const {uid} = req.params;
-    expenses.getByUid(uid).then(response => {
+await    expenses.getByUid(uid).then(response => {
         res.status(200).json(response);
     })
     .catch(err => {
@@ -48,9 +48,9 @@ router.get('/user/:uid', async (req, res) => {
 /********* Get By Event Id *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/:vacationId', protect, (req, res) => {
-    router.get("/events/:eventsId", (req, res) => {
+    router.get("/events/:eventsId", async (req, res) => {
         const { eventsId } = req.params;
-        expenses
+    await    expenses
           .getByEventsId(eventsId)
           .then(expense => {
             if (expense) {

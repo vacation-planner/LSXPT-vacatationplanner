@@ -62,7 +62,12 @@ const styles = theme => ({
       marginTop: 10,
       minWidth: 200,
     },
-  }
+  },
+  container2: {
+    width: "100%",
+    height: 60,
+    backgroundColor: '#E91E63',
+  },  
 })
 
 class AddUsers extends Component {
@@ -219,6 +224,7 @@ class AddUsers extends Component {
   secondaryUsersList = (props) => {
     // *****************************************************************************
     // try to insert a button for each list item so emails can be sent individually
+    // current code will send an email when you click on the secondary user
     // ****************************************************************************
     const secondaryUsers = this.state.usersList.map((secondaryUser) =>
       <li key={secondaryUser.id} className="secondaryUsers" onClick={() => { this.secondaryUserSelect(secondaryUser.id) }}>{secondaryUser.firstName},{secondaryUser.lastName},{secondaryUser.email}</li>
@@ -253,23 +259,8 @@ class AddUsers extends Component {
 
   render() {
     const { classes } = this.props;
-    /*  if (this.state.usersList.length) {
-         // returns loading sign while data is being retrieved from API
-         return <Loading>Loading Users...</Loading>;
-       } */
     const { checked } = this.state;
-    /* let rows = [];
-    // **************************************
-    // NOTE: need to correct the formatting
-    // *************************************
-    this.state.usersList.forEach((user, index) => {
-      // Loops through array of secondary users and lists them in a div
-      rows.push(
-          <UsersContainer className="usersContainer" key={index} onClick={event => this.rowHandler(event)}>
-              {user.firstName}, {user.lastName}, {user.email}      
-          </UsersContainer>
-          );
-      }); */
+   
     return (
       <div className="addParticipants">
         <UsersContainer>
@@ -277,8 +268,9 @@ class AddUsers extends Component {
             <GridContainer>
               <GridItem>
                 <Card className={classes.container}>
+                <form className="addUsers" onSubmit={this.onSubmit}>
                   <CardBody>
-                    <form className="addUsers" onSubmit={this.onSubmit}>
+                   
                       <h4>Add Participants to Vacation: {this.state.vacationsTitle}</h4>
                       <Row>
                         First Name: &nbsp;
@@ -323,13 +315,15 @@ class AddUsers extends Component {
                       <div className="users-list">
                         {this.secondaryUsersList()}
                       </div>
-                      <h5>Select a person from the list to send an email.</h5>
-                      {/*  <Button  
-                                onClick={() => this.invite()} 
-                                color="rose">Send Invites
-                            </Button> */}
-                    </form>
+                      <h5>Select a person from the list to send an email or click the button to send it to everyone.</h5>   
                   </CardBody>
+                  <CardBody className={classes.container2}>
+                  <Button  
+                    onClick={() => this.invite()} 
+                    color="rose">Send Invites
+                  </Button> 
+                    </CardBody>
+                    </form>
                 </Card>
               </GridItem>
             </GridContainer>

@@ -10,93 +10,47 @@ import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridConta
 import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
 //import TooltipsStyle from "../../StyledComponents/Dashboards/Events/js/";
-
 import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
-import { Zoom, Tooltip, Typography } from "@material-ui/core";
+import styles from "../../StyledComponents/Dashboards/Events/styles.js";
+import { Zoom, Tooltip } from "@material-ui/core";
 
 /* import {
     tooltip
   } from "assets/jss/material-dashboard-pro-react.js"; */
 
 
-const styles = theme => ({
-  cardBody: {
-    display: "flex",
-    /* justifyContent: "space-between", */
-    backgroundColor: "#E91E63",
-    /* height: "10%", */
-    [theme.breakpoints.up("sm")]: {
-      width: "100%",
-    }
-  },
-  cardBody2: {
-    display: "flex",
-    flexDirection: "row",
-    [theme.breakpoints.up("sm")]: {
-      width: "100%",
-    }
-  },
-  cardBodyContainer1: {
-    display: "flex",
-    flexDirection: "Column",
-    [theme.breakpoints.up("sm")]: {
-      width: "25%",
-    }
-  },
-  cardBodyContainer2: {
-    display: "flex",
-    flexDirection: "Column",
-    [theme.breakpoints.up("sm")]: {
-      width: "25%",
-    }
-  },
-  cardBodyContainer3: {
-    display: "flex",
-    flexDirection: "row",
-    [theme.breakpoints.up("sm")]: {
-      width: "50%",
-    }
-  },
-  gridItem: {
-    cursor: "pointer",
-    padding: 15,
-    paddingLeft: 35,
-    fontSize: "2rem",
-  },
-
-});
-
 class Events extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      usersUid: "",
-      value: "",
-      eventName: "",
-      title: this.props.title,
-      vacationsId: this.props.vacationsId,
-      startDateTime: "",
-      endDateTime: "",
-      description: "",
-      eventsId: "",
-      events: [],
-      disabled: false,
-      participant: "",
-      secondaryUsersId: 1,
-      secondaryUsers: [],
-      checked: false,
-      displayEvents: false,
-    };
-  };
+  this.state = {
+    usersUid: "",
+    value: "",
+    eventName: "",
+    title: this.props.title,
+    vacationsId: this.props.vacationsId,
+    startDateTime: "",
+    endDateTime: "",
+    description: "",
+    eventsId: "",
+    events: [],
+    disabled: false,
+    participant: "",
+    secondaryUsersId: 1,
+    secondaryUsers: [],
+    checked: false,
+    displayEvents: false,
+    cost: 0,
+   };
+};
 
-  componentDidMount() {
-    this.setState(state => ({ checked: !state.checked }));
+componentDidMount() {
+    this.setState(state => ({ checked: !state.checked }));  
     let usersUid = fire.currentUser.uid;
 
     //this.fetchSecondaryUsers(this.state.vacationsId);
-
+    console.log('vacationsId: ', this.state.vacationsId);
     this.fetchEvents(this.state.vacationsId);
 
     this.setState({
@@ -107,10 +61,11 @@ class Events extends Component {
   addEvent = () => {
     // create a record using the input
     let eventsRec = {
-      eventName: this.state.eventName,
-      description: this.state.description,
-      usersUid: this.state.usersUid,
-      vacationsId: this.state.vacationsId,
+        vacationsId: this.state.vacationsId,
+        eventName: this.state.eventName,
+        description: this.state.description,
+        usersUid: this.state.usersUid,
+        cost: this.state.cost,
     }
 
     axios
@@ -202,19 +157,20 @@ class Events extends Component {
   fetchEvent = (eventsId) => {
     //let events = [];
     axios
-      .get(`/events/${eventsId}`)
-      .then(response => {
-        this.setState({
-          eventsId: eventsId,
-          eventName: response.data.eventName,
-          startDateTime: response.data.startDateTime,
-          endDateTime: response.data.endDateTime,
-          description: response.data.description,
-        });
-      })
-      .catch(err => {
-        console.log('We"ve encountered an error');
-      });
+    .get(`/events/${eventsId}`)
+    .then(response => {         
+             this.setState({
+                eventsId: eventsId,
+                eventName: response.data.eventName,
+                startDateTime: response.data.startDateTime,
+                endDateTime: response.data.endDateTime,
+                description: response.data.description,
+                cost: response.data.cost,
+            }); 
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
 
   }
 
@@ -297,35 +253,47 @@ class Events extends Component {
                           //secondaryUsersId={this.state.secondaryUsersId}
                           vacationsId={this.state.vacationsId}
                                             /* startTimeDate={() => this.handleStartDate(this.state.startTimeDate)} */>
-                        </AddEvents>
-                      ) : null}
-                    </CardBody>
+                                        </AddEvents>  
+                                         ) : null}
+                                    </CardBody>
+                                   
+                                </CardBody>
+                               
+                                <CardBody  className={classes.cardBodyContainer2}>
+                                    <CardBody> 
+                                        <h5>Event Description:{" "}
+                                            <input
+                                                type="text"
+                                                name="description"
+                                                onChange={this.handleChange}
+                                                value={this.state.description}
+                                                className="description"
+                                            />  
+                                        </h5>
+                                    </CardBody>
+                                    <CardBody> 
+                                        <h5>Event Cost:{" "}
+                                            <input
+                                                type="text"
+                                                name="cost"
+                                                onChange={this.handleChange}
+                                                value={this.state.cost}
+                                                className="cost"
+                                            />  
+                                        </h5>
+                                    </CardBody>
+                                    <CardBody> 
+                                        <h3>Available Events:</h3>{" "}                                
+                                        <div className="eventsList">
+                                            {this.eventList()} 
+                                        </div>          
+                                    </CardBody>
+                                </CardBody>
+                            </CardBody>                        
+                            <CardBody  className={classes.cardBody}>
+                               {/*  <div className="logo"> */}
+                                <div className="logo">
 
-                  </CardBody>
-
-                  <CardBody className={classes.cardBodyContainer2}>
-                    <CardBody>
-                      <h5>Event Description:{" "}
-                        <input
-                          type="text"
-                          name="description"
-                          onChange={this.handleChange}
-                          value={this.state.description}
-                          className="description"
-                        />
-                      </h5>
-                    </CardBody>
-                    <CardBody>
-                      <h3>Available Events:</h3>{" "}
-                      <div className="eventsList">
-                        {this.eventList()}
-                      </div>
-                    </CardBody>
-                  </CardBody>
-                </CardBody>
-                <CardBody className={classes.cardBody}>
-                  {/*  <div className="logo"> */}
-                  <div className="logo">
                   </div>{/*  <Tooltip
                                 placement="top"
                                 disableFocusListener
