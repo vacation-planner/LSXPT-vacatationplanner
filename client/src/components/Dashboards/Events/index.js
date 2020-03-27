@@ -37,11 +37,14 @@ class Events extends Component {
     events: [],
     disabled: false,
     participant: "",
-    secondaryUsersId: 1,
+    secondaryUsersId: "",
     secondaryUsers: [],
+    secondaryUsersFirstName: "",
+    secondaryUsersLastName: "",
     checked: false,
     displayEvents: false,
     cost: 0,
+    listVisible: false,
    };
 };
 
@@ -52,6 +55,8 @@ componentDidMount() {
     //this.fetchSecondaryUsers(this.state.vacationsId);
     console.log('vacationsId: ', this.state.vacationsId);
     this.fetchEvents(this.state.vacationsId);
+     // grab the list of secondary users
+     this.fetchSecondaryUsers(this.state.vacationsId);
 
     this.setState({
       usersUid: usersUid
@@ -60,12 +65,16 @@ componentDidMount() {
 
   addEvent = () => {
     // create a record using the input
+    // the secondaryUsersId is a pointer to the payment recipient,
+    // it is who the money is owed to.
+    // also need to do either a PUT or a POST.
     let eventsRec = {
         vacationsId: this.state.vacationsId,
         eventName: this.state.eventName,
         description: this.state.description,
         usersUid: this.state.usersUid,
         cost: this.state.cost,
+        secondaryUsersId: this.state.secondaryUsersId,
     }
 
     axios
@@ -101,12 +110,15 @@ componentDidMount() {
       });
   };
 
+  // grab the first and last name of the selected secondary user
   fetchSecondaryUser = id => {
     axios
       .get(`/secondaryUsers/${id}`)
       .then(response => {
         this.setState({
-          participant: response.data.firstName,
+          secondaryUsersFirstName: response.data.firstName,
+          secondaryUsersLastName: response.data.lastName,
+          //participant: response.data.firstName,
           secondaryUsersId: id
         });
       })
@@ -114,6 +126,45 @@ componentDidMount() {
         console.log('We"ve encountered an error');
       });
   }
+
+  // grabs all the secondary users
+  fetchSecondaryUsers = (vacationsId) => {
+    let secondaryUsers = [];
+    if (this.state.vacationsId !== undefined) {
+      axios
+      .get('/secondaryUsers/')
+      .then(response => {
+        response.data.forEach((user, index) => {
+          if (user.vacationsId === vacationsId) {          
+            secondaryUsers.push(user)
+          } 
+        });
+          this.setState({
+            secondaryUsers: secondaryUsers
+          });
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
+    } else if (this.context.state.tempVacationHolder.title === this.props.title) {
+      axios
+      .get('/secondaryUsers/')
+      .then(response => {
+        response.data.forEach((user, index) => {
+          if (user.vacationsId === this.context.state.tempVacationHolder.id) {
+            secondaryUsers.push(user)
+          }   
+        });
+        this.setState({
+          secondaryUsers: secondaryUsers,
+          vacationsId: this.context.state.tempVacationHolder.id,
+        });
+      })
+      .catch(err => {
+        console.log('We"ve encountered an error');
+      });
+    }
+  };
 
   fetchEvents = (vacationsId) => {
     let events = [];
@@ -154,6 +205,7 @@ componentDidMount() {
     }
   }
 
+  // we have to do two lookups
   fetchEvent = (eventsId) => {
     //let events = [];
     axios
@@ -166,7 +218,16 @@ componentDidMount() {
                 endDateTime: response.data.endDateTime,
                 description: response.data.description,
                 cost: response.data.cost,
-            }); 
+                secondaryUsersId: response.data.secondaryUsersId,
+                listVisible: true,
+                secondaryUsersFirstName: "",
+                secondaryUsersLastName: "",
+            });
+            console.log('secondaryUsersId: ',this.state.secondaryUsersId);
+          if ((this.state.secondaryUsersId !== "") && (this.state.secondaryUsersId !== null)) {
+            this.fetchSecondaryUser(this.state.secondaryUsersId);
+          } 
+
     })
     .catch(err => {
       console.log('We"ve encountered an error');
@@ -174,13 +235,13 @@ componentDidMount() {
 
   }
 
-  handleStartDate = startDate => {
+  /* handleStartDate = startDate => {
     console.log('startdate: ', startDate);
-  }
-
-  /* listSelect = (id) => {        
-    this.fetchSecondaryUser(id);
   } */
+
+   listSelect = (id) => {        
+    this.fetchSecondaryUser(id);
+  } 
 
   eventSelect = (id) => {
     this.fetchEvent(id);
@@ -205,14 +266,14 @@ componentDidMount() {
     );
   }
 
-  /* participantList = (props) => {
+   participantList = (props) => {
     const listItems = this.state.secondaryUsers.map((user) =>
       <li key={user.id} className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
     );
     return (
       <ul className="ul">{listItems}</ul>
     );
-  } */
+  } 
 
   render() {
     const { classes } = this.props;
@@ -222,12 +283,11 @@ componentDidMount() {
         <Zoom in={checked} >
           <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-              <Card style={{ width: "700px", marginLeft: "20px", height: "580px", marginRight: "100px", top: "20px" }}>
+              <Card style={{ width: "700px", marginLeft: "20px", height: "auto", marginRight: "100px", top: "20px" }}>
                 <h2>Create Event: {this.state.eventName}</h2><Tooltip title="Delete">
                   <h3>Current Vacation: {this.props.title}</h3></Tooltip>
                 <CardBody className={classes.cardBody2}>
                   <CardBody className={classes.cardBodyContainer1}>
-
                     <CardBody>
                       <h5>Name of New Event:{" "}
                         <input
@@ -239,7 +299,6 @@ componentDidMount() {
                           placeholder={this.state.eventName}
                         />
                       </h5>
-
                     </CardBody>
                     <CardBody xs={12} sm={12} md={4}>
                       {this.state.displayEvents ? (
@@ -255,10 +314,8 @@ componentDidMount() {
                                             /* startTimeDate={() => this.handleStartDate(this.state.startTimeDate)} */>
                                         </AddEvents>  
                                          ) : null}
-                                    </CardBody>
-                                   
+                                    </CardBody>   
                                 </CardBody>
-                               
                                 <CardBody  className={classes.cardBodyContainer2}>
                                     <CardBody> 
                                         <h5>Event Description:{" "}
@@ -283,11 +340,24 @@ componentDidMount() {
                                         </h5>
                                     </CardBody>
                                     <CardBody> 
-                                        <h3>Available Events:</h3>{" "}                                
-                                        <div className="eventsList">
-                                            {this.eventList()} 
-                                        </div>          
+                                      <h4>Payment Recipient (select from list): </h4>
+                                      <div className="participant">
+                                      <p> {this.state.secondaryUsersFirstName} {this.state.secondaryUsersLastName}</p>
+                                      </div>
+                                    </CardBody> 
+                                    <CardBody> 
+                                      <h3>Available Events:</h3>{" "}                                
+                                      <div className="eventsList">
+                                          {this.eventList()} 
+                                        </div>      
                                     </CardBody>
+                                    <CardBody> 
+                                      <h3>Participants:</h3>{" "}  
+                                        {this.state.listVisible ? (
+                                      <div className="participantsList">
+                                        {this.participantList()}                                        
+                                      </div>) : null}
+                                    </CardBody> 
                                 </CardBody>
                             </CardBody>                        
                             <CardBody  className={classes.cardBody}>
