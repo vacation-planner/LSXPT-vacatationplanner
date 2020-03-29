@@ -67,7 +67,7 @@ const styles = theme => ({
     width: "100%",
     height: 60,
     backgroundColor: '#E91E63',
-  },  
+  },
 })
 
 class AddUsers extends Component {
@@ -83,6 +83,7 @@ class AddUsers extends Component {
       vacationsTitle: this.props.title,
       checked: false,
       disabled: true,
+      secondaryUserId: undefined,
     };
   }
 
@@ -165,6 +166,10 @@ class AddUsers extends Component {
         lastName: "",
         email: "",
       });
+      setTimeout(() => {
+        this.displayUsers()
+        this.secondaryUsersList()
+      }, 1000);
 
     } else {
       alert("Empty or missing fields, please check...")
@@ -173,7 +178,21 @@ class AddUsers extends Component {
 
   removeUser = () => {
     // add the code here to remove user from list
-    alert("Not coded yet, sorry.")
+    console.log(this.state.secondaryUserId);
+    if (this.state.secondaryUserId !== undefined) {
+      axios
+        .delete(`/secondaryUsers/${this.state.secondaryUserId}`)
+        .then(res => {
+          console.log('Secondary User removed')
+        })
+        .catch(err => {
+          console.log('error deleting secondary user', err)
+        })
+    }
+    setTimeout(() => {
+      this.displayUsers()
+      this.secondaryUsersList()
+    }, 1000);
   };
 
   validateEmail = (email) => {
@@ -200,6 +219,10 @@ class AddUsers extends Component {
       }
     })
 
+    this.setState({
+      secondaryUserId: id,
+    });
+
     if (secondaryUserRec) {
       // send the user list via post to the email router
       axios
@@ -213,8 +236,6 @@ class AddUsers extends Component {
     } else {
       alert("Need to add participants")
     }
-
-
 
     this.setState({
       disabled: false
@@ -260,7 +281,7 @@ class AddUsers extends Component {
   render() {
     const { classes } = this.props;
     const { checked } = this.state;
-   
+
     return (
       <div className="addParticipants">
         <UsersContainer>
@@ -268,9 +289,9 @@ class AddUsers extends Component {
             <GridContainer>
               <GridItem>
                 <Card className={classes.container}>
-                <form className="addUsers" onSubmit={this.onSubmit}>
-                  <CardBody>
-                   
+                  <form className="addUsers" onSubmit={this.onSubmit}>
+                    <CardBody>
+
                       <h4>Add Participants to Vacation: {this.state.vacationsTitle}</h4>
                       <Row>
                         First Name: &nbsp;
@@ -315,15 +336,15 @@ class AddUsers extends Component {
                       <div className="users-list">
                         {this.secondaryUsersList()}
                       </div>
-                      <h5>Select a person from the list to send an email or click the button to send it to everyone.</h5>   
-                  </CardBody>
-                  <CardBody className={classes.container2}>
-                  <Button  
-                    onClick={() => this.invite()} 
-                    color="rose">Send Invites
-                  </Button> 
+                      <h5>Select a person from the list to send an email or click the button to send it to everyone.</h5>
                     </CardBody>
-                    </form>
+                    <CardBody className={classes.container2}>
+                      <Button
+                        onClick={() => this.invite()}
+                        color="rose">Send Invites
+                  </Button>
+                    </CardBody>
+                  </form>
                 </Card>
               </GridItem>
             </GridContainer>
