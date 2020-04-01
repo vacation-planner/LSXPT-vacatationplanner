@@ -71,6 +71,7 @@
     /* overflow-y: auto; */
     height: auto;
     max-height: 120px;
+    min-height: 20px;
     width: 200px;
     font-size: 12px;
     scroll-behavior: smooth;
