@@ -87,6 +87,7 @@ class App extends Component {
             this.addCurrentUser(user);
             this.context.getUserID(this.state.userUID);
             this.context.getUserEmail(this.state.currentEmail);
+            this.context.getSecondaryUserTable(this.state.currentEmail);
             this.context.getUserFirstName(user.displayName.substring(0, space));
             this.context.getUserLastName(user.displayName.substring(space + 1));
             this.context.getVacations();

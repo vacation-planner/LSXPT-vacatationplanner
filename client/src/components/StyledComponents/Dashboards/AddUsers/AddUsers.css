@@ -4,18 +4,19 @@
     width: 100%;
     margin-bottom: 6px;
     margin-top: 6px;
-    scroll-behavior: smooth;
-    overflow: scroll;
-    overflow-x: hidden;
+    /* scroll-behavior: smooth; */
+    /* overflow: scroll; */
+    /* overflow-x: hidden; */
+    min-height: 100px;
 }
 
 /* h1 {
     font-size: 14px;
 } */
 
-.addUsers {
+/* .addUsers {
     height: 360px;
-}
+} */
 
 .firstName {
     width: 70%;
