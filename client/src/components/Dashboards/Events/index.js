@@ -45,6 +45,7 @@ class Events extends Component {
     displayEvents: false,
     cost: 0,
     listVisible: false,
+    editFlag: false,
    };
 };
 
@@ -76,7 +77,7 @@ componentDidMount() {
         cost: this.state.cost,
         secondaryUsersId: this.state.secondaryUsersId,
     }
-
+    if (this.state.editFlag === false) {
     axios
       .post('/events/', eventsRec)
       .then(response => {
@@ -90,6 +91,35 @@ componentDidMount() {
       .catch(err => {
         console.log('We"ve encountered an error');
       });
+  } else {
+    axios
+    .put(`/events/${this.state.eventsId}`, eventsRec)
+    .then(response => {
+      console.log("record updated");
+      // get the id of the new record
+      this.fetchId(this.state.eventName);
+      this.setState({
+        editFlag: false
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+
+    }
+    this.setState({
+      //eventsId: eventsId,
+      eventName: "",
+      //startDateTime: response.data.startDateTime,
+      //endDateTime: response.data.endDateTime,
+      description: "",
+      cost: "",
+      //secondaryUsersId: response.data.secondaryUsersId,
+      //listVisible: true,
+      secondaryUsersFirstName: "",
+      secondaryUsersLastName: "",
+      editFlag: false,
+  });
   }
 
   fetchId = eventName => {
@@ -222,6 +252,7 @@ componentDidMount() {
                 listVisible: true,
                 secondaryUsersFirstName: "",
                 secondaryUsersLastName: "",
+                editFlag: true,
             });
             console.log('secondaryUsersId: ',this.state.secondaryUsersId);
           if ((this.state.secondaryUsersId !== "") && (this.state.secondaryUsersId !== null)) {
@@ -277,7 +308,7 @@ componentDidMount() {
 
   render() {
     const { classes } = this.props;
-    const { checked } = this.state;
+    const { checked, editFlag } = this.state;
     return (
       <div className="events">
         <Zoom in={checked} >
@@ -373,12 +404,17 @@ componentDidMount() {
                                     </Typography>
                                 }
                             > */}
-
+                {editFlag ? (
+                  <Button
+                    style={{ marginLeft: "150px" }}
+                    onClick={() => this.addEvent()}
+                    color="rose">Update
+                </Button> ) : (
                   <Button
                     style={{ marginLeft: "150px" }}
                     onClick={() => this.addEvent()}
                     color="rose">Create
-                  </Button> {/* </Tooltip> */}
+                  </Button>)}
                   <Button
                     onClick={() => this.removeEvent()}
                     color="rose"

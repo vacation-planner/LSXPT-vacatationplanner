@@ -31,6 +31,7 @@ class Expenses extends Component {
     expenseOwed: "",
     secondaryUsersFirstName: "",
     secondaryUsersLastName: "",
+    secondaryUsersPayeeId: "",
     checked: false,
     disabled: true,
     deleteDisabled: true,
@@ -65,6 +66,7 @@ class Expenses extends Component {
           secondaryUsersExpense: this.state.secondaryUsersExpense,
           secondaryUsersFirstName: this.state.secondaryUsersFirstName,
           secondaryUsersLastName: this.state.secondaryUsersLastName,
+          secondaryUsersPayeeId: this.state.secondaryUsersPayeeId,
         }
       // check if this is a PUT or a POST
       if (this.state.editFlag === false) {
@@ -214,6 +216,7 @@ class Expenses extends Component {
           eventName: response.data.eventName,
           cost: response.data.cost,
           secondaryUsersExpense: "",
+          secondaryUsersPayeeId: response.data.secondaryUsersPayeeId,
           expenseOwed: "",
           secondaryUsersFirstName: "",
           secondaryUsersLastName: "",
@@ -321,7 +324,7 @@ render() {
               <h3>Create Expense: {this.state.eventName}</h3>
               <h4>Current Vacation: {this.props.title}</h4>
               </CardBody>
-              <CardBody   className={classes.cardBody2}>
+              <CardBody className={classes.cardBody2}>
                 <CardBody  className={classes.cardBodyContainer1}>
                   <CardBody> 
                     <h4>Available Events:</h4>{" "}                                
@@ -337,7 +340,7 @@ render() {
                     </div>) : null}
                   </CardBody> 
                 </CardBody> 
-                <CardBody   className={classes.cardBodyContainer2}>           
+                <CardBody className={classes.cardBodyContainer2}>           
               <Tooltip
                 placement="top"
                 disableFocusListener

@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
         secondaryUsers
         .insert(record)
         .then(record => {
-          res.status(201).json({ id: record.id });
+          res.status(201).json({ id: record[0] });
         })
         .catch(err => {
           res.status(500).send(err);
@@ -70,16 +70,18 @@ router.post('/', (req, res) => {
 })
 
 //Delete secondaryUser record
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const {id} = req.params;
-    secondaryUsers.remove(id)
-    .then(res => {
-        res.status(200).json(res.data)
-    })
-    .catch(err => {
-        res.status(500).send(err)
-    })
-})
+    if (id) {
+        await secondaryUsers.remove(id).then(response => {
+            res.status(200).json({'message': 'Secondary User deleted.'});
+        })
+        .catch(err => {
+            res.status(404).json({'error': `Server responded with error: ${err}`});
+        })
+    }
+});
+
 
 module.exports = router;
 

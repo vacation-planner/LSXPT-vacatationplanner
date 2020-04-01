@@ -14,6 +14,7 @@ exports.up = function (knex) {
         expenses.decimal('secondaryUsersExpense');
         expenses.string('secondaryUserPayeeLastName');
         expenses.string('secondaryUserPayeeFirstName');
+        expenses.integer('secondaryUsersPayeeId');
       })
   };
   
