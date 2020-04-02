@@ -2,7 +2,6 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import { AppContext } from '../Context/AppContext.js';
-import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
     buttonWrapper: {
@@ -86,23 +85,8 @@ class CloseVacationModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false,
-            disabled: false,
         };
     };
-
-    closeVacation = event => {
-        event.preventDefault();
-        this.setState({
-            disabled: true
-        })
-        this.context.closeVacation(this.props.vacationsId);
-        setTimeout(() => {
-            this.setState({ 
-                redirect: true
-            });
-        }, 3000);
-    }
 
     render() {
         const { classes } = this.props;
@@ -112,12 +96,10 @@ class CloseVacationModal extends React.Component {
                 <div className={classes.modalContainer}>
                     <p className={classes.message}>Are you sure you want to close this vacation?  Closing the vacation will not allow you to add or edit anything else in the vacation.</p>
                     <div className={classes.buttonWrapper}>
-                        <Button variant='contained' disabled={this.state.disabled} onClick={this.closeVacation} className={classes.closeVacationButton}>Close Vacation</Button>
+                        <Button variant='contained' onClick={this.props.closeVacation} className={classes.closeVacationButton}>Close Vacation</Button>
                         <Button variant='contained' onClick={this.props.close} className={classes.cancelButton}>Cancel</Button>
                     </div>
                 </div>
-                {this.state.redirect ? <Redirect to="/dashboards" /> : null}
-
             </div>
         )
     }

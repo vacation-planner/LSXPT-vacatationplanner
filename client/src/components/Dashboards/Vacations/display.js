@@ -173,7 +173,6 @@ class Display extends Component {
 
   updateVacation = () => {
     this.context.updateVacation(this.state.vacationsId, this.state.location, this.state.title, this.state.startDate, this.state.endDate, this.state.usersUid, this.state.premium);
-    this.context.getVacations();
   }
 
   fetchVacation = () => {
