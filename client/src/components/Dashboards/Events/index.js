@@ -142,6 +142,7 @@ componentDidMount() {
 
   // grab the first and last name of the selected secondary user
   fetchSecondaryUser = id => {
+    console.log('id: ', id);
     axios
       .get(`/secondaryUsers/${id}`)
       .then(response => {
@@ -383,7 +384,7 @@ componentDidMount() {
                                         </div>      
                                     </CardBody>
                                     <CardBody> 
-                                      <h3>Participants:</h3>{" "}  
+                                      <h3>Available Payees:</h3>{" "}  
                                         {this.state.listVisible ? (
                                       <div className="participantsList">
                                         {this.participantList()}                                        

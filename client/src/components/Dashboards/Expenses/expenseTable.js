@@ -132,6 +132,16 @@ class ExpenseTable extends Component {
                         accessor: "expenseOwed", 
                         Cell: this.renderEditable, width: 100
                       },
+                      { 
+                        Header: "Payee First Name", 
+                        accessor: "secondaryUsersPayeeFirstName", 
+                        Cell: this.renderEditable, width: 120
+                      },
+                      { 
+                        Header: "Payee Last Name", 
+                        accessor: "secondaryUsersPayeeLastName", 
+                        Cell: this.renderEditable, width: 120
+                      },
                     ]}
                   defaultPageSize={10}
                   style={{

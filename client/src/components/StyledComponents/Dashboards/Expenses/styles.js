@@ -4,7 +4,7 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '600px',
+        width: '900px',
         marginTop: '10px',
         marginLeft: '30px',
         borderRadius: '10px',

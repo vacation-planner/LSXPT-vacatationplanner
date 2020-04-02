@@ -5,7 +5,7 @@ exports.up = function(knex) {
             event.string('eventName', 128).notNullable();
             event.integer('vacationsId').references('vacations.id');
             event.string('usersUid').references('users.uid');
-            event.integer('secondaryUsersPayeeId').references('secondaryUsers.id');
+            event.integer('secondaryUsersId').references('secondaryUsers.id');
             event.datetime('startDateTime');
             event.datetime('endDateTime');
             event.string('description', 140);

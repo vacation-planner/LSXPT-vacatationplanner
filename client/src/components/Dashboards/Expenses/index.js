@@ -31,6 +31,8 @@ class Expenses extends Component {
     expenseOwed: "",
     secondaryUsersFirstName: "",
     secondaryUsersLastName: "",
+    secondaryUsersPayeeFirstName: "",
+    secondaryUsersPayeeLastName: "",
     secondaryUsersPayeeId: "",
     checked: false,
     disabled: true,
@@ -66,6 +68,8 @@ class Expenses extends Component {
           secondaryUsersExpense: this.state.secondaryUsersExpense,
           secondaryUsersFirstName: this.state.secondaryUsersFirstName,
           secondaryUsersLastName: this.state.secondaryUsersLastName,
+          secondaryUsersPayeeFirstName: this.state.secondaryUsersPayeeFirstName,
+          secondaryUsersPayeeLastName: this.state.secondaryUsersPayeeLastName,
           secondaryUsersPayeeId: this.state.secondaryUsersPayeeId,
         }
       // check if this is a PUT or a POST
@@ -216,10 +220,12 @@ class Expenses extends Component {
           eventName: response.data.eventName,
           cost: response.data.cost,
           secondaryUsersExpense: "",
-          secondaryUsersPayeeId: response.data.secondaryUsersPayeeId,
+          secondaryUsersPayeeId: response.data.secondaryUsersId,
           expenseOwed: "",
           secondaryUsersFirstName: "",
           secondaryUsersLastName: "",
+          secondaryUsersPayeeFirstName: "",
+          secondaryUsersPayeeLastName: "",
         }); 
       })
       .catch(err => {

@@ -126,6 +126,7 @@ class AddUsers extends Component {
             }
           })
           this.setState({
+            vacationsId: this.context.state.tempVacationHolder.id,
             usersList: usersList,
           });
         }
@@ -143,6 +144,7 @@ class AddUsers extends Component {
       // add users info to the users list
       let usersList = this.state.usersList;
       // create a record using the input
+      console.log("vacationsId: ", this.state.vacationsId);
       let userRec = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -166,10 +168,10 @@ class AddUsers extends Component {
         lastName: "",
         email: "",
       });
-      setTimeout(() => {
+       setTimeout(() => {
         this.displayUsers()
         this.secondaryUsersList()
-      }, 1000);
+      }, 1000); 
 
     } else {
       alert("Empty or missing fields, please check...")
