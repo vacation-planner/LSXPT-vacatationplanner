@@ -87,12 +87,12 @@ const styles = theme => ({
   }, 
   cardBodyTable: {
     display: "flex",
-    Width: "700px", 
+    Width: "900px", 
     height: "575px", 
     marginLeft: "20px", 
     top: "20px",
     [theme.breakpoints.up("md")]: {
-        width: "700px",
+        width: "900px",
     },  
     [theme.breakpoints.down("md")]: {
         width: "600px",

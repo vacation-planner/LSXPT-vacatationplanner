@@ -143,6 +143,14 @@
     font-weight: bold;
 }
 
+.payee {
+    cursor: not-allowed; 
+    height: 20px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .secondaryUsersExpense {
     background-color: lightgray;
     width: 200px;

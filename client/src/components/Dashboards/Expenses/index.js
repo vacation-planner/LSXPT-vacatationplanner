@@ -31,8 +31,8 @@ class Expenses extends Component {
     expenseOwed: "",
     secondaryUsersFirstName: "",
     secondaryUsersLastName: "",
-    secondaryUsersPayeeFirstName: "",
-    secondaryUsersPayeeLastName: "",
+    secondaryUserPayeeFirstName: "",
+    secondaryUserPayeeLastName: "",
     secondaryUsersPayeeId: "",
     checked: false,
     disabled: true,
@@ -68,8 +68,8 @@ class Expenses extends Component {
           secondaryUsersExpense: this.state.secondaryUsersExpense,
           secondaryUsersFirstName: this.state.secondaryUsersFirstName,
           secondaryUsersLastName: this.state.secondaryUsersLastName,
-          secondaryUsersPayeeFirstName: this.state.secondaryUsersPayeeFirstName,
-          secondaryUsersPayeeLastName: this.state.secondaryUsersPayeeLastName,
+          secondaryUserPayeeFirstName: this.state.secondaryUserPayeeFirstName,
+          secondaryUserPayeeLastName: this.state.secondaryUserPayeeLastName,
           secondaryUsersPayeeId: this.state.secondaryUsersPayeeId,
         }
       // check if this is a PUT or a POST
@@ -224,15 +224,37 @@ class Expenses extends Component {
           expenseOwed: "",
           secondaryUsersFirstName: "",
           secondaryUsersLastName: "",
-          secondaryUsersPayeeFirstName: "",
-          secondaryUsersPayeeLastName: "",
+          //secondaryUsersPayeeFirstName: "",
+         // secondaryUsersPayeeLastName: "",
         }); 
+        let id =  response.data.secondaryUsersId;
+        console.log("id: ", id)
+        this.fetchSecondaryUsersPayeeName(id)
       })
       .catch(err => {
         console.log('We"ve encountered an error');
       });
+
+     //this.fetchSecondaryUsersPayeeName(this.state.secondaryUsersPayeeId); 
+
   };
 
+  fetchSecondaryUsersPayeeName = (id) => {
+    console.log("id_payee: ", id)
+    // use the id and query the secondaryUsers table to get the full name
+  axios
+    .get(`/secondaryUsers/${id}`)
+    .then(response => {
+      this.setState({
+        secondaryUserPayeeFirstName: response.data.firstName,
+        secondaryUserPayeeLastName: response.data.lastName,
+      });
+    })
+    .catch(err => {
+      console.log('We"ve encountered an error');
+    });
+
+  }
    // this function grabs the list of events from the table
   fetchEvents = (vacationsId) => {
     let events = [];
@@ -368,6 +390,12 @@ render() {
                   </p>            
                   <div className="participant">
                     <p> {this.state.secondaryUsersFirstName} {this.state.secondaryUsersLastName}</p>
+                  </div>
+                  <p>
+                    Payee: 
+                  </p>            
+                  <div className="payee">
+                    <p> {this.state.secondaryUserPayeeFirstName} {this.state.secondaryUserPayeeLastName}</p>
                   </div>
                   <p>
                     Total Event Cost: 
