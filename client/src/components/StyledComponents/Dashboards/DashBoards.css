@@ -79,6 +79,20 @@
     overflow-x: hidden;
 }
 
+.participantBlock {
+    border: 1px solid gray;
+    /* overflow-y: auto; */
+    height: auto;
+    max-height: 120px;
+    min-height: 20px;
+    width: 200px;
+    font-size: 12px;
+    scroll-behavior: smooth;
+    overflow: scroll;
+    overflow-x: hidden;
+
+}
+
 .eventContainer {
     display: flex;
     flex-direction: column;

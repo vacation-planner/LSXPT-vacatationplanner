@@ -104,6 +104,7 @@ class Expenses extends Component {
         alert("Expense fields cannot be empty")
       }
     }
+   
   }
   
    // this function grabs the list of secondary users from the table
@@ -234,11 +235,9 @@ class Expenses extends Component {
       .catch(err => {
         console.log('We"ve encountered an error');
       });
-
-     //this.fetchSecondaryUsersPayeeName(this.state.secondaryUsersPayeeId); 
-
   };
 
+  // need to get the name of the payment recipient
   fetchSecondaryUsersPayeeName = (id) => {
     console.log("id_payee: ", id)
     // use the id and query the secondaryUsers table to get the full name
@@ -255,6 +254,7 @@ class Expenses extends Component {
     });
 
   }
+
    // this function grabs the list of events from the table
   fetchEvents = (vacationsId) => {
     let events = [];
@@ -361,11 +361,11 @@ render() {
                     </div>          
                   </CardBody>
                   <CardBody> 
-                    <h4>Vacation Participants:</h4>{" "}  
+                    <h4>Available Participants:</h4>{" "}  
                     {this.state.listVisible ? (
                     <div className="participantsList">
                       {this.participantList()}                                        
-                    </div>) : null}
+                    </div>) : <div className="participantBlock"></div>}
                   </CardBody> 
                 </CardBody> 
                 <CardBody className={classes.cardBodyContainer2}>           
@@ -392,7 +392,7 @@ render() {
                     <p> {this.state.secondaryUsersFirstName} {this.state.secondaryUsersLastName}</p>
                   </div>
                   <p>
-                    Payee: 
+                    Payment Recipient: 
                   </p>            
                   <div className="payee">
                     <p> {this.state.secondaryUserPayeeFirstName} {this.state.secondaryUserPayeeLastName}</p>

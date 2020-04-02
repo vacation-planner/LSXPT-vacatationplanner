@@ -35,7 +35,7 @@ class Events extends Component {
     description: "",
     eventsId: "",
     events: [],
-    disabled: false,
+    disabled: true,
     participant: "",
     secondaryUsersId: "",
     secondaryUsers: [],
@@ -43,7 +43,7 @@ class Events extends Component {
     secondaryUsersLastName: "",
     checked: false,
     displayEvents: false,
-    cost: 0,
+    cost: "",
     listVisible: false,
     editFlag: false,
    };
@@ -85,7 +85,8 @@ componentDidMount() {
         // get the id of the new record
         this.fetchId(this.state.eventName);
         this.setState({
-          displayEvents: true
+          displayEvents: true,
+          disabled: true,
         });
       })
       .catch(err => {
@@ -108,18 +109,20 @@ componentDidMount() {
 
     }
     this.setState({
-      //eventsId: eventsId,
       eventName: "",
       //startDateTime: response.data.startDateTime,
       //endDateTime: response.data.endDateTime,
       description: "",
       cost: "",
-      //secondaryUsersId: response.data.secondaryUsersId,
-      //listVisible: true,
       secondaryUsersFirstName: "",
       secondaryUsersLastName: "",
       editFlag: false,
   });
+  setTimeout(() => {
+    this.fetchEvents(this.state.vacationsId);
+    // grab the list of secondary users
+    this.fetchSecondaryUsers(this.state.vacationsId);
+  }, 1000); 
   }
 
   fetchId = eventName => {
@@ -130,7 +133,7 @@ componentDidMount() {
           if (item.eventName === this.state.eventName) {
             this.setState({
               eventsId: item.id,
-              disabled: false
+              disabled: true
             });
           }
         });
@@ -142,14 +145,12 @@ componentDidMount() {
 
   // grab the first and last name of the selected secondary user
   fetchSecondaryUser = id => {
-    console.log('id: ', id);
     axios
       .get(`/secondaryUsers/${id}`)
       .then(response => {
         this.setState({
           secondaryUsersFirstName: response.data.firstName,
           secondaryUsersLastName: response.data.lastName,
-          //participant: response.data.firstName,
           secondaryUsersId: id
         });
       })
@@ -197,6 +198,7 @@ componentDidMount() {
     }
   };
 
+ // grabs all the events
   fetchEvents = (vacationsId) => {
     let events = [];
     if (this.props.vacationsId !== undefined) {
@@ -247,7 +249,7 @@ componentDidMount() {
                 eventName: response.data.eventName,
                 startDateTime: response.data.startDateTime,
                 endDateTime: response.data.endDateTime,
-                description: response.data.description,
+                description: response.data.description, // *** should probably display this somewhere ***
                 cost: response.data.cost,
                 secondaryUsersId: response.data.secondaryUsersId,
                 listVisible: true,
@@ -257,6 +259,7 @@ componentDidMount() {
             });
             console.log('secondaryUsersId: ',this.state.secondaryUsersId);
           if ((this.state.secondaryUsersId !== "") && (this.state.secondaryUsersId !== null)) {
+            // need to get the secondaryUser's name from the table for display purposes
             this.fetchSecondaryUser(this.state.secondaryUsersId);
           } 
 
@@ -266,10 +269,6 @@ componentDidMount() {
     });
 
   }
-
-  /* handleStartDate = startDate => {
-    console.log('startdate: ', startDate);
-  } */
 
    listSelect = (id) => {        
     this.fetchSecondaryUser(id);
@@ -384,11 +383,11 @@ componentDidMount() {
                                         </div>      
                                     </CardBody>
                                     <CardBody> 
-                                      <h3>Available Payees:</h3>{" "}  
+                                      <h3>Available Payment Recipients:</h3>{" "}  
                                         {this.state.listVisible ? (
                                       <div className="participantsList">
                                         {this.participantList()}                                        
-                                      </div>) : null}
+                                      </div>) : <div className="participantBlock"></div>}
                                     </CardBody> 
                                 </CardBody>
                             </CardBody>                        
