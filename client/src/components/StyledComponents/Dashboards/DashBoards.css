@@ -51,7 +51,7 @@
 
 .event {
     cursor: pointer;
-    color: #e41818;
+    /* color: #e41818; */
 }
 
 .events {
@@ -176,5 +176,10 @@
     background-color: lightgray;
     width: 200px;
     border-radius: 5px;
+    font-weight: bold;
+}
+
+.expense-header {
+    font-size: 14px;
     font-weight: bold;
 }

@@ -107,17 +107,20 @@ class ExpenseTable extends Component {
                       { 
                         Header: "Event Name", 
                         accessor: "eventName", 
-                        Cell: this.renderEditable, width: 90
+                        Cell: this.renderEditable, 
+                        width: 90
                       },
                       { 
-                        Header: "Participant First Name", 
+                        Header: 'Participant First Name', 
                         accessor: "secondaryUsersFirstName", 
-                        Cell: this.renderEditable, width: 140
+                        Cell: this.renderEditable, 
+                        width: 140
                       },
                       { 
                         Header: "Participant Last Name", 
                         accessor: "secondaryUsersLastName", 
-                        Cell: this.renderEditable, width: 140
+                        Cell: this.renderEditable, 
+                        width: 140
                       },
                      /*  { Header: "Vacation Id", accessor: "vacationsId", Cell: this.renderEditable, width: 80}, */
                       /* { Header: "Participants Id", accessor: "secondaryUsersId", Cell: this.renderEditable, width: 80}, */
@@ -125,22 +128,26 @@ class ExpenseTable extends Component {
                       { 
                         Header: "Participant Expense", 
                         accessor: "secondaryUsersExpense", 
-                        Cell: this.renderEditable, width: 125
+                        Cell: this.renderEditable, 
+                        width: 125
                       }, 
                       { 
                         Header: "Expense Owed", 
                         accessor: "expenseOwed", 
-                        Cell: this.renderEditable, width: 100
+                        Cell: this.renderEditable, 
+                        width: 100
                       },
                       { 
                         Header: "Payee First Name", 
                         accessor: "secondaryUserPayeeFirstName", 
-                        Cell: this.renderEditable, width: 120
+                        Cell: this.renderEditable, 
+                        width: 120
                       },
                       { 
                         Header: "Payee Last Name", 
                         accessor: "secondaryUserPayeeLastName", 
-                        Cell: this.renderEditable, width: 120
+                        Cell: this.renderEditable, 
+                        width: 120
                       },
                     ]}
                   defaultPageSize={10}

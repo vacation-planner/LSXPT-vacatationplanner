@@ -63,6 +63,7 @@ class EventsCalendar extends React.Component {
       vacationsDisabled: true,
       eventsDisabled: false,
       checked: false,
+      color: 1,
     }
     this.moveEvent = this.moveEvent.bind(this)
   }
@@ -91,7 +92,8 @@ class EventsCalendar extends React.Component {
         };
         this.setState({
           eventData: eventsData,
-          display: eventsData
+          display: eventsData,
+          color: 4,
         });
         this.formatData1();
       })
@@ -187,6 +189,7 @@ class EventsCalendar extends React.Component {
           };
           this.setState({
             vacation: vacationData,
+            color: 1,
           });
           this.formatData();
         })
@@ -207,6 +210,7 @@ class EventsCalendar extends React.Component {
           console.log("vacationData: ", vacationData)
           this.setState({
             vacation: vacationData,
+            color: 1,
           });
           this.formatData();
         })
@@ -381,7 +385,8 @@ class EventsCalendar extends React.Component {
     // the events really need to be different colors in the calendar
     // *************************************************************
     //let rndNbr = this.getRndInteger(1,6);
-    let backgroundColor = this.colorPicker(this.getRndInteger(1,1)); 
+    //let backgroundColor = this.colorPicker(this.getRndInteger(1,1)); 
+    let backgroundColor = this.colorPicker(this.state.color);
     // used a function with a switch statement to determine which color will be used
     //let backgroundColor = hexColor;
      // new color is applied to the style

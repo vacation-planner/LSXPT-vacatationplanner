@@ -229,7 +229,7 @@ class Expenses extends Component {
          // secondaryUsersPayeeLastName: "",
         }); 
         let id =  response.data.secondaryUsersId;
-        console.log("id: ", id)
+        //console.log("id: ", id)
         this.fetchSecondaryUsersPayeeName(id)
       })
       .catch(err => {
@@ -239,7 +239,7 @@ class Expenses extends Component {
 
   // need to get the name of the payment recipient
   fetchSecondaryUsersPayeeName = (id) => {
-    console.log("id_payee: ", id)
+    //console.log("id_payee: ", id)
     // use the id and query the secondaryUsers table to get the full name
   axios
     .get(`/secondaryUsers/${id}`)
