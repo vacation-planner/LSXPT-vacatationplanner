@@ -350,18 +350,19 @@ render() {
           <GridItem xs={12} sm={12} md={12}>
             <CardBody className={classes.titleBox}>
               <h3>Create Expense: {this.state.eventName}</h3>
-              <h4>Current Vacation: {this.props.title}</h4>
+              <h4>Current Vacation: 
+              <div className="vacationTitle">{this.props.title}</div></h4>
               </CardBody>
               <CardBody className={classes.cardBody2}>
                 <CardBody  className={classes.cardBodyContainer1}>
                   <CardBody> 
-                    <h4>Available Events:</h4>{" "}                                
+                    <h5>Available Events:</h5>{" "}                                
                     <div className="eventsList">
                       {this.eventList()} 
                     </div>          
                   </CardBody>
                   <CardBody> 
-                    <h4>Available Participants:</h4>{" "}  
+                    <h5>Available Participants:</h5>{" "}  
                     {this.state.listVisible ? (
                     <div className="participantsList">
                       {this.participantList()}                                        

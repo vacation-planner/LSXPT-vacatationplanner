@@ -66,7 +66,8 @@
     color: white;
 }
 
-.eventsList {
+.eventsList,
+.participantBlock  {
     border: 1px solid gray;
     /* overflow-y: auto; */
     height: auto;
@@ -77,20 +78,6 @@
     scroll-behavior: smooth;
     overflow: scroll;
     overflow-x: hidden;
-}
-
-.participantBlock {
-    border: 1px solid gray;
-    /* overflow-y: auto; */
-    height: auto;
-    max-height: 120px;
-    min-height: 20px;
-    width: 200px;
-    font-size: 12px;
-    scroll-behavior: smooth;
-    overflow: scroll;
-    overflow-x: hidden;
-
 }
 
 .eventContainer {
@@ -107,13 +94,9 @@
     background-image: url("../../../images/42545.jpg");
 }
 
-.left {
-    width: 100%;
-}
-
+.left,
 .right {
     width: 100%;
-    margin-top: 30px;
 }
 
 .new-table {
@@ -127,15 +110,11 @@
     background-image: url("../../../images/bg-pricing.jpg");
 }
 
- .expButton {
-    display: flex;
-    width: 120px;
-} 
-
+ .expButton,
  .deleteExpense {
     display: flex;
     width: 120px;
-} 
+}
 
 .cost  {
     border: 1px solid lightgray;
@@ -149,14 +128,7 @@
     font-weight: bold;
 }
  
-.participant {
-    cursor: not-allowed; 
-    height: 20px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
+.participant,
 .payee {
     cursor: not-allowed; 
     height: 20px;
@@ -165,13 +137,7 @@
     font-weight: bold;
 }
 
-.secondaryUsersExpense {
-    background-color: lightgray;
-    width: 200px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
+.secondaryUsersExpense,
 .expenseOwed {
     background-color: lightgray;
     width: 200px;
@@ -179,7 +145,8 @@
     font-weight: bold;
 }
 
-.expense-header {
+.expense-header,
+.vacationTitle  {
     font-size: 14px;
     font-weight: bold;
 }
