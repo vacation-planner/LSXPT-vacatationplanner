@@ -114,6 +114,14 @@ const styles = theme => ({
     typography: {
         padding: theme.spacing(2),
       },
+      helpButton: {
+        height: "38px",
+        borderRadius: "10px",
+        [theme.breakpoints.down("sm")]: { 
+            width: "100%",
+            borderRadius: "0px",    
+         },
+      },
 });
 
 export default styles;

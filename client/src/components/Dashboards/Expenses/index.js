@@ -11,12 +11,8 @@ import { Tooltip, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
-import Popover from '@material-ui/core/Popover';
-//import Typography from '@material-ui/core/Typography';
 import NumberFormat from "react-number-format";
 import { Zoom } from "@material-ui/core";
-
-//const [anchorEl, setAnchorEl] = React.useState(null);
 
 class Expenses extends Component {
   constructor(props) {
@@ -329,6 +325,7 @@ class Expenses extends Component {
        <div className="helpBox">
         {/*  <form onSubmit={this.submitForm} > */}
            <h4>Help - Assign an Expense to an Event</h4>
+           <p></p>
            <p>Step 1: Select an event.</p>
            <p>Step 2: Select a participant, this is who must pay.</p>
            <p>Step 3: Put the cost in the Participant Cost box.</p>
@@ -363,11 +360,7 @@ class Expenses extends Component {
 render() {
   const { classes } = this.props;
   const { checked } = this.state;
-  //const {anchorEl, setAnchorEl} = React.useState(null);
-  //const { open } = Boolean(anchorEl);
-  //const { id } = open ? 'simple-popover' : undefined;
   
-
   return (
     <div className="backGround">
     <Zoom in={checked} >
@@ -376,12 +369,11 @@ render() {
           <GridItem xs={12} sm={12} md={12}>
             <CardBody className={classes.titleBox}>
               <h3>Create Expense: {this.state.eventName}</h3>
-              <h4>Current Vacation: 
-              <div className="vacationTitle">{this.props.title}</div></h4>
+              <h4>Current Vacation:{this.props.title}</h4>
               <Button className={classes.helpButton}
                     onClick={() => this.displaySwal()}
                     color="rose"
-                    size='md'
+                    /* size='' */
                     >Help
                 </Button>
               </CardBody>
