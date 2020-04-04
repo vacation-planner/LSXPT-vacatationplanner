@@ -111,6 +111,9 @@ const styles = theme => ({
         paddingLeft: 35,
         fontSize: "2rem",
     },
+    typography: {
+        padding: theme.spacing(2),
+      },
 });
 
 export default styles;

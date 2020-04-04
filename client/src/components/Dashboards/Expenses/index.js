@@ -6,12 +6,17 @@ import GridContainer from "../../StyledComponents/Dashboards/Expenses/js/GridCon
 import GridItem from "../../StyledComponents/Dashboards/Expenses/js/GridItem.js";
 import CardBody from "../../StyledComponents/Dashboards/Expenses/js/CardBody.js";
 import Button from "../../StyledComponents/Dashboards/Expenses/js/Button.js";
+import swal from '@sweetalert/with-react';
 import { Tooltip, Typography } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Expenses/styles.js";
+import Popover from '@material-ui/core/Popover';
+//import Typography from '@material-ui/core/Typography';
 import NumberFormat from "react-number-format";
 import { Zoom } from "@material-ui/core";
+
+//const [anchorEl, setAnchorEl] = React.useState(null);
 
 class Expenses extends Component {
   constructor(props) {
@@ -318,6 +323,23 @@ class Expenses extends Component {
     }); 
   };
 
+  displaySwal = event => {
+    
+     swal(
+       <div className="helpBox">
+        {/*  <form onSubmit={this.submitForm} > */}
+           <h4>Help - Assign an Expense to an Event</h4>
+           <p>Step 1: Select an event.</p>
+           <p>Step 2: Select a participant, this is who must pay.</p>
+           <p>Step 3: Put the cost in the Participant Cost box.</p>
+           <p>Step 4: In the second box enter the amount they still owe.</p>
+           <p>Step 5: Press the save button.</p>
+        {/*  </form> */}
+       </div>
+     ) 
+   }
+  //const id = open ? 'simple-popover' : undefined;
+
   // Create a box with a list of the current events
   eventList = (props) => {
     const eventItems = this.state.events.map((event) =>
@@ -341,6 +363,10 @@ class Expenses extends Component {
 render() {
   const { classes } = this.props;
   const { checked } = this.state;
+  //const {anchorEl, setAnchorEl} = React.useState(null);
+  //const { open } = Boolean(anchorEl);
+  //const { id } = open ? 'simple-popover' : undefined;
+  
 
   return (
     <div className="backGround">
@@ -352,6 +378,12 @@ render() {
               <h3>Create Expense: {this.state.eventName}</h3>
               <h4>Current Vacation: 
               <div className="vacationTitle">{this.props.title}</div></h4>
+              <Button className={classes.helpButton}
+                    onClick={() => this.displaySwal()}
+                    color="rose"
+                    size='md'
+                    >Help
+                </Button>
               </CardBody>
               <CardBody className={classes.cardBody2}>
                 <CardBody  className={classes.cardBodyContainer1}>
