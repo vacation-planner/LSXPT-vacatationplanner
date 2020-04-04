@@ -9,17 +9,12 @@ import Button from "../../StyledComponents/Dashboards/Events/js/Button.js";
 import GridContainer from "../../StyledComponents/Dashboards/Events/js/GridContainer.js";
 import GridItem from "../../StyledComponents/Dashboards/Events/js/GridItem.js";
 import Card from "../../StyledComponents/Dashboards/Events/js/Card.js";
-//import TooltipsStyle from "../../StyledComponents/Dashboards/Events/js/";
 import CardBody from "../../StyledComponents/Dashboards/Events/js/CardBody.js";
 import withStyles from "@material-ui/core/styles/withStyles";
+import swal from '@sweetalert/with-react';
 import "../../StyledComponents/Dashboards/DashBoards.css";
 import styles from "../../StyledComponents/Dashboards/Events/styles.js";
-import { Zoom, Tooltip } from "@material-ui/core";
-
-/* import {
-    tooltip
-  } from "assets/jss/material-dashboard-pro-react.js"; */
-
+import { Zoom, Tooltip, Typography } from "@material-ui/core";
 
 class Events extends Component {
   constructor(props) {
@@ -262,7 +257,6 @@ componentDidMount() {
             // need to get the secondaryUser's name from the table for display purposes
             this.fetchSecondaryUser(this.state.secondaryUsersId);
           } 
-
     })
     .catch(err => {
       console.log('We"ve encountered an error');
@@ -270,7 +264,25 @@ componentDidMount() {
 
   }
 
-   listSelect = (id) => {        
+  displaySwal = event => {
+    // display a alert type box.
+    swal(
+      <div className="helpBox">
+       {/*  <form onSubmit={this.submitForm} > */}
+          <h4>Help - Create/Edit an Event</h4>
+          <p></p>
+          <p>Step 1: Enter the name of a new event in the first field .</p>
+          <p>Step 2: To edit an event, select it from the Available Events .</p>
+          <p>Step 3: Add a description (optional).</p>
+          <p>Step 4: Enter the cost of the event (optional)</p>
+          <p>Step 5: Select the participant that the money is owed to.</p>
+          <p>Step 6: Press the Save/Update button when completed.</p>
+       {/*  </form> */}
+      </div>
+    ) 
+  }
+
+  listSelect = (id) => {        
     this.fetchSecondaryUser(id);
   } 
 
@@ -314,9 +326,24 @@ componentDidMount() {
         <Zoom in={checked} >
           <GridContainer>
             <GridItem xs={12} sm={12} md={4}>
-              <Card style={{ width: "700px", marginLeft: "20px", height: "auto", marginRight: "100px", top: "20px" }}>
-                <h2>Create Event: {this.state.eventName}</h2><Tooltip title="Delete">
-                  <h3>Current Vacation: {this.props.title}</h3></Tooltip>
+           {/*  <Card style={{ width: "700px", marginLeft: "20px", height: "auto", marginRight: "100px", top: "20px" }}>rd style={{ width: "700px", marginLeft: "20px", height: "auto", marginRight: "100px", top: "20px" }}> */}
+             
+              <Card className={classes.parent}>
+                <h2>Create Event: {this.state.eventName}</h2>
+                <Tooltip
+                 title={
+                  <Typography color="inherit" variant="h5">
+                    Enter a new event into the box or select one from the Events Available box.
+                  </Typography>
+                }>
+                  <h3>Current Vacation: {this.props.title}</h3>
+                </Tooltip>
+                <Button className={classes.helpButton}
+                    onClick={() => this.displaySwal()}
+                    color="rose"
+                    /* size='' */
+                    >Help
+                </Button>
                 <CardBody className={classes.cardBody2}>
                   <CardBody className={classes.cardBodyContainer1}>
                     <CardBody>
@@ -336,13 +363,10 @@ componentDidMount() {
                         <AddEvents
                           eventsId={this.state.eventsId}
                           eventName={this.state.eventName}
-                          description={this.state.description}
-                          //title={this.state.title} 
-                          //participant={this.state.participant}
+                          description={this.state.description}                    
                           disabled={this.state.disabled}
-                          //secondaryUsersId={this.state.secondaryUsersId}
                           vacationsId={this.state.vacationsId}
-                                            /* startTimeDate={() => this.handleStartDate(this.state.startTimeDate)} */>
+                        >
                                         </AddEvents>  
                                          ) : null}
                                     </CardBody>   
@@ -391,10 +415,8 @@ componentDidMount() {
                                     </CardBody> 
                                 </CardBody>
                             </CardBody>                        
-                            <CardBody  className={classes.cardBody}>
-                               {/*  <div className="logo"> */}
+                            <CardBody  className={classes.cardBodyContainer3}>
                                 <div className="logo">
-
                   </div>{/*  <Tooltip
                                 placement="top"
                                 disableFocusListener
