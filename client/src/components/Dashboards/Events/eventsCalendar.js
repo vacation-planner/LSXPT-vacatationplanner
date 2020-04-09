@@ -63,6 +63,7 @@ class EventsCalendar extends React.Component {
       vacationsDisabled: true,
       eventsDisabled: false,
       checked: false,
+      vacationIsPastVacation: false,
     }
     this.moveEvent = this.moveEvent.bind(this)
   }
@@ -105,8 +106,10 @@ class EventsCalendar extends React.Component {
     this.state.eventData.forEach((item, index) => {
       events.push({
         title: item.eventName,
-        start: item.startDateTime,
-        end: item.endDateTime,
+        // start: item.startDateTime,
+        start: new Date(item.startDateTime),
+        end: new Date(item.endDateTime),
+        // end: item.endDateTime,
         desc: item.description
       })
     })
@@ -180,13 +183,16 @@ class EventsCalendar extends React.Component {
         .get(`/vacations/${vacationsId}`)
         .then(response => {
           let vacationData = [];
+          let vacationIsPastVacation = false;
           if (response.data) {
             response.data.forEach((vacation, index) => {
+              vacationIsPastVacation = (Date.parse(vacation.endDate) < Date.parse(new Date()) + 172800000)
               vacationData.push(vacation);
             })
           };
           this.setState({
             vacation: vacationData,
+            vacationIsPastVacation
           });
           this.formatData();
         })
@@ -291,8 +297,8 @@ class EventsCalendar extends React.Component {
     const eventRec = {
       eventName: "test",  // FIX THIS!!
       vacationsId: this.props.vacationsId,
-      startDateTime: slotInfo.start,
-      endDateTime: slotInfo.end,
+      startDateTime: new Date(slotInfo.start),
+      endDateTime: new Date(slotInfo.end),
       description: "item.location", // FIX THIS!
     }
     axios
@@ -407,47 +413,94 @@ class EventsCalendar extends React.Component {
     const { classes } = this.props;
     const { checked } = this.state;
 
-    return (
-      <div className="events-calendar-container">
-        <Zoom in={checked} >
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={4}>
-              <Card style={{ marginLeft: "20px", height: "600px", width: "540px", top: "0px", }}>
-                <CardBody>
-                  <DragAndDropCalendar
-                    selectable
-                    localizer={localizer}
-                    events={this.state.display}
-                    onEventDrop={event => this.moveEvent(event)}
-                    onSelectEvent={event => this.selectedEvent(event)}
-                    onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
-                    resizable
-                    onEventResize={this.resizeEvent}
-                    defaultView="month"
-                    step={15}
-                    showMultiDayTimes={true}
-                    defaultDate={new Date()}
-                    eventPropGetter={event => this.eventStyleGetter(event)}
-                  />
-                </CardBody>
-                <CardBody className={classes.lowerCardBody}>
-                  <Button className={classes.vacationsButton}
-                    onClick={() => this.fetchVacationData(this.props.vacationsId)}
-                    color="rose"
-                    disabled={this.state.vacationsDisabled}>Vacations
-                </Button>
-                  <Button className={classes.eventsButton}
-                    onClick={() => this.fetchEventData(this.props.vacationsId)}
-                    color="rose"
-                    disabled={this.state.eventsDisabled}>Events
-                </Button>
-                </CardBody>
-              </Card>
-            </GridItem>
-          </GridContainer>
-        </Zoom>
-      </div>
-    )
+    if (this.state.vacationIsPastVacation === true) {
+      console.log('I am locked')
+      return (
+        <div className="events-calendar-container">
+          <Zoom in={checked} >
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card style={{ marginLeft: "20px", height: "600px", width: "540px", top: "0px", }}>
+                  <CardBody>
+                    <DragAndDropCalendar
+                      // selectable
+                      localizer={localizer}
+                      events={this.state.display}
+                      // onEventDrop={event => this.moveEvent(event)}
+                      // onSelectEvent={event => this.selectedEvent(event)}
+                      // onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+                      // resizable
+                      // onEventResize={this.resizeEvent}
+                      defaultView="month"
+                      step={15}
+                      showMultiDayTimes={true}
+                      defaultDate={new Date()}
+                      eventPropGetter={event => this.eventStyleGetter(event)}
+                    />
+                  </CardBody>
+                  <CardBody className={classes.lowerCardBody}>
+                    <Button className={classes.vacationsButton}
+                      onClick={() => this.fetchVacationData(this.props.vacationsId)}
+                      color="rose"
+                      disabled={this.state.vacationsDisabled}>Vacations
+                  </Button>
+                    <Button className={classes.eventsButton}
+                      onClick={() => this.fetchEventData(this.props.vacationsId)}
+                      color="rose"
+                      disabled={this.state.eventsDisabled}>Events
+                  </Button>
+                  </CardBody>
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </Zoom>
+        </div>
+      )
+    }
+
+    else {
+      return (
+        <div className="events-calendar-container">
+          <Zoom in={checked} >
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card style={{ marginLeft: "20px", height: "600px", width: "540px", top: "0px", }}>
+                  <CardBody>
+                    <DragAndDropCalendar
+                      selectable
+                      localizer={localizer}
+                      events={this.state.display}
+                      onEventDrop={event => this.moveEvent(event)}
+                      onSelectEvent={event => this.selectedEvent(event)}
+                      onSelectSlot={slotInfo => this.addNewEventAlert(slotInfo)}
+                      resizable
+                      onEventResize={this.resizeEvent}
+                      defaultView="month"
+                      step={15}
+                      showMultiDayTimes={true}
+                      defaultDate={new Date()}
+                      eventPropGetter={event => this.eventStyleGetter(event)}
+                    />
+                  </CardBody>
+                  <CardBody className={classes.lowerCardBody}>
+                    <Button className={classes.vacationsButton}
+                      onClick={() => this.fetchVacationData(this.props.vacationsId)}
+                      color="rose"
+                      disabled={this.state.vacationsDisabled}>Vacations
+                  </Button>
+                    <Button className={classes.eventsButton}
+                      onClick={() => this.fetchEventData(this.props.vacationsId)}
+                      color="rose"
+                      disabled={this.state.eventsDisabled}>Events
+                  </Button>
+                  </CardBody>
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </Zoom>
+        </div>
+      )
+    }
   }
 }
 
