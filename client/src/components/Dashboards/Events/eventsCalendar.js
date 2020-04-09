@@ -223,8 +223,8 @@ class EventsCalendar extends React.Component {
       display.push({
         //id: item.id,
         title: item.title,
-        start: item.startDate,
-        end: item.endDate,
+        start: new Date(item.startDate),
+        end: new Date(item.endDate),
         desc: item.location,
       })
     })
