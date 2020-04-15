@@ -29,8 +29,8 @@ export const ButtonContainer = styled.div`
 
 export const UsersContainer = styled.div`
   color: #000;
-  margin: 5px;
   height: auto;
+  width: 100%;
  `;
 
 export const Loading = styled.div`

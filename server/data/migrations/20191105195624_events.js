@@ -9,6 +9,7 @@ exports.up = function(knex) {
             event.datetime('startDateTime');
             event.datetime('endDateTime');
             event.string('description', 140);
+            event.decimal('cost');
         })
 };
 

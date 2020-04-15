@@ -24,7 +24,8 @@ import * as ROUTES from "../../../constants/routes";
 
 
 // core components
-import Button from "../../Material-UI/components/CustomButtons/Button.jsx";
+import Button from "@material-ui/core/Button";
+// import Button from "../../Material-UI/components/CustomButtons/Button.jsx";
 
 const drawerWidth = 240;
 
@@ -43,11 +44,11 @@ const styles = theme => ({
         fontSize: "2rem",
     },
     closeIconToolbar: {
-        height: '64px',
+        height: '61px',
+        minHeight: '61px',
         display: "flex",
         justifyContent: "space-betwen",
         alignItems: 'center',
-        // backgroundColor: 'black'
     },
     drawer: {
         [theme.breakpoints.up("sm")]: {
@@ -112,15 +113,15 @@ const styles = theme => ({
     },
     logo: {
         backgroundColor: "#AA1649",
-        width: "190px",
+        width: "180px",
         position: "relative",
         fontWeight: "300",
-        lineHeight: "1.5em",
-        height: "44px",
+        lineHeight: "1.4em",
+        height: "40px",
         textDecoration: "none",
-        minHeight: "32px",
+        minHeight: "25px",
         display: "inline-flex",
-        fontSize: "2.2rem",
+        fontSize: "2.0rem",
         borderRadius: "5%",
         textTransform: "none",
         whiteSpace: "nowrap",
@@ -129,7 +130,9 @@ const styles = theme => ({
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         left: "calc(50% - 95px)",
         "&:hover,&:focus": {
-            backgroundColor: "#D61C5B"
+            backgroundColor: "#D61C5B",
+            textDecoration: "none",
+            color: "white",
         },
         [theme.breakpoints.down(600)]: {
             position: 'relative',
@@ -153,34 +156,30 @@ const styles = theme => ({
         }
     },
     navLink: {
-        color: "inherit",
-        // backgroundColor: '#AA1649',
+        color: "white",
         position: "relative",
         padding: "0.9375rem",
         fontWeight: "400",
-        fontSize: "1.5rem",
+        fontSize: "1.4rem",
         textTransform: "uppercase",
         lineHeight: "20px",
         textDecoration: "none",
         display: "inline-flex",
+        width: '80px',
+        height: '35px',
         "&:hover,&:focus": {
-            backgroundColor: "#AA1649"
+            textDecoration: "none",
+            backgroundColor: "#AA1649",
+            color: "white",
         },
-        "& .fab,& .far,& .fal,& .fas,& .material-icons": {
-            position: "relative",
-            top: "2px",
-            marginTop: "-4px",
-            marginRight: "4px",
-            marginBottom: "0px",
-            fontSize: "1.25rem"
-        },
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down(600)]: {
             width: "calc(100% - 30px)",
             marginBottom: "8px",
             marginTop: "8px",
             textAlign: "left",
             textTransform: "none",
             fontSize: '1.75rem',
+            color: 'black',
             "& > span:first-child": {
                 justifyContent: "flex-start"
             }
@@ -195,7 +194,8 @@ const styles = theme => ({
         flexGrow: 1
     },
     toolbar: {
-        height: 64,
+        height: 61,
+        minHeight: '61px',
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -230,7 +230,7 @@ class LandingPageNavbar extends React.Component {
                 <div className={classes.closeIconToolbar}>
                     {mobileOpen ? (
                         <div className={classes.closeButton}
-                            onClick={this.handleDrawerToggle}><CloseIcon style={{ width: '25px', height: '25px', padding: '0px' }} /></div>
+                            onClick={this.handleDrawerToggle}><CloseIcon style={{ width: '22px', height: '22px', padding: '0px' }} /></div>
                     ) : null}
                 </div>
                 <div className={classes.hideDrawerButtons}>
@@ -240,10 +240,9 @@ class LandingPageNavbar extends React.Component {
                             <Button
                                 href={ROUTES.SIGNIN}
                                 className={classes.navLink}
-                                color="transparent"
                             >
                                 Sign In
-                                    </Button>
+                            </Button>
                         </ListItem>
                     </List>
                 </div>
@@ -259,7 +258,7 @@ class LandingPageNavbar extends React.Component {
                                 aria-label="open drawer"
                                 onClick={this.handleDrawerToggle}
                             >
-                                <MenuIcon style={{ width: '25px', height: '25px' }} />
+                                <MenuIcon style={{ width: '22px', height: '22px' }} />
                             </IconButton>
                         </Hidden>
                         <Button className={classes.logo} href="/">
@@ -273,7 +272,6 @@ class LandingPageNavbar extends React.Component {
                                         <Button
                                             href={ROUTES.SIGNIN}
                                             className={classes.navLink}
-                                            color="transparent"
                                         >
                                             Sign In
                                     </Button>

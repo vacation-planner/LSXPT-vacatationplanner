@@ -46,15 +46,8 @@ class CurrentVacationDrawer extends React.Component {
     events: false,
     expenses: false,
     overview: false,
-    mobileOpen: false,
     currentVacation: this.props.currentVacation,
     redirect: false
-  };
-
-  handleClose = () => {
-    this.setState({
-      mobileOpen: false
-    });
   };
 
   displayCurrentVacation = event => {
@@ -71,6 +64,7 @@ class CurrentVacationDrawer extends React.Component {
       [event.currentTarget.id]: true
     });
     this.props.displayCurrentVacationContent(event);
+    this.props.closeMenu();
   };
 
   makePremium = () => {
@@ -100,7 +94,7 @@ class CurrentVacationDrawer extends React.Component {
           <div className={classes.nameDiv}>
             {this.state.currentVacation.title || "test"}
           </div>
-          <List onClick={this.handleClose} className={classes.list}>
+          <List className={classes.list}>
             {ListCurrentVacations.map((currentVacation, index) => {
               const { name } = currentVacation;
               return (
@@ -148,7 +142,7 @@ class CurrentVacationDrawer extends React.Component {
           <div className={classes.nameDiv}>
             {this.state.currentVacation.title || "test"}
           </div>
-          <List onClick={this.handleClose} className={classes.list}>
+          <List className={classes.list}>
             {ListCurrentVacations.map((currentVacation, index) => {
               const { name } = currentVacation;
               return (
