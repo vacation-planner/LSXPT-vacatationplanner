@@ -19,8 +19,8 @@ class AddEvents extends Component {
     eventsId: this.props.eventsId,
     eventName: this.props.eventName,
     description: this.props.description,
-    startDateTime: "",
-    endDateTime: "",
+    startDateTime: this.props.start,
+    endDateTime: this.props.end,
     disabled: this.props.disabled,
     vacationsId: this.props.vacationsId,
     vacationsTitle: this.props.title,
@@ -50,10 +50,12 @@ handleStartChange = event => {
     let eventsRec = {
       eventName: this.props.eventName,
       description: this.props.description,
-      startDateTime: startDateTime,
+      startDateTime: event,
       usersUid: this.state.usersUid,
       vacationsId: this.state.vacationsId,
     } 
+
+    console.log(eventsRec.startDateTime)
 
  axios
     .put(`/events/${this.props.eventsId}`, eventsRec)
@@ -80,12 +82,13 @@ handleEndChange = event => {
   let eventRec = {
     eventName: this.props.eventName,
     description: this.props.description,
-    endDateTime: endDateTime,   // if field empty, dont save it
+    endDateTime: event,   // if field empty, dont save it
     usersUid: this.state.usersUid,
     vacationsId: this.state.vacationsId,
 
   }
 
+  console.log(eventRec.endDateTime)
 
 axios
     .put(`/events/${this.props.eventsId}`, eventRec)
@@ -113,7 +116,8 @@ axios
         <br />
         <FormControl fullWidth>
           <Datetime /* timeFormat={false} */
-            value={this.props.value}
+            value={this.state.startDateTime}
+            // viewDate={this.props.start}
             onChange={event => this.handleStartChange(event)} 
             inputProps={{ 
               placeholder: "Start Event"
@@ -127,7 +131,8 @@ axios
         <FormControl fullWidth>
           <Datetime
             /*  timeFormat={false} */
-            value={this.props.value}
+            value={this.state.endDateTime}
+            // viewDate={this.props.end}
             onChange={event => this.handleEndChange(event)} 
             inputProps={{ placeholder: "End Event" }}
           />
