@@ -24,9 +24,6 @@ import "../../StyledComponents/Dashboards/Calendar/Calendar.css";
 
 const useStyles = makeStyles(styles);
 
-const URL = "http://localhost:5500/api";
-//const URL = 'https://vacationplannerlx.herokuapp.com/api';
-
   class Calendar extends React.Component {
     constructor(props) {
       super(props);
@@ -54,7 +51,7 @@ const URL = "http://localhost:5500/api";
   
   fetchVacationData = id => {
     axios
-      .get(`${URL}/vacations/${id}`)
+      .get(`/vacations/${id}`)
       .then(response => {
         let vacationData = [];
         if (response.data) {
@@ -77,7 +74,7 @@ const URL = "http://localhost:5500/api";
   // you dont need the event data here
   fetchEventData = id => {
     axios
-      .get(`${URL}/events/`)
+      .get('/events/')
       .then(response => {
         let eventsData = [];
  

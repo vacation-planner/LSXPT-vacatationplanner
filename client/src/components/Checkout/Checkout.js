@@ -10,7 +10,7 @@ import Card from "@material-ui/core/Card";
 
 import InjectedCheckoutForm from "./InjectedCheckoutForm";
 
-import Image from "../Material-UI/assets/img/bg3.jpg";
+import Image from "../../images/bg3.jpg";
 
 const styles = theme => ({
   button: {

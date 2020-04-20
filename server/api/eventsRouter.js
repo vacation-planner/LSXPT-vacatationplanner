@@ -32,8 +32,8 @@ module.exports = router => {
 /********* Get events *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/', protect, (req, res) => {
-router.get("/", (req, res) => {
-  events
+router.get("/", async (req, res) => {
+  await events
     .get()
     .then(event => {
       res.status(200).json(event);
@@ -63,9 +63,9 @@ router.post("/", async (req, res) => {
 /********* Get Single event *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/:id', protect, (req, res) => {
- router.get("/:id", (req, res) => {
+ router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  events
+  await events
     .getById(id)
     .then(event => {
       if (event) {
@@ -86,9 +86,9 @@ router.post("/", async (req, res) => {
 /********* Get By Vacation Id *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.get('/:vacationId', protect, (req, res) => {
-     router.get("/vacations/:vacationsId", (req, res) => {
+     router.get("/vacations/:vacationsId", async (req, res) => {
         const { vacationId } = req.params;
-        events
+        await events
           .getByVacationsId(vacationId)
           .then(event => {
             if (event) {
@@ -109,11 +109,11 @@ router.post("/", async (req, res) => {
 /************* Update event *************/
 // UNCOMMENT TO PROTECT THE ROUTE!
 // router.put('/:id', protect, (req, res) => {
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
   if (changes) {
-  events
+  await events
     .update(id, changes)
     .then(response => {
       res.status(200).json({'message': 'expense updated'});

@@ -114,7 +114,7 @@ class CheckoutForm extends React.Component {
     // See our confirmCardPayment documentation for more:
     // https://stripe.com/docs/stripe-js/reference#stripe-confirm-card-payment
     axios
-      .post("http://localhost:5500/api/stripe")
+      .post("/stripe")
       .then(res => {
         this.props.stripe
           .confirmCardPayment(res.data.clientSecret, {
