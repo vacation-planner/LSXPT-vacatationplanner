@@ -139,40 +139,79 @@ class AddUsers extends Component {
     // validate the email address
     let emailError = this.validateEmail(this.state.email);
     // check the firstName, lastName and email fields for valid data.
-    if (this.state.firstName && this.state.lastName && this.state.email && !emailError) {
-      // add users info to the users list
-      let usersList = this.state.usersList;
-      // create a record using the input
-      let userRec = {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        vacationsId: this.state.vacationsId,
-      }
-      usersList.push(userRec);
-      //console.log("userRec: ", userRec)
-      axios
-        .post('/secondaryUsers/', userRec)
-        .then(response => {
-          console.log("file written")
-        })
-        .catch(err => {
-          console.log('We"ve encountered an error');
+    if (this.state.vacationsId !== undefined) {
+      if (this.state.firstName && this.state.lastName && this.state.email && !emailError) {
+        // add users info to the users list
+        let usersList = this.state.usersList;
+        // create a record using the input
+        let userRec = {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          email: this.state.email,
+          vacationsId: this.state.vacationsId,
+        }
+        usersList.push(userRec);
+        // console.log("userRec: ", userRec)
+        axios
+          .post('/secondaryUsers/', userRec)
+          .then(response => {
+            console.log("file written")
+          })
+          .catch(err => {
+            console.log('We"ve encountered an error');
+          });
+        // clear the inputs
+        this.setState({
+          usersList: usersList,
+          firstName: "",
+          lastName: "",
+          email: "",
         });
-      // clear the inputs
-      this.setState({
-        usersList: usersList,
-        firstName: "",
-        lastName: "",
-        email: "",
-      });
-      setTimeout(() => {
-        this.displayUsers()
-        this.secondaryUsersList()
-      }, 1000);
-
-    } else {
-      alert("Empty or missing fields, please check...")
+        setTimeout(() => {
+          this.displayUsers()
+          this.secondaryUsersList()
+        }, 1000);
+  
+      } else {
+        alert("Empty or missing fields, please check...")
+      }
+    }
+    else {
+      if (this.state.firstName && this.state.lastName && this.state.email && !emailError) {
+        // add users info to the users list
+        let usersList = this.state.usersList;
+        // create a record using the input
+        let userRec = {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          email: this.state.email,
+          vacationsId: this.context.state.tempVacationHolder.id,
+        }
+        usersList.push(userRec);
+        // console.log("userRec: ", userRec)
+        axios
+          .post('/secondaryUsers/', userRec)
+          .then(response => {
+            console.log("file written")
+          })
+          .catch(err => {
+            console.log('We"ve encountered an error');
+          });
+        // clear the inputs
+        this.setState({
+          usersList: usersList,
+          firstName: "",
+          lastName: "",
+          email: "",
+        });
+        setTimeout(() => {
+          this.displayUsers()
+          this.secondaryUsersList()
+        }, 1000);
+  
+      } else {
+        alert("Empty or missing fields, please check...")
+      }
     }
   }
 

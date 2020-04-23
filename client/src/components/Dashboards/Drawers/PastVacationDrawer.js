@@ -47,7 +47,8 @@ class PastVacationDrawer extends React.Component {
     expenses: false,
     overview: false,
     pastVacation: this.props.pastVacation,
-    redirect: false
+    redirect: false,
+    vacationIsClosed: this.props.pastVacation.closed || 0
   };
 
   displayPastVacation = event => {
@@ -85,13 +86,22 @@ class PastVacationDrawer extends React.Component {
     })
   }
 
+  closeVacation = event => {
+    event.preventDefault();
+    this.context.closeVacation(this.state.pastVacation.id);
+    this.setState({
+      shouldIClose: false,
+      vacationIsClosed: 1,
+    })
+  }
+
   render() {
     const { classes } = this.props;
     const selectedDrawer = {
       backgroundColor: "white"
     };
     
-    if (this.state.pastVacation.closed === 1) {
+    if (this.state.vacationIsClosed === 1 || this.state.vacationIsClosed === 1) {
       const ListPastVacations = [
         { name: "vacationDetails", text: "Vacation Details" },
         { name: "calendar", text: "Calendar" },
@@ -167,7 +177,7 @@ class PastVacationDrawer extends React.Component {
               Close Vacation
             </Button>
           </List>
-          {this.state.shouldIClose ? <CloseVacationModal close={this.closeModal} vacationsId={this.state.pastVacation.id} /> : null}
+          {this.state.shouldIClose ? <CloseVacationModal close={this.closeModal} closeVacation={this.closeVacation} vacationsId={this.state.pastVacation.id} /> : null}
         </>
       );
     }
