@@ -178,7 +178,7 @@ class App extends Component {
   //};
 
   //To sign out an get no error with firebase dropping the widget
-  removeAuthListener: any;
+  // removeAuthListener: any;
   // Add current user method will grab the information from state create new user in our database
 
   addCurrentUser = () => {
