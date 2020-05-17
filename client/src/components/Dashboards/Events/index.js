@@ -51,6 +51,7 @@ componentDidMount() {
 
     //this.fetchSecondaryUsers(this.state.vacationsId);
     console.log('vacationsId: ', this.state.vacationsId);
+    // console.log('start date time from outer component', this.state.startDateTime)
     this.fetchEvents(this.state.vacationsId);
 
     this.setState({
@@ -73,6 +74,7 @@ componentDidMount() {
       .then(response => {
         console.log("file written");
         // get the id of the new record
+        console.log(response)
         this.fetchId(this.state.eventName);
         this.setState({
           displayEvents: true
@@ -205,15 +207,6 @@ componentDidMount() {
     );
   }
 
-  /* participantList = (props) => {
-    const listItems = this.state.secondaryUsers.map((user) =>
-      <li key={user.id} className="participants" onClick={() => {this.listSelect(user.id)}}>{user.firstName}, {user.lastName}</li>
-    );
-    return (
-      <ul className="ul">{listItems}</ul>
-    );
-  } */
-
   render() {
     const { classes } = this.props;
     const { checked } = this.state;
@@ -242,11 +235,13 @@ componentDidMount() {
 
                     </CardBody>
                     <CardBody xs={12} sm={12} md={4}>
-                      {this.state.displayEvents ? (
+                      {/* {this.state.displayEvents ? ( */}
                         <AddEvents
                           eventsId={this.state.eventsId}
                           eventName={this.state.eventName}
                           description={this.state.description}
+                          startDateTime={this.state.startDateTime}
+                          endDateTime={this.state.endDateTime}
                           //title={this.state.title} 
                           //participant={this.state.participant}
                           disabled={this.state.disabled}
@@ -254,7 +249,7 @@ componentDidMount() {
                           vacationsId={this.state.vacationsId}
                                             /* startTimeDate={() => this.handleStartDate(this.state.startTimeDate)} */>
                                         </AddEvents>  
-                                         ) : null}
+                                        {/* ) : null} */}
                                     </CardBody>
                                    
                                 </CardBody>

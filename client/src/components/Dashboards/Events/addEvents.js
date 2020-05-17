@@ -19,8 +19,8 @@ class AddEvents extends Component {
     eventsId: this.props.eventsId,
     eventName: this.props.eventName,
     description: this.props.description,
-    startDateTime: "",
-    endDateTime: "",
+    startDateTime: this.props.startDateTime,
+    endDateTime: this.props.endDateTime,
     disabled: this.props.disabled,
     vacationsId: this.props.vacationsId,
     vacationsTitle: this.props.title,
@@ -30,6 +30,7 @@ class AddEvents extends Component {
 
 componentDidMount() {
    let usersUid = fire.currentUser.uid;
+   console.log('startDateTime', this.state.startDateTime)
    this.setState({
     usersUid: usersUid
   }); 
@@ -73,7 +74,7 @@ handleStartChange = event => {
 
 handleEndChange = event => {
   if (this.props.disabled) {
-    alert("Please create a event first.")
+    alert("Please create an event first.")
   } else {
   let endDateTime = moment(event).format();
   // update the current vacation record
@@ -91,6 +92,7 @@ axios
     .put(`/events/${this.props.eventsId}`, eventRec)
     .then(response => {
         console.log("end date updated")
+        console.log(response)
     })
     .catch(err => {
         console.log('We"ve encountered an error');
@@ -116,7 +118,7 @@ axios
             value={this.props.value}
             onChange={event => this.handleStartChange(event)} 
             inputProps={{ 
-              placeholder: "Start Event"
+              placeholder: this.state.startDateTime
             }}
           />
         </FormControl>

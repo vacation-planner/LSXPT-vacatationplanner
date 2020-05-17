@@ -52,6 +52,7 @@ router.post("/", async (req, res) => {
     await events
         .insert(event)
         .then(response => {
+          console.log(response)
             res.status(201).json({ id: event.id });
     })
         .catch(err => {
