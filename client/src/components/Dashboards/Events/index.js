@@ -169,6 +169,7 @@ componentDidMount() {
                 description: response.data.description,
                 cost: response.data.cost,
             }); 
+            console.log('update events', response.data)
     })
     .catch(err => {
       console.log('We"ve encountered an error');

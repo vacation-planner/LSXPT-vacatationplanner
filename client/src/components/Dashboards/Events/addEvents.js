@@ -36,6 +36,16 @@ componentDidMount() {
   }); 
 };
 
+componentDidUpdate() {
+  if(this.props.startDateTime !== '' ){
+    let newStart = this.props.startDateTime
+    let newEnd = this.props.endDateTime
+    this.state.startDateTime = newStart
+    this.state.endDateTime = newEnd
+    console.log('shecking if dates updated', this.state.startDateTime)
+  }
+}
+
 handleChange = event => {
   this.setState({
       [event.target.name]: event.target.value
@@ -59,7 +69,11 @@ handleStartChange = event => {
  axios
     .put(`/events/${this.props.eventsId}`, eventsRec)
     .then(response => {
+      console.log('response', response)
         console.log("start day updated")
+        let date = moment(response.config.data.startDateTime).toDate()
+        this.state.startDateTime = date
+        console.log('checking state date', this.state.startDateTime)
     })
     .catch(err => {
         console.log('We"ve encountered an error');
@@ -76,7 +90,9 @@ handleEndChange = event => {
   if (this.props.disabled) {
     alert("Please create an event first.")
   } else {
+    console.log('event', event)
   let endDateTime = moment(event).format();
+  console.log('endDateTime', endDateTime)
   // update the current vacation record
   let eventRec = {
     eventName: this.props.eventName,
@@ -104,7 +120,9 @@ axios
 }
 };
 
- render() {
+
+render() {
+  // console.log('value', this.props.value)
   const classes = this.props;
   return (
     <div className="eventContainer">
@@ -115,7 +133,7 @@ axios
         <br />
         <FormControl fullWidth>
           <Datetime /* timeFormat={false} */
-            value={this.props.value}
+            value={this.state.startDateTime}
             onChange={event => this.handleStartChange(event)} 
             inputProps={{ 
               placeholder: this.state.startDateTime
@@ -129,7 +147,7 @@ axios
         <FormControl fullWidth>
           <Datetime
             /*  timeFormat={false} */
-            value={this.props.value}
+            // value={this.props.value}
             onChange={event => this.handleEndChange(event)} 
             inputProps={{ placeholder: "End Event" }}
           />
