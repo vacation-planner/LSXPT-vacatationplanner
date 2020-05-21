@@ -36,10 +36,52 @@ componentDidMount() {
   }); 
 };
 
+formatDate(dates) {
+  let changeDates = {
+      "January": 1, 
+      "February": 2,
+      "March": 3,
+      "April": 4,
+      "May": 5,
+      "June": 6,
+      "July": 7,
+      "August": 8,
+      "September": 9,
+      "October": 10,
+      "November": 11,
+      "December": 12}
+
+      // let changeMilitaryTime = {
+      //   '13:00:00': ' 1:00'
+      // }
+
+      let tempArray = dates.split(" ")
+      let dateArray =[]
+      let newDate = ""
+      for(let i = 0; i < tempArray.length; i ++){
+        if(i > 0 && i < 5){
+          if(changeDates[tempArray[i]]){
+            tempArray[i] = `${changeDates[tempArray[i]]}`
+          }
+          dateArray.push(tempArray[i])
+        }
+      }
+      for(let i = 0; i < dateArray.length; i ++){
+        if(i < dateArray.length - 2){
+          newDate = newDate + dateArray[i] + '/'
+        }else if(i < dateArray.length - 1){
+          newDate = newDate + dateArray[i]
+        }
+      }
+      console.log('newDate'+ newDate)
+}
+
 componentDidUpdate() {
-  if(this.props.startDateTime !== '' ){
-    let newStart = this.props.startDateTime
+  if(this.props.startDateTime !== this.state.startDateTime || this.props.endDateTime !== this.state.endDateTime){
+    
+    let newStart = moment(this.props.startDateTime).toDate()
     let newEnd = this.props.endDateTime
+    this.formatDate(`${newStart}`)
     this.state.startDateTime = newStart
     this.state.endDateTime = newEnd
     console.log('shecking if dates updated', this.state.startDateTime)
@@ -133,7 +175,7 @@ render() {
         <br />
         <FormControl fullWidth>
           <Datetime /* timeFormat={false} */
-            value={this.state.startDateTime}
+            value={this.props.value}
             onChange={event => this.handleStartChange(event)} 
             inputProps={{ 
               placeholder: this.state.startDateTime
@@ -149,7 +191,7 @@ render() {
             /*  timeFormat={false} */
             // value={this.props.value}
             onChange={event => this.handleEndChange(event)} 
-            inputProps={{ placeholder: "End Event" }}
+            inputProps={{ placeholder: this.state.endDateTime }}
           />
         </FormControl>
       </div>
