@@ -1,0 +1,26 @@
+{
+    "root": true,
+    "env": {
+        "es2020": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2,
+            {
+                "ignoreComments": true
+            }
+        ],
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ]
+    }
+}
