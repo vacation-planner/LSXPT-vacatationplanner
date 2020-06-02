@@ -2,13 +2,12 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HomeNavbar from './Navbar/HomeNavbar.js';
 import Vacations from "../Dashboards/Vacations/index.js"
-//import ExpenseTable from "../Dashboards/Expenses/expenseTable.js"
 //import NewTable from "../Dashboards/Expenses/newTable.js"
 import Events from "../Dashboards/Events/index.js"
 import EventsCalendar from "../Dashboards/Events/eventsCalendar.js";
 import Expenses from "../Dashboards/Expenses/";
 //import Expenses from "../Dashboards/Events/addEvents.js";
-import ExpenseTable from "../Dashboards/Expenses/expenseTable.js";
+import OverviewTable from "../Dashboards/Expenses/overviewTable.js";
 import AddUsers from "../Dashboards/AddUsers/addUsers.js"
 //import Vacation from "./Calendar/index.js";
 import { AppContext } from '../Context/AppContext.js';
@@ -86,7 +85,7 @@ class PastVacationDashboard extends React.Component {
 
 
                         {overview ? (
-                            <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId} />
+                            <OverviewTable title={pastVacationTitle} vacationsId={pastVacationId} />
                         ) : null}
                     </div>
                 </main>
@@ -123,7 +122,7 @@ class PastVacationDashboard extends React.Component {
                         ) : null}
 
                         {overview ? (
-                            <ExpenseTable title={pastVacationTitle} vacationsId={pastVacationId} />
+                            <OverviewTable title={pastVacationTitle} vacationsId={pastVacationId} />
                         ) : null}
                     </div>
                 </main>

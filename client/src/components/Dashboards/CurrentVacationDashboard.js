@@ -7,7 +7,7 @@ import Expenses from "../Dashboards/Expenses/";
 import EventsCalendar from "../Dashboards/Events/eventsCalendar.js";
 //import Expenses from "../Dashboards/Events/";
 import AddUsers from "../Dashboards/AddUsers/addUsers.js";
-import ExpenseTable from "../Dashboards/Expenses/expenseTable.js";
+import OverviewTable from "../Dashboards/Expenses/overviewTable.js";
 import { AppContext } from '../Context/AppContext.js';
 
 const styles = theme => ({
@@ -93,7 +93,7 @@ class CurrentVacationDashboard extends React.Component {
                     ) : null}
 
                     {overview ? (
-                       <ExpenseTable title={currentVacationTitle} vacationsId={currentVacationId} />
+                       <OverviewTable title={currentVacationTitle} vacationsId={currentVacationId} />
                     ) : null}
                 </div>
             </main>

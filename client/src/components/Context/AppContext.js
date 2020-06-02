@@ -62,7 +62,7 @@ export default class AppProvider extends Component {
                 let allCurrentVacations = [];
                 let allPastVacations = [];
                 allVacations.forEach(result => {
-                  if (result.endDate === null) {
+                  if (result.endDate === "") {
                     allCurrentVacations.push(result);
                   }
 
