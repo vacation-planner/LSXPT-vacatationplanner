@@ -71,10 +71,24 @@ const styles = (theme) => ({
             paddingLeft: '1px',
         },
     },
+    footer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        wordBreak: 'break-word',
+        textOverflow: 'auto',
+        whiteSpace: 'normal',
+        fontSize: '1.3rem',
+        backgroundColor: 'black',
+        color: 'white',
+        height: '35px',
+    },
     reactTable: {
         fontSize: '1.2rem',
         minHeight: '500px',
         width: '100%',
+        color: 'black',
+        fontFamily: 'Helvetica',
         [theme.breakpoints.down(800)]: {
             width: '100%',
             maxWidth: '540px',
@@ -172,7 +186,6 @@ class OverviewTable extends React.Component {
     };
     
     filterCurrentParticipant = () => {
-        console.log(this.state.expenses);
         axios
             .get('/secondaryUsers')
             .then((response) => {
@@ -185,10 +198,8 @@ class OverviewTable extends React.Component {
                     ) {
                         let participantId = item.id;
                         let participantExpenses = [];
-                        console.log(participantId)
                         this.state.expenses.forEach((item, index) => {
                             if (item.secondaryUsersId === participantId) {
-                                console.log(item.id, item.secondaryUsersId, participantId)
                                 participantExpenses.push(item);
                             }
                         });
@@ -196,7 +207,6 @@ class OverviewTable extends React.Component {
                             participantId,
                             participantExpenses,
                         });
-                        console.log(participantExpenses)
                     }
                 });
             })
@@ -233,6 +243,40 @@ class OverviewTable extends React.Component {
             }));
         }
     };
+    totalData(expenses, participantExpenses, type) {
+        if (this.state.showAllExpenses === true) {
+            if ( type === 'expenseTotal' ) {
+                let totalData = 0;
+                expenses.forEach((item, index) => {
+                    totalData += Number(item.secondaryUsersExpense.slice(1, item.secondaryUsersExpense.length));
+                })
+                return `$${totalData}`;
+            }
+            else {
+                let totalData = 0;
+                expenses.forEach((item, index) => {
+                    totalData += Number(item.expenseOwed.slice(1, item.expenseOwed.length));
+                })
+                return `$${totalData}`;
+            }
+        }
+        else {
+            if ( type === 'expenseTotal' ) {
+                let totalData = 0;
+                participantExpenses.forEach((item, index) => {
+                    totalData += Number(item.secondaryUsersExpense.slice(1, item.secondaryUsersExpense.length));
+                })
+                return `$${totalData}`;
+            }
+            else {
+                let totalData = 0;
+                participantExpenses.forEach((item, index) => {
+                    totalData += Number(item.expenseOwed.slice(1, item.expenseOwed.length));
+                })
+                return `$${totalData}`;
+            }
+        }
+    }
 
     renderEditable(cellInfo) {
         if(this.state.showAllExpenses === true) {
@@ -293,6 +337,10 @@ class OverviewTable extends React.Component {
                                     whiteSpace: 'normal',
                                     fontSize: '1.2rem'
                                 },
+                                Footer: 'Total Value',
+                                getFooterProps: () => ({
+                                    className: `${classes.footer}`
+                                  }),
                             },
                             {
                                 Header: 'Participant First Name',
@@ -307,6 +355,10 @@ class OverviewTable extends React.Component {
                                     whiteSpace: 'normal',
                                     fontSize: '1.2rem'
                                 },
+                                Footer: '',
+                                getFooterProps: () => ({
+                                    className: `${classes.footer}`
+                                  }),
                             },
                             {
                                 Header: 'Participant Last Name',
@@ -321,6 +373,10 @@ class OverviewTable extends React.Component {
                                     whiteSpace: 'normal',
                                     fontSize: '1.2rem'
                                 },
+                                Footer: '',
+                                getFooterProps: () => ({
+                                    className: `${classes.footer}`
+                                  }),
                             },
                             {
                                 Header: 'Participant Expense',
@@ -335,6 +391,10 @@ class OverviewTable extends React.Component {
                                     whiteSpace: 'normal',
                                     fontSize: '1.2rem'
                                 },
+                                Footer: this.totalData(this.state.expenses, this.state.participantExpenses, 'expenseTotal'),
+                                getFooterProps: () => ({
+                                    className: `${classes.footer}`
+                                  }),
                             },
                             {
                                 Header: 'Expense Owed',
@@ -349,6 +409,10 @@ class OverviewTable extends React.Component {
                                     whiteSpace: 'normal',
                                     fontSize: '1.2rem'
                                 },
+                                Footer: this.totalData(this.state.expenses, this.state.participantExpenses, 'expenseOwed'),
+                                getFooterProps: () => ({
+                                    className: `${classes.footer}`
+                                  }),
                             },
                         ]}
                         defaultPageSize={10}
@@ -358,14 +422,12 @@ class OverviewTable extends React.Component {
                         <Button
                             className={this.state.showAllExpenses ? classes.actionButtonsActive : classes.actionButtonsInactive}
                             onClick={() => this.activateAllExpenses()}
-                            color='rose'
                         >
                             All
                         </Button>
                         <Button
                             className={this.state.showParticipantExpenses ? classes.actionButtonsActive : classes.actionButtonsInactive}
                             onClick={() => this.activateParticipantExpenses()}
-                            color='rose'
                         >
                             Participant
                         </Button>
