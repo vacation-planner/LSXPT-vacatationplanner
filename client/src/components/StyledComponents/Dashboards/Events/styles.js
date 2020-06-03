@@ -66,16 +66,21 @@ const styles = theme => ({
         fontSize: "2rem",
     },
     helpButton: {
-        height: "38px",
-        width: "100px",
+        //height: "38px",
+        //width: "100px",
         borderRadius: "10px",
-        marginLeft: "auto",
-        marginRight: "auto",
+        //marginLeft: "auto",
+        marginRight: "8px",
         [theme.breakpoints.down("sm")]: { 
             width: "100%",
             borderRadius: "0px",    
          },
       },
+  helpDiv: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   
   });
   export default styles;

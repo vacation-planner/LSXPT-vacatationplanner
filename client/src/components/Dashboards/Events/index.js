@@ -329,6 +329,14 @@ componentDidMount() {
            {/*  <Card style={{ width: "700px", marginLeft: "20px", height: "auto", marginRight: "100px", top: "20px" }}>rd style={{ width: "700px", marginLeft: "20px", height: "auto", marginRight: "100px", top: "20px" }}> */}
              
               <Card className={classes.parent}>
+              <div className={classes.helpDiv}>
+              <Button className={classes.helpButton}
+                    onClick={() => this.displaySwal()}
+                    color="rose"
+                    /* size='lg' */
+                    >Help
+                </Button>
+                </div>
                 <h2>Create Event: {this.state.eventName}</h2>
                 <Tooltip
                  title={
@@ -338,12 +346,6 @@ componentDidMount() {
                 }>
                   <h3>Current Vacation: {this.props.title}</h3>
                 </Tooltip>
-                <Button className={classes.helpButton}
-                    onClick={() => this.displaySwal()}
-                    color="rose"
-                    /* size='' */
-                    >Help
-                </Button>
                 <CardBody className={classes.cardBody2}>
                   <CardBody className={classes.cardBodyContainer1}>
                     <CardBody>
